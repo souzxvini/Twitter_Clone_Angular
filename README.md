@@ -5,7 +5,7 @@
 <h1>O que será implementado</h1>
 
 <li>Routes</li>
-<li>Token JWT Inteceptor</li>
+<li>Token JWT Interceptor</li>
 <li>i18n (Internationalization PT/EN)</li>
 <li>Color Themes</li>
 <li>Screens</li> 
