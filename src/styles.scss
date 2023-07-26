@@ -1,4 +1,143 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html {
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  color: rgb(255, 255, 255) !important;
+  background: rgb(21, 32, 43);
+}
+
+main {
+  width: 69%;
+  overflow-y: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+.mainContainer {
+  width: 45.5%;
+  min-height: 100%;
+  border-left: 1px solid rgb(56, 68, 77);
+  border-right: 1px solid rgb(56, 68, 77);
+}
+
+.mainContainerTitle {
+  height: 6vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  font-size: 19px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.3px !important;
+  margin-left: 17px;
+}
+
+.headerLogo {
+  width: 100%;
+  height: 6vh;
+  background: url(assets/img/old-twitter-logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.sideNavMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sideNavMenuOption div {
+  cursor: pointer;
+}
+
+.sideNavMenuOption div {
+  width: 100%;
+  padding: 2.5px 0;
+}
+
+.sideNavMenuOption div div span {
+  font-size: 20px !important;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: center;
+  padding: 13px 25px 13px 15px;
+  border-radius: 50px;
+  transition: 0.2s ease-in-out;
+}
+
+.sideNavMenuOptionActive {
+  font-weight: 700 !important;
+}
+
+.sideNavMenuOption div div span mat-icon {
+  transform: scale(1.2);
+}
+
+.sideNavMenuOption div div span mat-icon {
+  padding-right: 17px;
+}
+
+.sideNavMenuOption div:hover span {
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.sideNavMenuTweetButton {
+  padding: 25px 90px !important;
+  background-color: rgb(29, 154, 239) !important;
+  color: white !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0px;
+  border-radius: 30px !important;
+  transition: 0.2s ease-in-out !important;
+  margin-top: 20px;
+}
+
+.sideNavMenuTweetButton:hover {
+  background-color: rgb(26, 140, 216) !important;
+}
+
+.sideNavMenuProfileButton {
+  border-radius: 50px;
+  padding: 12px;
+  margin-bottom: 15px;
+  display: flex;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.sideNavMenuProfileButton:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.sideNavMenuProfileButtonImage {
+  display: flex;
+  justify-content: center;
+  background: url(assets/img/profile-image.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom-left-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+}
+
+.sideNavMenuProfileButtonName{
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.sideNavMenuProfileButtonId{
+  color: rgb(121, 134, 147);
+  font-size: 15px;
+}
