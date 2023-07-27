@@ -1,0 +1,277 @@
+.fullContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow-y: auto;
+}
+
+.menuContainer {
+  width: 31%;
+  display: flex;
+  justify-content: end;
+  position: sticky;
+  top: 0;
+}
+
+.mainContainer {
+  width: 32%;
+  min-width: 600px !important;
+}
+
+.exploreContainer {
+  width: 36%;
+  position: sticky;
+  top: -280px;
+}
+
+.menuDiv {
+  width: 265px;
+  padding: 0px 8px;
+}
+
+.menuHeaderLogo {
+  width: 100%;
+  height: 6vh;
+}
+
+.menuHeaderLogoDiv {
+  width: 6vw;
+  height: 6vh;
+}
+
+.headerLogo {
+  background: url(../../../assets/img/old-twitter-logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-height: 6vh;
+  width: 100%;
+}
+
+.sideNavMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sideNavMenuOption div {
+  cursor: pointer;
+}
+
+.sideNavMenuOption div {
+  width: 100%;
+  padding: 2.5px 0;
+}
+
+.sideNavMenuOption div div span {
+  font-size: 20px !important;
+  color: #f7f9f9 !important;
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 25px 13px 15px;
+  border-radius: 50px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.sideNavMenuOption div div span p {
+  display: flex;
+  align-items: center;
+}
+
+.sideNavMenuOptionActive {
+  font-weight: 700 !important;
+}
+
+.sideNavMenuOption div div span mat-icon {
+  transform: scale(1.2);
+}
+
+.sideNavMenuOption div div span mat-icon {
+  padding-right: 17px;
+}
+
+.sideNavMenuOption div:hover span {
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.sideNavMenuTweetButton {
+  padding: 25px 95px !important;
+  background-color: rgb(29, 154, 239) !important;
+  color: #f7f9f9 !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0px;
+  border-radius: 30px !important;
+  transition: background-color 0.2s ease-in-out !important;
+  margin-top: 20px;
+}
+
+.sideNavMenuTweetButton:hover {
+  background-color: rgb(26, 140, 216) !important;
+}
+
+.sideNavMenuTweetButtonIcon {
+  display: none;
+  width: 50px !important;
+  height: 50px !important;
+  background-color: rgb(29, 154, 239) !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 0px !important;
+  margin-top: 20px !important;
+}
+
+.sideNavMenuTweetButtonIcon:hover {
+  background-color: rgb(26, 140, 216) !important;
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+//botão profile normal
+.sideNavMenuProfileButton {
+  border-radius: 50px;
+  padding: 12px;
+  margin-bottom: 15px;
+  display: flex;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.sideNavMenuProfileButton:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.sideNavMenuProfileButtonImage {
+  display: flex;
+  justify-content: center;
+  background: url(../../../assets/img/profile-image.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom-left-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+  margin-right: 10px;
+}
+
+.sideNavMenuProfileButtonName {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.sideNavMenuProfileButtonId {
+  color: rgb(121, 134, 147);
+  font-size: 15px;
+}
+
+//botão profile mobile
+.sideNavMenuProfileIcon {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  transition: background-color 0.2s ease-in-out;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.sideNavMenuProfileIcon:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+}
+
+.sideNavMenuProfileIcon div {
+  background: url(../../../assets/img/profile-image.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: none;
+}
+
+@media screen and (max-width:1298px) {
+
+  /*Ajustando tamanho do menu*/
+  .menuContainer {
+    width: 15%;
+  }
+
+  .menuDiv {
+    width: 88px;
+    padding: 0px;
+  }
+
+  .menuHeaderLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .headerLogo {
+    background-position-x: center;
+    background-position-y: center;
+  }
+
+  .sideNavMenu {
+    align-items: center;
+  }
+
+  .sideNavMenuOption {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 !important;
+  }
+
+  .sideNavMenuOption div div span mat-icon {
+    padding-right: 0px;
+  }
+
+  .sideNavMenuOption div div span {
+    padding-right: 0px;
+    padding-left: 0px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sideNavMenuOption div div span p {
+    display: none;
+  }
+
+  .sideNavMenuTweetButton {
+    display: none;
+  }
+
+  .sideNavMenuTweetButtonIcon {
+    display: flex;
+
+  }
+
+  .sideNavMenuProfileButton {
+    display: none;
+  }
+
+  .sideNavMenuProfileIcon {
+    display: flex;
+  }
+
+  .sideNavMenuProfileIcon div {
+    display: block;
+  }
+
+  /*Ajustando tamanho do main*/
+  .mainContainer {
+    width: 45%;
+  }
+
+  /*Ajustando tamanho do explore*/
+  .exploreContainer {
+    width: 40%;
+  }
+}

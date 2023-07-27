@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './views/menu/menu.component';
+import { SearchComponent } from './views/search/search.component';
+import { HomeComponent } from './views/home/home.component';
 
 const routes: Routes = [
 
@@ -9,7 +11,8 @@ const routes: Routes = [
     component: MenuComponent,
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'home', loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule) }
+      { path: 'home',  component: HomeComponent },
+      { path: '', component: SearchComponent, outlet: 'secondary'}
     ]
   }
 
