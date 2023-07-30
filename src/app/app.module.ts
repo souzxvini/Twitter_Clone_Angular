@@ -6,18 +6,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './views/home/home.component';
 import { MenuComponent } from './views/menu/menu.component';
-import { SearchComponent } from './views/search/search.component';
+import { SearchComponent } from './views/home/search/search.component';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { WhoToFollowCardComponent } from './components/who-to-follow-card/who-to-follow-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MenuComponent,
-    SearchComponent
+    SearchComponent,
+    WhoToFollowCardComponent
   ],
   imports: [
     BrowserModule,

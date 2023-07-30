@@ -1,0 +1,378 @@
+.whoToFollowCard {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 10px;
+    background-color: rgb(30, 39, 50);
+  }
+  
+  .whoToFollowCardTitle {
+    padding: 12px 16px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  /*Caso a sugestão de perfil para seguir, te siga*/
+  .whoToFollowCardProfileCardDoFollowYou {
+    display: flex;
+    padding: 12px 16px;
+    transition: 0.2s ease-in-out background-color;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou:hover {
+    background-color: rgba(255, 255, 255, 0.070);
+    cursor: pointer;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardProfileImageDiv {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardProfile {
+    width: 60%;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardProfile .whoToFollowCardProfileName {
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv {
+    display: flex;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileId {
+    max-width: 55%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(130, 143, 156);
+    font-size: 15px;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileFollowsYou {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileFollowsYou span {
+    background-color: rgb(39, 51, 64);
+    border-radius: 5px;
+    font-size: 11px;
+    padding: 0px 5px;
+    margin-left: 2%;
+    color: rgb(111, 124, 137);
+    font-weight: 500;
+  }
+  
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardFollowButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardFollowButton button {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(27, 26, 26);
+    padding: 8px 0;
+    border-radius: 20px;
+    transition: 0.2s ease-in-out background-color;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYou .whoToFollowCardFollowButton button:hover {
+    background-color: rgb(215, 219, 220);
+    cursor: pointer;
+  }
+  
+  /*Caso o perfl sugerido para segur, não te siga*/
+  .whoToFollowCardProfileCardDoNotFollowYou {
+    display: flex;
+    padding: 12px 16px;
+    transition: 0.2s ease-in-out background-color;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou:hover {
+    background-color: rgba(255, 255, 255, 0.070);
+    cursor: pointer;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardProfileImageDiv {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardProfile {
+    width: 60%;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardProfile .whoToFollowCardProfileName {
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv {
+    display: flex;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileId {
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(130, 143, 156);
+    font-size: 15px;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileFollowsYou {
+    display: none;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileFollowsYou span {
+    background-color: rgb(39, 51, 64);
+    border-radius: 5px;
+    font-size: 11px;
+    padding: 0px 5px;
+    margin-left: 2%;
+    color: rgb(111, 124, 137);
+    font-weight: 500;
+  }
+  
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardFollowButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardFollowButton button {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(27, 26, 26);
+    padding: 8px 0;
+    border-radius: 20px;
+    transition: 0.2s ease-in-out background-color;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYou .whoToFollowCardFollowButton button:hover {
+    background-color: rgb(215, 219, 220);
+    cursor: pointer;
+  }
+  
+  /*Caso o perfl sugerido para segur, não te siga e você CLIQUE PARA SEGUIR*/
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing {
+    display: flex;
+    padding: 12px 16px;
+    transition: 0.2s ease-in-out background-color;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing:hover {
+    background-color: rgba(255, 255, 255, 0.070);
+    cursor: pointer;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardProfileImageDiv {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardProfile {
+    width: 55%;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileName {
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv {
+    display: flex;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileId {
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(130, 143, 156);
+    font-size: 15px;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileFollowsYou {
+    display: none;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileFollowsYou span {
+    background-color: rgb(39, 51, 64);
+    border-radius: 5px;
+    font-size: 11px;
+    padding: 0px 5px;
+    margin-left: 2%;
+    color: rgb(111, 124, 137);
+    font-weight: 500;
+  }
+  
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardFollowButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardFollowButton button {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    padding: 8px 0;
+    border-radius: 20px;
+    transition: 0.2s ease-in-out background-color;
+    border: 1px solid rgb(111, 124, 137);
+  }
+  
+  .whoToFollowCardProfileCardDoNotFollowYouButtonFollowing .whoToFollowCardFollowButton button:hover {
+    border: 1px solid rgb(111, 124, 137);
+    color: rgb(244, 33, 46);
+    border: 1px solid rgb(103, 7, 15);
+    background-color: rgba(244, 33, 47, 0.07);
+    cursor: pointer;
+  }
+  
+  /*Caso o perfl sugerido para segur, te siga e você CLIQUE PARA SEGUIR*/
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing {
+    display: flex;
+    padding: 12px 16px;
+    transition: 0.2s ease-in-out background-color;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing:hover {
+    background-color: rgba(255, 255, 255, 0.070);
+    cursor: pointer;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardProfileImageDiv {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardProfile {
+    width: 55%;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileName {
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv {
+    display: flex;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileId {
+    max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(130, 143, 156);
+    font-size: 15px;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileFollowsYou {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardProfile .whoToFollowCardProfileIdFollowsYouDiv .whoToFollowCardProfileFollowsYou span {
+    background-color: rgb(39, 51, 64);
+    border-radius: 5px;
+    font-size: 11px;
+    padding: 0px 5px;
+    margin-left: 2%;
+    color: rgb(111, 124, 137);
+    font-weight: 500;
+  }
+  
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardFollowButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardFollowButton button {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    padding: 8px 0;
+    border-radius: 20px;
+    transition: 0.2s ease-in-out background-color;
+    border: 1px solid rgb(111, 124, 137);
+  }
+  
+  .whoToFollowCardProfileCardDoFollowYouButtonFollowing .whoToFollowCardFollowButton button:hover {
+    border: 1px solid rgb(111, 124, 137);
+    color: rgb(244, 33, 46);
+    border: 1px solid rgb(103, 7, 15);
+    background-color: rgba(244, 33, 47, 0.07);
+    cursor: pointer;
+  }
+  
+  /*Show more Button*/
+  
+  .whoToFollowCardFooter {
+    padding: 12px 16px;
+    color: rgb(29, 155, 240);
+    font-size: 15px;
+    border-radius: 0 0 25px 25px;
+    transition: 0.2s ease-in-out background-color;
+  }
+  
+  .whoToFollowCardFooter:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.07);
+  }
+  

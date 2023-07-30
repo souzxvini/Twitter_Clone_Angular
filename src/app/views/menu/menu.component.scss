@@ -1,5 +1,10 @@
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
 .fullContainer {
-  width: 100%;
+  width: 100vw;
   height: 100%;
   display: flex;
   overflow-y: auto;
@@ -15,13 +20,13 @@
 
 .mainContainer {
   width: 32%;
-  min-width: 600px !important;
+  min-width: 600px;
 }
 
 .exploreContainer {
-  width: 36%;
+  width: 37%;
   position: sticky;
-  top: -280px;
+  top: 0px;
 }
 
 .menuDiv {
@@ -154,21 +159,10 @@
   margin-right: 10px;
 }
 
-.sideNavMenuProfileButtonName {
-  font-weight: 700;
-  font-size: 15px;
-}
-
-.sideNavMenuProfileButtonId {
-  color: rgb(121, 134, 147);
-  font-size: 15px;
-}
 
 //botão profile mobile
 .sideNavMenuProfileIcon {
   display: none;
-  justify-content: center;
-  align-items: center;
   width: 40px;
   height: 40px;
   border-radius: 100%;
@@ -180,18 +174,6 @@
 .sideNavMenuProfileIcon:hover {
   background-color: rgba(255, 255, 255, 0.07);
   cursor: pointer;
-}
-
-.sideNavMenuProfileIcon div {
-  background: url(../../../assets/img/profile-image.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: none;
 }
 
 @media screen and (max-width:1298px) {
@@ -258,12 +240,10 @@
   }
 
   .sideNavMenuProfileIcon {
-    display: flex;
-  }
-
-  .sideNavMenuProfileIcon div {
     display: block;
   }
+
+  
 
   /*Ajustando tamanho do main*/
   .mainContainer {
