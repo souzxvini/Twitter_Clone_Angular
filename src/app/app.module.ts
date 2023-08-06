@@ -16,6 +16,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MobileFooterNavComponent } from './components/mobile-footer-nav/mobile-footer-nav.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { SearchTwitterButtonComponent } from './components/search-twitter-button/search-twitter-button.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SearchTwitterButtonComponent } from './components/search-twitter-button
     HomeSearchComponent,
     WhoToFollowCardComponent,
     MobileFooterNavComponent,
-    SearchTwitterButtonComponent
+    SearchTwitterButtonComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

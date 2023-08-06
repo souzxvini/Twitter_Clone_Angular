@@ -12,6 +12,7 @@
   top: 0;
   border-bottom: 1px solid rgb(56, 68, 77);
   background-color: rgba(21, 32, 43, 0.75);
+  transition: 0.2s ease-in-out top;
 }
 
 .mainContainerHeaderMobile{
