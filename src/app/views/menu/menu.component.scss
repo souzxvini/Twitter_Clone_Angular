@@ -1,6 +1,112 @@
-*{
+* {
   padding: 0px;
   margin: 0px;
+}
+
+.sidenav-container {
+  width: 100%;
+  height: 100%;
+}
+
+.sidenav {
+  height: 100%;
+  width: 275px;
+  background-color: rgb(21, 32, 43) !important;
+  box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 10px, rgba(136, 153, 166, 0.25) 0px 1px 3px 1px;
+  color: #f7f9f9 !important;
+  overflow: scroll;
+}
+
+.sideNavMobileMenuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #f7f9f9 !important;
+  padding: 16px 16px 8px 16px;
+}
+
+.sideNavMobileMenuHeaderProfileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.sideNavMobileMenuHeaderButton {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  border: 1px solid rgb(111, 124, 137);
+}
+
+.sideNavMobileMenuHeaderButton mat-icon {
+  transform: scale(0.9);
+}
+
+.sideNavMobileMenuProfileName {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.sideNavMobileMenuProfileId {
+  font-size: 15px;
+  color: rgb(117, 130, 143);
+  margin-top: 1px;
+}
+
+.sideNavMobileMenuProfileInfos {
+  font-size: 14px;
+  padding: 16px;
+  display: flex;
+}
+
+.sideNavMobileMenuProfileInfos div {
+  color: rgb(117, 130, 143);
+  margin-right: 15px;
+}
+
+.sideNavMobileMenuProfileInfos div strong {
+  color: #f7f9f9 !important;
+}
+
+.mat-divider {
+  border-top-width: 1px;
+  border-top-color: rgb(56, 68, 77);
+  width: 88%;
+  margin: auto;
+}
+
+.sideNavMobileMenuNavButton {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  transition: 0.2s ease-in-out background-color;
+}
+
+.sideNavMobileMenuNavButton:hover {
+  background-color: rgba(0, 0, 0, 0.082);
+}
+
+.sideNavMobileMenuNavButton mat-icon {
+  transform: scale(1.2);
+  margin-right: 24px;
+}
+
+.sideNavMobileMenuNavButton span {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.mat-drawer {
+  background-color: transparent;
+}
+
+.mat-drawer-container {
+  background-color: transparent !important;
+  color: white;
+  border: none !important;
 }
 
 .fullContainer {
@@ -40,17 +146,10 @@
 }
 
 .menuHeaderLogoDiv {
-  width: 6vw;
-  height: 6vh;
+  width: 100%;
+  height: 100%;
 }
 
-.headerLogo {
-  background: url(../../../assets/img/old-twitter-logo.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  min-height: 6vh;
-  width: 100%;
-}
 
 .sideNavMenu {
   display: flex;
@@ -159,7 +258,6 @@
   margin-right: 10px;
 }
 
-
 //botão profile mobile
 .sideNavMenuProfileIcon {
   display: none;
@@ -174,6 +272,33 @@
 .sideNavMenuProfileIcon:hover {
   background-color: rgba(255, 255, 255, 0.07);
   cursor: pointer;
+}
+
+.expansionPanelHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 900;
+  transition: 0.2s ease-in-out background-color;
+}
+
+.expansionPanelExpandedIcon{
+  color: rgb(29, 155, 240) !important;
+}
+
+.expansionPanelBody div{
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  font-weight: 500;
+}
+
+.expansionPanelBody div mat-icon{
+  transform: scale(0.8);
+  margin-right: 9px;
 }
 
 @media screen and (max-width:1298px) {
@@ -243,8 +368,6 @@
     display: block;
   }
 
-  
-
   /*Ajustando tamanho do main*/
   .mainContainer {
     width: 45%;
@@ -254,4 +377,62 @@
   .exploreContainer {
     width: 40%;
   }
+}
+
+@media screen and (max-width:1021px) {
+
+  /*Ajustando tamanho do menu*/
+  .menuContainer {
+    width: 24%;
+  }
+
+  /*Ajustando tamanho do main*/
+  .mainContainer {
+    width: 49%;
+  }
+
+  /*Ajustando tamanho do explore*/
+  .exploreContainer {
+    width: 26%;
+  }
+
+}
+
+@media screen and (max-width:687px) {
+
+  .fullContainer {
+    display: flex;
+  }
+
+  /*Ajustando tamanho do menu*/
+  .menuContainer {
+    width: 68px;
+    min-width: 68px;
+  }
+
+  /*Ajustando tamanho do main*/
+  .mainContainer {
+    min-width: fit-content;
+    flex-grow: 1 !important;
+  }
+
+  /*Ajustando tamanho do explore*/
+  .exploreContainer {
+    display: none;
+  }
+}
+
+@media screen and (max-width:498px) {
+
+  /*Ajustando tamanho do menu*/
+  .menuContainer {
+    display: none;
+  }
+
+  /*Ajustando tamanho do main*/
+  .mainContainer {
+    width: 100%;
+    min-width: 100%;
+  }
+
 }

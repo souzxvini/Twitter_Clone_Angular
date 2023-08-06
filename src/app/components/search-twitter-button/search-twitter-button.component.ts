@@ -1,18 +1,18 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: 'app-search-twitter-button',
+  templateUrl: './search-twitter-button.component.html',
+  styleUrls: ['./search-twitter-button.component.scss']
 })
-export class SearchComponent {
+export class SearchTwitterButtonComponent {
   @ViewChild('searchInput') searchInputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('searchButton') searchButtonRef!: ElementRef<HTMLDivElement>;
 
   constructor(){
 
   }
-
+  
   focusInput() {
     this.searchInputRef.nativeElement.focus();
 

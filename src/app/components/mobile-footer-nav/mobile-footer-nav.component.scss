@@ -1,0 +1,23 @@
+.mainContainerFooter {
+  display: none;
+  background: rgb(21, 32, 43);
+  height: 6vh;
+  position: sticky;
+  bottom: 0;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid rgb(56, 68, 77);
+}
+
+mat-icon {
+  transform: scale(1.2);
+  align-self: center;
+}
+
+@media screen and (max-width:498px) {
+
+  .mainContainerFooter {
+    display: flex;
+  }
+
+}

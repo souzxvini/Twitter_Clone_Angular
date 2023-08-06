@@ -1,0 +1,25 @@
+.homeSearchDiv {
+  width: 345px;
+  min-height: 100%;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+@media screen and (max-width:1111px) {
+
+  .homeSearchDiv {
+    width: 275px;
+    min-height: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+}
+
+@media screen and (max-width:1021px) {
+
+  .homeSearchDiv {
+    display: none;
+  }
+
+}

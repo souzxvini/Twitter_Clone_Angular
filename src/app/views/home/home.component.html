@@ -4,6 +4,20 @@
       <div class="mainContainerTitle">
         <span>Home</span>
       </div>
+      <div class="mainContainerHeaderMobile">
+        <div style="width:33%; height: 6vh; display: flex; align-items: center;">
+          <img src="../../../assets/img/profile-image.png" class="mainContainerHeaderMobileImage"
+            (click)="onButtonClick()">
+        </div>
+        <div style="width:34%; display: flex; justify-content: center;">
+          <div style="width: 6vh; height: 100%;">
+            <div class="headerLogo"></div>
+          </div>
+        </div>
+        <div style="width:33%;">
+
+        </div>
+      </div>
       <div class="mainContainerTabs">
         <button class="bigButtonOnGroup" (click)="tabState = 'stateForYou'"
           [class.bigButtonOnGroupActive]="tabState == 'stateForYou'">
@@ -61,6 +75,7 @@
     <div style="height: 200px">
       a
     </div>
-  </div>
 
+    <app-mobile-footer-nav></app-mobile-footer-nav>
+  </div>
 </div>

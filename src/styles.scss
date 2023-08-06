@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Chirp';
   src: url('../src/assets/fonts/89e193b98453504c456698844de4c52b.woff2') format('woff2'),
-       url('../src/assets/fonts/89e193b98453504c456698844de4c52b.woff') format('woff');
+    url('../src/assets/fonts/89e193b98453504c456698844de4c52b.woff') format('woff');
 }
 
 html {
@@ -25,6 +25,14 @@ a {
 p {
   margin: 0px !important;
   padding: 0px !important;
+}
+
+.headerLogo {
+  background: url(../src/assets/img/old-twitter-logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-height: 6vh;
+  width: 100%;
 }
 
 .sideNavMenuProfileButtonName {
@@ -89,7 +97,7 @@ p {
   border-radius: 0px 20px 20px 0px;
 }
 
-input:focus{
+input:focus {
   outline: none;
   caret-color: white;
 }
@@ -99,16 +107,16 @@ input::placeholder {
   color: rgb(120, 133, 147) !important;
 }
 
-.clicked{
+.clicked {
   background-color: transparent !important;
   border: solid 1px rgb(29, 155, 240);
 }
 
-.clicked .searchButtonIcon mat-icon{
+.clicked .searchButtonIcon mat-icon {
   color: rgb(29, 155, 240);
 }
 
-.sideNavMenuProfileButtonImage{
+.sideNavMenuProfileButtonImage {
   width: 40px;
   height: 40px;
   display: flex;
@@ -118,3 +126,9 @@ input::placeholder {
   background-repeat: no-repeat;
   border-radius: 50%;
 }
+
+.mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(91, 112, 131, 0.4);;
+}
+
+

@@ -1,3 +1,4 @@
+
 .mainContainer {
   width: 100%;
   min-height: 100%;
@@ -11,6 +12,10 @@
   top: 0;
   border-bottom: 1px solid rgb(56, 68, 77);
   background-color: rgba(21, 32, 43, 0.75);
+}
+
+.mainContainerHeaderMobile{
+  display: none;
 }
 
 .mainContainerTitle {
@@ -92,4 +97,33 @@
   padding: 0px 16px;
   display: flex;
   background-color: red;
+}
+
+.mainContainerHeaderMobileImage{
+  width: 4vh;
+  height: 4vh;
+  padding: 0 15px;
+  border-radius: 100%;
+}
+
+@media screen and (max-width:498px) {
+
+  .mainContainer{
+    border: none;
+  }
+
+  .mainContainerTitle{
+    display: none;
+  }
+
+  .mainContainerHeaderMobile{
+    display: flex;
+    justify-content: space-between;
+    height: 6vh;
+  }
+  
+  .mainContainerFooter{
+    display: flex;
+  }
+
 }
