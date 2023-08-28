@@ -7,16 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './views/home/home.component';
 import { MenuComponent } from './views/menu/menu.component';
 import { HomeSearchComponent } from './views/home/home-search/home-search.component';
-import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { WhoToFollowCardComponent } from './components/who-to-follow-card/who-to-follow-card.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
 import { MobileFooterNavComponent } from './components/mobile-footer-nav/mobile-footer-nav.component';
-import {MatExpansionModule} from '@angular/material/expansion';
 import { SearchTwitterButtonComponent } from './components/search-twitter-button/search-twitter-button.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { InitialPageComponent } from './views/initial-page/initial-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedMaterialModule } from './shared/shared-material/shared-material.module';
+import { CreateAccountModalComponent } from './views/initial-page/create-account-modal/create-account-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -27,18 +26,16 @@ import { FooterComponent } from './components/footer/footer.component';
     WhoToFollowCardComponent,
     MobileFooterNavComponent,
     SearchTwitterButtonComponent,
-    FooterComponent
+    FooterComponent,
+    InitialPageComponent,
+    CreateAccountModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatSidenavModule,
-    MatExpansionModule
+    HttpClientModule,
+    SharedMaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

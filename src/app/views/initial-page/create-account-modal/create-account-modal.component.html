@@ -1,0 +1,142 @@
+<div style="padding: 16px;">
+  <div style="height: 30px;" fxLayout="row" fxLayoutAlign=" center">
+    <mat-icon *ngIf="step == 1" style="margin-right: 35px" class="cursorPointer" (click)="closeDialog()">close
+    </mat-icon>
+    <mat-icon *ngIf="step != 1" style="margin-right: 35px" class="cursorPointer" (click)="back()">keyboard_backspace
+    </mat-icon>
+    <span class="dialogSteps">Etapa {{step}} de 4</span>
+  </div>
+
+  <form [formGroup]="registerForm">
+    <!--STEP 1-->
+    <div *ngIf="step == 1" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+
+      <div fxLayout="column">
+        <span class="title">Criar sua conta</span>
+
+        <mat-form-field class="textFormField" style="margin-bottom: -1.25em;">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="firstName" #nameInput>
+          <mat-hint matSuffix>0/50</mat-hint>
+        </mat-form-field>
+        <small class="formFieldError"
+          *ngIf="registerForm.controls['firstName'].hasError('required') && registerForm.controls['firstName'].touched">
+          Qual é o seu nome?
+        </small>
+
+        <mat-form-field style="margin-bottom: -1.25em; margin-top: 1.25em;">
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" #emailInput>
+        </mat-form-field>
+        <small class="formFieldError"
+          *ngIf="registerForm.controls['email'].hasError('email') && registerForm.controls['email'].touched">
+          Insira um e-mail válido.
+        </small>
+
+        <div fxLayout="row" fxLayoutAlign="end" style="margin-top: 1.25em;">
+          <span class="blockCursor blueLinks">Usar o telefone</span>
+        </div>
+
+        <div>
+          <div class="sideNavMenuProfileButtonName" style="margin: 10px 0;">Data de nascimento</div>
+          <span style="color: rgb(113, 118, 123);">
+            Isso não será exibido publicamente. Confirme sua própria idade, mesmo se
+            esta conta for de empresa, de um animal de estimação ou outros.
+          </span>
+
+          <div fxLayout="row" fxLayoutGap="10" style="margin-top: 20px;">
+            <mat-form-field fxFlex="50" floatLabel="always" class="selectFormField">
+              <mat-label> Mês </mat-label>
+              <mat-select formControlName="birthDateMonth" #monthInput>
+                <mat-option [value]="01" class="opcaoTodos"> Janeiro </mat-option>
+                <mat-option [value]="02" class="opcaoTodos"> Fevereiro </mat-option>
+                <mat-option [value]="03" class="opcaoTodos"> Março </mat-option>
+                <mat-option [value]="04" class="opcaoTodos"> Abril </mat-option>
+                <mat-option [value]="05" class="opcaoTodos"> Maio </mat-option>
+                <mat-option [value]="06" class="opcaoTodos"> Junho </mat-option>
+                <mat-option [value]="07" class="opcaoTodos"> Julho </mat-option>
+                <mat-option [value]="08" class="opcaoTodos"> Agosto </mat-option>
+                <mat-option [value]="09" class="opcaoTodos"> Setembro </mat-option>
+                <mat-option [value]="10" class="opcaoTodos"> Outubro </mat-option>
+                <mat-option [value]="11" class="opcaoTodos"> Novembro </mat-option>
+                <mat-option [value]="12" class="opcaoTodos"> Dezembro </mat-option>
+              </mat-select>
+              <mat-icon matSuffix class="matSelectSuffixArrow">keyboard_arrow_down</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="21" floatLabel="always" class="selectFormField">
+              <mat-label> Dia </mat-label>
+              <mat-select formControlName="birthDateDay">
+                <mat-option *ngFor="let day of selectDays" [value]="day"> {{day}} </mat-option>
+              </mat-select>
+              <mat-icon matSuffix class="matSelectSuffixArrow">keyboard_arrow_down</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="29" floatLabel="always" class="selectFormField">
+              <mat-label> Ano </mat-label>
+              <mat-select formControlName="birthDateYear">
+                <mat-option *ngFor="let year of selectYears" [value]="year"> {{year}} </mat-option>
+              </mat-select>
+              <mat-icon matSuffix class="matSelectSuffixArrow">keyboard_arrow_down</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <button mat-flat-button class="advanceButton" (click)="advance()" [disabled]="registerForm.invalid">
+        <span>Avançar</span>
+      </button>
+
+    </div>
+
+    <div *ngIf="step == 2" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div fxLayout="column">
+        <span class="title">Criar sua conta</span>
+
+        <mat-form-field class="successFormField" (click)="redirectFocus('nameInput')">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="firstName">
+          <mat-hint matSuffix>
+            <mat-icon>done</mat-icon>
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="successFormField" (click)="redirectFocus('emailInput')">
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email">
+          <mat-hint matSuffix>
+            <mat-icon>done</mat-icon>
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="successFormField" (click)="redirectFocus('monthInput')">
+          <mat-label>Data de nascimento</mat-label>
+          <input matInput [(ngModel)]="birthDate" [ngModelOptions]="{standalone: true}">
+          <mat-hint matSuffix>
+            <mat-icon>done</mat-icon>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column">
+        <span style="color: rgb(113, 118, 123); font-size: 13px;">
+          Ao se inscrever, você concorda com nossos <a class="blueLinks blockCursor">Termos</a>, com a 
+          <a class="blueLinks blockCursor">Política de Privacidade</a> e com o <a class="blueLinks blockCursor">Uso de  Cookies</a>.
+          O Twitter pode usar suas informações de contato, inclusive seu endereço de e-mail e seu número de telefone, para
+          os fins descritos na nossa Política de Privacidade. <a class="blueLinks blockCursor">Saiba mais</a>
+        </span>
+
+        <button mat-flat-button class="sideNavMenuTweetButton" (click)="advance()">
+          <span>Inscrever-se</span>
+        </button>
+      </div>
+
+
+    </div>
+
+    <div *ngIf="step == 3" class="">
+
+    </div>
+  </form>
+
+</div>

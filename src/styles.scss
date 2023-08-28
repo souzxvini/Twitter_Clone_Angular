@@ -1,19 +1,258 @@
 @font-face {
-  font-family: 'Chirp';
-  src: url('../src/assets/fonts/89e193b98453504c456698844de4c52b.woff2') format('woff2'),
-    url('../src/assets/fonts/89e193b98453504c456698844de4c52b.woff') format('woff');
+  font-family: 'TwitterChirpExtendedHeavy';
+  src: url('../src/assets/fonts/chirp-extended-heavy-web.woff2') format('woff2');
+  src: url('../src/assets/fonts/chirp-extended-heavy-web.woff') format('woff');
+  font-weight: 700;
+  font-style: 'normal';
+  font-display: 'swap';
+}
+
+@font-face {
+  font-family: 'TwitterChirp';
+  src: url('../src/assets/fonts/chirp-regular-web.woff2') format('woff2');
+  src: url('../src/assets/fonts/chirp-regular-web.woff') format('woff');
+  font-weight: 400;
+  font-style: 'normal';
+  font-display: 'swap';
+  text-shadow: none !important;
+}
+
+
+@font-face {
+  font-family: 'TwitterChirpBold';
+  src: url('../src/assets/fonts/chirp-bold-web.woff2') format('woff2');
+  src: url('../src/assets/fonts/chirp-bold-web.woff') format('woff');
+  font-weight: 700;
+  font-style: 'normal';
+  font-display: 'swap';
 }
 
 html {
   height: 100%;
-  font-family: 'Chirp';
+  font-family: 'TwitterChirp';
+  color: #f7f9f9;
 }
 
 body {
+  font-family: 'TwitterChirp';
   height: 100%;
   margin: 0;
   color: #f7f9f9 !important;
   background: rgb(21, 32, 43);
+}
+
+.mat-typography {
+  line-height: inherit;
+}
+
+//cor do background do mat-form-field-fill
+.mdc-text-field--filled {
+  background-color: transparent !important;
+}
+
+.mdc-text-field--filled .mdc-line-ripple::after {
+  border-color: transparent !important;
+}
+
+//cor do texto do mat-form-field
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.mdc-text-field--disabled .mdc-text-field__input {
+  color: rgba(122, 122, 122, 0.87);
+}
+
+//cor da borda do mat-form-field
+.mat-mdc-text-field-wrapper {
+  border: 1px solid rgb(76, 79, 82);
+  border-radius: 4px !important;
+  padding: 1px 10px !important;
+}
+
+//cor da borda do mat-form-field quando clicado
+.mat-focused .mat-mdc-text-field-wrapper {
+  border: 2px solid rgb(26, 140, 216);
+  padding: 0 10px !important;
+}
+
+//cor do label do form-field
+.mat-mdc-form-field-infix label {
+  color: rgb(99, 101, 104) !important;
+  font-weight: 500;
+  font-size: 17px;
+  font-family: 'TwitterChirp';
+}
+
+//cor do label do form-field quando clicado
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: rgb(26, 140, 216) !important;
+}
+
+//limite de caracteres dentro do mat-form-field (input text)
+.textFormField .mat-mdc-form-field-icon-suffix {
+  display: none !important;
+}
+
+.textFormField .mdc-text-field--focused:not(.mdc-text-field--disabled) .mat-mdc-form-field-flex .mat-mdc-form-field-icon-suffix {
+  display: block !important;
+  align-self: start !important;
+  padding-top: 8px !important;
+  font-weight: 500;
+  font-size: 15px;
+  color: rgb(76, 79, 82) !important;
+}
+
+//'success' form-fields-suffix
+.successFormField .mat-mdc-form-field-icon-suffix{
+  display: block !important;
+  align-self: end !important;
+  font-weight: 500;
+  font-size: 15px;
+  color: rgb(2, 2, 2) !important;
+}
+
+.successFormField mat-icon{
+  background-color: #00ba7c;
+  border-radius: 100%;
+  padding: 5px;
+  transform: scale(0.5);
+}
+
+//removendo * de campos required
+.mat-mdc-form-field-required-marker{
+  display: none;
+}
+
+//removendo underline vermelho nos campos invlidos
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: transparent !important;
+}
+
+//cor da borda do form-field quando invalido
+.mat-form-field-invalid .mat-mdc-text-field-wrapper {
+  border: 1px solid rgb(212, 30, 30) !important;
+  padding: 1px 10px !important;
+}
+
+.mat-form-field-invalid .mdc-text-field--focused {
+  border: 2px solid rgb(212, 30, 30) !important;
+  padding: 0px 10px !important;
+}
+
+//cor do label quando input com foco e invalido
+.mat-form-field-invalid .mdc-text-field--focused .mdc-floating-label{
+  color: rgb(212, 30, 30) !important;
+}
+
+.mdc-text-field--invalid .mdc-floating-label--float-above{
+  color: rgb(212, 30, 30) !important;
+}
+
+//remove default arrow mat-select
+.mat-mdc-select-arrow-wrapper {
+  display: none !important;
+}
+
+// ajustar posicao arrow do mat-select
+.matSelectSuffixArrow {
+  padding: 0 !important;
+}
+
+// cor padrão do arrow do mat-select
+.selectFormField .mat-mdc-form-field-icon-suffix {
+  color: rgb(76, 79, 82) !important;
+}
+
+// cor do arrow do mat-select quando clicado
+.selectFormField .mdc-text-field--focused:not(.mdc-text-field--disabled) .mat-mdc-form-field-flex .mat-mdc-form-field-icon-suffix {
+  color: rgb(26, 140, 216) !important;
+}
+
+//Mat Dialog Styles
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: rgb(3, 3, 3) !important;
+  --mdc-dialog-container-shape: 20px !important;
+  --mdc-dialog-container-elevation-shadow: none !important;
+}
+
+.modalStyleBackdrop {
+  background: rgba(91, 112, 131, 0.4);
+}
+
+//mat-select-option
+.mat-mdc-option {
+  color: rgba(255, 255, 255, 0.87) !important;
+  font-size: 17px !important;
+  padding: 0px 5px !important;
+  min-height: 0px !important;
+}
+
+.mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: rgb(4, 102, 230) !important;
+  cursor: auto !important;
+}
+
+//background-color da opção selecionada
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+  background-color: rgb(4, 102, 230) !important;
+}
+
+//removendo icon de selected do option
+.mdc-list-item--selected mat-pseudo-checkbox{ 
+  display: none;
+}
+
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+
+//Cor do background do mat-select
+.mat-mdc-select-panel {
+  background-color: black !important;
+  border: 1px solid white;
+  padding: 0px !important;
+}
+
+.mat-mdc-select {
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+
+.advanceButton[disabled] {
+  background-color: rgb(120, 122, 122) !important;
+  color: #000 !important;
+}
+
+.sideNavMenuTweetButton {
+  padding: 25px 95px !important;
+  background-color: rgb(29, 154, 239) !important;
+  color: #f7f9f9 !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0px;
+  border-radius: 30px !important;
+  transition: background-color 0.2s ease-in-out !important;
+  margin-top: 20px;
+}
+
+.sideNavMenuTweetButton:hover {
+  background-color: rgb(26, 140, 216) !important;
+}
+
+.advanceButton {
+  padding: 25px 95px !important;
+  background-color: rgb(255, 255, 255) !important;
+  color: #000 !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0px;
+  border-radius: 30px !important;
+  transition: background-color 0.2s ease-in-out !important;
+  margin-top: 20px;
+}
+
+.advanceButton:hover {
+  background-color: rgb(241, 241, 241) !important;
 }
 
 a {
@@ -27,8 +266,62 @@ p {
   padding: 0px !important;
 }
 
+.cursorPointer {
+  cursor: pointer;
+}
+
+.displayCentralize {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.displayAlign {
+  display: flex;
+  align-items: center;
+}
+
+.displayRight {
+  display: flex;
+  justify-content: end;
+}
+
+.displayColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightAlign {
+  align-items: end;
+}
+
+.backgroundTransition {
+  transition: 0.2s ease-in-out background-color;
+}
+
+.blueLinks {
+  color: rgb(29, 155, 240);
+}
+
+.blueLinks:hover {
+  text-decoration: underline;
+}
+
+.blockCursor {
+  cursor: not-allowed;
+}
+
+.formFieldError{
+  color: rgb(212, 30, 30) !important;
+  font-size: 13px !important;
+  padding-left: 10px;
+  font-weight: 100 !important;
+}
+
+
+//Logo do Header
 .headerLogo {
-  background: url(../src/assets/img/old-twitter-logo.png);
+  background: url(../src/assets/img/twitter-x-logo.png);
   background-size: contain;
   background-repeat: no-repeat;
   min-height: 6vh;
@@ -128,7 +421,12 @@ input::placeholder {
 }
 
 .mat-drawer-backdrop.mat-drawer-shown {
-  background-color: rgba(91, 112, 131, 0.4);;
+  background-color: rgba(91, 112, 131, 0.4);
 }
 
-
+.twitterTerms {
+  padding: 0;
+  margin: 0;
+  font-size: 11px;
+  color: rgb(113, 118, 123);
+}
