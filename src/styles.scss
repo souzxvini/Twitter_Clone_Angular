@@ -218,6 +218,11 @@ body {
   color: rgba(255, 255, 255, 0.87) !important;
 }
 
+//
+.noInvisibleDivFormField .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
 .advanceButton[disabled] {
   background-color: rgb(120, 122, 122) !important;
   color: #000 !important;

@@ -25,11 +25,11 @@ export class CreateAccountModalComponent implements OnInit {
     birthDateMonth: FormControl<number>,
     birthDateYear: FormControl<number>,
   }>({
-    firstName: new FormControl(null,  [Validators.required, Validators.maxLength(50)]),
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    birthDateDay: new FormControl(null , Validators.required),
-    birthDateMonth: new FormControl(null , Validators.required),
-    birthDateYear: new FormControl(null , Validators.required),
+    firstName: new FormControl('Vinicius Souza',  [Validators.required, Validators.maxLength(50)]),
+    email: new FormControl('vnsoliveira2512@gmail.com', [Validators.required, Validators.email]),
+    birthDateDay: new FormControl(25 , Validators.required),
+    birthDateMonth: new FormControl(12 , Validators.required),
+    birthDateYear: new FormControl(2001 , Validators.required),
   });
 
   birthDate: string;

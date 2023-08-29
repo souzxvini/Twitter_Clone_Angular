@@ -89,6 +89,7 @@
 
     </div>
 
+    <!--STEP 2-->
     <div *ngIf="step == 2" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
       <div fxLayout="column">
         <span class="title">Criar sua conta</span>
@@ -120,9 +121,11 @@
 
       <div fxLayout="column">
         <span style="color: rgb(113, 118, 123); font-size: 13px;">
-          Ao se inscrever, você concorda com nossos <a class="blueLinks blockCursor">Termos</a>, com a 
-          <a class="blueLinks blockCursor">Política de Privacidade</a> e com o <a class="blueLinks blockCursor">Uso de  Cookies</a>.
-          O Twitter pode usar suas informações de contato, inclusive seu endereço de e-mail e seu número de telefone, para
+          Ao se inscrever, você concorda com nossos <a class="blueLinks blockCursor">Termos</a>, com a
+          <a class="blueLinks blockCursor">Política de Privacidade</a> e com o <a class="blueLinks blockCursor">Uso de
+            Cookies</a>.
+          O Twitter pode usar suas informações de contato, inclusive seu endereço de e-mail e seu número de telefone,
+          para
           os fins descritos na nossa Política de Privacidade. <a class="blueLinks blockCursor">Saiba mais</a>
         </span>
 
@@ -130,13 +133,30 @@
           <span>Inscrever-se</span>
         </button>
       </div>
-
-
-    </div>
-
-    <div *ngIf="step == 3" class="">
-
     </div>
   </form>
+
+  <!--STEP 3-->
+  <div *ngIf="step == 3" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxLayout="column">
+      <span class="confirmationCodeTitle">Enviamos um código para você</span>
+
+      <span class="confirmationCodeSubtitle">Insira-o abaixo para verificar {{registerForm.controls['email'].value}}</span>
+
+      <mat-form-field class="noInvisibleDivFormField">
+        <mat-label>Código de verificação</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <small class="blueLinks cursorPointer" style="font-size: 13px; padding-left: 10px;">
+          Não recebeu o e-mail?
+      </small>
+    </div>
+
+    <div fxLayout="column">
+      <button mat-flat-button class="advanceButton" (click)="advance()">
+        <span>Avançar</span>
+      </button>
+    </div>
+  </div>
 
 </div>
