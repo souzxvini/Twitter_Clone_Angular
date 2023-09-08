@@ -38,7 +38,7 @@ body {
   height: 100%;
   margin: 0;
   color: #f7f9f9 !important;
-  background: rgb(21, 32, 43);
+  background: rgb(0, 0, 0);
 }
 
 .mat-typography {
@@ -104,7 +104,7 @@ body {
 }
 
 //'success' form-fields-suffix
-.successFormField .mat-mdc-form-field-icon-suffix{
+.successFormField .mat-mdc-form-field-icon-suffix {
   display: block !important;
   align-self: end !important;
   font-weight: 500;
@@ -112,15 +112,30 @@ body {
   color: rgb(2, 2, 2) !important;
 }
 
-.successFormField mat-icon{
+.successFormField mat-icon {
   background-color: #00ba7c;
   border-radius: 100%;
   padding: 5px;
   transform: scale(0.5);
 }
 
+// Password formfield suffix
+.passwordFormField .mat-mdc-form-field-icon-suffix {
+  display: block !important;
+  align-self: end !important;
+  font-weight: 500;
+  font-size: 15px;
+  color: rgb(255, 255, 255) !important;
+}
+
+.passwordFormField .mat-mdc-form-field-icon-suffix>.mat-icon {
+  padding: 0 0 10px 0 !important;
+}
+
+
+
 //removendo * de campos required
-.mat-mdc-form-field-required-marker{
+.mat-mdc-form-field-required-marker {
   display: none;
 }
 
@@ -141,11 +156,11 @@ body {
 }
 
 //cor do label quando input com foco e invalido
-.mat-form-field-invalid .mdc-text-field--focused .mdc-floating-label{
+.mat-form-field-invalid .mdc-text-field--focused .mdc-floating-label {
   color: rgb(212, 30, 30) !important;
 }
 
-.mdc-text-field--invalid .mdc-floating-label--float-above{
+.mdc-text-field--invalid .mdc-floating-label--float-above {
   color: rgb(212, 30, 30) !important;
 }
 
@@ -180,6 +195,16 @@ body {
   background: rgba(91, 112, 131, 0.4);
 }
 
+.transparentModalStyleBackdrop {
+  background: transparent;
+}
+
+.transparentModalStyle .mat-mdc-dialog-container {
+  --mdc-dialog-container-color: rgb(0, 0, 0) !important;
+  --mdc-dialog-container-shape: 20px !important;
+  --mdc-dialog-container-elevation-shadow: rgba(255, 255, 255, 0.25) 0px 2px 5px -1px, rgba(255, 255, 255, 0.3) 0px 1px 3px -1px !important;
+}
+
 //mat-select-option
 .mat-mdc-option {
   color: rgba(255, 255, 255, 0.87) !important;
@@ -199,7 +224,7 @@ body {
 }
 
 //removendo icon de selected do option
-.mdc-list-item--selected mat-pseudo-checkbox{ 
+.mdc-list-item--selected mat-pseudo-checkbox {
   display: none;
 }
 
@@ -217,6 +242,44 @@ body {
 .mat-mdc-select {
   color: rgba(255, 255, 255, 0.87) !important;
 }
+
+//Slider
+.mat-mdc-slider{
+  width: 280px !important;
+  pointer-events: none;
+}
+
+.mat-mdc-slider.mat-primary {
+  --mdc-slider-handle-color: rgb(83, 163, 226) !important;
+  --mdc-slider-focus-handle-color: rgb(83, 163, 226) !important;
+  --mdc-slider-hover-handle-color: rgb(83, 163, 226) !important;
+  --mdc-slider-active-track-color: rgb(83, 163, 226) !important;
+  --mdc-slider-inactive-track-color: rgb(83, 163, 226) !important;
+  --mdc-slider-with-tick-marks-active-container-color: #fff;
+  --mdc-slider-with-tick-marks-inactive-container-color: rgb(83, 163, 226) !important;
+  --mat-mdc-slider-ripple-color: rgb(83, 163, 226) !important;
+  --mat-mdc-slider-hover-ripple-color: rgba(63, 81, 181, 0.05);
+  --mat-mdc-slider-focus-ripple-color: rgba(63, 81, 181, 0.2);
+}
+
+.mat-mdc-slider .mdc-slider__track--inactive {
+  background-color: rgb(142, 205, 248) !important;
+  opacity: 1 !important;
+}
+
+.mat-mdc-slider.mdc-slider--disabled {
+  opacity: 1 !important;
+}
+
+.mat-mdc-slider.mdc-slider--disabled .mdc-slider__thumb-knob {
+  background-color: rgb(83, 163, 226) !important;
+  border-color: #1d9bf0 !important;
+}
+
+.mdc-slider__input {
+  cursor: not-allowed !important;
+}
+
 
 //
 .noInvisibleDivFormField .mat-mdc-form-field-subscript-wrapper {
@@ -237,7 +300,7 @@ body {
   letter-spacing: 0px;
   border-radius: 30px !important;
   transition: background-color 0.2s ease-in-out !important;
-  margin-top: 20px;
+  margin-top: 20px !important;
 }
 
 .sideNavMenuTweetButton:hover {
@@ -258,6 +321,59 @@ body {
 
 .advanceButton:hover {
   background-color: rgb(241, 241, 241) !important;
+}
+
+.ignoreButton {
+  padding: 25px 95px !important;
+  background-color: transparent !important;
+  color: #fff !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0px;
+  border-radius: 30px !important;
+  transition: background-color 0.2s ease-in-out !important;
+  margin-top: 20px;
+  border: 1px solid rgb(113, 118, 123) !important;
+}
+
+.ignoreButton:hover {
+  background-color: rgba(255, 255, 255, 0.034) !important;
+}
+
+.applyButton {
+  font-family: 'TwitterChirp';
+  padding: 16px;
+  background-color: white !important;
+  color: #000;
+  font-weight: 600;
+  border-radius: 50px !important;
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+.applyButton:hover {
+  background-color: rgba(241, 241, 241) !important;
+}
+
+// CROPPER COMPONENT
+.cropper-g {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.sliderContainer-i{
+  margin: 20px 0 0 0 !important;
+  max-width: 100% !important;
+  background-color: transparent !important;
+}
+
+.LyImageCropper-area-d:after{
+  border: 4px solid rgb(26, 140, 216) !important;
+}
+
+.dialogSteps {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'TwitterChirp' !important;
 }
 
 a {
@@ -316,21 +432,11 @@ p {
   cursor: not-allowed;
 }
 
-.formFieldError{
+.formFieldError {
   color: rgb(212, 30, 30) !important;
   font-size: 13px !important;
   padding-left: 10px;
   font-weight: 100 !important;
-}
-
-
-//Logo do Header
-.headerLogo {
-  background: url(../src/assets/img/twitter-x-logo.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  min-height: 6vh;
-  width: 100%;
 }
 
 .sideNavMenuProfileButtonName {

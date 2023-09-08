@@ -11,12 +11,10 @@ export class InitialPageComponent {
 
   constructor(
     private dialog: MatDialog
-  ){
-
-  }
+  ){}
 
   openCreateAccountDialog(){
-    const dialogRef = this.dialog.open(CreateAccountModalComponent, {
+    this.dialog.open(CreateAccountModalComponent, {
       width: '600px',
       minHeight: '660px',
       maxHeight:'660px',
@@ -24,10 +22,6 @@ export class InitialPageComponent {
       backdropClass: 'modalStyleBackdrop',
       disableClose: true,
       autoFocus: false,
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      
     });
   }
 

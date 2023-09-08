@@ -14,7 +14,7 @@
   background-color: rgb(21, 32, 43) !important;
   box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 10px, rgba(136, 153, 166, 0.25) 0px 1px 3px 1px;
   color: #f7f9f9 !important;
-  overflow: scroll;
+  overflow: auto !important;
 }
 
 .sideNavMobileMenuHeader {
@@ -141,6 +141,7 @@
 }
 
 .menuHeaderLogo {
+  padding: 13px 13px 0px 13px;
   width: 100%;
   height: 6vh;
 }
@@ -151,6 +152,7 @@
 }
 
 .sideNavMenu {
+  height: 94vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -194,10 +196,8 @@
 
 .sideNavMenuOption div:hover span {
   border-radius: 50px;
-  background-color: rgba(255, 255, 255, 0.07);
+  background-color: rgba(255, 255, 255, 0.096);
 }
-
-
 
 .sideNavMenuTweetButtonIcon {
   display: none;

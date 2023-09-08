@@ -1,0 +1,41 @@
+<div fxLayout="column" fxLayoutAlign="space-between stretch" style="min-height: 660px; max-height: 660px;">
+  <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 16px;">
+    <div fxLayout="row" fxLayoutAlign=" center">
+      <mat-icon style="margin-right: 35px" class="cursorPointer" (click)="closeDialog()">
+        keyboard_backspace
+      </mat-icon>
+      <span class="dialogSteps">Editar mídia</span>
+    </div>
+    <div>
+      <button mat-flat-button class="applyButton" (click)="cropper.crop()">
+        <span>Aplicar</span>
+      </button>
+    </div>
+  </div>
+
+  <div style="height: 540px;" fxLayout="column" fxLayoutAlign="center stretch">
+
+    <input #_fileInput type="file" (change)="cropper.selectInputEvent($event)" accept="image/*" hidden>
+
+    <ly-img-cropper [withClass]="classes.cropper" 
+    [config]="myConfig" 
+    [(scale)]="scale" 
+    (minScale)="minScale = $event"
+    (ready)="ready = true" 
+    (cleaned)="ready = false" 
+    (cropped)="onCropped($event)" 
+    (loaded)="onLoaded($event)"
+    (error)="onError($event)">
+    </ly-img-cropper>
+
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="10" fxLayoutAlign="center center">
+    <mat-icon class="blockCursor" style="color: #71767b;">zoom_out</mat-icon>
+    <mat-slider>
+      <input matSliderThumb [disabled]="true">
+    </mat-slider>
+    <mat-icon class="blockCursor" style="color: #71767b;">zoom_in</mat-icon>
+  </div>
+
+</div>

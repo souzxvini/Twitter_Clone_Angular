@@ -13,10 +13,14 @@ const routes: Routes = [
     component: MenuComponent,
     //canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: '/timeline', pathMatch: 'full' },
-      { path: 'timeline',  component: HomeComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'home',  component: HomeComponent },
       { path: '', component: HomeSearchComponent, outlet: 'secondary'}
     ]
+  },
+  {
+    path:'signup',
+    component: MenuComponent
   },
   {
     path:'login',

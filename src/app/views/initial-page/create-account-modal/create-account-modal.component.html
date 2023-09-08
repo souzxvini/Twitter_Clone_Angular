@@ -1,10 +1,15 @@
 <div style="padding: 16px;">
-  <div style="height: 30px;" fxLayout="row" fxLayoutAlign=" center">
+  <div *ngIf="step < 5" style="height: 30px;" fxLayout="row" fxLayoutAlign=" center">
     <mat-icon *ngIf="step == 1" style="margin-right: 35px" class="cursorPointer" (click)="closeDialog()">close
     </mat-icon>
-    <mat-icon *ngIf="step != 1" style="margin-right: 35px" class="cursorPointer" (click)="back()">keyboard_backspace
+    <mat-icon *ngIf="step != 1 && step < 4" style="margin-right: 35px" class="cursorPointer" (click)="back()">
+      keyboard_backspace
     </mat-icon>
     <span class="dialogSteps">Etapa {{step}} de 4</span>
+  </div>
+
+  <div *ngIf="step > 4" style="height: 30px;" fxLayout="row" fxLayoutAlign="center center">
+    <img src="../../../../assets/img/twitter-x-logo.png" style="width: 30px; height: 30px;">
   </div>
 
   <form [formGroup]="registerForm">
@@ -16,8 +21,10 @@
 
         <mat-form-field class="textFormField" style="margin-bottom: -1.25em;">
           <mat-label>Nome</mat-label>
-          <input matInput formControlName="firstName" #nameInput>
-          <mat-hint matSuffix>0/50</mat-hint>
+          <input matInput formControlName="firstName" #nameInput maxlength="50">
+          <mat-hint matSuffix>
+            {{registerForm.controls['firstName'].value ? registerForm.controls['firstName'].value.length : '0'}}/50
+          </mat-hint>
         </mat-form-field>
         <small class="formFieldError"
           *ngIf="registerForm.controls['firstName'].hasError('required') && registerForm.controls['firstName'].touched">
@@ -129,33 +136,98 @@
           os fins descritos na nossa Política de Privacidade. <a class="blueLinks blockCursor">Saiba mais</a>
         </span>
 
-        <button mat-flat-button class="sideNavMenuTweetButton" (click)="advance()">
+        <button mat-flat-button class="sideNavMenuTweetButton" (click)="sendConfirmationCode()"
+          [disabled]="registerForm.invalid">
           <span>Inscrever-se</span>
+        </button>
+      </div>
+    </div>
+
+    <!--STEP 3-->
+    <div *ngIf="step == 3" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div fxLayout="column">
+        <span class="confirmationCodeTitle">Enviamos um código para você</span>
+
+        <span class="confirmationCodeSubtitle">Insira-o abaixo para verificar
+          {{registerForm.controls['email'].value}}</span>
+
+        <mat-form-field class="noInvisibleDivFormField">
+          <mat-label>Código de verificação</mat-label>
+          <input matInput formControlName="confirmationCode">
+        </mat-form-field>
+        <small class="blueLinks cursorPointer" style="font-size: 13px; padding-left: 10px;"
+          (click)="resendConfirmationCode()">
+          Não recebeu o e-mail?
+        </small>
+      </div>
+
+      <div fxLayout="column">
+        <button mat-flat-button class="advanceButton" (click)="confirmCode()" [disabled]="registerForm.invalid">
+          <span>Avançar</span>
+        </button>
+      </div>
+    </div>
+
+    <!--STEP 4-->
+    <div *ngIf="step == 4" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div fxLayout="column">
+        <span class="confirmationCodeTitle">Você precisará de uma senha</span>
+
+        <span class="confirmationCodeSubtitle">É preciso ter 8 caracteres ou mais.</span>
+
+        <mat-form-field class="noInvisibleDivFormField passwordFormField">
+          <mat-label>Senha</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+          <mat-icon matSuffix (click)="hide = !hide"> {{hide ? 'visibility_off' : 'visibility'}} </mat-icon>
+        </mat-form-field>
+
+        <small class="formFieldError"
+          *ngIf="registerForm.controls['password'].hasError('minlength') && registerForm.controls['password'].touched">
+          Sua senha precisa conter 8 caracteres ou mais.
+        </small>
+      </div>
+
+      <div fxLayout="column">
+        <button mat-flat-button class="advanceButton" (click)="createAccount()" [disabled]="registerForm.invalid">
+          <span>Avançar</span>
         </button>
       </div>
     </div>
   </form>
 
-  <!--STEP 3-->
-  <div *ngIf="step == 3" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+  <!--STEP 5 (PROFILE PICTURE)-->
+  <div *ngIf="step == 5" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
     <div fxLayout="column">
-      <span class="confirmationCodeTitle">Enviamos um código para você</span>
+      <span class="confirmationCodeTitle">Escolher uma foto de perfil</span>
 
-      <span class="confirmationCodeSubtitle">Insira-o abaixo para verificar {{registerForm.controls['email'].value}}</span>
+      <span class="confirmationCodeSubtitle">Tem uma selfie favorita? Carregue agora.</span>
 
-      <mat-form-field class="noInvisibleDivFormField">
-        <mat-label>Código de verificação</mat-label>
-        <input matInput>
-      </mat-form-field>
-      <small class="blueLinks cursorPointer" style="font-size: 13px; padding-left: 10px;">
-          Não recebeu o e-mail?
-      </small>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div class="selectProfilePicture" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20" style="background-image: url('{{url ? url.imgUrl.dataURL : noProfilePicture}}'); 
+      background-position-x: '{{url ? url.imgUrl.position.x ? url.imgUrl.position.x : 0 : 0 }}'; 
+      background-position-y: '{{url ? url.imgUrl.position.y ? url.imgUrl.position.y : 0 : 0}}'">
+        <input #selectFileButton type="file" (change)="onSelectFile($event)" accept="image/*" hidden>
+        <button mat-mini-fab (click)="openFileInput()">
+          <mat-icon>add_a_photo</mat-icon>
+        </button>
+        <button mat-mini-fab *ngIf="url" (click)="url = null">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
     </div>
 
     <div fxLayout="column">
-      <button mat-flat-button class="advanceButton" (click)="advance()">
+
+      <button mat-flat-button class="advanceButton" *ngIf="url">
         <span>Avançar</span>
       </button>
+
+      <button mat-flat-button class="ignoreButton" *ngIf="!url">
+        <span>Ignorar por enquanto</span>
+      </button>
+
     </div>
   </div>
 
