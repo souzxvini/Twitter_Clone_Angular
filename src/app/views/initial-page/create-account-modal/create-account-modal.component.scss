@@ -1,29 +1,12 @@
 .mainContent {
   height: 545px;
-  margin: 40px 60px 10px 60px;
+  padding: 15px 80px 20px 80px;
   font-family: 'TwitterChirp' !important;
+  width: 100%;
+  height: 100%;
 }
 
-.title {
-  font-size: 31px;
-  font-weight: 600;
-  margin-bottom: 35px;
-  font-family: 'TwitterChirp' !important;
-}
-
-.confirmationCodeTitle{
-  font-size: 31px;
-  font-weight: 600;
-  font-family: 'TwitterChirp' !important;
-}
-
-.confirmationCodeSubtitle{
-  padding: 15px 0 30px 0;
-  font-size: 15px;
-  color: rgb(113, 118, 123)
-}
-
-.selectProfilePicture{
+.selectProfilePicture {
   width: 200px;
   height: 200px;
   border-radius: 100%;
@@ -32,8 +15,42 @@
   box-shadow: rgb(255, 255, 255) 0px 0px 2px 2px !important;
 }
 
-.mat-mdc-fab.mat-accent, .mat-mdc-mini-fab.mat-accent {
+.mat-mdc-fab.mat-accent,
+.mat-mdc-mini-fab.mat-accent {
   --mdc-fab-container-color: #00000098;
 }
 
+.followButton {
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(27, 26, 26);
+  padding: 8px 0px;
+  border-radius: 20px;
+  transition: 0.2s ease-in-out background-color;
+}
 
+.followButton:hover {
+  background-color: rgb(215, 219, 220);
+  cursor: pointer;
+}
+
+.suggestedProfiles {
+  overflow: auto;
+  padding: 15px 80px 20px 80px;
+}
+
+@media screen and (max-width:698px) {
+
+  .mainContent {
+    padding: 20px 30px 10px 30px;
+  }
+
+  .suggestedProfiles {
+    overflow: auto;
+    padding: 15px 25px 20px 25px;
+  }
+
+}

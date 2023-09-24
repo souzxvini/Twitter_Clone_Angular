@@ -1,12 +1,11 @@
 .container {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-rows: 1fr min(7vh);
   background-color: black;
 }
 
 .mainContainer {
+  height: 93vh;
   display: grid;
   grid-template-columns: 1fr 850px;
 }
@@ -16,91 +15,33 @@
   padding: 16px;
 }
 
+.formDivTwitterLogo{
+  display: none;
+}
+
 .title {
   font-family: 'TwitterChirpExtendedHeavy' !important;
   font-size: 64px;
-  margin: 48px 0px;
+  margin: 40px 0;
+  word-break: break-all;
 }
 
 .subtitle {
   font-family: 'TwitterChirpExtendedHeavy' !important;
   font-size: 31px;
   margin-bottom: 32px;
+  word-break: break-all;
 }
 
 .buttonsDiv {
-  width: 300px !important;
-}
-
-//Botões em geral
-.loginButton {
-  font-size: 15px;
-  font-weight: 600;
-  padding: 10px 12px;
-  border-radius: 50px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-//Botão de login pelo Google Accounts
-.googleAccountLoginButton {
-  display: grid;
-  grid-template-columns: 20px 1fr 20px;
-  align-items: center;
-  background-color: white;
-  color: black;
-  padding: 8px 10px;
-  border-radius: 50px;
-  cursor: pointer;
-}
-
-.googleAccountLoginButton:hover {
-  background-color: rgb(233, 233, 233);
-}
-
-.googleAccountLoginButtonImage {
-  width: 20px !important;
-  height: 20px !important;
-}
-
-.googleAccountLoginButtonImage img {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 100%;
-}
-
-.googleAccountLoginButtonText {
-  font-family: "Roboto" !important;
-  display: flex;
-  flex-direction: column;
-  padding: 0 5px;
-}
-
-.googleAccountLoginButtonText span:first-child {
-  font-weight: 500;
-  font-size: 12px;
-}
-
-.googleAccountLoginButtonText span:last-child {
-  color: #5f6368;
-  font-weight: 500;
-  font-size: 11px;
-}
-
-//Botão fazer login com Apple
-.appleButton {
-  color: black;
-  background-color: white;
-}
-
-.appleButton:hover {
-  background-color: rgb(233, 233, 233);
+  max-width: 300px !important;
 }
 
 //Botão Criar Conta
 .createAccountButton {
   color: white;
   background-color: rgb(29, 155, 240);
+  transition: background-color 0.2s ease-in-out !important;
 }
 
 .createAccountButton:hover {
@@ -112,6 +53,7 @@
   background-color: transparent;
   color: rgb(29, 155, 240);
   border: solid 1px rgb(83, 100, 113);
+  transition: background-color 0.2s ease-in-out !important;
 }
 
 .mainLoginButton:hover{
@@ -126,6 +68,7 @@
 .loginContainer span{
   font-weight: 900;
   font-size: 17px;
+  margin-top: 60px !important;
   margin-bottom: 20px !important;
 }
 
@@ -152,4 +95,51 @@
 .footer a:hover{
  text-decoration: underline;
  cursor: not-allowed;
+}
+
+@media screen and (max-width:1100px) {
+
+  .mainContainer{
+    height: auto;
+  }
+  
+  .formDivTwitterLogo{
+    display: block;
+  }
+
+  .logoDiv {
+    display: none;
+  }
+
+  .mainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer{
+    padding: 12px 40px;
+  }
+
+  .formDiv{
+    margin: 0px 18px;
+    max-width: 500px;
+  }
+
+}
+
+@media screen and (max-width:498px) {
+
+  .mainContainer{
+    height: auto;
+  }
+
+  .title{
+    font-size: 40px;
+  }
+
+  .subtitle{
+    font-size: 23px;
+  }
+
 }

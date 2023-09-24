@@ -1,0 +1,20 @@
+.followingButton {
+  width: 100% !important;
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  padding: 8px 0;
+  border-radius: 20px;
+  transition: 0.2s ease-in-out background-color;
+  border: 1px solid rgb(111, 124, 137);
+}
+
+.followingButton:hover {
+  order: 1px solid rgb(111, 124, 137);
+  color: rgb(244, 33, 46);
+  border: 1px solid rgb(103, 7, 15);
+  background-color: rgba(244, 33, 47, 0.07);
+  cursor: pointer;
+}

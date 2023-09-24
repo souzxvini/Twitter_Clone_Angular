@@ -54,7 +54,7 @@ export class EditProfilePictureModalComponent {
   constructor(
     private dialogRef: MatDialogRef<EditProfilePictureModalComponent>,
     readonly sRenderer: StyleRenderer,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public imageUrl: any
   ) { }
 
   ngAfterViewInit(){
@@ -67,7 +67,7 @@ export class EditProfilePictureModalComponent {
       // areaWidth: 100,
       // areaHeight: 100,
       rotation: 0,
-      originalDataURL: this.data
+      originalDataURL: this.imageUrl
     };
     this.cropper.loadImage(config);
   }

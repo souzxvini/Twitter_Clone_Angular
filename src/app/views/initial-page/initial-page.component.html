@@ -1,40 +1,38 @@
-<div class="container">
+<div class="container" fxLayout="column" fxLayoutAlign="space-between stretch">
   <div class="mainContainer">
-    <div class="displayCentralize" style="padding: 50px;">
+    <div class="displayCentralize logoDiv" style="padding: 50px;">
       <img style="max-width: 100%; height: auto; max-height: 300px;" src="../../../assets/img/twitter-x-logo.png">
     </div>
 
-    <div class="formContainer" fxLayout="row" fxLayoutAlign="center center">
-      <div class="displayColumn" style="width: 100%;">
+    <div class="formContainer" fxLayout="row" fxLayoutAlign=" center">
+      <div class="formDiv" fxLayout="column">
+
+        <div class="formDivTwitterLogo" style="height: 40px; width: 40px; margin-top: 40px;">
+          <img src="../../../../assets/img/twitter-x-logo.png" style="width: 100%; height: 100%;">
+        </div>
+
         <span class="title">Acontecendo agora</span>
 
         <span class="subtitle">Inscreva-se hoje</span>
 
-        <div class="buttonsDiv">
-          <div class="googleAccountLoginButton backgroundTransition" style="margin-bottom: 12px;">
-            <div class="googleAccountLoginButtonImage">
-              <img src="../../../assets/img/profile-image.png">
-            </div>
-            <div class="googleAccountLoginButtonText">
-              <span>Fazer login como Vinicius</span>
-              <span>vnsoliveira2512@gmail.com</span>
-            </div>
-            <div class="googleAccountLoginButtonImage">
-              <img src="../../../assets/img/google-logo.png">
-            </div>
+        <div class="buttonsDiv" fxLayout="column" fxLayoutGap="10">
+          <div class="whiteButton blockCursor" fxLayoutGap="10">
+            <img src="../../../../assets/img/google-logo.png" style="width: 20px; height: 20px;">
+            <strong>Inscrever-se com Google</strong>
           </div>
 
-          <div class="displayCentralize loginButton appleButton backgroundTransition">
+          <div class="whiteButton blockCursor" fxLayoutGap="10">
+            <img src="../../../../assets/img/apple_logo.png" style="width: 15px; height: 20px;">
             <strong>Inscrever-se com Apple</strong>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 30px 1fr; align-items: center; margin-bottom: 10px;">
-            <mat-divider></mat-divider>
-            <span style="display: flex; align-items: center; justify-content: center;">ou</span>
-            <mat-divider></mat-divider>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5">
+            <mat-divider fxFlex="45"></mat-divider>
+            <span fxFlex="10" fxLayout="row" fxLayoutAlign="center center">ou</span>
+            <mat-divider fxFlex="45"></mat-divider>
           </div>
 
-          <div class="displayCentralize loginButton createAccountButton backgroundTransition" (click)="openCreateAccountDialog()">
+          <div class="displayCentralize loginButton createAccountButton" (click)="openCreateAccountDialog()">
             <strong>Criar conta</strong>
           </div>
 
@@ -44,9 +42,9 @@
               class="blueLinks blockCursor">Uso de Cookies</a>.
           </div>
 
-          <div class="loginContainer displayColumn">
+          <div class="loginContainer" fxLayout="column">
             <span>Já tem uma conta?</span>
-            <div class="displayCentralize loginButton mainLoginButton backgroundTransition">
+            <div class="displayCentralize loginButton mainLoginButton" (click)="openLoginModal()">
               <strong>Entrar</strong>
             </div>
           </div>

@@ -1,0 +1,30 @@
+.title {
+  font-size: 31px;
+  font-weight: 600;
+  margin-bottom: 35px !important;
+  font-family: 'TwitterChirp' !important;
+}
+
+.mat-divider {
+  border-top-width: 1px;
+  border-top-color: #363636;
+}
+
+.smallAdvanceButton{
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border: solid 1px rgb(83, 100, 113);
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+.smallAdvanceButton:hover{
+  background-color: rgb(241, 241, 241) !important;
+}
+
+.forgotPasswordeButton:hover{
+  background-color: rgba(255, 255, 255, 0.055) !important;
+}
+
+.advanceButton{
+  padding: 15px !important;
+}

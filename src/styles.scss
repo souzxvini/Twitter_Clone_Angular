@@ -45,6 +45,11 @@ body {
   line-height: inherit;
 }
 
+//spinner
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: rgb(26, 140, 216) !important;
+}
+
 //cor do background do mat-form-field-fill
 .mdc-text-field--filled {
   background-color: transparent !important;
@@ -56,23 +61,23 @@ body {
 
 //cor do texto do mat-form-field
 .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(255, 255, 255, 0.87) !important;
 }
 
 .mdc-text-field--disabled .mdc-text-field__input {
-  color: rgba(122, 122, 122, 0.87);
+  color: rgba(122, 122, 122, 0.87) !important;
 }
 
 //cor da borda do mat-form-field
 .mat-mdc-text-field-wrapper {
-  border: 1px solid rgb(76, 79, 82);
+  border: 1px solid rgb(76, 79, 82) !important;
   border-radius: 4px !important;
   padding: 1px 10px !important;
 }
 
 //cor da borda do mat-form-field quando clicado
 .mat-focused .mat-mdc-text-field-wrapper {
-  border: 2px solid rgb(26, 140, 216);
+  border: 2px solid rgb(26, 140, 216) !important;
   padding: 0 10px !important;
 }
 
@@ -103,6 +108,12 @@ body {
   color: rgb(76, 79, 82) !important;
 }
 
+//mat-form-field disabled
+.mat-mdc-text-field-wrapper.mdc-text-field--disabled {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
 //'success' form-fields-suffix
 .successFormField .mat-mdc-form-field-icon-suffix {
   display: block !important;
@@ -119,6 +130,17 @@ body {
   transform: scale(0.5);
 }
 
+.successFormField.mat-form-field-invalid mat-icon {
+  background-color: #ba0000;
+  transform: scale(0.9);
+  padding: 0 !important;
+  margin: 5px;
+}
+
+.ng-invalid.ng-untouched .mat-mdc-form-field-icon-suffix {
+  display: none !important;
+}
+
 // Password formfield suffix
 .passwordFormField .mat-mdc-form-field-icon-suffix {
   display: block !important;
@@ -130,6 +152,14 @@ body {
 
 .passwordFormField .mat-mdc-form-field-icon-suffix>.mat-icon {
   padding: 0 0 10px 0 !important;
+}
+
+.passwordFormField.ng-invalid .mat-mdc-form-field-icon-suffix {
+  display: block !important;
+  align-self: end !important;
+  font-weight: 500;
+  font-size: 15px;
+  color: rgb(255, 255, 255) !important;
 }
 
 
@@ -187,8 +217,20 @@ body {
 //Mat Dialog Styles
 .mat-mdc-dialog-container {
   --mdc-dialog-container-color: rgb(3, 3, 3) !important;
-  --mdc-dialog-container-shape: 20px !important;
   --mdc-dialog-container-elevation-shadow: none !important;
+}
+
+.cdk-global-overlay-wrapper {
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.bordered-dialog .mat-mdc-dialog-container {
+  --mdc-dialog-container-shape: 20px !important;
+}
+
+.no-border-dialog .mat-mdc-dialog-container {
+  --mdc-dialog-container-shape: 0px !important;
 }
 
 .modalStyleBackdrop {
@@ -244,7 +286,7 @@ body {
 }
 
 //Slider
-.mat-mdc-slider{
+.mat-mdc-slider {
   width: 280px !important;
   pointer-events: none;
 }
@@ -280,10 +322,26 @@ body {
   cursor: not-allowed !important;
 }
 
-
-//
 .noInvisibleDivFormField .mat-mdc-form-field-subscript-wrapper {
   display: none;
+}
+
+.snackbarLoginError .mdc-snackbar__surface {
+  background-color: #1d9bf0 !important;
+  color: white !important;
+  min-width: 0px !important;
+}
+
+.mat-mdc-snack-bar-container {
+  position: fixed !important;
+}
+
+.mdc-snackbar{
+  bottom: 27px !important;
+}
+
+.mat-mdc-snack-bar-label{
+  font-size: 15px !important;
 }
 
 .advanceButton[disabled] {
@@ -296,7 +354,7 @@ body {
   background-color: rgb(29, 154, 239) !important;
   color: #f7f9f9 !important;
   font-size: 17px !important;
-  font-weight: 500 !important;
+  font-weight: 700 !important;
   letter-spacing: 0px;
   border-radius: 30px !important;
   transition: background-color 0.2s ease-in-out !important;
@@ -308,11 +366,12 @@ body {
 }
 
 .advanceButton {
-  padding: 25px 95px !important;
+  width: 100%;
+  padding: 25px 0 !important;
   background-color: rgb(255, 255, 255) !important;
   color: #000 !important;
   font-size: 17px !important;
-  font-weight: 500 !important;
+  font-weight: 700 !important;
   letter-spacing: 0px;
   border-radius: 30px !important;
   transition: background-color 0.2s ease-in-out !important;
@@ -360,13 +419,13 @@ body {
   width: 100% !important;
 }
 
-.sliderContainer-i{
+.sliderContainer-i {
   margin: 20px 0 0 0 !important;
   max-width: 100% !important;
   background-color: transparent !important;
 }
 
-.LyImageCropper-area-d:after{
+.LyImageCropper-area-d:after {
   border: 4px solid rgb(26, 140, 216) !important;
 }
 
@@ -377,14 +436,24 @@ body {
 }
 
 a {
+  font-family: 'TwitterChirp' !important;
   text-decoration: none;
   margin: 0px !important;
   padding: 0px !important;
 }
 
 p {
+  font-family: 'TwitterChirp' !important;
   margin: 0px !important;
   padding: 0px !important;
+}
+
+span {
+  font-family: 'TwitterChirp' !important;
+}
+
+div {
+  font-family: 'TwitterChirp' !important;
 }
 
 .cursorPointer {
@@ -429,7 +498,39 @@ p {
 }
 
 .blockCursor {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
+}
+
+//Botões em geral
+.loginButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'TwitterChirp';
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.whiteButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'TwitterChirp';
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 50px;
+  color: black;
+  background-color: white;
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+.whiteButton:hover {
+  background-color: rgb(233, 233, 233);
 }
 
 .formFieldError {
@@ -439,7 +540,7 @@ p {
   font-weight: 100 !important;
 }
 
-.sideNavMenuProfileButtonName {
+.userFirstName {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -447,12 +548,16 @@ p {
   font-size: 15px;
 }
 
-.sideNavMenuProfileButtonId {
+.userUsername {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: rgb(121, 134, 147);
   font-size: 15px;
+}
+
+.userBiography{
+  font-size: 15px !important;
 }
 
 .searchButtonHeader {
@@ -540,4 +645,54 @@ input::placeholder {
   margin: 0;
   font-size: 11px;
   color: rgb(113, 118, 123);
+}
+
+.profilePicture{
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.dialogTitle {
+  font-size: 31px;
+  font-weight: 600;
+  margin-bottom: 35px;
+  font-family: 'TwitterChirp' !important;
+}
+
+.dialogTitleWithSubtitle {
+  font-size: 31px;
+  font-weight: 600;
+  font-family: 'TwitterChirp' !important;
+}
+
+.smallerDialogTitleWithSubtitle {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'TwitterChirp' !important;
+}
+
+.dialogSubtitle {
+  padding: 15px 0 30px 0;
+  font-size: 15px;
+  color: rgb(113, 118, 123)
+}
+
+.transparentButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'TwitterChirp';
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 50px;
+  color: rgb(255, 255, 255);
+  background-color: transparent !important;
+  border: solid 1px rgb(83, 100, 113) !important;
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+.transparentButton:hover {
+  background-color: rgba(255, 255, 255, 0.082) !important;
 }

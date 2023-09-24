@@ -3,6 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { SidenavService } from 'src/app/services/sidenav.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -25,7 +26,9 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private sidenavService: SidenavService) { }
+    private sidenavService: SidenavService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit() {
     this.sidenavService.buttonClick$.subscribe(() => {
@@ -39,5 +42,9 @@ export class MenuComponent implements OnInit {
           this.settingsAndPrivacyIsClicked = false;
         }
       })
+  }
+
+  logout(){
+    this.authService.logout();
   }
 }

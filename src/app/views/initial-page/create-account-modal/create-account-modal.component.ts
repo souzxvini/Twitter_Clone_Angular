@@ -1,12 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { DidNotReceiveEmailModalComponent } from './did-not-receive-email-modal/did-not-receive-email-modal.component';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { EditProfilePictureModalComponent } from 'src/app/components/edit-profile-picture-modal/edit-profile-picture-modal.component';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { AccountsService } from 'src/app/services/accounts.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
+import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
+import { debounceTime, finalize, switchMap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-create-account-modal',
@@ -14,11 +19,14 @@ import { EditProfilePictureModalComponent } from 'src/app/components/edit-profil
   styleUrls: ['./create-account-modal.component.scss']
 })
 export class CreateAccountModalComponent implements OnInit {
+  private destroyRef = inject(DestroyRef);
+
   @ViewChild('nameInput') nameInput: ElementRef;
   @ViewChild('emailInput') emailInput: ElementRef;
   @ViewChild('monthInput') monthInput: MatSelect;
   @ViewChild('selectFileButton') selectFileButton!: ElementRef<HTMLInputElement>;
 
+  loaded = true;
   step: number = 1;
   selectDays = []
   selectYears = []
@@ -33,12 +41,18 @@ export class CreateAccountModalComponent implements OnInit {
     confirmationCode: FormControl<string>,
   }>({
     firstName: new FormControl("vinicius", [Validators.required, Validators.maxLength(50)]),
-    email: new FormControl("vnsoliveira@gmail.com", [Validators.required, Validators.email]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     birthDateDay: new FormControl(25, Validators.required),
     birthDateMonth: new FormControl(12, Validators.required),
     birthDateYear: new FormControl(2001, Validators.required),
-    password: new FormControl(null),
+    password: new FormControl("vns123456"),
     confirmationCode: new FormControl(null)
+  });
+
+  usernameForm = new FormGroup<{
+    username: FormControl<string>,
+  }>({
+    username: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(15)])
   });
 
   birthDate: string;
@@ -46,17 +60,34 @@ export class CreateAccountModalComponent implements OnInit {
   hide = true;
   url: any;
   noProfilePicture = '../../../../assets/img/default-profile-background.png';
+  selectedFile: File | null = null;
+
+  suggestedProfiles: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<CreateAccountModalComponent>,
     private router: Router,
-    private dialog: MatDialog
-  ) {
-
-  }
+    private dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver,
+    private accountsService: AccountsService,
+    private snackbar: MatSnackBar,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.fillSelectsOptions();
+
+    this.registerForm.controls['email'].valueChanges.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      debounceTime(200)).subscribe((value) => {
+        this.accountsService.isValidEmail(value).subscribe({
+          next: (res) => {
+            if (!res.validEmail) {
+              this.registerForm.controls['email'].setErrors({ existentEmail: true })
+            }
+          }
+        })
+      })
   }
 
   fillSelectsOptions() {
@@ -98,40 +129,99 @@ export class CreateAccountModalComponent implements OnInit {
       const day = this.registerForm.controls['birthDateDay'].value;
       const month = this.registerForm.controls['birthDateMonth'].value;
       const year = this.registerForm.controls['birthDateYear'].value;
-      this.birthDate = moment(new Date(year + '-' + month + '-' + day)).format('DD/MM/YYYY');
+      this.birthDate = moment.utc(new Date(year + '-' + month + '-' + day)).format('L');
     }
 
   }
 
   sendConfirmationCode() {
-    this.step++;
+    this.loaded = false;
 
-    //service
+    this.accountsService.sendConfirmationCode(this.registerForm.controls['email'].value).subscribe({
+      complete: () => {
+        this.loaded = true;
+        this.step++;
 
-    this.registerForm.controls['confirmationCode'].setValidators([Validators.required]);
-    this.registerForm.controls['confirmationCode'].updateValueAndValidity();
-  }
+        this.registerForm.controls['confirmationCode'].setValidators([Validators.required]);
+        this.registerForm.controls['confirmationCode'].updateValueAndValidity();
+      },
+      error: () => {
+        this.loaded = true;
+        this.snackbar.open(
+          'Erro enviar o código de confirmação. Por favor, tente novamente.',
+          '',
+          { duration: 5000, panelClass: ['snackbarLoginError'] }
+        );
+      }
+    })
 
-  resendConfirmationCode() {
-    this.dialog.open(DidNotReceiveEmailModalComponent, {
-      minWidth: '0px',
-      minHeight: '0px',
-      panelClass: 'transparentModalStyle',
-      backdropClass: 'transparentModalStyleBackdrop',
-      disableClose: false,
-      autoFocus: false
-    });
   }
 
   confirmCode() {
-    this.step++;
-    this.registerForm.controls['password'].setValidators([Validators.required, Validators.minLength(8)]);
-    this.registerForm.controls['password'].updateValueAndValidity();
+    this.loaded = false;
+
+    const payload = {
+      email: this.registerForm.controls['email'].value,
+      code: this.registerForm.controls['confirmationCode'].value
+    }
+
+    this.accountsService.confirmCode(payload).subscribe({
+      complete: () => {
+        this.loaded = true;
+        this.step++;
+
+        this.registerForm.controls['password'].setValidators([Validators.required, Validators.minLength(8)]);
+        this.registerForm.controls['password'].updateValueAndValidity();
+      },
+      error: () => {
+        this.loaded = true;
+        this.snackbar.open(
+          'O código inserido está incorreto. Tente novamente.',
+          '',
+          { duration: 5000, panelClass: ['snackbarLoginError'] }
+        );
+      }
+    })
+
   }
 
-  createAccount() {
-    this.step++;
-    this.router.navigate(['signup'])
+  createprofile() {
+    this.loaded = false;
+
+    const payload = {
+      firstName: this.registerForm.controls['firstName'].value,
+      email: this.registerForm.controls['email'].value,
+      password: this.registerForm.controls['password'].value,
+      birthDate: moment.utc(new Date(this.birthDate)).format('YYYY-MM-DD'),
+      confirmationCode: this.registerForm.controls['confirmationCode'].value
+    }
+
+    this.accountsService.registerUser(payload).subscribe({
+      complete: () => {
+        const payload = {
+          username: this.registerForm.controls['email'].value,
+          password: this.registerForm.controls['password'].value
+        }
+        this.authService.authenticate(payload).subscribe({
+          next: () => {
+            this.loaded = true;
+            this.step++;
+            this.router.navigate(['signup']);
+            this.accountsService.updateFirstAcess().subscribe();
+            this.usernameForm.controls['username'].setValue(sessionStorage.getItem('userName'));
+          }
+        })
+      },
+      error: () => {
+        this.loaded = true;
+        this.snackbar.open(
+          'Desculpe. Houve um erro ao criar a sua conta.',
+          '',
+          { duration: 5000, panelClass: ['snackbarLoginError'] }
+        );
+      }
+    })
+
   }
 
   openFileInput() {
@@ -139,34 +229,154 @@ export class CreateAccountModalComponent implements OnInit {
   }
 
   onSelectFile(event: any): void {
-    if(event.target.files){
+    if (event.target.files) {
       var reader = new FileReader();
+      this.selectedFile = event.target.files[0];
       reader.readAsDataURL(event.target.files[0]);
-      reader.onload=(e:any)=> {
+      reader.onload = (e: any) => {
         const dialogRef = this.dialog.open(EditProfilePictureModalComponent, {
-          width: '600px',
-          minHeight: '660px',
-          maxHeight:'660px',
+          width: '100%',
+          maxWidth: '100vw',
+          maxHeight: '100vh',
           panelClass: 'modalStyle',
           backdropClass: 'transparentModalStyleBackdrop',
           disableClose: true,
           autoFocus: false,
           data: e.target.result
         });
-    
+
         dialogRef.afterClosed().subscribe(imgUrl => {
           if (imgUrl) {
             this.url = imgUrl;
+          } else {
+            this.selectedFile = null;
           }
         });
 
-       this.selectFileButton.nativeElement.value = ''
+        this.breakpointObserver.observe(["(max-width: 700px)"])
+          .subscribe((res) => {
+            if (res.matches) {
+              dialogRef.updateSize('100vw', '100vh');
+              dialogRef.removePanelClass('bordered-dialog');
+              dialogRef.addPanelClass('no-border-dialog');
+            } else {
+              dialogRef.updateSize('600px', '660px');
+              dialogRef.addPanelClass('bordered-dialog');
+              dialogRef.removePanelClass('no-border-dialog');
+            }
+          })
+
+        this.selectFileButton.nativeElement.value = ''
       }
     }
   }
 
+  saveProfilePicture() {
+    this.loaded = false;
+
+    this.accountsService.updateProfilePhoto(this.selectedFile, this.url.imgUrl.position.x, this.url.imgUrl.position.y).subscribe({
+      complete: () => {
+        this.loaded = true;
+        this.step++;
+      },
+      error: () => {
+        this.loaded = true;
+        this.snackbar.open(
+          'Desculpe. Houve um erro ao salvar a sua foto de perfil.',
+          '',
+          { duration: 5000, panelClass: ['snackbarLoginError'] }
+        );
+      }
+    })
+
+  }
+
+  patchUsername() {
+    this.loaded = false;
+
+    this.accountsService.updateUsername(this.usernameForm.controls['username'].value).subscribe({
+      complete: () => {
+        this.loaded = true;
+        this.step++;
+
+        this.loadVerifiedUsers();
+      },
+      error: () => {
+        this.loaded = true;
+        this.snackbar.open(
+          'Desculpe. Houve um erro ao definir o seu nome de usuário.',
+          '',
+          { duration: 5000, panelClass: ['snackbarLoginError'] }
+        );
+      }
+    })
+  }
+
+  loadVerifiedUsers() {
+    this.loaded = false;
+
+    this.accountsService.getVerifiedUsers().subscribe({
+      next: (res) => {
+        this.loaded = true;
+        this.suggestedProfiles = res;
+      },
+      error: () => {
+        this.loaded = true;
+      }
+    })
+  }
+
+  followUser(userIdentifier) {
+    this.accountsService.followUser(userIdentifier).subscribe({
+      complete: () => {
+        let profile = this.suggestedProfiles.find(profile => profile.userIdentifier === userIdentifier);
+        profile.isFollowedByMe = !profile.isFollowedByMe;
+      },
+      error: () => {
+        this.loaded = true;
+        this.snackbar.open(
+          'Desculpe, houve algum erro. Por favor, tente novamente.',
+          '',
+          { duration: 5000, panelClass: ['snackbarLoginError'] }
+        );
+      }
+    })
+  }
+
+  finalizeRegistration() {
+    this.dialogRef.close();
+    this.router.navigate(['/home'])
+  }
+
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  convertBytesToURL(profilePictureBytes) {
+    return `data:image/jpeg;base64,${profilePictureBytes}`;
+  }
+
+  openUnfollowConfirmationModal(profile) {
+    const dialogRef = this.dialog.open(UnfollowConfirmationModalComponent, {
+      maxWidth: '320px',
+      panelClass: 'bordered-dialog',
+      backdropClass: 'modalStyleBackdrop',
+      disableClose: false,
+      autoFocus: false,
+      data: profile
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          this.followUser(profile.userIdentifier);
+        }
+      }
+    })
+  }
+
+  isFollowingAtLeast1Account() {
+    return this.suggestedProfiles.find(p => p.isFollowedByMe == true);
   }
 
 }

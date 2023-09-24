@@ -1,23 +1,31 @@
-<div style="padding: 16px;">
-  <div *ngIf="step < 5" style="height: 30px;" fxLayout="row" fxLayoutAlign=" center">
+<div style="height: 100%; width: 100%;">
+  <div *ngIf="!loaded" style="height: 100%; width: 100%;" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner [diameter]="30"></mat-spinner>
+  </div>
+
+
+  <div *ngIf="step < 5 && loaded" style="padding: 16px; height: 10%; width: 100%;" fxLayout="row"
+    fxLayoutAlign=" center">
     <mat-icon *ngIf="step == 1" style="margin-right: 35px" class="cursorPointer" (click)="closeDialog()">close
     </mat-icon>
-    <mat-icon *ngIf="step != 1 && step < 4" style="margin-right: 35px" class="cursorPointer" (click)="back()">
+    <mat-icon *ngIf="step != 1 && step < 4 && loaded" style="margin-right: 35px" class="cursorPointer" (click)="back()">
       keyboard_backspace
     </mat-icon>
     <span class="dialogSteps">Etapa {{step}} de 4</span>
   </div>
 
-  <div *ngIf="step > 4" style="height: 30px;" fxLayout="row" fxLayoutAlign="center center">
+  <div *ngIf="step > 4 && loaded" style="height: 10%;" fxLayout="row" fxLayoutAlign="center center">
     <img src="../../../../assets/img/twitter-x-logo.png" style="width: 30px; height: 30px;">
   </div>
 
-  <form [formGroup]="registerForm">
+
+  <form *ngIf="(step == 1 || step == 2 || step == 3 || step == 4) && loaded" [formGroup]="registerForm"
+    style="width: 100%; height: 90%;">
     <!--STEP 1-->
-    <div *ngIf="step == 1" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div *ngIf="step == 1 && loaded" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
 
       <div fxLayout="column">
-        <span class="title">Criar sua conta</span>
+        <span class="dialogTitle">Criar sua conta</span>
 
         <mat-form-field class="textFormField" style="margin-bottom: -1.25em;">
           <mat-label>Nome</mat-label>
@@ -39,20 +47,24 @@
           *ngIf="registerForm.controls['email'].hasError('email') && registerForm.controls['email'].touched">
           Insira um e-mail válido.
         </small>
+        <small class="formFieldError"
+          *ngIf="registerForm.controls['email'].hasError('existentEmail')">
+          Este e-mail já está sendo utilizado.
+        </small>
 
         <div fxLayout="row" fxLayoutAlign="end" style="margin-top: 1.25em;">
           <span class="blockCursor blueLinks">Usar o telefone</span>
         </div>
 
         <div>
-          <div class="sideNavMenuProfileButtonName" style="margin: 10px 0;">Data de nascimento</div>
+          <div class="userFirstName" style="margin: 10px 0;">Data de nascimento</div>
           <span style="color: rgb(113, 118, 123);">
             Isso não será exibido publicamente. Confirme sua própria idade, mesmo se
             esta conta for de empresa, de um animal de estimação ou outros.
           </span>
 
           <div fxLayout="row" fxLayoutGap="10" style="margin-top: 20px;">
-            <mat-form-field fxFlex="50" floatLabel="always" class="selectFormField">
+            <mat-form-field fxFlex="50" fxFlex.lt-sm="40" floatLabel="always" class="selectFormField">
               <mat-label> Mês </mat-label>
               <mat-select formControlName="birthDateMonth" #monthInput>
                 <mat-option [value]="01" class="opcaoTodos"> Janeiro </mat-option>
@@ -71,7 +83,7 @@
               <mat-icon matSuffix class="matSelectSuffixArrow">keyboard_arrow_down</mat-icon>
             </mat-form-field>
 
-            <mat-form-field fxFlex="21" floatLabel="always" class="selectFormField">
+            <mat-form-field fxFlex="21" fxFlex.lt-sm="30" floatLabel="always" class="selectFormField">
               <mat-label> Dia </mat-label>
               <mat-select formControlName="birthDateDay">
                 <mat-option *ngFor="let day of selectDays" [value]="day"> {{day}} </mat-option>
@@ -79,7 +91,7 @@
               <mat-icon matSuffix class="matSelectSuffixArrow">keyboard_arrow_down</mat-icon>
             </mat-form-field>
 
-            <mat-form-field fxFlex="29" floatLabel="always" class="selectFormField">
+            <mat-form-field fxFlex="29" fxFlex.lt-sm="30" floatLabel="always" class="selectFormField">
               <mat-label> Ano </mat-label>
               <mat-select formControlName="birthDateYear">
                 <mat-option *ngFor="let year of selectYears" [value]="year"> {{year}} </mat-option>
@@ -97,9 +109,9 @@
     </div>
 
     <!--STEP 2-->
-    <div *ngIf="step == 2" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div *ngIf="step == 2 && loaded" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
       <div fxLayout="column">
-        <span class="title">Criar sua conta</span>
+        <span class="dialogTitle">Criar sua conta</span>
 
         <mat-form-field class="successFormField" (click)="redirectFocus('nameInput')">
           <mat-label>Nome</mat-label>
@@ -144,21 +156,17 @@
     </div>
 
     <!--STEP 3-->
-    <div *ngIf="step == 3" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div *ngIf="step == 3 && loaded" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
       <div fxLayout="column">
-        <span class="confirmationCodeTitle">Enviamos um código para você</span>
+        <span class="dialogTitleWithSubtitle">Enviamos um código para você</span>
 
-        <span class="confirmationCodeSubtitle">Insira-o abaixo para verificar
+        <span class="dialogSubtitle">Insira-o abaixo para verificar
           {{registerForm.controls['email'].value}}</span>
 
         <mat-form-field class="noInvisibleDivFormField">
           <mat-label>Código de verificação</mat-label>
           <input matInput formControlName="confirmationCode">
         </mat-form-field>
-        <small class="blueLinks cursorPointer" style="font-size: 13px; padding-left: 10px;"
-          (click)="resendConfirmationCode()">
-          Não recebeu o e-mail?
-        </small>
       </div>
 
       <div fxLayout="column">
@@ -169,11 +177,11 @@
     </div>
 
     <!--STEP 4-->
-    <div *ngIf="step == 4" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div *ngIf="step == 4 && loaded" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
       <div fxLayout="column">
-        <span class="confirmationCodeTitle">Você precisará de uma senha</span>
+        <span class="dialogTitleWithSubtitle">Você precisará de uma senha</span>
 
-        <span class="confirmationCodeSubtitle">É preciso ter 8 caracteres ou mais.</span>
+        <span class="dialogSubtitle">É preciso ter 8 caracteres ou mais.</span>
 
         <mat-form-field class="noInvisibleDivFormField passwordFormField">
           <mat-label>Senha</mat-label>
@@ -188,7 +196,7 @@
       </div>
 
       <div fxLayout="column">
-        <button mat-flat-button class="advanceButton" (click)="createAccount()" [disabled]="registerForm.invalid">
+        <button mat-flat-button class="advanceButton" (click)="createprofile()" [disabled]="registerForm.invalid">
           <span>Avançar</span>
         </button>
       </div>
@@ -196,39 +204,149 @@
   </form>
 
   <!--STEP 5 (PROFILE PICTURE)-->
-  <div *ngIf="step == 5" class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
-    <div fxLayout="column">
-      <span class="confirmationCodeTitle">Escolher uma foto de perfil</span>
+  <div *ngIf="step == 5 && loaded" style="width: 100%; height: 90%;">
+    <div class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div fxLayout="column">
+        <span class="dialogTitleWithSubtitle">Escolher uma foto de perfil</span>
 
-      <span class="confirmationCodeSubtitle">Tem uma selfie favorita? Carregue agora.</span>
+        <span class="dialogSubtitle">Tem uma selfie favorita? Carregue agora.</span>
 
-    </div>
+      </div>
 
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <div class="selectProfilePicture" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20" style="background-image: url('{{url ? url.imgUrl.dataURL : noProfilePicture}}'); 
-      background-position-x: '{{url ? url.imgUrl.position.x ? url.imgUrl.position.x : 0 : 0 }}'; 
-      background-position-y: '{{url ? url.imgUrl.position.y ? url.imgUrl.position.y : 0 : 0}}'">
-        <input #selectFileButton type="file" (change)="onSelectFile($event)" accept="image/*" hidden>
-        <button mat-mini-fab (click)="openFileInput()">
-          <mat-icon>add_a_photo</mat-icon>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="selectProfilePicture" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20" style="background-image: url('{{url ? url.imgUrl.dataURL : noProfilePicture}}'); 
+        background-position-x: '{{url ? url.imgUrl.position.x ? url.imgUrl.position.x : 0 : 0 }}'; 
+        background-position-y: '{{url ? url.imgUrl.position.y ? url.imgUrl.position.y : 0 : 0}}'">
+          <input #selectFileButton type="file" (change)="onSelectFile($event)" accept="image/*" hidden>
+          <button mat-mini-fab (click)="openFileInput()">
+            <mat-icon>add_a_photo</mat-icon>
+          </button>
+          <button mat-mini-fab *ngIf="url" (click)="url = null; selectedFile = null">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div fxLayout="column">
+
+        <button mat-flat-button class="advanceButton" *ngIf="url" (click)="saveProfilePicture()">
+          <span>Avançar</span>
         </button>
-        <button mat-mini-fab *ngIf="url" (click)="url = null">
-          <mat-icon>close</mat-icon>
+
+        <button mat-flat-button class="ignoreButton" *ngIf="!url" (click)="step = step + 1">
+          <span>Ignorar por enquanto</span>
         </button>
+
       </div>
     </div>
+  </div>
 
-    <div fxLayout="column">
 
-      <button mat-flat-button class="advanceButton" *ngIf="url">
+  <!--STEP 6 (CHANGE/CHOOSE @USERNAME )-->
+  <form *ngIf="step == 6 && loaded" [formGroup]="usernameForm" style="width: 100%; height: 90%;">
+    <div class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div fxLayout="column">
+        <span class="dialogTitleWithSubtitle">Como devemos chamar você?</span>
+
+        <span class="dialogSubtitle">Seu nome de usuário é exclusivo. Você sempre pode alterá-lo depois.</span>
+
+        <mat-form-field class="successFormField">
+          <mat-label>Nome de usuário</mat-label>
+          <input matInput formControlName="username">
+          <mat-hint *ngIf="usernameForm.controls['username'].invalid" matSuffix>
+            <mat-icon>error</mat-icon>
+          </mat-hint>
+          <mat-hint *ngIf="!usernameForm.controls['username'].invalid" matSuffix>
+            <mat-icon>done</mat-icon>
+          </mat-hint>
+        </mat-form-field>
+
+        <small class="formFieldError"
+          *ngIf="usernameForm.controls['username'].hasError('minlength') && usernameForm.controls['username'].touched">
+          Seu nome de usuário deve conter mais de 4 caracteres.
+        </small>
+
+        <small class="formFieldError"
+          *ngIf="usernameForm.controls['username'].hasError('maxlength') && usernameForm.controls['username'].touched">
+          Seu nome de usuário deve ter menos de 15 caracteres.
+        </small>
+      </div>
+
+      <button mat-flat-button class="advanceButton" [disabled]="usernameForm.invalid" (click)="patchUsername()">
         <span>Avançar</span>
       </button>
 
-      <button mat-flat-button class="ignoreButton" *ngIf="!url">
-        <span>Ignorar por enquanto</span>
-      </button>
-
     </div>
-  </div>
+  </form>
+
+  <!--STEP 7 (FOLLOW AT LEAST 1 USER) -->
+  <form [formGroup]="usernameForm" *ngIf="step == 7 && loaded" style="width: 100%; height: 90%;">
+    <div class="mainContent" fxLayout="column" fxLayoutAlign="space-between stretch" style="padding: 0;">
+      <div fxLayout="column" style="height: 85%;" class="suggestedProfiles">
+        <span class="dialogTitleWithSubtitle">Não perca</span>
+
+        <span class="dialogSubtitle">
+          Ao seguir uma pessoa, você verá os Tweets dela na sua timeline.
+          Você também receberá recomendações mais relevantes.
+        </span>
+
+        <div fxLayout="column" fxLayoutGap="20" style="padding: 20px">
+          <span style="font-size: 21px; font-weight: 600; font-family: 'TwitterChirp' !important;">
+            Seguir 1 ou mais contas
+          </span>
+
+          <div fxLayout="row" fxLayoutGap="10" *ngFor="let profile of suggestedProfiles">
+            <div fxFlex="10" fxFlex.lt-xl="15" fxLayoutAlign="center start">
+              <div class="profilePicture" fxLayout="row" fxLayoutAlign="center center"
+                style="width: 40px; height: 40px;
+                background-position-x: '{{profile.profilePhoto?.photo ? profile.profilePhoto.xposition ? profile.profilePhoto.xposition : 100 : 0 }}'; 
+                background-position-y: '{{profile.profilePhoto?.photo ? profile.profilePhoto.yposition ? profile.profilePhoto.yposition : 100 : 0}}';
+                background-image: url('{{profile.profilePhoto?.photo ? convertBytesToURL(profile.profilePhoto.photo) : noProfilePicture}}');">
+              </div>
+            </div>
+            <div fxFlex="90" fxFlex.lt-xl="85" fxLayout="column" fxLayoutGap="4">
+
+              <div fxLayout="row" fxLayoutGap="10">
+                <div fxLayout="column" fxLayoutGap="4"
+                [fxFlex]="profile.isFollowedByMe ? '70' : '78'" 
+                [fxFlex.lt-sm]="profile.isFollowedByMe ? '65' : '70'" 
+                [fxFlex.xs]="profile.isFollowedByMe ? '55' : '65'">
+                  <span class="userFirstName" fxLayout="row" fxFlexAlign="center center"> 
+                    {{ profile.firstName }}<img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+                  </span>
+                  <span class="userUsername">
+                     @{{ profile.username }} 
+                  </span>
+                </div>
+                <div fxLayoutAlign="center center"
+                [fxFlex]="profile.isFollowedByMe ? '30' : '22'" 
+                [fxFlex.sm]="profile.isFollowedByMe ? '35' : '30'" 
+                [fxFlex.xs]="profile.isFollowedByMe ? '45' : '35'">
+                  <!--Botão 'SEGUIR'-->
+                  <button *ngIf="!profile.isFollowedByMe" class="followButton" (click)="followUser(profile.userIdentifier)">
+                    <span>Seguir</span>
+                  </button>
+                   <!--Botão 'SEGUINDO'-->
+                  <app-following-button *ngIf="profile.isFollowedByMe" style="width: 100%;" (click)="openUnfollowConfirmationModal(profile)"></app-following-button>
+                </div>
+              </div>
+
+              <div>
+                <span class="userBiography"> {{ profile.biography }} </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center"
+        style="height: 15%; padding: 0px 80px 20px 80px; border-top: 1px solid rgb(89, 91, 94);">
+        <button mat-flat-button class="advanceButton" [disabled]="usernameForm.invalid || !isFollowingAtLeast1Account()"
+          (click)="finalizeRegistration()">
+          <span>Próxima</span>
+        </button>
+      </div>
+    </div>
+  </form>
 
 </div>

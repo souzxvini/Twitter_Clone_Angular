@@ -38,6 +38,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import '@angular/common/locales/global/pt';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MatMomentDateModule } from '@angular/material-moment-adapter';
 
 // CDK
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -157,6 +158,7 @@ export function datePipeFactory() {
   ],
   providers: [
     { provide: LOCALE_ID, useFactory: localeFactory },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_DATE_LOCALE, useFactory: localeFactory },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     { provide: DATE_PIPE_DEFAULT_OPTIONS, useFactory: datePipeFactory },

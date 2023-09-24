@@ -1,0 +1,18 @@
+<div fxLayout="column" style="padding: 32px">
+  <span class="smallerDialogTitleWithSubtitle">
+    Unfollow @{{data.username }}?
+  </span>
+  <span class="dialogSubtitle">
+    Their Tweets will no longer show up in your home timeline. You can still view their profile, unless their Tweets are
+    protected.
+  </span>
+  <div fxLayout="column"fxLayoutGap="10">
+    <button class="whiteButton cursorPointer" style="padding: 12px" (click)="confirmUnfollow()">
+      Unfollow
+    </button>
+    <button class="transparentButton cursorPointer" style="padding: 12px" matDialogClose>
+      Cancel
+    </button>
+  </div>
+
+</div>
