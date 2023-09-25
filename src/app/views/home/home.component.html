@@ -2,7 +2,7 @@
   <div class="mainContainer">
     <div id="mainContainerHeader" class="mainContainerHeader">
       <div class="mainContainerTitle">
-        <span>Home</span>
+        <span>Página Inicial</span>
       </div>
       <div class="mainContainerHeaderMobile">
         <div style="width:33%; height: 6vh; display: flex; align-items: center;">
@@ -18,22 +18,18 @@
 
         </div>
       </div>
-      <div class="mainContainerTabs">
-        <button class="bigButtonOnGroup" (click)="tabState = 'stateForYou'"
+      <div fxLayout="row">
+        <button fxFlex class="bigButtonOnGroup" (click)="tabState = 'stateForYou'"
           [class.bigButtonOnGroupActive]="tabState == 'stateForYou'">
-          <div>
-            <div></div>
-            <span>For you</span>
-            <div [class.bigButtonOnGroupActiveBorder]="tabState == 'stateForYou'"></div>
-          </div>
+          <div></div>
+          <span>Para você</span>
+          <div [class.bigButtonOnGroupActiveBorder]="tabState == 'stateForYou'"></div>
         </button>
-        <button class="bigButtonOnGroup" (click)="tabState = 'stateFollowing'"
+        <button fxFlex class="bigButtonOnGroup" (click)="tabState = 'stateFollowing'"
           [class.bigButtonOnGroupActive]="tabState == 'stateFollowing'">
-          <div>
-            <div></div>
-            <span>Following</span>
-            <div [class.bigButtonOnGroupActiveBorder]="tabState == 'stateFollowing'"></div>
-          </div>
+          <div></div>
+          <span>Seguindo</span>
+          <div [class.bigButtonOnGroupActiveBorder]="tabState == 'stateFollowing'"></div>
         </button>
       </div>
     </div>

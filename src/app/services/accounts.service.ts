@@ -89,6 +89,14 @@ export class AccountsService {
     return this.http.get<any>(API + '/accounts/v1/user/search/isvalidemail', { params });
   }
 
+   //GET /v1/user/search/isvaliduser
+  verifyIfUsernameExists(username: string){
+    let params: HttpParams = new HttpParams();
+    params = params.append('username', username);
+
+    return this.http.get<any>(API + '/accounts/v1/user/search/isvaliduser', { params });
+  }
+
   //USER-INTERACTIONS-CONTROLLER
 
   //PATCH /v1/user/interactions/followtoggle/{identifier}

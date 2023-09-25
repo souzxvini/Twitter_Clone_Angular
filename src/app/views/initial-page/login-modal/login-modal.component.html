@@ -1,4 +1,8 @@
-<div style="height: 100%; width: 100%;">
+<div *ngIf="!loaded" style="height: 100%; width: 100%;" fxLayout="row" fxLayoutAlign="center center">
+  <mat-spinner [diameter]="30"></mat-spinner>
+</div>
+
+<div *ngIf="loaded" style="height: 100%; width: 100%;">
   <div style="padding: 16px; width: 100%; height: 10%;" fxLayout="row" fxLayoutAlign="space-between center">
     <mat-icon fxflex="10" class="cursorPointer" mat-dialog-close>close</mat-icon>
     <img fxflex="80" fxLayout="row" fxLayoutAlign="center center" src="../../../../assets/img/twitter-x-logo.png"
@@ -57,7 +61,7 @@
 
         <form [formGroup]="loginForm" fxLayout="column">
           <mat-form-field>
-            <mat-label>Nome de usuário</mat-label>
+            <mat-label>{{isEmail ? 'E-mail': 'Nome de usuário'}}</mat-label>
             <input matInput formControlName="username">
           </mat-form-field>
 

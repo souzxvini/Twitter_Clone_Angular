@@ -11,7 +11,8 @@ const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'home', loadChildren: () => import('../app/views/home/home.module').then((m) => m.HomeModule) }
+      { path: 'home', loadChildren: () => import('../app/views/home/home.module').then((m) => m.HomeModule) },
+      { path: 'profile', loadChildren: () => import('../app/views/profile/profile.module').then((m) => m.ProfileModule) }
     ]
   },
   //Pagina inicial

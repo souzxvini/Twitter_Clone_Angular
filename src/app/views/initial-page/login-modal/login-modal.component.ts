@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CreateAccountModalComponent } from '../create-account-modal/create-account-modal.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { AccountsService } from 'src/app/services/accounts.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -18,6 +19,9 @@ export class LoginModalComponent {
   registerModal = false;
   hide = true;
 
+  loaded = true;
+  isEmail: boolean;
+
   loginForm = new FormGroup<{
     username: FormControl<string>,
     password: FormControl<string>,
@@ -29,6 +33,7 @@ export class LoginModalComponent {
   constructor(
     public dialogRef: MatDialogRef<LoginModalComponent>,
     private authService: AuthService,
+    private accountsService: AccountsService,
     private router: Router,
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
@@ -36,23 +41,50 @@ export class LoginModalComponent {
   ) { }
 
   verifyIfUsernameExists() {
-    this.firstStepLogin = false;
-    this.loginForm.controls['password'].setValidators(Validators.required);
-    this.loginForm.controls['password'].updateValueAndValidity();
-    this.loginForm.controls['username'].disable();
+    this.loaded = false;
+
+    this.accountsService.verifyIfUsernameExists(this.loginForm.controls['username'].value).subscribe({
+      next: (res) => {
+        if (res.validUser) {
+          this.firstStepLogin = false;
+          this.loginForm.controls['password'].setValidators(Validators.required);
+          this.loginForm.controls['password'].updateValueAndValidity();
+          this.loginForm.controls['username'].disable();
+          this.isEmail = res.isEmail ? true : false;
+        } else{
+          this.snackbar.open(
+            'Desculpe, mas não encontramos sua conta.',
+            '',
+            { duration: 5000, panelClass: ['snackbarLoginError'] }
+          );
+        }
+        this.loaded = true;
+      },
+      error: () => {
+        this.loaded = true;
+        this.snackbar.open(
+          'Desculpe, houve um erro. Por favor, tente novamente.',
+          '',
+          { duration: 5000, panelClass: ['snackbarLoginError'] }
+        );
+      }
+    })
   }
 
   login() {
+    this.loaded = false;
     const payload = {
       username: this.loginForm.controls['username'].value,
       password: this.loginForm.controls['password'].value
     }
     this.authService.authenticate(payload).subscribe({
       next: () => {
+        this.loaded = true;
         this.dialogRef.close();
         this.router.navigate(['/home']);
       },
       error: () => {
+        this.loaded = true;
         this.snackbar.open(
           'Senha incorreta.',
           '',
@@ -86,6 +118,6 @@ export class LoginModalComponent {
         }
       })
 
-      this.dialogRef.close();
+    this.dialogRef.close();
   }
 }

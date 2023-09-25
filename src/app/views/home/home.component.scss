@@ -31,64 +31,6 @@
   margin-left: 17px;
 }
 
-.mainContainerTabs {
-  width: 100%;
-  border: none !important;
-  border-radius: 0px !important;
-  display: flex;
-}
-
-.bigButtonOnGroup {
-  width: 50%;
-  color: rgb(97, 109, 121) !important;
-  font-size: 15px;
-  font-weight: 500;
-  background-color: transparent !important;
-  border: none !important;
-  transition: background-color 0.2s ease-in-out;
-  padding: 16px 0;
-}
-
-.bigButtonOnGroup:hover {
-  background-color: rgba(255, 255, 255, 0.07) !important;
-  cursor: pointer;
-}
-
-.bigButtonOnGroupActive {
-  height: 100%;
-  color: #f7f9f9 !important;
-  font-weight: 600 !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.bigButtonOnGroupActive div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.bigButtonOnGroupActive:hover {
-  background-color: rgba(255, 255, 255, 0.07);
-}
-
-.bigButtonOnGroupActiveBorder {
-  display: inline-flex;
-  bottom: 0;
-  position: absolute;
-  align-self: center;
-  min-width: 56px;
-  height: 4px;
-  background-color: rgb(29, 155, 240);
-  border-bottom-left-radius: 9999px;
-  border-bottom-right-radius: 9999px;
-  border-top-left-radius: 9999px;
-  border-top-right-radius: 9999px;
-}
-
 .mainContainerTweet{
   width: 100%;
 }
