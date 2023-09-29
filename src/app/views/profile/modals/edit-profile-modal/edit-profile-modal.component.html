@@ -1,0 +1,96 @@
+<div style="height: 100%; width: 100%; overflow-y: scroll;">
+  <div
+    style="padding: 0 16px; height: 53px; width: 100%; position: sticky; top: 0; background-color: rgba(0, 0, 0, 0.65); backdrop-filter: blur(12px);"
+    fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayoutAlign=" center" fxLayoutGap="30" fxLayoutGap="30">
+      <button mat-mini-fab mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+      <span class="dialogSteps">Editar perfil</span>
+    </div>
+    <button class="whiteButton cursorPointer _32pxButton" style="padding: 0px 16px;">
+      Salvar
+    </button>
+  </div>
+
+  <form [formGroup]="editProfileForm" style="width: 100%;">
+    <div fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div class="profileBackground" style="border: 2px solid rgb(0, 0, 0);">
+        <div style="height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.3);" fxLayout="row"
+          fxLayoutAlign="center center">
+          <div fxLayout="row" fxLayoutGap="30">
+            <button mat-mini-fab class="selectPhotoIconButton">
+              <mat-icon>add_a_photo</mat-icon>
+            </button>
+
+            <button mat-mini-fab class="selectPhotoIconButton">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayoutGap="20" style="padding: 0 12px 60px 12px">
+        <div>
+          <div class="profileUserPicture">
+            <div class="picture" [style]="setProfilePhoto(data.profilePhoto?.photo)">
+              <div style="height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.3); border-radius: 100%;" fxLayout="row"
+                fxLayoutAlign="center center">
+                <button mat-mini-fab class="selectPhotoIconButton">
+                  <mat-icon>add_a_photo</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <mat-form-field class="textFormField noInvisibleDivFormField">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="firstName" #nameInput maxlength="50">
+          <mat-hint matSuffix>
+            {{editProfileForm.controls['firstName'].value ? editProfileForm.controls['firstName'].value.length : '0'}}/50
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="textAreaFormField noInvisibleDivFormField">
+          <mat-label>Bio</mat-label>
+          <textarea matInput formControlName="biography" #nameInput maxlength="160"></textarea>
+          <mat-hint matSuffix>
+            {{editProfileForm.controls['biography'].value ? editProfileForm.controls['biography'].value.length : '0'}}/160
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="textFormField noInvisibleDivFormField">
+          <mat-label>Location</mat-label>
+          <input matInput formControlName="location" #nameInput maxlength="50">
+          <mat-hint matSuffix>
+            {{editProfileForm.controls['location'].value ? editProfileForm.controls['location'].value.length : '0'}}/50
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="textFormField noInvisibleDivFormField">
+          <mat-label>Site</mat-label>
+          <input matInput formControlName="site" #nameInput maxlength="50">
+          <mat-hint matSuffix>
+            {{editProfileForm.controls['site'].value ? editProfileForm.controls['site'].value.length : '0'}}/50
+          </mat-hint>
+        </mat-form-field>
+
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutCenter="start center" fxLayoutGap="10">
+            <span style="color: rgb(113, 118, 123); font-size: 15px;">Data de nascimento</span>
+            <a class="blueLinks cursorPointer" style="font-size: 15px;">Editar</a>
+          </div>
+          <div fxLayout="row">
+            <span style="font-size: 20px;">25 de Dezembro de 2023</span>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="blockCursor">
+          <span style="font-size: 20px;">Alterar para Profissional</span> <mat-icon>keyboard_arrow_right</mat-icon>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

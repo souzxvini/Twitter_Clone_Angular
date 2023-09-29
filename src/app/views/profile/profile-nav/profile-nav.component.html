@@ -1,0 +1,26 @@
+<div fxLayout="row" style="margin-top: 15px; border-bottom: 1px solid rgb(56, 68, 77);">
+  <button fxFlex class="bigButtonOnGroup" (click)="tabState = 'statePosts'"
+    [class.bigButtonOnGroupActive]="tabState == 'statePosts'">
+    <div></div>
+    <span>Posts</span>
+    <div [class.bigButtonOnGroupActiveBorder]="tabState == 'statePosts'"></div>
+  </button>
+  <button fxFlex class="bigButtonOnGroup" (click)="tabState = 'stateRespostas'"
+    [class.bigButtonOnGroupActive]="tabState == 'stateRespostas'">
+    <div></div>
+    <span>Respostas</span>
+    <div [class.bigButtonOnGroupActiveBorder]="tabState == 'stateRespostas'"></div>
+  </button>
+  <button fxFlex class="bigButtonOnGroup" (click)="tabState = 'stateMidias'"
+    [class.bigButtonOnGroupActive]="tabState == 'stateMidias'">
+    <div></div>
+    <span>Mídia</span>
+    <div [class.bigButtonOnGroupActiveBorder]="tabState == 'stateMidias'"></div>
+  </button>
+  <button fxFlex class="bigButtonOnGroup" (click)="tabState = 'stateCurtidas'"
+    [class.bigButtonOnGroupActive]="tabState == 'stateCurtidas'">
+    <div></div>
+    <span>Curtidas</span>
+    <div [class.bigButtonOnGroupActiveBorder]="tabState == 'stateCurtidas'"></div>
+  </button>
+</div>

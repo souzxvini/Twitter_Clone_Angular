@@ -102,7 +102,7 @@
         </div>
       </div>
 
-      <button mat-flat-button class="advanceButton" (click)="advance()" [disabled]="registerForm.invalid">
+      <button class="whiteButton _52pxButton cursorPointer" (click)="advance()" [disabled]="registerForm.invalid">
         <span>Avançar</span>
       </button>
 
@@ -138,7 +138,7 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="column">
+      <div fxLayout="column" fxLayoutGap="20">
         <span style="color: rgb(113, 118, 123); font-size: 13px;">
           Ao se inscrever, você concorda com nossos <a class="blueLinks blockCursor">Termos</a>, com a
           <a class="blueLinks blockCursor">Política de Privacidade</a> e com o <a class="blueLinks blockCursor">Uso de
@@ -148,7 +148,7 @@
           os fins descritos na nossa Política de Privacidade. <a class="blueLinks blockCursor">Saiba mais</a>
         </span>
 
-        <button mat-flat-button class="sideNavMenuTweetButton" (click)="sendConfirmationCode()"
+        <button class="blueButton _52pxButton cursorPointer" (click)="sendConfirmationCode()"
           [disabled]="registerForm.invalid">
           <span>Inscrever-se</span>
         </button>
@@ -170,7 +170,7 @@
       </div>
 
       <div fxLayout="column">
-        <button mat-flat-button class="advanceButton" (click)="confirmCode()" [disabled]="registerForm.invalid">
+        <button class="whiteButton _52pxButton cursorPointer" (click)="confirmCode()" [disabled]="registerForm.invalid">
           <span>Avançar</span>
         </button>
       </div>
@@ -196,7 +196,7 @@
       </div>
 
       <div fxLayout="column">
-        <button mat-flat-button class="advanceButton" (click)="createprofile()" [disabled]="registerForm.invalid">
+        <button class="whiteButton _52pxButton cursorPointer" (click)="createprofile()" [disabled]="registerForm.invalid">
           <span>Avançar</span>
         </button>
       </div>
@@ -214,7 +214,7 @@
       </div>
 
       <div fxLayout="row" fxLayoutAlign="center center">
-        <div class="selectProfilePicture" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20" style="background-image: url('{{url ? url.imgUrl.dataURL : noProfilePicture}}'); 
+        <div class="selectProfilePicture" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20" style="background-image: url('{{url ? url.imgUrl.dataURL : noProfilePicture()}}'); 
         background-position-x: '{{url ? url.imgUrl.position.x ? url.imgUrl.position.x : 0 : 0 }}'; 
         background-position-y: '{{url ? url.imgUrl.position.y ? url.imgUrl.position.y : 0 : 0}}'">
           <input #selectFileButton type="file" (change)="onSelectFile($event)" accept="image/*" hidden>
@@ -229,11 +229,11 @@
 
       <div fxLayout="column">
 
-        <button mat-flat-button class="advanceButton" *ngIf="url" (click)="saveProfilePicture()">
+        <button class="whiteButton _52pxButton cursorPointer" *ngIf="url" (click)="saveProfilePicture()">
           <span>Avançar</span>
         </button>
 
-        <button mat-flat-button class="ignoreButton" *ngIf="!url" (click)="step = step + 1">
+        <button class="transparentButton _52pxButton cursorPointer"*ngIf="!url" (click)="step = step + 1">
           <span>Ignorar por enquanto</span>
         </button>
 
@@ -272,7 +272,7 @@
         </small>
       </div>
 
-      <button mat-flat-button class="advanceButton" [disabled]="usernameForm.invalid" (click)="patchUsername()">
+      <button class="whiteButton _52pxButton cursorPointer" [disabled]="usernameForm.invalid" (click)="patchUsername()">
         <span>Avançar</span>
       </button>
 
@@ -297,11 +297,7 @@
 
           <div fxLayout="row" fxLayoutGap="10" *ngFor="let profile of suggestedProfiles">
             <div fxFlex="10" fxFlex.lt-xl="15" fxLayoutAlign="center start">
-              <div class="profilePicture" fxLayout="row" fxLayoutAlign="center center"
-                style="width: 40px; height: 40px;
-                background-position-x: '{{profile.profilePhoto?.photo ? profile.profilePhoto.xposition ? profile.profilePhoto.xposition : 100 : 0 }}'; 
-                background-position-y: '{{profile.profilePhoto?.photo ? profile.profilePhoto.yposition ? profile.profilePhoto.yposition : 100 : 0}}';
-                background-image: url('{{profile.profilePhoto?.photo ? convertBytesToURL(profile.profilePhoto.photo) : noProfilePicture}}');">
+              <div class="profilePicture" style="width: 40px; height: 40px;" [style]="setProfilePhoto(profile.profilePhoto?.photo)">
               </div>
             </div>
             <div fxFlex="90" fxFlex.lt-xl="85" fxLayout="column" fxLayoutGap="4">
@@ -339,9 +335,9 @@
         </div>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="center center"
+      <div fxLayout="column" fxLayoutAlign="center stretch" 
         style="height: 15%; padding: 0px 80px 20px 80px; border-top: 1px solid rgb(89, 91, 94);">
-        <button mat-flat-button class="advanceButton" [disabled]="usernameForm.invalid || !isFollowingAtLeast1Account()"
+        <button class="whiteButton _52pxButton cursorPointer" [disabled]="usernameForm.invalid || !isFollowingAtLeast1Account()"
           (click)="finalizeRegistration()">
           <span>Próxima</span>
         </button>

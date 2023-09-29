@@ -28,16 +28,25 @@ export class HomeComponent implements OnInit {
   }
 
   scroll = (event): void => {
+    const mainContainerHeader = document.getElementById("mainContainerHeader");
     this.isHandset$.subscribe(isHandset => {
       if (isHandset) {
         if (event.srcElement.scrollTop < this.prevScrollpos) {
-          document.getElementById("mainContainerHeader").style.top = "0";
+          if (mainContainerHeader) {
+            mainContainerHeader.style.top = "0";
+          }
         } else {
-          document.getElementById("mainContainerHeader").style.top = "-6vh";
+          if (mainContainerHeader) {
+            mainContainerHeader.style.top = "-6vh";
+          }
         }
         this.prevScrollpos = event.srcElement.scrollTop;
       } else {
-        document.getElementById("mainContainerHeader").style.top = "0";
+        if (mainContainerHeader) {
+          mainContainerHeader.style.top = "0";
+
+        }
+
       }
     });
 

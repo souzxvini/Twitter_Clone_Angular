@@ -12,6 +12,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { debounceTime, finalize, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { convertBytesToURL } from 'src/app/helpers/convert-bytes-to-url';
+import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
+import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 
 @Component({
   selector: 'app-create-account-modal',
@@ -40,12 +43,12 @@ export class CreateAccountModalComponent implements OnInit {
     password: FormControl<string>,
     confirmationCode: FormControl<string>,
   }>({
-    firstName: new FormControl("vinicius", [Validators.required, Validators.maxLength(50)]),
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    firstName: new FormControl('null', [Validators.required, Validators.maxLength(50)]),
+    email: new FormControl('vnsoliveira2512@gmail.com', [Validators.required, Validators.email]),
     birthDateDay: new FormControl(25, Validators.required),
     birthDateMonth: new FormControl(12, Validators.required),
     birthDateYear: new FormControl(2001, Validators.required),
-    password: new FormControl("vns123456"),
+    password: new FormControl('vns123456'),
     confirmationCode: new FormControl(null)
   });
 
@@ -59,10 +62,13 @@ export class CreateAccountModalComponent implements OnInit {
 
   hide = true;
   url: any;
-  noProfilePicture = '../../../../assets/img/default-profile-background.png';
   selectedFile: File | null = null;
 
   suggestedProfiles: any[] = [];
+
+  noProfilePicture = noProfilePicture;
+  convertBytesToURL = convertBytesToURL;
+  setProfilePhoto = setProfilePhoto;
 
   constructor(
     public dialogRef: MatDialogRef<CreateAccountModalComponent>,
@@ -352,13 +358,9 @@ export class CreateAccountModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  convertBytesToURL(profilePictureBytes) {
-    return `data:image/jpeg;base64,${profilePictureBytes}`;
-  }
-
   openUnfollowConfirmationModal(profile) {
     const dialogRef = this.dialog.open(UnfollowConfirmationModalComponent, {
-      maxWidth: '320px',
+      width: '320px',
       panelClass: 'bordered-dialog',
       backdropClass: 'modalStyleBackdrop',
       disableClose: false,

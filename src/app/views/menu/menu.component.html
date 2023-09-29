@@ -1,186 +1,189 @@
-  <mat-sidenav-container class="sidenav-container" [@.disabled]="!dashboard.opened">
-    <mat-sidenav #dashboard mode="over" class="sidenav">
-
-      <!--SIDE MENU MOBILE-->
-      <div class="sideNavMobileMenuHeader">
-        <div class="sideNavMobileMenuHeaderProfileImage">
-          <img src="../../../assets/img/profile-image.png" style="width: 100%; height: 100%; border-radius: 100%;">
-        </div>
-        <div class="sideNavMobileMenuHeaderButton">
-          <mat-icon>add</mat-icon>
-        </div>
-      </div>
-
-      <div style="padding: 1px 16px">
-        <div class="sideNavMobileMenuProfileName">
-          souzinha
-        </div>
-        <div class="sideNavMobileMenuProfileId">
-          @souzxvini
-        </div>
-      </div>
-
-      <div class="sideNavMobileMenuProfileInfos">
-        <div>
-          <strong>173</strong> Following
-        </div>
-
-        <div>
-          <strong>289</strong> Followers
-        </div>
-      </div>
-
-      <div>
-        <div class="sideNavMobileMenuNavButton">
-          <mat-icon>
-            person_outline
-          </mat-icon>
-
-          <span>
-            Profile
-          </span>
-        </div>
-
-        <div class="sideNavMobileMenuNavButton">
-          <mat-icon>
-            bookmark_border
-          </mat-icon>
-
-          <span>
-            Bookmarks
-          </span>
-        </div>
-      </div>
-
-      <mat-divider></mat-divider>
-
-      <div class="expansionPanel">
-        <div class="expansionPanelHeader" (click)="settingsAndPrivacyIsClicked = !settingsAndPrivacyIsClicked">
-          <span>
-            Settings and Support
-          </span>
-          <mat-icon class="iconAlignVertical" [@rotatedState]="!settingsAndPrivacyIsClicked"
-            [ngClass]="{'expansionPanelExpandedIcon': settingsAndPrivacyIsClicked}">
-            expand_more
-          </mat-icon>
-        </div>
-        <div class="expansionPanelBody" *ngIf="settingsAndPrivacyIsClicked">
-          <div>
-            <mat-icon>settings</mat-icon>
-            <span>Settings and privacy</span>
+<mat-sidenav-container class="sidenav-container" [@.disabled]="!dashboard.opened">
+  <mat-sidenav #dashboard mode="over" class="sidenav">
+    <!--SIDE MENU MOBILE-->
+    <div fxLayout="column" fxLayoutAlign="start stretch" style="width: 100%; height: 100%">
+      <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10" style="padding:16px">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="sideNavMobileMenuHeaderProfileImage" routerLink="/profile" (click)="sidenav.toggle()">
+            <img src="../../../assets/img/profile-image.png" style="width: 100%; height: 100%; border-radius: 100%;">
           </div>
-          <div>
-            <mat-icon>brush</mat-icon>
-            <span>Display</span>
+          <div class="sideNavMobileMenuHeaderButton blockCursor" fxLayoutAlign="center center">
+            <mat-icon>add</mat-icon>
           </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="4" routerLink="/profile" (click)="sidenav.toggle()">
+          <div class="sideNavMobileMenuProfileName">
+            souzinha
+          </div>
+          <div class="sideNavMobileMenuProfileId">
+            @souzxvini
+          </div>
+        </div>
+
+        <div class="sideNavMobileMenuProfileInfos">
           <div>
-            <mat-icon>exit_to_app</mat-icon>
-            <span>Log out</span>
+            <strong>173</strong> Following
+          </div>
+
+          <div>
+            <strong>289</strong> Followers
           </div>
         </div>
       </div>
 
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <div class="fullContainer">
+      <div fxLayout="column" fxLayoutAlign="center stretch">
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="25" class="sideNavMobileMenuNavOption" routerLink="/profile" (click)="sidenav.toggle()">
+            <mat-icon> person_outline </mat-icon> <span> Profile </span>
+          </div>
 
-        <div class="menuContainer">
-          <div class="menuDiv">
-            <div class="menuHeaderLogo">
-              <img src="../../../../assets/img/twitter-x-logo.png" style="width: 25px; height: 25px;">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="25" class="sideNavMobileMenuNavOption">
+            <mat-icon> bookmark_border </mat-icon> <span> Bookmarks </span>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="expansionPanelHeader" fxLayout="row" fxLayoutAlign="space-between center"
+            (click)="settingsAndPrivacyIsClicked = !settingsAndPrivacyIsClicked">
+            <span>
+              Settings and Support
+            </span>
+            <mat-icon [@rotatedState]="!settingsAndPrivacyIsClicked"
+              [ngClass]="{'expansionPanelExpandedIcon': settingsAndPrivacyIsClicked}">
+              expand_more
+            </mat-icon>
+          </div>
+          <div class="expansionPanelBody" *ngIf="settingsAndPrivacyIsClicked" fxLayout="column" fxLayoutAlign="start stretch">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
+              <mat-icon>settings</mat-icon>
+              <span>Settings and privacy</span>
             </div>
-            <div class="sideNavMenu">
-              <nav class="sideNavMenuOption">
-                <div routerLink="/home">
-                  <div>
-                    <span routerLinkActive="sideNavMenuOptionActive">
-                      <mat-icon>home</mat-icon>
-                      <p>Página Inicial</p>
-                    </span>
-                  </div>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
+              <mat-icon>brush</mat-icon>
+              <span>Display</span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Log out</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="fullContainer">
+      <div class="menuContainer">
+        <div class="menuDiv">
+          <div class="menuHeaderLogo" fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.lt-lg="center center">
+            <img src="../../../../assets/img/twitter-x-logo.png" style="width: 25px; height: 25px;">
+          </div>
+          <div class="sideNavMenu" fxLayout="column" fxLayoutAlign="space-between stretch">
+            <nav class="sideNavMenuOptions" fxLayout="column" fxLayoutAlign="center stretch"
+              fxLayoutAlign.lt-lg="center center" fxLayoutGap="3">
+              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                fxLayoutAlign.lt-lg="center center">
+                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                  routerLink="/home" routerLinkActive="sideNavMenuOptionActive">
+                  <mat-icon>home</mat-icon>
+                  <p>Página Inicial</p>
                 </div>
+              </div>
 
-                <div routerLink="/explore">
-                  <div>
-                    <span routerLinkActive="sideNavMenuOptionActive">
-                      <mat-icon>search</mat-icon>
-                      <p>Explorar</p>
-                    </span>
-                  </div>
+              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                fxLayoutAlign.lt-lg="center center">
+                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                  routerLink="/explore" routerLinkActive="sideNavMenuOptionActive">
+                  <mat-icon>search</mat-icon>
+                  <p>Explorar</p>
                 </div>
+              </div>
 
-                <div routerLink="/notifications">
-                  <div>
-                    <span routerLinkActive="sideNavMenuOptionActive">
-                      <mat-icon>notifications_none</mat-icon>
-                      <p>Notificações</p>
-                    </span>
-                  </div>
+              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                fxLayoutAlign.lt-lg="center center">
+                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                  routerLink="/notifications" routerLinkActive="sideNavMenuOptionActive">
+                  <mat-icon>notifications_none</mat-icon>
+                  <p>Notificações</p>
                 </div>
+              </div>
 
-                <div routerLink="/messages">
-                  <div>
-                    <span routerLinkActive="sideNavMenuOptionActive">
-                      <mat-icon>mail_outline</mat-icon>
-                      <p>Mensagens</p>
-                    </span>
-                  </div>
+              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                fxLayoutAlign.lt-lg="center center">
+                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                  routerLink="/messages" routerLinkActive="sideNavMenuOptionActive">
+                  <mat-icon>mail_outline</mat-icon>
+                  <p>Mensagens</p>
                 </div>
+              </div>
 
-                <div routerLink="/bookmarks">
-                  <div>
-                    <span routerLinkActive="sideNavMenuOptionActive">
-                      <mat-icon>bookmark_border</mat-icon>
-                      <p>Itens Salvos</p>
-                    </span>
-                  </div>
+              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                fxLayoutAlign.lt-lg="center center">
+                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                  routerLink="/messages" routerLinkActive="sideNavMenuOptionActive">
+                  <mat-icon>bookmark_border</mat-icon>
+                  <p>Itens Salvos</p>
                 </div>
+              </div>
 
-                <div routerLink="/profile">
-                  <div>
-                    <span routerLinkActive="sideNavMenuOptionActive">
-                      <mat-icon>person_outline</mat-icon>
-                      <p>Perfil</p>
-                    </span>
-                  </div>
+              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                fxLayoutAlign.lt-lg="center center">
+                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                  routerLink="/profile" routerLinkActive="sideNavMenuOptionActive">
+                  <mat-icon>person_outline</mat-icon>
+                  <p>Perfil</p>
                 </div>
+              </div>
 
-                <button mat-flat-button class="sideNavMenuTweetButton">
+              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                fxLayoutAlign.lt-lg="center center">
+                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20">
+                  <mat-icon>more_horiz</mat-icon>
+                  <p>Mais</p>
+                </div>
+              </div>
+
+              <!--botão de fazer novo tweet para versão web-->
+              <div style="padding: 16px;" fxLayout="column" fxLayoutAlign="start stretch" fxHide.lt-lg>
+                <button class="blueButton _52pxButton cursorPointer">
                   <span>Post</span>
                 </button>
-
-                <div class="sideNavMenuTweetButtonIcon">
-                  <mat-icon>add</mat-icon>
-                </div>
-
-              </nav>
-              <div class="sideNavMenuProfileButton" (click)="logout()">
-                <div style="width: 18%;">
-                  <img src="../../../assets/img/profile-image.png" class="sideNavMenuProfileButtonImage">
-                </div>
-                <div style="width: 62%;">
-                  <div class="userFirstName">souzinha</div>
-                  <div class="userUsername">@souzxvini</div>
-                </div>
-                <div style="width: 20%; display: flex; justify-content: end; align-items: center;">
-                  <mat-icon>more_horiz</mat-icon>
-                </div>
               </div>
 
-              <div class="sideNavMenuProfileIcon">
-                <div class="sideNavMenuProfileButtonImage"></div>
-              </div>
+              <!--botão de fazer novo tweet para versão mobile-->
+              <button class="postTweetMobileButton" mat-fab fxHide.gt-md>
+                <mat-icon>add</mat-icon>
+              </button>
+            </nav>
 
+            <div class="sideNavMenuProfileButton" fxLayout="row" fxLayoutGap="8" (click)="logout()" fxHide.lt-lg>
+              <div fxFlex="18" fxLayout="column" fxLayoutAlign="center center">
+                <img src="../../../assets/img/profile-image.png" class="sideNavMenuProfileButtonImage">
+              </div>
+              <div fxFlex="62" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5">
+                <div class="userFirstName">souzinha</div>
+                <div class="userUsername">@souzxvini</div>
+              </div>
+              <div fxFlex="20" fxLayoutAlign="center center">
+                <mat-icon>more_horiz</mat-icon>
+              </div>
+            </div>
+
+            <div class="sideNavMenuProfileIcon" fxHide.gt-md>
+              <div class="sideNavMenuProfileButtonImage"></div>
             </div>
           </div>
         </div>
-        <div class="mainContainer">
-          <router-outlet></router-outlet>
-        </div>
-        <div class="exploreContainer">
-          <router-outlet name="secondary"></router-outlet>
-        </div>
       </div>
-
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+      <div class="mainContainer">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="exploreContainer">
+        <router-outlet name="secondary"></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

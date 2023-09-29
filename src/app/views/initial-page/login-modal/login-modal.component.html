@@ -14,12 +14,12 @@
       fxLayoutAlign=" stretch">
       <span class="title">Entrar no X</span>
       <div fxLayout="column" fxLayoutGap="20">
-        <div class="whiteButton blockCursor" fxLayoutGap="10">
+        <div class="whiteButton _36pxButton blockCursor" fxLayoutGap="10">
           <img src="../../../../assets/img/google-logo.png" style="width: 20px; height: 20px;">
           <strong>Entrar com Google</strong>
         </div>
 
-        <div class="whiteButton blockCursor" fxLayoutGap="10">
+        <div class="whiteButton _36pxButton blockCursor" fxLayoutGap="10">
           <img src="../../../../assets/img/apple_logo.png" style="width: 15px; height: 20px;">
           <strong>Entrar com Apple</strong>
         </div>
@@ -38,12 +38,12 @@
           </mat-form-field>
         </form>
 
-        <div fxLayout="row" fxLayoutAlign="center center" class="loginButton smallAdvanceButton"
+        <div fxLayout="row" fxLayoutAlign="center center" class="whiteButton _36pxButton cursorPointer"
           (click)="verifyIfUsernameExists()">
           <strong>Avançar</strong>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="center center" class="loginButton transparentButton">
+        <div fxLayout="row" fxLayoutAlign="center center" class="transparentButton _36pxButton cursorPointer">
           <strong>Esqueceu sua senha?</strong>
         </div>
 
@@ -74,7 +74,7 @@
       </div>
 
       <div fxLayout="column" fxLayoutGap="20">
-        <div fxLayout="row" fxLayoutAlign="center center" class="advanceButton cursorPointer" (click)="login()">
+        <div fxLayout="row" fxLayoutAlign="center center" class="whiteButton cursorPointer _52pxButton" (click)="login()">
           <strong>Entrar</strong>
         </div>
 
@@ -91,12 +91,12 @@
       <span class="title">Inscreva-se no X hoje mesmo</span>
 
       <div fxLayout="column" fxLayoutGap="20">
-        <div class="whiteButton blockCursor" fxLayoutGap="10">
+        <div class="whiteButton blockCursor _36pxButton" fxLayoutGap="10">
           <img src="../../../../assets/img/google-logo.png" style="width: 20px; height: 20px;">
           <strong>Inscrever-se com Google</strong>
         </div>
 
-        <div class="whiteButton blockCursor" fxLayoutGap="10">
+        <div class="whiteButton blockCursor _36pxButton" fxLayoutGap="10">
           <img src="../../../../assets/img/apple_logo.png" style="width: 15px; height: 20px;">
           <strong>Inscrever-se com Apple</strong>
         </div>
@@ -108,7 +108,7 @@
           <mat-divider fxFlex="45"></mat-divider>
         </div>
 
-        <div class="whiteButton cursorPointer" fxLayoutGap="10" (click)="openCreateAccountDialog()">
+        <div class="whiteButton cursorPointer _36pxButton" fxLayoutGap="10" (click)="openCreateAccountDialog()">
           <strong>Criar conta</strong>
         </div>
 
@@ -120,7 +120,7 @@
           </span>
   
           <span style="font-size: 15px; color: rgb(113, 118, 123); ">Já tem uma conta?
-            <a class="blueLinks cursorPointer" (click)="firstStepLogin = !firstStepLogin; registerModal = !registerModal">
+            <a class="blueLinks cursorPointer " (click)="firstStepLogin = !firstStepLogin; registerModal = !registerModal">
               Entrar
             </a>
           </span>

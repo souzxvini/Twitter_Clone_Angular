@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileComponent } from './profile.component';
 import { authGuard } from 'src/app/guards/auth.guard';
 import { ProfileSearchComponent } from './profile-search/profile-search.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { AnotherUserProfileComponent } from './another-user-profile/another-user-profile.component';
 
 const routes: Routes = [
 
   {
     path: '',
-    component: ProfileComponent,
+    component: MyProfileComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: ':username',
+    component: AnotherUserProfileComponent,
     canActivate: [authGuard]
   },
   {

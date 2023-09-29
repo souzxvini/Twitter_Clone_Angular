@@ -7,7 +7,7 @@
       <span class="dialogSteps">Editar mídia</span>
     </div>
     <div>
-      <button mat-flat-button class="applyButton" (click)="cropper.crop()">
+      <button mat-flat-button class="whiteButton cursorPointer _36pxButton" (click)="cropper.crop()">
         <span>Aplicar</span>
       </button>
     </div>
@@ -15,7 +15,7 @@
 
   <div style="height: 540px;" fxLayout="column" fxLayoutAlign="center stretch">
 
-    <input #_fileInput type="file" (change)="cropper.selectInputEvent($event)" accept="image/*" hidden>
+    <input #_fileInput type="file" (change)="cropper.selectInputEvent($event)" accept="image/png, image/jpeg, image/jpg" hidden>
 
     <ly-img-cropper [withClass]="classes.cropper" 
     [config]="myConfig" 

@@ -90,11 +90,16 @@ export class AccountsService {
   }
 
    //GET /v1/user/search/isvaliduser
-  verifyIfUsernameExists(username: string){
+  verifyIfUsernameExists(username: string): Observable<any>{
     let params: HttpParams = new HttpParams();
     params = params.append('username', username);
 
     return this.http.get<any>(API + '/accounts/v1/user/search/isvaliduser', { params });
+  }
+
+   //GET /v1/user/search
+   getLoggedUserAccount(): Observable<any>{
+    return this.http.get<any>(API + '/accounts/v1/user/search');
   }
 
   //USER-INTERACTIONS-CONTROLLER
