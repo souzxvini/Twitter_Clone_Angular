@@ -147,7 +147,6 @@
 .sideNavMenu {
   height: 94vh;
   padding: 0;
-  padding: 0 0 16px 0;
 }
 
 .sideNavMenuOptions div p {
@@ -206,6 +205,10 @@
 .sideNavMenuProfileIcon:hover {
   background-color: rgba(255, 255, 255, 0.07);
   cursor: pointer;
+}
+
+.userFirstName{
+  max-width: 90% !important;
 }
 
 @media screen and (max-width:1278px) {

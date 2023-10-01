@@ -7,6 +7,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { convertBytesToURL } from 'src/app/helpers/convert-bytes-to-url';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
+import { MyProfileModel } from 'src/app/models/my-profile-model';
 
 @Component({
   selector: 'app-my-profile',
@@ -15,7 +16,7 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 })
 export class MyProfileComponent {
 
-  user: any;
+  user: MyProfileModel;
   userInformationsLoaded = false;
   noProfilePicture = noProfilePicture;
   convertBytesToURL = convertBytesToURL;
@@ -28,11 +29,11 @@ export class MyProfileComponent {
   ){}
 
   ngOnInit(){
-    this.getLoggedUserAccount();
+    this.getLoggedUserAccount(true);
   }
 
-  getLoggedUserAccount(){
-    this.userInformationsLoaded = false;
+  getLoggedUserAccount(loadScreen){
+    loadScreen ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
     this.accountsService.getLoggedUserAccount().subscribe({
       next: (res) => {
         if(res) this.user = res;
@@ -73,6 +74,14 @@ export class MyProfileComponent {
       autoFocus: false,
       data: this.user
     });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          this.getLoggedUserAccount(false);
+        }
+      }
+    })
 
     this.breakpointObserver.observe(["(max-width: 700px)"])
       .subscribe((res) => {

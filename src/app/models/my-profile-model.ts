@@ -9,6 +9,7 @@ export class MyProfileModel {
     registrationTime: Date;
     privateAccount: boolean;
     languagePreference: string;
+    tweetsCount: number;
     profilePhoto: {
         photo: any;
         xposition: number;

@@ -1,0 +1,38 @@
+<div fxLayout="row">
+    <div style="width: 40px;">
+      <div class="profilePicture" style="width: 40px; height: 40px;"
+        [style]="setProfilePhoto(profile.profilePhoto?.photo)">
+      </div>
+    </div>
+    <div fxFlex="calc(100% - 40px)" fxLayout="column">
+      <div fxLayout="row">
+        <div fxLayout="column" [fxFlex]="profile.isFollowedByMe ? 'calc(100% - 100px)' : 'calc(100% - 80px)'"
+          style="padding: 0 8px;">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <span style="max-width: calc(100% - 18px)" class="userFirstName">@{{ profile.firstName }}</span>
+            <div style="width: 18px;">
+              <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+            </div>
+          </div>
+          <span class="userUsername">
+            @{{ profile.username }}
+          </span>
+        </div>
+        <div fxLayoutAlign="center center" [style]="profile.isFollowedByMe ? 'width: 100px;' : 'width: 80px;'">
+          <!--Botão 'SEGUIR'-->
+          <button *ngIf="!profile.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
+            (click)="followUser(profile.userIdentifier)">
+            <span>Seguir</span>
+          </button>
+          <!--Botão 'SEGUINDO'-->
+          <app-following-button *ngIf="profile.isFollowedByMe" (click)="openUnfollowConfirmationModal(profile)">
+          </app-following-button>
+        </div>
+      </div>
+  
+      <div style="padding: 8px;">
+        <span class="userBiography"> {{ profile.biography }} </span>
+      </div>
+    </div>
+  </div>
+  

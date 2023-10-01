@@ -63,6 +63,18 @@ export class AccountsService {
     return this.http.patch(API + '/accounts/v1/user/infos/username', body , this.httpOptions);
   }
 
+  patchProfileInformations(form){
+    const body = {
+      firstName: form.firstName,
+      biography: form.biography,
+      location: form.location,
+      site: form.site,
+      lastName: ' ',
+    }
+
+    return this.http.put(API + '/accounts/v1/user/infos', body , this.httpOptions);
+  }
+
   //PATCH /v1/user/infos/firstAccess
   updateProfilePhoto(file, xPosition: number, yPosition: number) {
     xPosition = Math.trunc(xPosition);

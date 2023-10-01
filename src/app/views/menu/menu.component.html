@@ -34,7 +34,8 @@
 
       <div fxLayout="column" fxLayoutAlign="center stretch">
         <div fxLayout="column">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="25" class="sideNavMobileMenuNavOption" routerLink="/profile" (click)="sidenav.toggle()">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="25" class="sideNavMobileMenuNavOption"
+            routerLink="/profile" (click)="sidenav.toggle()">
             <mat-icon> person_outline </mat-icon> <span> Profile </span>
           </div>
 
@@ -56,7 +57,8 @@
               expand_more
             </mat-icon>
           </div>
-          <div class="expansionPanelBody" *ngIf="settingsAndPrivacyIsClicked" fxLayout="column" fxLayoutAlign="start stretch">
+          <div class="expansionPanelBody" *ngIf="settingsAndPrivacyIsClicked" fxLayout="column"
+            fxLayoutAlign="start stretch">
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
               <mat-icon>settings</mat-icon>
               <span>Settings and privacy</span>
@@ -159,15 +161,22 @@
               </button>
             </nav>
 
-            <div class="sideNavMenuProfileButton" fxLayout="row" fxLayoutGap="8" (click)="logout()" fxHide.lt-lg>
-              <div fxFlex="18" fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutAlign="start center" class="sideNavMenuProfileButton" (click)="logout()">
+              <div fxFlex="20">
                 <img src="../../../assets/img/profile-image.png" class="sideNavMenuProfileButtonImage">
               </div>
-              <div fxFlex="62" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5">
-                <div class="userFirstName">souzinha</div>
-                <div class="userUsername">@souzxvini</div>
+              <div fxFlex="70" fxLayout="column" style="padding: 0 8px;">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <span style="max-width: calc(100% - 18px)" class="userFirstName">sounv9u</span>
+                  <div style="width: 18px;">
+                    <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+                  </div>
+                </div>
+                <div class="userUsername">
+                  @souzxvini
+                </div>
               </div>
-              <div fxFlex="20" fxLayoutAlign="center center">
+              <div fxFlex="10">
                 <mat-icon>more_horiz</mat-icon>
               </div>
             </div>

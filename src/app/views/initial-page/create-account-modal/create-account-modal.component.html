@@ -47,8 +47,7 @@
           *ngIf="registerForm.controls['email'].hasError('email') && registerForm.controls['email'].touched">
           Insira um e-mail válido.
         </small>
-        <small class="formFieldError"
-          *ngIf="registerForm.controls['email'].hasError('existentEmail')">
+        <small class="formFieldError" *ngIf="registerForm.controls['email'].hasError('existentEmail')">
           Este e-mail já está sendo utilizado.
         </small>
 
@@ -196,7 +195,8 @@
       </div>
 
       <div fxLayout="column">
-        <button class="whiteButton _52pxButton cursorPointer" (click)="createprofile()" [disabled]="registerForm.invalid">
+        <button class="whiteButton _52pxButton cursorPointer" (click)="createprofile()"
+          [disabled]="registerForm.invalid">
           <span>Avançar</span>
         </button>
       </div>
@@ -233,7 +233,7 @@
           <span>Avançar</span>
         </button>
 
-        <button class="transparentButton _52pxButton cursorPointer"*ngIf="!url" (click)="step = step + 1">
+        <button class="transparentButton _52pxButton cursorPointer" *ngIf="!url" (click)="step = step + 1">
           <span>Ignorar por enquanto</span>
         </button>
 
@@ -295,50 +295,16 @@
             Seguir 1 ou mais contas
           </span>
 
-          <div fxLayout="row" fxLayoutGap="10" *ngFor="let profile of suggestedProfiles">
-            <div fxFlex="10" fxFlex.lt-xl="15" fxLayoutAlign="center start">
-              <div class="profilePicture" style="width: 40px; height: 40px;" [style]="setProfilePhoto(profile.profilePhoto?.photo)">
-              </div>
-            </div>
-            <div fxFlex="90" fxFlex.lt-xl="85" fxLayout="column" fxLayoutGap="4">
+          <app-follow-profile-button-description [profile]="profile" [suggestedProfiles]="suggestedProfiles" *ngFor="let profile of suggestedProfiles">
+          </app-follow-profile-button-description>
 
-              <div fxLayout="row" fxLayoutGap="10">
-                <div fxLayout="column" fxLayoutGap="4"
-                [fxFlex]="profile.isFollowedByMe ? '70' : '78'" 
-                [fxFlex.lt-sm]="profile.isFollowedByMe ? '65' : '70'" 
-                [fxFlex.xs]="profile.isFollowedByMe ? '55' : '65'">
-                  <span class="userFirstName" fxLayout="row" fxFlexAlign="center center"> 
-                    {{ profile.firstName }}<img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
-                  </span>
-                  <span class="userUsername">
-                     @{{ profile.username }} 
-                  </span>
-                </div>
-                <div fxLayoutAlign="center center"
-                [fxFlex]="profile.isFollowedByMe ? '30' : '22'" 
-                [fxFlex.sm]="profile.isFollowedByMe ? '35' : '30'" 
-                [fxFlex.xs]="profile.isFollowedByMe ? '45' : '35'">
-                  <!--Botão 'SEGUIR'-->
-                  <button *ngIf="!profile.isFollowedByMe" class="followButton" (click)="followUser(profile.userIdentifier)">
-                    <span>Seguir</span>
-                  </button>
-                   <!--Botão 'SEGUINDO'-->
-                  <app-following-button *ngIf="profile.isFollowedByMe" style="width: 100%;" (click)="openUnfollowConfirmationModal(profile)"></app-following-button>
-                </div>
-              </div>
-
-              <div>
-                <span class="userBiography"> {{ profile.biography }} </span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div fxLayout="column" fxLayoutAlign="center stretch" 
+      <div fxLayout="column" fxLayoutAlign="center stretch"
         style="height: 15%; padding: 0px 80px 20px 80px; border-top: 1px solid rgb(89, 91, 94);">
-        <button class="whiteButton _52pxButton cursorPointer" [disabled]="usernameForm.invalid || !isFollowingAtLeast1Account()"
-          (click)="finalizeRegistration()">
+        <button class="whiteButton _52pxButton cursorPointer"
+          [disabled]="usernameForm.invalid || !isFollowingAtLeast1Account()" (click)="finalizeRegistration()">
           <span>Próxima</span>
         </button>
       </div>

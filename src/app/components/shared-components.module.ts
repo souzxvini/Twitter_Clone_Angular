@@ -7,6 +7,8 @@ import { SearchTwitterButtonComponent } from 'src/app/components/search-twitter-
 import { SharedMaterialModule } from '../shared/shared-material/shared-material.module';
 import { UnfollowConfirmationModalComponent } from './unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { TweetComponent } from './tweet/tweet.component';
+import { FollowProfileButtonComponent } from './follow-profile-button/follow-profile-button.component';
+import { FollowProfileButtonDescriptionComponent } from './follow-profile-button-description/follow-profile-button-description.component';
 @NgModule({
   declarations:[ 
     FollowingButtonComponent,
@@ -14,7 +16,9 @@ import { TweetComponent } from './tweet/tweet.component';
     WhoToFollowCardComponent,
     SearchTwitterButtonComponent,
     UnfollowConfirmationModalComponent,
-    TweetComponent
+    TweetComponent,
+    FollowProfileButtonComponent,
+    FollowProfileButtonDescriptionComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +30,10 @@ import { TweetComponent } from './tweet/tweet.component';
     WhoToFollowCardComponent,
     SearchTwitterButtonComponent,
     UnfollowConfirmationModalComponent,
-    TweetComponent
+    TweetComponent,
+    FollowProfileButtonComponent,
+    FollowProfileButtonDescriptionComponent
+
   ]
 })
 

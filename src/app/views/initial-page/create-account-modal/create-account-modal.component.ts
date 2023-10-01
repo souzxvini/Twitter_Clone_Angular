@@ -9,8 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
-import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
-import { debounceTime, finalize, switchMap } from 'rxjs';
+import { debounceTime } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { convertBytesToURL } from 'src/app/helpers/convert-bytes-to-url';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
@@ -332,23 +331,6 @@ export class CreateAccountModalComponent implements OnInit {
     })
   }
 
-  followUser(userIdentifier) {
-    this.accountsService.followUser(userIdentifier).subscribe({
-      complete: () => {
-        let profile = this.suggestedProfiles.find(profile => profile.userIdentifier === userIdentifier);
-        profile.isFollowedByMe = !profile.isFollowedByMe;
-      },
-      error: () => {
-        this.loaded = true;
-        this.snackbar.open(
-          'Desculpe, houve algum erro. Por favor, tente novamente.',
-          '',
-          { duration: 5000, panelClass: ['snackbarLoginError'] }
-        );
-      }
-    })
-  }
-
   finalizeRegistration() {
     this.dialogRef.close();
     this.router.navigate(['/home'])
@@ -356,25 +338,6 @@ export class CreateAccountModalComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close();
-  }
-
-  openUnfollowConfirmationModal(profile) {
-    const dialogRef = this.dialog.open(UnfollowConfirmationModalComponent, {
-      width: '320px',
-      panelClass: 'bordered-dialog',
-      backdropClass: 'modalStyleBackdrop',
-      disableClose: false,
-      autoFocus: false,
-      data: profile
-    });
-
-    dialogRef.afterClosed().subscribe({
-      next: (res) => {
-        if (res) {
-          this.followUser(profile.userIdentifier);
-        }
-      }
-    })
   }
 
   isFollowingAtLeast1Account() {

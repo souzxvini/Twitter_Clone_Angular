@@ -1,14 +1,14 @@
 <div style="height: 100%; width: 100%; overflow-y: scroll;">
-  <div
-    style="padding: 0 16px; height: 53px; width: 100%; position: sticky; top: 0; background-color: rgba(0, 0, 0, 0.65); backdrop-filter: blur(12px);"
-    fxLayout="row" fxLayoutAlign="space-between center">
+  <div style="padding: 0 16px; height: 53px; width: 100%;" class="bluredHeaderStyle" fxLayout="row"
+    fxLayoutAlign="space-between center">
     <div fxLayoutAlign=" center" fxLayoutGap="30" fxLayoutGap="30">
       <button mat-mini-fab mat-dialog-close>
         <mat-icon>close</mat-icon>
       </button>
       <span class="dialogSteps">Editar perfil</span>
     </div>
-    <button class="whiteButton cursorPointer _32pxButton" style="padding: 0px 16px;">
+    <button class="whiteButton cursorPointer _32pxButton" style="padding: 0px 16px;"
+      (click)="patchProfileInformations()" [disabled]="editProfileForm.invalid">
       Salvar
     </button>
   </div>
@@ -34,8 +34,8 @@
         <div>
           <div class="profileUserPicture">
             <div class="picture" [style]="setProfilePhoto(data.profilePhoto?.photo)">
-              <div style="height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.3); border-radius: 100%;" fxLayout="row"
-                fxLayoutAlign="center center">
+              <div style="height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.3); border-radius: 100%;"
+                fxLayout="row" fxLayoutAlign="center center">
                 <button mat-mini-fab class="selectPhotoIconButton">
                   <mat-icon>add_a_photo</mat-icon>
                 </button>
@@ -44,13 +44,19 @@
           </div>
         </div>
 
-        <mat-form-field class="textFormField noInvisibleDivFormField">
-          <mat-label>Nome</mat-label>
-          <input matInput formControlName="firstName" #nameInput maxlength="50">
-          <mat-hint matSuffix>
-            {{editProfileForm.controls['firstName'].value ? editProfileForm.controls['firstName'].value.length : '0'}}/50
-          </mat-hint>
-        </mat-form-field>
+        <div fxLayout="column">
+          <mat-form-field class="textFormField noInvisibleDivFormField">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="firstName" #nameInput maxlength="50">
+            <mat-hint matSuffix>
+              {{editProfileForm.controls['firstName'].value ? editProfileForm.controls['firstName'].value.length : '0'}}/50
+            </mat-hint>
+          </mat-form-field>
+          <small class="formFieldError" 
+            *ngIf="editProfileForm.controls['firstName'].hasError('required') && editProfileForm.controls['firstName'].touched">
+            O nome não pode estar em branco
+          </small>
+        </div>
 
         <mat-form-field class="textAreaFormField noInvisibleDivFormField">
           <mat-label>Bio</mat-label>
@@ -87,7 +93,8 @@
         </div>
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="blockCursor">
-          <span style="font-size: 20px;">Alterar para Profissional</span> <mat-icon>keyboard_arrow_right</mat-icon>
+          <span style="font-size: 20px;">Alterar para Profissional</span>
+          <mat-icon>keyboard_arrow_right</mat-icon>
         </div>
 
       </div>
