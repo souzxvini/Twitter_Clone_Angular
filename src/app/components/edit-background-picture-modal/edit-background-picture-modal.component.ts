@@ -10,7 +10,6 @@ import {
 } from '@alyle/ui/image-cropper';
 import { LySliderChange } from '@alyle/ui/slider';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DialogRef } from '@angular/cdk/dialog';
 
 const STYLES = (_theme: ThemeVariables, ref: ThemeRef) => {
   ref.renderStyleSheet(CROPPER_STYLES);
@@ -24,15 +23,15 @@ const STYLES = (_theme: ThemeVariables, ref: ThemeRef) => {
 };
 
 @Component({
-  selector: 'app-edit-profile-picture-modal',
-  templateUrl: './edit-profile-picture-modal.component.html',
-  styleUrls: ['./edit-profile-picture-modal.component.scss'],
+  selector: 'app-edit-background-picture-modal',
+  templateUrl: './edit-background-picture-modal.component.html',
+  styleUrls: ['./edit-background-picture-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     StyleRenderer
   ]
 })
-export class EditProfilePictureModalComponent {
+export class EditBackgroundPictureModalComponent {
   @ViewChild('_fileInput') _fileInput!: ElementRef<HTMLInputElement>;
 
   classes = this.sRenderer.renderSheet(STYLES);
@@ -44,28 +43,22 @@ export class EditProfilePictureModalComponent {
   @ViewChild(LyImageCropper) readonly cropper!: LyImageCropper;
   myConfig: ImgCropperConfig = {
     // autoCrop: true,
-    width: 500, // Default `250`
-    height: 500, // Default `200`
+    width: 550, // Default `250`
+    height: 180, // Default `200`
     fill: '#ff2997', // Default transparent if type == png else #000
     type: 'image/png', // Or you can also use `image/jpeg`
     responsiveArea: true
   };
 
   constructor(
-    private dialogRef: MatDialogRef<EditProfilePictureModalComponent>,
+    private dialogRef: MatDialogRef<EditBackgroundPictureModalComponent>,
     readonly sRenderer: StyleRenderer,
     @Inject(MAT_DIALOG_DATA) public imageUrl: any
   ) { }
 
   ngAfterViewInit(){
-    //this._fileInput.nativeElement.click();
-
     const config: ImgCropperLoaderConfig = {
       scale: 0.745864772531767,
-      //xOrigin: 360.380608078103,
-      //yOrigin: 360.26357452128866,
-      // areaWidth: 100,
-      // areaHeight: 100,
       rotation: 0,
       originalDataURL: this.imageUrl
     };
@@ -74,6 +67,7 @@ export class EditProfilePictureModalComponent {
 
   onCropped(e: ImgCropperEvent) {
     this.croppedImage = e;
+    console.log(this.croppedImage)
     this.dialogRef.close(this.croppedImage.dataURL)
   }
   onLoaded(e: ImgCropperEvent) {
@@ -84,10 +78,6 @@ export class EditProfilePictureModalComponent {
   
   onSliderInput(event: LySliderChange) {
     this.scale = event.value as number ;
-  }
-
-  closeDialog(){
-    this.dialogRef.close();
   }
 
 }

@@ -214,14 +214,13 @@
       </div>
 
       <div fxLayout="row" fxLayoutAlign="center center">
-        <div class="selectProfilePicture" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20" style="background-image: url('{{url ? url.imgUrl.dataURL : noProfilePicture()}}'); 
-        background-position-x: '{{url ? url.imgUrl.position.x ? url.imgUrl.position.x : 0 : 0 }}'; 
-        background-position-y: '{{url ? url.imgUrl.position.y ? url.imgUrl.position.y : 0 : 0}}'">
+        <div class="selectProfilePicture" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20" 
+        style="background-image: url('{{url ? url : noProfilePicture()}}');">
           <input #selectFileButton type="file" (change)="onSelectFile($event)" accept="image/*" hidden>
           <button mat-mini-fab (click)="openFileInput()">
             <mat-icon>add_a_photo</mat-icon>
           </button>
-          <button mat-mini-fab *ngIf="url" (click)="url = null; selectedFile = null">
+          <button mat-mini-fab *ngIf="url" (click)="url = null">
             <mat-icon>close</mat-icon>
           </button>
         </div>

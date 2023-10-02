@@ -4,10 +4,11 @@ import { AccountsService } from 'src/app/services/accounts.service';
 import { FullScreenProfilePhotoModalComponent } from '../modals/full-screen-profile-photo-modal/full-screen-profile-photo-modal.component';
 import { EditProfileModalComponent } from '../modals/edit-profile-modal/edit-profile-modal.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { convertBytesToURL } from 'src/app/helpers/convert-bytes-to-url';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
+import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
+import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-background-photo-modal/full-screen-background-photo-modal.component';
 
 @Component({
   selector: 'app-my-profile',
@@ -19,8 +20,8 @@ export class MyProfileComponent {
   user: MyProfileModel;
   userInformationsLoaded = false;
   noProfilePicture = noProfilePicture;
-  convertBytesToURL = convertBytesToURL;
   setProfilePhoto = setProfilePhoto;
+  setBackgroundPhoto = setBackgroundPhoto;
 
   constructor(
     private accountsService: AccountsService,
@@ -37,7 +38,6 @@ export class MyProfileComponent {
     this.accountsService.getLoggedUserAccount().subscribe({
       next: (res) => {
         if(res) this.user = res;
-        console.log(this.user)
         this.userInformationsLoaded = true;
       },
       error: () => {
@@ -46,7 +46,7 @@ export class MyProfileComponent {
     })
   }
 
-  visualizeProfilePicture(profilePhoto, xposition, yposition){
+  visualizeProfilePicture(profilePhoto){
     this.dialog.open(FullScreenProfilePhotoModalComponent, {
       width: '100vw',
       height: '100vh',
@@ -55,9 +55,22 @@ export class MyProfileComponent {
       disableClose: true,
       autoFocus: false,
       data: {
-        profilePhoto: profilePhoto,
-        xposition: xposition,
-        yposition: yposition
+        profilePhotoUrl: profilePhoto
+      },
+      
+    });
+  }
+
+  visualizeBackgroundPicture(backgroundPhoto){
+    this.dialog.open(FullScreenBackgroundPhotoModalComponent, {
+      width: '100vw',
+      height: '100vh',
+      panelClass: 'fullScreenPictureModalStyle',
+      backdropClass: 'transparentModalStyleBackdrop',
+      disableClose: true,
+      autoFocus: false,
+      data: {
+        backgroundPhotoUrl: backgroundPhoto
       },
       
     });

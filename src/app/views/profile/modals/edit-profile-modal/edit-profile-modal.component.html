@@ -15,15 +15,19 @@
 
   <form [formGroup]="editProfileForm" style="width: 100%;">
     <div fxLayout="column" fxLayoutAlign="space-between stretch">
-      <div class="profileBackground" style="border: 2px solid rgb(0, 0, 0);">
+      <div class="profileBackground" style="border: 2px solid rgb(0, 0, 0);"
+        [style]="setBackgroundPhoto(backgroundPhotoUrl)">
         <div style="height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.3);" fxLayout="row"
           fxLayoutAlign="center center">
           <div fxLayout="row" fxLayoutGap="30">
-            <button mat-mini-fab class="selectPhotoIconButton">
+            <input #selectBackgroundFileButton type="file" (change)="onSelectBackgroundFile($event)" accept="image/*"
+              hidden>
+            <button mat-mini-fab class="selectPhotoIconButton" (click)="openBackgroundFileInput()">
               <mat-icon>add_a_photo</mat-icon>
             </button>
 
-            <button mat-mini-fab class="selectPhotoIconButton">
+            <button mat-mini-fab class="selectPhotoIconButton" *ngIf="backgroundPhotoUrl"
+              (click)="backgroundPhotoUrl = null">
               <mat-icon>close</mat-icon>
             </button>
           </div>
@@ -33,10 +37,12 @@
       <div fxLayout="column" fxLayoutGap="20" style="padding: 0 12px 60px 12px">
         <div>
           <div class="profileUserPicture">
-            <div class="picture" [style]="setProfilePhoto(data.profilePhoto?.photo)">
+            <div class="picture" [style]="setProfilePhoto(profilePhotoUrl)">
               <div style="height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.3); border-radius: 100%;"
                 fxLayout="row" fxLayoutAlign="center center">
-                <button mat-mini-fab class="selectPhotoIconButton">
+                <input #selectProfileFileButton type="file" (change)="onSelectProfileFile($event)"
+                  accept="image/*" hidden>
+                <button mat-mini-fab class="selectPhotoIconButton" (click)="openProfileFileInput()">
                   <mat-icon>add_a_photo</mat-icon>
                 </button>
               </div>
@@ -52,7 +58,7 @@
               {{editProfileForm.controls['firstName'].value ? editProfileForm.controls['firstName'].value.length : '0'}}/50
             </mat-hint>
           </mat-form-field>
-          <small class="formFieldError" 
+          <small class="formFieldError"
             *ngIf="editProfileForm.controls['firstName'].hasError('required') && editProfileForm.controls['firstName'].touched">
             O nome não pode estar em branco
           </small>

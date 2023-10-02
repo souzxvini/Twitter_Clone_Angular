@@ -10,9 +10,6 @@ export class MyProfileModel {
     privateAccount: boolean;
     languagePreference: string;
     tweetsCount: number;
-    profilePhoto: {
-        photo: any;
-        xposition: number;
-        yposition: number;
-    }
+    profilePhotoUrl: string;
+    backgroundPhotoUrl: string;
 }

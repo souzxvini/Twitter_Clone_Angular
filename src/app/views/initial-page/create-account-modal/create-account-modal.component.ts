@@ -11,7 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import { debounceTime } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { convertBytesToURL } from 'src/app/helpers/convert-bytes-to-url';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 
@@ -61,12 +60,10 @@ export class CreateAccountModalComponent implements OnInit {
 
   hide = true;
   url: any;
-  selectedFile: File | null = null;
 
   suggestedProfiles: any[] = [];
 
   noProfilePicture = noProfilePicture;
-  convertBytesToURL = convertBytesToURL;
   setProfilePhoto = setProfilePhoto;
 
   constructor(
@@ -236,7 +233,6 @@ export class CreateAccountModalComponent implements OnInit {
   onSelectFile(event: any): void {
     if (event.target.files) {
       var reader = new FileReader();
-      this.selectedFile = event.target.files[0];
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (e: any) => {
         const dialogRef = this.dialog.open(EditProfilePictureModalComponent, {
@@ -253,8 +249,6 @@ export class CreateAccountModalComponent implements OnInit {
         dialogRef.afterClosed().subscribe(imgUrl => {
           if (imgUrl) {
             this.url = imgUrl;
-          } else {
-            this.selectedFile = null;
           }
         });
 
@@ -279,7 +273,7 @@ export class CreateAccountModalComponent implements OnInit {
   saveProfilePicture() {
     this.loaded = false;
 
-    this.accountsService.updateProfilePhoto(this.selectedFile, this.url.imgUrl.position.x, this.url.imgUrl.position.y).subscribe({
+    this.accountsService.updateProfilePhoto(this.url).subscribe({
       complete: () => {
         this.loaded = true;
         this.step++;

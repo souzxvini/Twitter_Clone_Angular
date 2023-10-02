@@ -9,6 +9,9 @@ import { AnotherUserProfileComponent } from './another-user-profile/another-user
 import { ProfileNavComponent } from './profile-nav/profile-nav.component';
 import { FullScreenProfilePhotoModalComponent } from './modals/full-screen-profile-photo-modal/full-screen-profile-photo-modal.component';
 import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-profile-modal.component';
+import { FullScreenBackgroundPhotoModalComponent } from './modals/full-screen-background-photo-modal/full-screen-background-photo-modal.component';
+import { EditBackgroundPictureModalComponent } from 'src/app/components/edit-background-picture-modal/edit-background-picture-modal.component';
+import { AlyleModule } from 'src/app/shared/shared-material/Alyle.module';
 
 @NgModule({
   declarations: [
@@ -18,12 +21,15 @@ import { EditProfileModalComponent } from './modals/edit-profile-modal/edit-prof
     AnotherUserProfileComponent,
     FullScreenProfilePhotoModalComponent,
     EditProfileModalComponent,
+    EditBackgroundPictureModalComponent,
+    FullScreenBackgroundPhotoModalComponent
   ],
   imports: [
     CommonModule,
     ProfileRoutingModule,
     SharedMaterialModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    AlyleModule
   ]
 })
 export class ProfileModule { }

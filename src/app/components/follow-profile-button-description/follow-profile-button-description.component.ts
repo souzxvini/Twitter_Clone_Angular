@@ -1,14 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { convertBytesToURL } from 'src/app/helpers/convert-bytes-to-url';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { UnfollowConfirmationModalComponent } from '../unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CreateAccountModalComponent } from 'src/app/views/initial-page/create-account-modal/create-account-modal.component';
-import { Router } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { AccountsService } from 'src/app/services/accounts.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -21,7 +17,6 @@ export class FollowProfileButtonDescriptionComponent {
   @Input() suggestedProfiles: any;
 
   noProfilePicture = noProfilePicture;
-  convertBytesToURL = convertBytesToURL;
   setProfilePhoto = setProfilePhoto;
 
   loaded = false;

@@ -17,13 +17,15 @@
     </div>
   </div>
   <div fxLayout="column">
-    <div class="profileBackground cursorPointer"></div>
+    <div class="profileBackground" 
+    [style]="setBackgroundPhoto(user.backgroundPhotoUrl)" 
+    (click)="user.backgroundPhotoUrl ? visualizeBackgroundPicture(user.backgroundPhotoUrl) : null"></div>
     <div fxLayout="column" fxLayoutGap="15" style="padding: 0 16px">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div>
           <div class="profileUserPicture cursorPointer" 
-          (click)="visualizeProfilePicture(user.profilePhoto?.photo, user.profilePhoto?.yposition, user.profilePhoto?.xposition)">
-            <div class="picture" [style]="setProfilePhoto(user.profilePhoto?.photo)">
+          (click)="visualizeProfilePicture(user.profilePhotoUrl)">
+            <div class="picture" [style]="setProfilePhoto(user.profilePhotoUrl)">
             </div>
           </div>
         </div>

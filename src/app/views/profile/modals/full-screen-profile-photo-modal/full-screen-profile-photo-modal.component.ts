@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { convertBytesToURL } from 'src/app/helpers/convert-bytes-to-url';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 
@@ -12,7 +11,6 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 export class FullScreenProfilePhotoModalComponent {
 
   noProfilePicture = noProfilePicture;
-  convertBytesToURL = convertBytesToURL;
   setProfilePhoto = setProfilePhoto;
 
   constructor(
