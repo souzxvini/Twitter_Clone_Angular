@@ -161,7 +161,7 @@
               </button>
             </nav>
 
-            <div fxLayout="row" fxLayoutAlign="start center" class="sideNavMenuProfileButton" (click)="logout()">
+            <div fxLayout="row" fxLayoutAlign="start center" class="sideNavMenuProfileButton" (click)="logout()" fxHide.lt-lg>
               <div fxFlex="20">
                 <img src="../../../assets/img/profile-image.png" class="sideNavMenuProfileButtonImage">
               </div>
@@ -182,7 +182,7 @@
             </div>
 
             <div class="sideNavMenuProfileIcon" fxHide.gt-md>
-              <div class="sideNavMenuProfileButtonImage"></div>
+              <div class="sideNavMenuProfileButtonImage" [style]="setProfilePhoto(null)"></div>
             </div>
           </div>
         </div>

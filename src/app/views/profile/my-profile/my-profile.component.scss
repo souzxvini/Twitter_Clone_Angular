@@ -10,3 +10,15 @@
 .picture:hover{
   opacity: 0.9;
 }
+
+@media screen and (max-width:687px) {
+
+  .profileUserPicture  {
+    height: calc(20vw - 1px);
+    max-height: 130px;
+    width: calc(20vw - 1px);
+    max-width: 130px;
+    margin-top: calc(0px - ((20vw - 1px) / 2));
+  }
+  
+}

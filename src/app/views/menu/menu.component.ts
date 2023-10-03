@@ -4,6 +4,8 @@ import { SidenavService } from 'src/app/services/sidenav.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AuthService } from 'src/app/services/auth.service';
+import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
+import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 
 @Component({
   selector: 'app-menu',
@@ -21,6 +23,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MenuComponent implements OnInit {
 
   settingsAndPrivacyIsClicked = false;
+  setProfilePhoto = setProfilePhoto;
 
   @ViewChild('dashboard', { static: false }) sidenav!: MatSidenav;
 

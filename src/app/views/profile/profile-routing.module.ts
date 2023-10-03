@@ -8,20 +8,19 @@ import { AnotherUserProfileComponent } from './another-user-profile/another-user
 const routes: Routes = [
 
   {
-    path: '',
-    component: MyProfileComponent,
+    path: '', 
     canActivate: [authGuard],
-  },
-  {
-    path: ':username',
-    component: AnotherUserProfileComponent,
-    canActivate: [authGuard]
-  },
-  {
-    path: '',
-    component: ProfileSearchComponent,
+    children: [
+      { path: '', component: MyProfileComponent},
+      { path: '', component: ProfileSearchComponent, outlet: 'secondary' },
+    ],
+  },{
+    path: ':username', 
     canActivate: [authGuard],
-    outlet: 'secondary'
+    children: [
+      { path: '', component: ProfileSearchComponent, outlet: 'secondary' },
+      { path: '', component: AnotherUserProfileComponent },
+    ],
   }
 
 ];

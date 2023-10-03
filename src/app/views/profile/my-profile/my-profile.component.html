@@ -4,7 +4,7 @@
 
 <div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
   <div class="header bluredHeaderStyle" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
-    <button mat-mini-fab routerLink="/home" >
+    <button mat-mini-fab routerLink="/home">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     <div fxLayout="column" fxLayoutGap="4">
@@ -17,19 +17,18 @@
     </div>
   </div>
   <div fxLayout="column">
-    <div class="profileBackground" 
-    [style]="setBackgroundPhoto(user.backgroundPhotoUrl)" 
-    (click)="user.backgroundPhotoUrl ? visualizeBackgroundPicture(user.backgroundPhotoUrl) : null"></div>
+    <div class="profileBackground" [style]="setBackgroundPhoto(user.backgroundPhotoUrl)"
+      (click)="user.backgroundPhotoUrl ? visualizeBackgroundPicture(user.backgroundPhotoUrl) : null">
+    </div>
     <div fxLayout="column" fxLayoutGap="15" style="padding: 0 16px">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div>
-          <div class="profileUserPicture cursorPointer" 
-          (click)="visualizeProfilePicture(user.profilePhotoUrl)">
+          <div class="profileUserPicture cursorPointer" (click)="visualizeProfilePicture(user.profilePhotoUrl)">
             <div class="picture" [style]="setProfilePhoto(user.profilePhotoUrl)">
             </div>
           </div>
         </div>
-        <button class="transparentButton cursorPointer _36pxButton" (click)="openEditProfileModal()">
+        <button class="transparentButton cursorPointer _36pxButton" (click)="openEditProfileModal()" style="margin-top:12px">
           Editar perfil
         </button>
       </div>
@@ -54,8 +53,7 @@
           <mat-icon>location_on</mat-icon> <span>{{ user.location }}</span>
         </span>
         <span class="info" fxLayout="row" fxLayoutAlign="center center" *ngIf="user.site">
-          <mat-icon>link</mat-icon> <a class="blueLinks" target="_blank"
-            href="{{user.site}}">{{ user.site }}</a>
+          <mat-icon>link</mat-icon> <a class="blueLinks" target="_blank" href="{{user.site}}">{{ user.site }}</a>
         </span>
         <span class="info" fxLayout="row" fxLayoutAlign="center center">
           <mat-icon>event_note</mat-icon> <span>Ingressou em {{user.registrationTime | date: 'MMMM'}} de
