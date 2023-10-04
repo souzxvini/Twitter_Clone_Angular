@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccountsService } from 'src/app/services/accounts.service';
 
 @Component({
   selector: 'app-profile-search',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile-search.component.scss']
 })
 export class ProfileSearchComponent {
+
+  
 
 }

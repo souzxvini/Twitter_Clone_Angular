@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { authGuard } from 'src/app/guards/auth.guard';
 import { ProfileSearchComponent } from './profile-search/profile-search.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
@@ -28,5 +28,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
+
 })
 export class ProfileRoutingModule { }

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { HomeSearchComponent } from './home-search/home-search.component';
 import { authGuard } from 'src/app/guards/auth.guard';
+import { DefaultSearchSectionComponent } from 'src/app/components/default-search-section/default-search-section.component';
 
 const routes: Routes = [
 
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomeSearchComponent,
+    component: DefaultSearchSectionComponent,
     canActivate: [authGuard],
     outlet: 'secondary'
   }

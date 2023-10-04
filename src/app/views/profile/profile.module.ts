@@ -13,6 +13,7 @@ import { FullScreenBackgroundPhotoModalComponent } from './modals/full-screen-ba
 import { EditBackgroundPictureModalComponent } from 'src/app/components/edit-background-picture-modal/edit-background-picture-modal.component';
 import { AlyleModule } from 'src/app/shared/shared-material/Alyle.module';
 
+
 @NgModule({
   declarations: [
     ProfileNavComponent,

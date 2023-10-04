@@ -67,7 +67,6 @@ export class EditBackgroundPictureModalComponent {
 
   onCropped(e: ImgCropperEvent) {
     this.croppedImage = e;
-    console.log(this.croppedImage)
     this.dialogRef.close(this.croppedImage.dataURL)
   }
   onLoaded(e: ImgCropperEvent) {

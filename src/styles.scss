@@ -512,6 +512,14 @@ button {
   font-size: 15px !important;
 }
 
+._44pxButton {
+  height: 44px !important;
+  max-height: 44px !important;
+  padding: 0 16px;
+  font-size: 15px !important;
+  border-radius: 50px !important;
+}
+
 ._52pxButton {
   height: 52px !important;
   max-height: 52px !important;
@@ -609,12 +617,20 @@ button {
 }
 
 .userUsername {
-  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: rgb(121, 134, 147);
   font-size: 15px;
+}
+
+.followsYou{
+  white-space: nowrap;
+  width: 70px;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-size: 11px;
+  padding: 2px 4px;
+  border-radius: 5px;
 }
 
 .userBiography {
@@ -732,6 +748,9 @@ button {
 }
 
 .headerUserFirstName {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
   font-size: 20px;
   font-weight: 600;
 }
@@ -743,7 +762,6 @@ button {
 
 .profileBackground {
   height: 200px;
-  width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: center;
@@ -818,6 +836,12 @@ button {
 .follows:hover {
   text-decoration: underline white !important;
   color: white;
+}
+
+.dottedOverflow {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .cdk-overlay-pane,

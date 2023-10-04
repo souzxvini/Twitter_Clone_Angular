@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-following-button',
-  templateUrl: './following-button.component.html',
-  styleUrls: ['./following-button.component.scss']
+  selector: 'app-following-button-32px',
+  templateUrl: './following-button-32px.component.html',
+  styleUrls: ['./following-button-32px.component.scss']
 })
-export class FollowingButtonComponent {
+export class FollowingButton32pxComponent {
 
   isHovered = false;
   buttonText = 'Following';

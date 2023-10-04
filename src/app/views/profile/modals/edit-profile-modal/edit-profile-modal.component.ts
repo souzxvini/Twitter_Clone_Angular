@@ -157,7 +157,6 @@ export class EditProfileModalComponent {
         dialogRef.afterClosed().subscribe(imgUrl => {
           if (imgUrl) {
             this.profilePhotoUrl = imgUrl;
-            console.log(this.profilePhotoUrl)
           }
         });
 

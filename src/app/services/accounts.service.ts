@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 const API = environment.API
 
@@ -107,9 +107,33 @@ export class AccountsService {
     return this.http.get<any>(API + '/accounts/v1/user/search');
   }
 
+   //GET /v1/user/search/byidentifier/{identifier}
+   getUserByIdentifier(userIdentifier): Observable<any>{
+    return this.http.get<any>(API + '/accounts/v1/user/search/byidentifier/' + userIdentifier);
+  }
+
+  //GET /v1/user/search/byidentifier/{identifier}
+  getWhoToFollowAccounts(page, size, userIdentifier): Observable<any[]>{
+    let params: HttpParams = new HttpParams();
+    params = params.append('page', page);
+    params = params.append('size', size);
+    userIdentifier ? params = params.append('userOnScreen', userIdentifier) : null;
+
+    return this.http.get<any[]>(API + '/accounts/v1/user/search/whotofollow', { params });
+  }
+
   //USER-INTERACTIONS-CONTROLLER
 
   //PATCH /v1/user/interactions/followtoggle/{identifier}
+  private userData: any;
+  setUserData(userData){
+    this.userData = userData;
+  }
+
+  getUserData() {
+    return this.userData;
+  }
+
   followUser(identificador: string) {
     return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + identificador , this.httpOptions);
   }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeSearchComponent } from './home-search/home-search.component';
 import { SharedMaterialModule } from 'src/app/shared/shared-material/shared-material.module';
 import { MobileFooterNavComponent } from 'src/app/components/mobile-footer-nav/mobile-footer-nav.component';
 import { HomeComponent } from './home.component';
@@ -10,7 +9,6 @@ import { SharedComponentsModule } from 'src/app/components/shared-components.mod
 @NgModule({
   declarations: [
     HomeComponent,
-    HomeSearchComponent,
     MobileFooterNavComponent
   ],
   imports: [

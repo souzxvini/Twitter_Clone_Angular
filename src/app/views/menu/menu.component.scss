@@ -207,7 +207,7 @@
   cursor: pointer;
 }
 
-.userFirstName{
+.userFirstName {
   max-width: 90% !important;
 }
 
@@ -275,8 +275,8 @@
 
   /*Ajustando tamanho do main*/
   .mainContainer {
-    min-width: fit-content;
-    flex-grow: 1 !important;
+    min-width: calc(100% - 68px);
+    max-width: calc(100% - 68px);
   }
 
   /*Ajustando tamanho do explore*/

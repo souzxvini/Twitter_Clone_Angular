@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { FollowingButtonComponent } from 'src/app/components/following-button/following-button.component';
+import { FollowingButton32pxComponent } from 'src/app/components/following-button-32px/following-button-32px.component';
+import { FollowingButton36pxComponent } from 'src/app/components/following-button-36px/following-button-36px.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { WhoToFollowCardComponent } from 'src/app/components/who-to-follow-card/who-to-follow-card.component';
 import { CommonModule } from '@angular/common';
@@ -9,31 +10,35 @@ import { UnfollowConfirmationModalComponent } from './unfollow-confirmation-moda
 import { TweetComponent } from './tweet/tweet.component';
 import { FollowProfileButtonComponent } from './follow-profile-button/follow-profile-button.component';
 import { FollowProfileButtonDescriptionComponent } from './follow-profile-button-description/follow-profile-button-description.component';
+import { DefaultSearchSectionComponent } from './default-search-section/default-search-section.component';
 @NgModule({
   declarations:[ 
-    FollowingButtonComponent,
+    FollowingButton32pxComponent,
+    FollowingButton36pxComponent,
     FooterComponent,
     WhoToFollowCardComponent,
     SearchTwitterButtonComponent,
     UnfollowConfirmationModalComponent,
     TweetComponent,
     FollowProfileButtonComponent,
-    FollowProfileButtonDescriptionComponent
+    FollowProfileButtonDescriptionComponent,
+    DefaultSearchSectionComponent
   ],
   imports: [
     CommonModule,
     SharedMaterialModule
   ],
   exports: [ 
-    FollowingButtonComponent,
+    FollowingButton32pxComponent,
+    FollowingButton36pxComponent,
     FooterComponent,
     WhoToFollowCardComponent,
     SearchTwitterButtonComponent,
     UnfollowConfirmationModalComponent,
     TweetComponent,
     FollowProfileButtonComponent,
-    FollowProfileButtonDescriptionComponent
-
+    FollowProfileButtonDescriptionComponent,
+    DefaultSearchSectionComponent
   ]
 })
 
