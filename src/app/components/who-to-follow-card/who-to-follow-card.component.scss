@@ -32,3 +32,21 @@
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.07);
 }
+
+.noAccountsCard{
+  width: 100%;
+  height: 250px;
+  border-radius: 20px;
+  margin-top: 10px;
+  background-color: #16181c;
+}
+
+.message{
+  color: rgb(117, 130, 143);
+  font-size: 15px;
+}
+
+.noAccountsCard mat-icon{
+  color: rgb(117, 130, 143);
+  transform: scale(2.5);
+}

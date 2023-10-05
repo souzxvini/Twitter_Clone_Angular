@@ -2,13 +2,14 @@
   <mat-spinner [diameter]="30"></mat-spinner>
 </div>
 
-<div *ngIf="loaded" class="whoToFollowCard">
+<div *ngIf="loaded && whoToFollowAccounts.length > 0" class="whoToFollowCard">
   <div class="whoToFollowCardTitle">
     <span>Who to follow</span>
   </div>
 
   <div fxLayout="column">
-    <div class="whoToFollowAccountButton cursorPointer" *ngFor="let account of whoToFollowAccounts" (click)="redirectToProfile(account)">
+    <div class="whoToFollowAccountButton cursorPointer" *ngFor="let account of whoToFollowAccounts"
+      (click)="redirectToProfile(account)">
       <div fxLayout="row" fxLayoutAlign="center center">
         <div style="width: 40px;">
           <div class="profilePicture" style="width: 40px; height: 40px;"
@@ -19,7 +20,8 @@
         <div fxLayout="column" fxLayoutGap="4"
           [fxFlex]="account.isFollowedByMe ? 'calc(100% - 140px)' : 'calc(100% - 120px)'" style="padding: 0 10px;">
           <div fxLayout="row" fxLayoutAlign="start center">
-            <span [style]="account.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width: 100%'" class="userFirstName">
+            <span [style]="account.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width: 100%'"
+              class="userFirstName">
               {{ account.firstName }}
             </span>
             <div style="width: 18px;" *ngIf="account.isVerified">
@@ -27,7 +29,8 @@
             </div>
           </div>
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3">
-            <span [style]="account.isFollowingMe ? 'max-width: calc(100% - 70px)' : 'max-width: 100%'" class="userUsername">
+            <span [style]="account.isFollowingMe ? 'max-width: calc(100% - 70px)' : 'max-width: 100%'"
+              class="userUsername">
               @{{ account.username }}
             </span>
             <span *ngIf="account.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
@@ -38,11 +41,12 @@
         <div [style]="account.isFollowedByMe ? 'width: 100px;' : 'width: 80px;'">
           <!--Botão 'SEGUIR'-->
           <button *ngIf="!account.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
-            (click)="$event.stopPropagation(); followUser(account.userIdentifier)" >
+            (click)="$event.stopPropagation(); followUser(account.userIdentifier)">
             <span>Seguir</span>
           </button>
           <!--Botão 'SEGUINDO'-->
-          <app-following-button-32px *ngIf="account.isFollowedByMe" (click)="$event.stopPropagation(); openUnfollowConfirmationModal(account)">
+          <app-following-button-32px *ngIf="account.isFollowedByMe"
+            (click)="$event.stopPropagation(); openUnfollowConfirmationModal(account)">
           </app-following-button-32px>
         </div>
       </div>
@@ -52,5 +56,16 @@
 
   <div class="whoToFollowCardFooter">
     <span>Show more</span>
+  </div>
+</div>
+
+<div *ngIf="loaded && whoToFollowAccounts.length == 0" class="noAccountsCard" fxLayout="column"
+  fxLayoutAlign="space-between start" >
+  <div class="whoToFollowCardTitle" fxFlex="20">
+    <span>Who to follow</span>
+  </div>
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="padding: 16px" fxLayoutGap="30">
+    <mat-icon>error_outline</mat-icon>
+    <span class="message">Não existem mais sugestões de contas para você seguir! </span>
   </div>
 </div>

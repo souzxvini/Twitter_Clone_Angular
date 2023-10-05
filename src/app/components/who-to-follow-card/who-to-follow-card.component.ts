@@ -5,6 +5,7 @@ import { UnfollowConfirmationModalComponent } from '../unfollow-confirmation-mod
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AnotherProfileModel } from 'src/app/models/another-profile-model';
 
 @Component({
   selector: 'app-who-to-follow-card',
@@ -16,8 +17,10 @@ export class WhoToFollowCardComponent {
   isHovered = false;
   buttonText = 'Following';
 
-  whoToFollowAccounts: any;
+  whoToFollowAccounts: AnotherProfileModel[];
   loaded = false;
+
+  currentUrl: string;
 
   setProfilePhoto = setProfilePhoto;
 
@@ -33,6 +36,9 @@ export class WhoToFollowCardComponent {
     this.activatedRoute.params.subscribe(params => {
       params['username'] ? this.getWhoToFollowAccounts(params['username']) : this.getWhoToFollowAccounts();
     });
+
+    this.currentUrl = this.router.url;
+    
   }
 
   getWhoToFollowAccounts(userIdentifier?) {
@@ -54,15 +60,29 @@ export class WhoToFollowCardComponent {
   }
 
   followUser(userIdentifier) {
+    let profile = this.whoToFollowAccounts.find(profile => profile.userIdentifier === userIdentifier);
+    profile.isFollowedByMe = !profile.isFollowedByMe;
+    profile.isFollowedByMe ? profile.followers++ : profile.followers--;
+
+    //se a rota for /profile apenas
+    if (this.currentUrl == '/profile') {
+      this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
+    }
+
     this.accountsService.followUser(userIdentifier).subscribe({
       complete: () => {
-        let profile = this.whoToFollowAccounts.find(profile => profile.userIdentifier === userIdentifier);
-        profile.isFollowedByMe = !profile.isFollowedByMe;
       },
       error: () => {
+        profile.isFollowedByMe = !profile.isFollowedByMe;
+        profile.isFollowedByMe ? profile.followers++ : profile.followers--;
+
+        //se a rota for /profile apenas
+        if (this.currentUrl == '/profile') {
+          this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
+        }
         this.loaded = true;
         this.snackbar.open(
-          'Desculpe, houve algum erro. Por favor, tente novamente.',
+          'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
           '',
           { duration: 5000, panelClass: ['snackbarLoginError'] }
         );
@@ -89,8 +109,12 @@ export class WhoToFollowCardComponent {
     })
   }
 
-  redirectToProfile(account) {
-    // Define os dados do usuário no serviço
+  //Método para redirecionar o usuario logado para o perfil de outra pessoa
+  redirectToProfile(account: AnotherProfileModel) {
+    /*Como eu ja possuo os dados do usuário nesse componente, eu vou salvar os dados no service,
+     e ao carregar o outro componente (a tela do perfil do usuario que eu redirecionei),
+     eu vou pegar os dados do usuário a partir dessa variável que estou preenchendo no service, 
+     assim não preciso realizar outra chamada de endpoint para pegar dados que eu ja possuo nesse componente*/
     this.accountsService.setUserData(account);
 
     // Navega para a nova URL

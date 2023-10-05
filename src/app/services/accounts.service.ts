@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, map } from 'rxjs';
+import { AnotherProfileModel } from '../models/another-profile-model';
 
 const API = environment.API
 
@@ -112,20 +113,33 @@ export class AccountsService {
     return this.http.get<any>(API + '/accounts/v1/user/search/byidentifier/' + userIdentifier);
   }
 
+  //GET /v1/user/search/followsandfollowers
+  getUsersFollowsAndFollowers(userIdentifier): Observable<any>{
+    let params: HttpParams = new HttpParams();
+    params = params.append('targetUserIdentifier', userIdentifier);
+
+    return this.http.get<any>(API + '/accounts/v1/user/search/followsandfollowers', { params });
+  }
+
   //GET /v1/user/search/byidentifier/{identifier}
-  getWhoToFollowAccounts(page, size, userIdentifier): Observable<any[]>{
+  getWhoToFollowAccounts(page, size, userIdentifier): Observable<AnotherProfileModel[]>{
     let params: HttpParams = new HttpParams();
     params = params.append('page', page);
     params = params.append('size', size);
     userIdentifier ? params = params.append('userOnScreen', userIdentifier) : null;
 
-    return this.http.get<any[]>(API + '/accounts/v1/user/search/whotofollow', { params });
+    return this.http.get<AnotherProfileModel[]>(API + '/accounts/v1/user/search/whotofollow', { params });
   }
 
   //USER-INTERACTIONS-CONTROLLER
 
   //PATCH /v1/user/interactions/followtoggle/{identifier}
-  private userData: any;
+  followUser(identificador?: string) {
+    return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + identificador , this.httpOptions);
+  }
+
+  //CLICAR EM UM PERFIL E REDIRECIONAR PARA O PERFIL DESSA PESSOA PASSANDO OS DADOS, SEM PRECISAR CHAMAR UM ENDPOINT PARA CARREGAR OS DADOS
+  private userData: AnotherProfileModel;
   setUserData(userData){
     this.userData = userData;
   }
@@ -134,8 +148,24 @@ export class AccountsService {
     return this.userData;
   }
 
-  followUser(identificador: string) {
-    return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + identificador , this.httpOptions);
+  clearUserData() {
+    this.userData = null;
+  }
+
+  /*Se eu seguir alguém do card de 'sugestões para seguir' enquanto estou na minha tela de perfil, vou 'notificar' esse cara,
+   para atualizar o número de pessoas que estou seguindo instantaneamente*/
+  private followedSuggestedUserWhileOnYourProfileScreenListening = new BehaviorSubject<boolean>(false);
+  followingChange$ = this.followedSuggestedUserWhileOnYourProfileScreenListening.asObservable();
+
+  followedSomeone: boolean;
+
+  getFollowedSomeone() {
+    return this.followedSomeone;
+  }
+
+  followedSuggestedUserWhileOnYourProfileScreen(followedSomeone: boolean){
+    this.followedSomeone = followedSomeone;
+    this.followedSuggestedUserWhileOnYourProfileScreenListening.next(true);
   }
 
 }

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { AnotherProfileModel } from 'src/app/models/another-profile-model';
 
 @Component({
   selector: 'app-another-user-profile',
@@ -16,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AnotherUserProfileComponent {
 
-  user: any;
+  user: AnotherProfileModel;
   loaded = false;
 
   userInformationsLoaded = false;
@@ -35,15 +36,23 @@ export class AnotherUserProfileComponent {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.username = params['username'];
+
+      /*se essa funcao .getUserData() tiver valor, 
+      então quer dizer que o usuario clicou para ver o perfil de alguém,
+      então eu seto as informações do usuário através do valor que estiver nessa funcao,
+      sem precisar chamar o get para trazer as principais informações do usuario*/
       this.user = this.accountsService.getUserData();
-      if(!this.user){
+      if (!this.user) {
         this.getUserInformations(this.username, true);
+      } else {
+        this.userInformationsLoaded = true;
+        this.accountsService.clearUserData();
       }
     });
   }
 
   getUserInformations(userIdentifier, spinner) {
-    //spinner ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
+    spinner ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
     this.accountsService.getUserByIdentifier(userIdentifier).subscribe({
       next: (res) => {
         this.user = res;
@@ -51,6 +60,17 @@ export class AnotherUserProfileComponent {
       },
       error: () => {
         this.userInformationsLoaded = true;
+      }
+    })
+  }
+
+  getUsersFollowsAndFollowers(userIdentifier) {
+    this.accountsService.getUsersFollowsAndFollowers(userIdentifier).subscribe({
+      next: (res) => {
+        this.user.followers = res.followers;
+        this.user.following = res.follows;
+      },
+      error: () => {
       }
     })
   }
@@ -105,15 +125,18 @@ export class AnotherUserProfileComponent {
   }
 
   followUser(userIdentifier) {
+    this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
+    this.user.isFollowedByMe = !this.user.isFollowedByMe;
     this.accountsService.followUser(userIdentifier).subscribe({
       complete: () => {
-        this.user.isFollowedByMe = !this.user.isFollowedByMe;
-        this.getUserInformations(this.username, false);
+        this.getUsersFollowsAndFollowers(this.username);
       },
       error: () => {
+        this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
+        this.user.isFollowedByMe = !this.user.isFollowedByMe;
         this.loaded = true;
         this.snackbar.open(
-          'Desculpe, houve algum erro. Por favor, tente novamente.',
+          'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
           '',
           { duration: 5000, panelClass: ['snackbarLoginError'] }
         );

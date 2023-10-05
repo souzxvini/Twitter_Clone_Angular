@@ -627,10 +627,11 @@ button {
 .followsYou{
   white-space: nowrap;
   width: 70px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #202327;
   font-size: 11px;
   padding: 2px 4px;
   border-radius: 5px;
+  color: rgb(113, 118, 123);
 }
 
 .userBiography {
@@ -743,14 +744,11 @@ button {
 }
 
 .header {
-  height: 6vh;
+  height: 53px;
   padding: 0 16px;
 }
 
 .headerUserFirstName {
-  white-space: nowrap;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
   font-size: 20px;
   font-weight: 600;
 }
@@ -844,6 +842,10 @@ button {
   text-overflow: ellipsis !important;
 }
 
+.wordBreak{
+  word-break: break-all;
+}
+
 .cdk-overlay-pane,
 .modalStyle {
   max-width: 100vw !important;
@@ -895,7 +897,7 @@ button {
 .bluredHeaderStyle {
   position: sticky;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(12px);
   z-index: 1
 }
