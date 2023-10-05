@@ -14,8 +14,8 @@
     <li>Register</li>
     <li>Home</li>
     <li>Explore</li>
-    <li>Notifications</li>
-    <li>Messages</li>
+    <li>Notifications (Real time)</li>
+    <li>Messages (Real time)</li>
     <li>Bookmarks</li>
     <li>Profile</li>
   </ul>
