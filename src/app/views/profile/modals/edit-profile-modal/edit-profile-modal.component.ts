@@ -35,6 +35,8 @@ export class EditProfileModalComponent {
     site: new FormControl(null)
   });
 
+  loaded = true;
+
   noProfilePicture = noProfilePicture;
   setProfilePhoto = setProfilePhoto;
   setBackgroundPhoto = setBackgroundPhoto;
@@ -67,6 +69,7 @@ export class EditProfileModalComponent {
   }
 
   patchProfileInformations(){
+    this.loaded = false;
     const payload = {
       firstName: this.editProfileForm.controls['firstName'].value,
       biography: this.editProfileForm.controls['biography'].value,
@@ -78,9 +81,11 @@ export class EditProfileModalComponent {
 
     this.accountsService.patchProfileInformations(payload).subscribe({
       complete: () => {
-        this.dialogRef.close(true);
+        this.dialogRef.close(payload);
+        this.loaded = true;
       }, 
       error: () => {
+        this.loaded = true;
         this.snackbar.open(
           'Desculpe, ocorreu um erro ao atualizar o seu perfil.',
           '',

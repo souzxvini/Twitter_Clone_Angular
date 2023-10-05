@@ -97,7 +97,12 @@ export class MyProfileComponent {
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
-          this.getLoggedUserAccount(false);
+          this.user.firstName = res.firstName;
+          this.user.biography = res.biography;
+          this.user.location = res.location;
+          this.user.site = res.site;
+          this.user.backgroundPhotoUrl = res.backgroundPhotoUrl;
+          this.user.profilePhotoUrl = res.profilePhotoUrl;
         }
       }
     })

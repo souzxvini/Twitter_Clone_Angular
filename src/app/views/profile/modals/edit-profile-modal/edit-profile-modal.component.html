@@ -1,14 +1,14 @@
-<div style="height: 100%; width: 100%; overflow-y: scroll;">
+<div style="height: 100%; width: 100%; overflow-y: scroll;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''">
   <div style="padding: 0 16px; height: 53px; width: 100%;" class="bluredHeaderStyle" fxLayout="row"
     fxLayoutAlign="space-between center">
     <div fxLayoutAlign=" center" fxLayoutGap="30" fxLayoutGap="30">
-      <button mat-mini-fab mat-dialog-close>
+      <button mat-mini-fab mat-dialog-close [disabled]="!loaded">
         <mat-icon>close</mat-icon>
       </button>
       <span class="dialogSteps">Editar perfil</span>
     </div>
     <button class="whiteButton cursorPointer _32pxButton" style="padding: 0px 16px;"
-      (click)="patchProfileInformations()" [disabled]="editProfileForm.invalid">
+      (click)="patchProfileInformations()" [disabled]="editProfileForm.invalid || !loaded">
       Salvar
     </button>
   </div>
