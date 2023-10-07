@@ -84,4 +84,12 @@ export class FollowProfileButtonComponent {
       }
     })
   }
+
+  setFollowingButtonHoverWidth(){
+    return localStorage.getItem('Language') == 'pt' ?  'width: 150px;' : 'width: 100px;';
+  }
+
+  setButtonCalc(){
+    return localStorage.getItem('Language') == 'pt' ?  'calc(100% - 190px)' : 'calc(100% - 140px)';
+  }
 }

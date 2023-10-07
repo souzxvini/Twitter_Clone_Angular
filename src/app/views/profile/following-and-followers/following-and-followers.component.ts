@@ -58,55 +58,31 @@ export class FollowingAndFollowersComponent {
   getFollowsDetails(){
     if(this.currentUrl.includes('following')){
       this.section = 'following';
-      this.getFollows();
+      this.getUserFollowsDetails('following');
     }
 
     if(this.currentUrl.includes('followers') && !this.currentUrl.includes('verified_followers')  && !this.currentUrl.includes('known_followers')){
       this.section = 'followers';
-      this.getFollowers();
+      this.getUserFollowsDetails('followers');
     }
 
     if(this.currentUrl.includes('verified_followers')){
       this.section = 'verified_followers';
-      this.getVerifiedFollowers();
+      this.getUserFollowsDetails('verified_followers');
     }
 
     if(this.currentUrl.includes('known_followers')){
       this.section = 'known_followers';
-      this.getKnownFollowers();
+      this.getUserFollowsDetails('known_followers');
     }
   }
 
-  getFollows(){
-    this.accountsService.getUserFollowsDetails(this.user.username, 'following', 0 , 10).subscribe({
+  getUserFollowsDetails(url: string){
+    this.accountsService.getUserFollowsDetails(this.user.username, url, 0 , 10).subscribe({
       next: (res) => {
         this.accountsList = res;
       }
     });
-  }
-
-  getFollowers(){
-    this.accountsService.getUserFollowsDetails(this.user.username, 'followers', 0 , 10).subscribe({
-      next: (res) => {
-        this.accountsList = res;
-      }
-    });
-  }
-
-  getVerifiedFollowers(){
-    this.accountsService.getUserFollowsDetails(this.user.username, 'verified_followers', 0 , 10).subscribe({
-      next: (res) => {
-        this.accountsList = res;
-      }
-    })
-  }
-
-  getKnownFollowers(){
-    this.accountsService.getUserFollowsDetails(this.user.username, 'known_followers', 0 , 10).subscribe({
-      next: (res) => {
-        this.accountsList = res;
-      }
-    })
   }
 
   goBack() {

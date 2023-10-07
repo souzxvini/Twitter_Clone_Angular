@@ -9,6 +9,7 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-background-photo-modal/full-screen-background-photo-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-profile',
@@ -26,7 +27,8 @@ export class MyProfileComponent {
   constructor(
     private accountsService: AccountsService,
     private dialog: MatDialog,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
   ){}
 
   ngOnInit(){
@@ -118,6 +120,16 @@ export class MyProfileComponent {
           dialogRef.removePanelClass('no-border-dialog');
         }
       })
+  }
+
+  redirectToFollowing(user){
+    this.accountsService.setUserData(user);
+    this.router.navigate(['profile', user.username, 'following']);
+  }
+
+  redirectToFollowers(user){
+    this.accountsService.setUserData(user);
+    this.router.navigate(['profile', user.username, 'followers']);
   }
 
 }

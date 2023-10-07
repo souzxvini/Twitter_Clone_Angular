@@ -5,6 +5,7 @@ import { UnfollowConfirmationModalComponent } from '../unfollow-confirmation-mod
 import { MatDialog  } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-follow-profile-button-description',
@@ -20,23 +21,43 @@ export class FollowProfileButtonDescriptionComponent {
 
   loaded = false;
   isMouseOverFollowingButton: boolean = false;
+  currentUrl: string;
 
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
-    private snackbar: MatSnackBar
-  ){}
+    private snackbar: MatSnackBar,
+    private router: Router
+    ){}
+  
+    ngOnInit(){
+      this.currentUrl = this.router.url;
+    }
 
   followUser(username) {
+    let profile = this.suggestedProfiles.find(profile => profile.username === username);
+    profile.isFollowedByMe = !profile.isFollowedByMe;
+    profile.isFollowedByMe ? profile.followers++ : profile.followers--;
+
+    //se a rota for /profile apenas
+    if (this.suggestedProfiles == '/profile') {
+      this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
+    }
+
     this.accountsService.followUser(username).subscribe({
       complete: () => {
-        let profile = this.suggestedProfiles.find(profile => profile.username === username);
-        profile.isFollowedByMe = !profile.isFollowedByMe;
       },
       error: () => {
+        profile.isFollowedByMe = !profile.isFollowedByMe;
+        profile.isFollowedByMe ? profile.followers++ : profile.followers--;
+
+        //se a rota for /profile apenas
+        if (this.currentUrl == '/profile') {
+          this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
+        }
         this.loaded = true;
         this.snackbar.open(
-          'Desculpe, houve algum erro. Por favor, tente novamente.',
+          'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
           '',
           { duration: 5000, panelClass: ['snackbarLoginError'] }
         );
@@ -61,5 +82,13 @@ export class FollowProfileButtonDescriptionComponent {
         }
       }
     })
+  }
+
+  setFollowingButtonHoverWidth(){
+    return localStorage.getItem('Language') == 'pt' ?  'width: 150px;' : 'width: 100px;';
+  }
+
+  setButtonCalc(){
+    return localStorage.getItem('Language') == 'pt' ?  'calc(100% - 150px)' : 'calc(100% - 100px)';
   }
 }

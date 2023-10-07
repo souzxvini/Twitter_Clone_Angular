@@ -6,7 +6,7 @@
     </div>
 
     <div fxLayout="column" fxLayoutGap="4"
-      [fxFlex]="profile.isFollowedByMe ? isMouseOverFollowingButton ? 'calc(100% - 190px)' : 'calc(100% - 140px)' : 'calc(100% - 120px)'" style="padding: 0 10px;">
+      [fxFlex]="profile.isFollowedByMe ? isMouseOverFollowingButton ? setButtonCalc() : 'calc(100% - 140px)' : 'calc(100% - 120px)'" style="padding: 0 10px;">
       <div fxLayout="row" fxLayoutAlign="start center">
         <span [style]="profile.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width: 100%'"
           class="userFirstName">
@@ -26,7 +26,7 @@
 
     </div>
 
-    <div [style]="profile.isFollowedByMe ? isMouseOverFollowingButton ? 'width: 150px;' : 'width: 100px;' : 'width: 80px;'">
+    <div fxLayoutAlign="center center" [style]="profile.isFollowedByMe ? isMouseOverFollowingButton ? setFollowingButtonHoverWidth() : 'width: 100px;' : 'width: 80px;'">
       <!--Botão 'SEGUIR'-->
       <button *ngIf="!profile.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
         (click)="$event.stopPropagation(); followUser(profile.username)">
@@ -36,7 +36,7 @@
       <app-following-button-32px *ngIf="profile.isFollowedByMe"
         (click)="$event.stopPropagation(); openUnfollowConfirmationModal(profile)"
         (mouseenter)="isMouseOverFollowingButton = true"
-        (mouseleave)="isMouseOverFollowingButton = false">
+        (mouseleave)="isMouseOverFollowingButton = false" style="border-radius: 50px;">
       </app-following-button-32px>
     </div>
   </div>

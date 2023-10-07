@@ -133,9 +133,14 @@ export class AnotherUserProfileComponent {
     })
   }
 
-  redirectToFollowersAndFollowingScreen(user){
+  redirectToFollowing(user){
     this.accountsService.setUserData(user);
     this.router.navigate(['profile', user.username, 'following']);
+  }
+
+  redirectToFollowers(user){
+    this.accountsService.setUserData(user);
+    this.router.navigate(['profile', user.username, 'followers']);
   }
 
 }
