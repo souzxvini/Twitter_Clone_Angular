@@ -34,7 +34,6 @@ export class MyProfileComponent {
 
     //Se cair nesse método, quer dizer que o usuário seguiu alguém do card de 'quem seguir'..., serve para atualizar o numero de 'seguindo' instantaneamente
     this.accountsService.followingChange$.subscribe(() => {
-      console.log('a')
      this.user ? this.accountsService.getFollowedSomeone() ? this.user.following++ : this.user.following-- : null;
     });
   }

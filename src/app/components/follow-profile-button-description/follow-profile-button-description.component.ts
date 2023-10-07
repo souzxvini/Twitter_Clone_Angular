@@ -28,10 +28,10 @@ export class FollowProfileButtonDescriptionComponent {
     private snackbar: MatSnackBar
   ){}
 
-  followUser(userIdentifier) {
-    this.accountsService.followUser(userIdentifier).subscribe({
+  followUser(username) {
+    this.accountsService.followUser(username).subscribe({
       complete: () => {
-        let profile = this.suggestedProfiles.find(profile => profile.userIdentifier === userIdentifier);
+        let profile = this.suggestedProfiles.find(profile => profile.username === username);
         profile.isFollowedByMe = !profile.isFollowedByMe;
       },
       error: () => {
@@ -58,7 +58,7 @@ export class FollowProfileButtonDescriptionComponent {
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
-          this.followUser(profile.userIdentifier);
+          this.followUser(profile.username);
         }
       }
     })

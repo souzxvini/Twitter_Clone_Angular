@@ -109,33 +109,33 @@ export class AccountsService {
   }
 
    //GET /v1/user/search/byidentifier/{identifier}
-   getUserByIdentifier(userIdentifier): Observable<any>{
-    return this.http.get<any>(API + '/accounts/v1/user/search/byidentifier/' + userIdentifier);
-  }
-
-  //GET /v1/user/search/followsandfollowers
-  getUsersFollowsAndFollowers(userIdentifier): Observable<any>{
-    let params: HttpParams = new HttpParams();
-    params = params.append('targetUserIdentifier', userIdentifier);
-
-    return this.http.get<any>(API + '/accounts/v1/user/search/followsandfollowers', { params });
+   getUserByIdentifier(username): Observable<any>{
+    return this.http.get<any>(API + '/accounts/v1/user/search/byidentifier/' + username);
   }
 
   //GET /v1/user/search/byidentifier/{identifier}
-  getWhoToFollowAccounts(page, size, userIdentifier): Observable<AnotherProfileModel[]>{
+  getWhoToFollowAccounts(page, size, username): Observable<AnotherProfileModel[]>{
     let params: HttpParams = new HttpParams();
     params = params.append('page', page);
     params = params.append('size', size);
-    userIdentifier ? params = params.append('userOnScreen', userIdentifier) : null;
+    username ? params = params.append('userOnScreen', username) : null;
 
     return this.http.get<AnotherProfileModel[]>(API + '/accounts/v1/user/search/whotofollow', { params });
+  }
+
+  //GET /v1/user/search/followsdetails/{identifier}/{type}
+  getUserFollowsDetails(username, type, page, size): Observable<any[]>{
+    let params: HttpParams = new HttpParams();
+    params = params.append('page', page);
+    params = params.append('size', size);
+    return this.http.get<any[]>(API + '/accounts/v1/user/search/followsdetails/' + username + '/' + type, { params });
   }
 
   //USER-INTERACTIONS-CONTROLLER
 
   //PATCH /v1/user/interactions/followtoggle/{identifier}
-  followUser(identificador?: string) {
-    return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + identificador , this.httpOptions);
+  followUser(username: string) {
+    return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + username , this.httpOptions);
   }
 
   //CLICAR EM UM PERFIL E REDIRECIONAR PARA O PERFIL DESSA PESSOA PASSANDO OS DADOS, SEM PRECISAR CHAMAR UM ENDPOINT PARA CARREGAR OS DADOS

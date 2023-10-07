@@ -7,8 +7,9 @@ import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-b
 import { MatDialog } from '@angular/material/dialog';
 import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnotherProfileModel } from 'src/app/models/another-profile-model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-another-user-profile',
@@ -30,7 +31,9 @@ export class AnotherUserProfileComponent {
     private activatedRoute: ActivatedRoute,
     private accountsService: AccountsService,
     private dialog: MatDialog,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private router: Router,
+    public location: Location
   ) { }
 
   ngOnInit() {
@@ -51,26 +54,15 @@ export class AnotherUserProfileComponent {
     });
   }
 
-  getUserInformations(userIdentifier, spinner) {
+  getUserInformations(username, spinner) {
     spinner ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
-    this.accountsService.getUserByIdentifier(userIdentifier).subscribe({
+    this.accountsService.getUserByIdentifier(username).subscribe({
       next: (res) => {
         this.user = res;
         this.userInformationsLoaded = true;
       },
       error: () => {
         this.userInformationsLoaded = true;
-      }
-    })
-  }
-
-  getUsersFollowsAndFollowers(userIdentifier) {
-    this.accountsService.getUsersFollowsAndFollowers(userIdentifier).subscribe({
-      next: (res) => {
-        this.user.followers = res.followers;
-        this.user.following = res.follows;
-      },
-      error: () => {
       }
     })
   }
@@ -118,19 +110,16 @@ export class AnotherUserProfileComponent {
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
-          this.followUser(profile.userIdentifier);
+          this.followUser(profile.username);
         }
       }
     })
   }
 
-  followUser(userIdentifier) {
+  followUser(username) {
     this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
     this.user.isFollowedByMe = !this.user.isFollowedByMe;
-    this.accountsService.followUser(userIdentifier).subscribe({
-      complete: () => {
-        this.getUsersFollowsAndFollowers(this.username);
-      },
+    this.accountsService.followUser(username).subscribe({
       error: () => {
         this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
         this.user.isFollowedByMe = !this.user.isFollowedByMe;
@@ -142,6 +131,11 @@ export class AnotherUserProfileComponent {
         );
       }
     })
+  }
+
+  redirectToFollowersAndFollowingScreen(user){
+    this.accountsService.setUserData(user);
+    this.router.navigate(['profile', user.username, 'following']);
   }
 
 }

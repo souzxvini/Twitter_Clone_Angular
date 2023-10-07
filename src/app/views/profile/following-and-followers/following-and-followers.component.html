@@ -1,0 +1,50 @@
+<div *ngIf="!userInformationsLoaded" fxLayout="row" fxLayoutAlign="center center" class="profileContainer">
+  <mat-spinner [diameter]="30"></mat-spinner>
+</div>
+
+<div fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
+  <div class="header bluredHeaderStyle" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
+    <button mat-mini-fab (click)="goBack()">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    <div fxLayout="column" fxLayoutGap="4">
+      <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
+        {{ user?.firstName }} <img *ngIf="user?.isVerified" style="width: 18px; height: 18px;"
+          src="../../../../assets/img/twitter-verified.png">
+      </span>
+      <span class="headerUserPosts">
+        @{{ user?.username }}
+      </span>
+    </div>
+  </div>
+  <div fxLayout="row" style="border-bottom: 1px solid rgb(56, 68, 77);">
+    <button [fxFlex]="currentUrl.includes(loggedUser) ? '40' : '30'" class="bigButtonOnGroup" (click)="redirect('verified_followers')"
+      [class.bigButtonOnGroupActive]="currentUrl.includes('verified_followers')">
+      <div></div>
+      <span>Seguidores Verificados</span>
+      <div [class.bigButtonOnGroupActiveBorder]="currentUrl.includes('verified_followers')"></div>
+    </button>
+
+    <button fxFlex="35" *ngIf="!currentUrl.includes(loggedUser)" class="bigButtonOnGroup" (click)="redirect('known_followers')"
+      [class.bigButtonOnGroupActive]="currentUrl.includes('known_followers')">
+      <div></div>
+      <span>Seguidores que você conhece</span>
+      <div [class.bigButtonOnGroupActiveBorder]="currentUrl.includes('known_followers')"></div>
+    </button>
+
+    <button [fxFlex]="currentUrl.includes(loggedUser) ? '30' : '20'" class="bigButtonOnGroup" (click)="redirect('followers')"
+    [class.bigButtonOnGroupActive]="currentUrl.includes('followers') && !currentUrl.includes('verified_followers') && !currentUrl.includes('known_followers')">
+      <div></div>
+      <span>Seguidores</span>
+      <div
+        [class.bigButtonOnGroupActiveBorder]="currentUrl.includes('followers') && !currentUrl.includes('verified_followers') && !currentUrl.includes('known_followers')"></div>
+    </button>
+
+    <button [fxFlex]="currentUrl.includes(loggedUser) ? '30' : '15'" class="bigButtonOnGroup" (click)="redirect('following')"
+    [class.bigButtonOnGroupActive]="currentUrl.includes('following')">
+      <div></div>
+      <span>Seguindo</span>
+      <div [class.bigButtonOnGroupActiveBorder]="currentUrl.includes('following')"></div>
+    </button>
+  </div>
+</div>

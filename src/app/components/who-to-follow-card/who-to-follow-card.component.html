@@ -41,7 +41,7 @@
         <div [style]="account.isFollowedByMe ? 'width: 100px;' : 'width: 80px;'">
           <!--Botão 'SEGUIR'-->
           <button *ngIf="!account.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
-            (click)="$event.stopPropagation(); followUser(account.userIdentifier)">
+            (click)="$event.stopPropagation(); followUser(account.username)">
             <span>Seguir</span>
           </button>
           <!--Botão 'SEGUINDO'-->

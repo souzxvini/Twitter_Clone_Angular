@@ -4,7 +4,7 @@
 
 <div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
   <div class="header bluredHeaderStyle" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
-    <button mat-mini-fab routerLink="/home">
+    <button mat-mini-fab (click)="location.back()">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     <div fxLayout="column" fxLayoutGap="4">
@@ -28,7 +28,7 @@
           </div>
         <!--Botão 'SEGUIR'-->
         <button *ngIf="!user.isFollowedByMe" class="whiteButton cursorPointer _36pxButton"
-          (click)="followUser(user.userIdentifier)">
+          (click)="followUser(user.username)">
           <span>Seguir</span>
         </button>
         <!--Botão 'SEGUINDO'-->
@@ -69,7 +69,7 @@
       </div>
 
       <div class="sideNavMobileMenuProfileInfos">
-        <div>
+        <div (click)="redirectToFollowersAndFollowingScreen(user)">
           <strong>{{ user.following }}</strong> Following
         </div>
 

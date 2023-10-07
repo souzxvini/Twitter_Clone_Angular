@@ -16,7 +16,6 @@ export class WhoToFollowCardComponent {
 
   isHovered = false;
   buttonText = 'Following';
-
   whoToFollowAccounts: AnotherProfileModel[];
   loaded = false;
 
@@ -33,17 +32,17 @@ export class WhoToFollowCardComponent {
   ) { }
 
   ngOnInit() {
+    this.currentUrl = this.router.url;
+
     this.activatedRoute.params.subscribe(params => {
       params['username'] ? this.getWhoToFollowAccounts(params['username']) : this.getWhoToFollowAccounts();
     });
 
-    this.currentUrl = this.router.url;
-    
   }
 
-  getWhoToFollowAccounts(userIdentifier?) {
+  getWhoToFollowAccounts(username?) {
     this.loaded = false;
-    this.accountsService.getWhoToFollowAccounts(0, 3, userIdentifier).subscribe({
+    this.accountsService.getWhoToFollowAccounts(0, 3, username).subscribe({
       next: (res) => {
         this.whoToFollowAccounts = res;
         this.loaded = true;
@@ -59,8 +58,8 @@ export class WhoToFollowCardComponent {
     this.buttonText = hovered ? 'Unfollow' : 'Following';
   }
 
-  followUser(userIdentifier) {
-    let profile = this.whoToFollowAccounts.find(profile => profile.userIdentifier === userIdentifier);
+  followUser(username) {
+    let profile = this.whoToFollowAccounts.find(profile => profile.username === username);
     profile.isFollowedByMe = !profile.isFollowedByMe;
     profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
@@ -69,7 +68,7 @@ export class WhoToFollowCardComponent {
       this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
     }
 
-    this.accountsService.followUser(userIdentifier).subscribe({
+    this.accountsService.followUser(username).subscribe({
       complete: () => {
       },
       error: () => {
@@ -103,7 +102,7 @@ export class WhoToFollowCardComponent {
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
-          this.followUser(profile.userIdentifier);
+          this.followUser(profile.username);
         }
       }
     })
@@ -119,6 +118,6 @@ export class WhoToFollowCardComponent {
 
     // Navega para a nova URL
     this.router.navigate(['/novo-componente']);
-    this.router.navigate(['profile', account.userIdentifier]);
+    this.router.navigate(['profile', account.username]);
   }
 }

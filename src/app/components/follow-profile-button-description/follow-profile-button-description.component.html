@@ -21,7 +21,7 @@
         <div fxLayoutAlign="center center" [style]="profile.isFollowedByMe ? 'width: 100px;' : 'width: 80px;'">
           <!--Botão 'SEGUIR'-->
           <button *ngIf="!profile.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
-            (click)="$event.stopPropagation(); followUser(profile.userIdentifier);">
+            (click)="$event.stopPropagation(); followUser(profile.username);">
             <span>Seguir</span>
           </button>
           <!--Botão 'SEGUINDO'-->
