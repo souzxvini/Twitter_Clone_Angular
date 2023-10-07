@@ -14,10 +14,8 @@ export class FollowingAndFollowersComponent {
   userInformationsLoaded = false;
   currentUrl: string;
   loggedUser: string;
-  followsList: any[];
-  followersList: any[];
-  verifiedFollowersList: any[];
-  knownFollowersList: any[];
+  accountsList: any[];
+  section: string;
 
   constructor(
     private accountsService: AccountsService,
@@ -59,26 +57,30 @@ export class FollowingAndFollowersComponent {
 
   getFollowsDetails(){
     if(this.currentUrl.includes('following')){
+      this.section = 'following';
       this.getFollows();
     }
 
-    if(this.currentUrl.includes('followers') && this.currentUrl.includes('verified_followers') ){
+    if(this.currentUrl.includes('followers') && !this.currentUrl.includes('verified_followers')  && !this.currentUrl.includes('known_followers')){
+      this.section = 'followers';
       this.getFollowers();
     }
 
     if(this.currentUrl.includes('verified_followers')){
+      this.section = 'verified_followers';
       this.getVerifiedFollowers();
     }
 
     if(this.currentUrl.includes('known_followers')){
-      this.getVerifiedFollowers();
+      this.section = 'known_followers';
+      this.getKnownFollowers();
     }
   }
 
   getFollows(){
     this.accountsService.getUserFollowsDetails(this.user.username, 'following', 0 , 10).subscribe({
       next: (res) => {
-        this.followsList = res;
+        this.accountsList = res;
       }
     });
   }
@@ -86,7 +88,7 @@ export class FollowingAndFollowersComponent {
   getFollowers(){
     this.accountsService.getUserFollowsDetails(this.user.username, 'followers', 0 , 10).subscribe({
       next: (res) => {
-        this.followersList = res;
+        this.accountsList = res;
       }
     });
   }
@@ -94,7 +96,7 @@ export class FollowingAndFollowersComponent {
   getVerifiedFollowers(){
     this.accountsService.getUserFollowsDetails(this.user.username, 'verified_followers', 0 , 10).subscribe({
       next: (res) => {
-        this.verifiedFollowersList = res;
+        this.accountsList = res;
       }
     })
   }
@@ -102,7 +104,7 @@ export class FollowingAndFollowersComponent {
   getKnownFollowers(){
     this.accountsService.getUserFollowsDetails(this.user.username, 'known_followers', 0 , 10).subscribe({
       next: (res) => {
-        this.verifiedFollowersList = res;
+        this.accountsList = res;
       }
     })
   }

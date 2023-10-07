@@ -47,4 +47,8 @@
       <div [class.bigButtonOnGroupActiveBorder]="currentUrl.includes('following')"></div>
     </button>
   </div>
+
+  <app-follow-profile-button-description [profile]="profile" [suggestedProfiles]="accountsList" *ngFor="let profile of accountsList">
+  </app-follow-profile-button-description>
+
 </div>
