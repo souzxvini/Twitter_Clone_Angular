@@ -8,51 +8,12 @@
   </div>
 
   <div fxLayout="column">
-    <div class="whoToFollowAccountButton cursorPointer" *ngFor="let account of whoToFollowAccounts"
-      (click)="redirectToProfile(account)">
-      <div fxLayout="row" fxLayoutAlign="center center">
-        <div style="width: 40px;">
-          <div class="profilePicture" style="width: 40px; height: 40px;"
-            [style]="setProfilePhoto(account.profilePhotoUrl)">
-          </div>
-        </div>
-
-        <div fxLayout="column" fxLayoutGap="4"
-          [fxFlex]="account.isFollowedByMe ? 'calc(100% - 140px)' : 'calc(100% - 120px)'" style="padding: 0 10px;">
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <span [style]="account.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width: 100%'"
-              class="userFirstName">
-              {{ account.firstName }}
-            </span>
-            <div style="width: 18px;" *ngIf="account.isVerified">
-              <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
-            </div>
-          </div>
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3">
-            <span [style]="account.isFollowingMe ? 'max-width: calc(100% - 70px)' : 'max-width: 100%'"
-              class="userUsername">
-              @{{ account.username }}
-            </span>
-            <span *ngIf="account.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
-          </div>
-
-        </div>
-
-        <div [style]="account.isFollowedByMe ? 'width: 100px;' : 'width: 80px;'">
-          <!--Botão 'SEGUIR'-->
-          <button *ngIf="!account.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
-            (click)="$event.stopPropagation(); followUser(account.username)">
-            <span>Seguir</span>
-          </button>
-          <!--Botão 'SEGUINDO'-->
-          <app-following-button-32px *ngIf="account.isFollowedByMe"
-            (click)="$event.stopPropagation(); openUnfollowConfirmationModal(account)">
-          </app-following-button-32px>
-        </div>
-      </div>
+    <div class="whoToFollowAccountButton cursorPointer" *ngFor="let profile of whoToFollowAccounts"
+      (click)="redirectToProfile(profile)">
+      <app-follow-profile-button [profile]="profile" [profilesList]="whoToFollowAccounts">
+      </app-follow-profile-button>
     </div>
   </div>
-
 
   <div class="whoToFollowCardFooter">
     <span>Show more</span>

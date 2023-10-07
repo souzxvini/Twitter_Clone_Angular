@@ -8,12 +8,12 @@ import { Component } from '@angular/core';
 export class FollowingButton32pxComponent {
 
   isHovered = false;
-  buttonText = 'Following';
+  buttonText = 'Seguindo';
 
   constructor(){}
 
   followingButonOnHover(hovered: boolean) {
     this.isHovered = hovered;
-    this.buttonText = hovered ? 'Unfollow' : 'Following';
+    this.buttonText = hovered ? 'Deixar de Seguir' : 'Seguindo';
   }
 }

@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { UnfollowConfirmationModalComponent } from '../unfollow-confirmation-modal/unfollow-confirmation-modal.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CreateAccountModalComponent } from 'src/app/views/initial-page/create-account-modal/create-account-modal.component';
+import { MatDialog  } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -20,9 +19,9 @@ export class FollowProfileButtonDescriptionComponent {
   setProfilePhoto = setProfilePhoto;
 
   loaded = false;
+  isMouseOverFollowingButton: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<CreateAccountModalComponent>,
     private dialog: MatDialog,
     private accountsService: AccountsService,
     private snackbar: MatSnackBar

@@ -1,0 +1,42 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <div style="width: 40px;">
+      <div class="profilePicture" style="width: 40px; height: 40px;"
+        [style]="setProfilePhoto(profile.profilePhotoUrl)">
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="4"
+      [fxFlex]="profile.isFollowedByMe ? isMouseOverFollowingButton ? 'calc(100% - 190px)' : 'calc(100% - 140px)' : 'calc(100% - 120px)'" style="padding: 0 10px;">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <span [style]="profile.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width: 100%'"
+          class="userFirstName">
+          {{ profile.firstName }}
+        </span>
+        <div style="width: 18px;" *ngIf="profile.isVerified">
+          <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3">
+        <span [style]="profile.isFollowingMe ? 'max-width: calc(100% - 70px)' : 'max-width: 100%'"
+          class="userUsername">
+          @{{ profile.username  }}
+        </span>
+        <span *ngIf="profile.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
+      </div>
+
+    </div>
+
+    <div [style]="profile.isFollowedByMe ? isMouseOverFollowingButton ? 'width: 150px;' : 'width: 100px;' : 'width: 80px;'">
+      <!--Botão 'SEGUIR'-->
+      <button *ngIf="!profile.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
+        (click)="$event.stopPropagation(); followUser(profile.username)">
+        <span>Seguir</span>
+      </button>
+      <!--Botão 'SEGUINDO'-->
+      <app-following-button-32px *ngIf="profile.isFollowedByMe"
+        (click)="$event.stopPropagation(); openUnfollowConfirmationModal(profile)"
+        (mouseenter)="isMouseOverFollowingButton = true"
+        (mouseleave)="isMouseOverFollowingButton = false">
+      </app-following-button-32px>
+    </div>
+  </div>
