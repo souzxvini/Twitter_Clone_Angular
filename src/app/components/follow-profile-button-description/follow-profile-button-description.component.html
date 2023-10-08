@@ -1,10 +1,10 @@
-<div fxLayout="row" style="margin-bottom:16px;">
+<div fxLayout="row" class="followProfileDescriptionButton" style="padding: 12px 16px">
     <div style="width: 40px;">
       <div class="profilePicture" style="width: 40px; height: 40px;"
         [style]="setProfilePhoto(profile.profilePhotoUrl)">
       </div>
     </div>
-    <div fxFlex="calc(100% - 40px)" fxLayout="column">
+    <div *ngIf="!verifyIfItsLoggedUser(profile.username)" fxFlex="calc(100% - 40px)" fxLayout="column">
       <div fxLayout="row">
         <div fxLayout="column" [fxFlex]="profile.isFollowedByMe ? isMouseOverFollowingButton ? 'calc(100% - 150px)' : 'calc(100% - 100px)' : 'calc(100% - 80px)'"
           style="padding: 0 8px;">
@@ -33,6 +33,31 @@
           (mouseenter)="isMouseOverFollowingButton = true"
           (mouseleave)="isMouseOverFollowingButton = false" style="border-radius: 50px;">
           </app-following-button-32px>
+        </div>
+      </div>
+  
+      <div style="padding: 8px;">
+        <span class="userBiography"> {{ profile.biography }} </span>
+      </div>
+    </div>
+
+    <div *ngIf="verifyIfItsLoggedUser(profile.username)" fxFlex="calc(100% - 40px)" fxLayout="column">
+      <div fxLayout="row">
+        <div fxLayout="column" fxFlex
+          style="padding: 0 8px;">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <span style="max-width: calc(100% - 18px)" class="userFirstName">{{ profile.firstName }}</span>
+            <div style="width: 18px;" *ngIf="profile.isVerified">
+              <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3">
+            <span [style]="profile.isFollowingMe ? 'max-width: calc(100% - 70px)' : 'max-width: 100%'"
+              class="userUsername">
+              @{{ profile.username }}
+            </span>
+            <span *ngIf="profile.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
+          </div>
         </div>
       </div>
   

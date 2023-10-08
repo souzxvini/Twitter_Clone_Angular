@@ -52,7 +52,6 @@ export class WhoToFollowCardComponent {
     this.accountsService.setUserData(account);
 
     // Navega para a nova URL
-    this.router.navigate(['/novo-componente']);
     this.router.navigate(['profile', account.username]);
   }
 }

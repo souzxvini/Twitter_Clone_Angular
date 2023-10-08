@@ -6,6 +6,7 @@ import { MatDialog  } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { verifyIfItsLoggedUser } from 'src/app/helpers/verify-if-its-user-logged';
 
 @Component({
   selector: 'app-follow-profile-button-description',
@@ -90,5 +91,9 @@ export class FollowProfileButtonDescriptionComponent {
 
   setButtonCalc(){
     return localStorage.getItem('Language') == 'pt' ?  'calc(100% - 150px)' : 'calc(100% - 100px)';
+  }
+
+  verifyIfItsLoggedUser(username){
+    return username == sessionStorage.getItem('userName');
   }
 }

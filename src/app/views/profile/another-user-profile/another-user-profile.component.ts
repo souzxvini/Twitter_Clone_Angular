@@ -38,15 +38,17 @@ export class AnotherUserProfileComponent {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.username = params['username'];
-
+    
+      if(params['username'] == sessionStorage.getItem('userName')){
+        this.router.navigate(['profile'])
+      }
       /*se essa funcao .getUserData() tiver valor, 
       então quer dizer que o usuario clicou para ver o perfil de alguém,
       então eu seto as informações do usuário através do valor que estiver nessa funcao,
       sem precisar chamar o get para trazer as principais informações do usuario*/
       this.user = this.accountsService.getUserData();
       if (!this.user) {
-        this.getUserInformations(this.username, true);
+        this.getUserInformations(params['username'], true);
       } else {
         this.userInformationsLoaded = true;
         this.accountsService.clearUserData();
