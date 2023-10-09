@@ -49,8 +49,6 @@ export class HomeComponent implements OnInit {
 
       }
     });
-
-
   };
 
   onButtonClick() {

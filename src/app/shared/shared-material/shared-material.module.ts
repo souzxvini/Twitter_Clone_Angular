@@ -115,7 +115,7 @@ export function datePipeFactory() {
     MatChipsModule,
     OverlayModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule, 
   ],
   exports: [
     MatTableModule,
@@ -154,7 +154,7 @@ export function datePipeFactory() {
     OverlayModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule, 
   ],
   providers: [
     { provide: LOCALE_ID, useFactory: localeFactory },

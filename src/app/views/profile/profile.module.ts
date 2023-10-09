@@ -13,7 +13,7 @@ import { FullScreenBackgroundPhotoModalComponent } from './modals/full-screen-ba
 import { EditBackgroundPictureModalComponent } from 'src/app/components/edit-background-picture-modal/edit-background-picture-modal.component';
 import { AlyleModule } from 'src/app/shared/shared-material/Alyle.module';
 import { FollowingAndFollowersComponent } from './following-and-followers/following-and-followers.component';
-
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { FollowingAndFollowersComponent } from './following-and-followers/follow
     ProfileRoutingModule,
     SharedMaterialModule,
     SharedComponentsModule,
-    AlyleModule
+    AlyleModule,
+    InfiniteScrollModule
   ]
 })
 export class ProfileModule { }
