@@ -12,3 +12,11 @@ img {
   max-height: 100%;
   background-size: cover;
 }
+
+.picture {
+  border-radius: 100%;
+  height: calc(100vw - 30px);
+  max-height: 370px;
+  width: calc(100vw - 30px);
+  max-width: 370px;
+}
