@@ -29,9 +29,9 @@ export class FollowProfileButtonComponent {
     private accountsService: AccountsService,
     private snackbar: MatSnackBar,
     private router: Router,
-  ){}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.currentUrl = this.router.url;
   }
 
@@ -40,10 +40,7 @@ export class FollowProfileButtonComponent {
     profile.isFollowedByMe = !profile.isFollowedByMe;
     profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
-    //se a rota for /profile apenas
-    if (this.currentUrl == '/profile') {
-      this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
-    }
+    this.notifyComponents(profile);
 
     this.accountsService.followUser(username).subscribe({
       complete: () => {
@@ -51,11 +48,9 @@ export class FollowProfileButtonComponent {
       error: () => {
         profile.isFollowedByMe = !profile.isFollowedByMe;
         profile.isFollowedByMe ? profile.followers++ : profile.followers--;
+        
+        this.notifyComponents(profile);
 
-        //se a rota for /profile apenas
-        if (this.currentUrl == '/profile') {
-          this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
-        }
         this.loaded = true;
         this.snackbar.open(
           'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
@@ -85,11 +80,29 @@ export class FollowProfileButtonComponent {
     })
   }
 
-  setFollowingButtonHoverWidth(){
-    return localStorage.getItem('Language') == 'pt' ?  'width: 150px;' : 'width: 100px;';
+  setFollowingButtonHoverWidth() {
+    return localStorage.getItem('Language') == 'pt' ? 'width: 150px;' : 'width: 100px;';
   }
 
-  setButtonCalc(){
-    return localStorage.getItem('Language') == 'pt' ?  'calc(100% - 190px)' : 'calc(100% - 140px)';
+  setButtonCalc() {
+    return localStorage.getItem('Language') == 'pt' ? 'calc(100% - 190px)' : 'calc(100% - 140px)';
+  }
+
+  notifyComponents(profile) {
+    //Se usuario estiver na sua tela de perfil, e seguir alguém do card 'who to follow'
+    if (this.currentUrl == '/profile') {
+      this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
+    }
+
+    //se usuario estiver na tela following-and-followers e seguir alguém do card who to follow
+    if (this.currentUrl.includes('profile') &&
+      (
+        this.currentUrl.includes('verified_followers') ||
+        this.currentUrl.includes('followers') ||
+        this.currentUrl.includes('known_followers') ||
+        this.currentUrl.includes('following')
+      )) {
+      this.accountsService.followedSuggestedUserWhileOnFollowingAndFollowersScreen(profile);
+    }
   }
 }

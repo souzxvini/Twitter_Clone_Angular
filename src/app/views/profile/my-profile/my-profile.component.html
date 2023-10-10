@@ -8,8 +8,8 @@
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     <div fxLayout="column" fxLayoutGap="4" class="dottedOverflow">
-      <span class="headerUserFirstName">
-        {{ user.firstName }}
+      <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
+        {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
       </span>
       <span class="headerUserPosts">
         {{ user.tweetsCount }} posts
@@ -34,12 +34,15 @@
       </div>
 
       <div fxLayout="column" fxLayoutGap="4">
-        <span class="headerUserFirstName">
-          {{ user.firstName }}
+        <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center" style="word-break: break-all;">
+          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
         </span>
-        <span class="headerUserUsername" >
-          @{{ user.username }}
-        </span>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5"> 
+          <span class="headerUserUsername dottedOverflow">
+            @{{ user.username }} 
+          </span>
+        </div>
+        
       </div>
 
       <div class="biography" *ngIf="user.biography">

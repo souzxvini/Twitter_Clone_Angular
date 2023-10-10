@@ -12,4 +12,5 @@ export class MyProfileModel {
     tweetsCount: number;
     profilePhotoUrl: string;
     backgroundPhotoUrl: string;
+    isVerified: boolean;
 }

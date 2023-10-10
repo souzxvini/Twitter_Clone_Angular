@@ -61,14 +61,14 @@ export class AccountsService {
     const body = {
       username: username
     }
-    return this.http.patch(API + '/accounts/v1/user/infos/username', body , this.httpOptions);
+    return this.http.patch(API + '/accounts/v1/user/infos/username', body, this.httpOptions);
   }
 
-  patchProfileInformations(payload){
-    
+  patchProfileInformations(payload) {
+
     const body = JSON.stringify(payload);
 
-    return this.http.put(API + '/accounts/v1/user/infos', body , this.httpOptions);
+    return this.http.put(API + '/accounts/v1/user/infos', body, this.httpOptions);
   }
 
   //PATCH /v1/user/infos/firstAccess
@@ -88,33 +88,33 @@ export class AccountsService {
   }
 
   //GET /v1/user/search/isvalidemail
-  isValidEmail(email: string): Observable<any>{
+  isValidEmail(email: string): Observable<any> {
     let params: HttpParams = new HttpParams();
     params = params.append('email', email);
 
     return this.http.get<any>(API + '/accounts/v1/user/search/isvalidemail', { params });
   }
 
-   //GET /v1/user/search/isvaliduser
-  verifyIfUsernameExists(username: string): Observable<any>{
+  //GET /v1/user/search/isvaliduser
+  verifyIfUsernameExists(username: string): Observable<any> {
     let params: HttpParams = new HttpParams();
     params = params.append('username', username);
 
     return this.http.get<any>(API + '/accounts/v1/user/search/isvaliduser', { params });
   }
 
-   //GET /v1/user/search
-   getLoggedUserAccount(): Observable<any>{
+  //GET /v1/user/search
+  getLoggedUserAccount(): Observable<any> {
     return this.http.get<any>(API + '/accounts/v1/user/search');
   }
 
-   //GET /v1/user/search/byidentifier/{identifier}
-   getUserByIdentifier(username): Observable<any>{
+  //GET /v1/user/search/byidentifier/{identifier}
+  getUserByIdentifier(username): Observable<any> {
     return this.http.get<any>(API + '/accounts/v1/user/search/byidentifier/' + username);
   }
 
   //GET /v1/user/search/byidentifier/{identifier}
-  getWhoToFollowAccounts(page, size, username): Observable<AnotherProfileModel[]>{
+  getWhoToFollowAccounts(page, size, username): Observable<AnotherProfileModel[]> {
     let params: HttpParams = new HttpParams();
     params = params.append('page', page);
     params = params.append('size', size);
@@ -124,7 +124,7 @@ export class AccountsService {
   }
 
   //GET /v1/user/search/followsdetails/{identifier}/{type}
-  getUserFollowsDetails(username, type, page, size): Observable<any[]>{
+  getUserFollowsDetails(username, type, page, size): Observable<any[]> {
     let params: HttpParams = new HttpParams();
     params = params.append('page', page);
     params = params.append('size', size);
@@ -135,12 +135,12 @@ export class AccountsService {
 
   //PATCH /v1/user/interactions/followtoggle/{identifier}
   followUser(username: string) {
-    return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + username , this.httpOptions);
+    return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + username, this.httpOptions);
   }
 
   //CLICAR EM UM PERFIL E REDIRECIONAR PARA O PERFIL DESSA PESSOA PASSANDO OS DADOS, SEM PRECISAR CHAMAR UM ENDPOINT PARA CARREGAR OS DADOS
   private userData: AnotherProfileModel;
-  setUserData(userData){
+  setUserData(userData) {
     this.userData = userData;
   }
 
@@ -163,9 +163,28 @@ export class AccountsService {
     return this.followedSomeone;
   }
 
-  followedSuggestedUserWhileOnYourProfileScreen(followedSomeone: boolean){
+  followedSuggestedUserWhileOnYourProfileScreen(followedSomeone: boolean) {
     this.followedSomeone = followedSomeone;
     this.followedSuggestedUserWhileOnYourProfileScreenListening.next(true);
   }
 
+  /*Se eu seguir alguém do card de 'sugestões para seguir' enquanto estou na tela de seguidores/seguindo, vou 'notificar' esse cara,
+   e ele vai verificar se o perfil que eu segui, está presente na lista de seguidores/seguindo mostrado na tela */
+  private followedSuggestedUserWhileOnFollowingAndFollowersListening = new BehaviorSubject<boolean>(false);
+  followedSuggestedUserWhileOnFollowingAndFollowersChange$ = this.followedSuggestedUserWhileOnFollowingAndFollowersListening.asObservable();
+
+  followedSuggestedUserWhileOnFollowingAndFollowersScreen(userData) {
+    this.setUserData(userData);
+    this.followedSuggestedUserWhileOnFollowingAndFollowersListening.next(true);
+  }
+
+  /*Se eu seguir alguém da lista perfis da tela de seguidores/seguindo, vou 'notificar' o card who-to-follow,
+   e ele vai verificar se o perfil que eu segui, está presente na lista de perfis sugeridos*/
+   private followedUserWhileOnFollowingAndFollowersListening = new BehaviorSubject<boolean>(false);
+   followedUserWhileOnFollowingAndFollowersChange$ = this.followedUserWhileOnFollowingAndFollowersListening.asObservable();
+ 
+   followedUserWhileOnFollowingAndFollowersScreen(userData) {
+     this.setUserData(userData);
+     this.followedUserWhileOnFollowingAndFollowersListening.next(true);
+   }
 }

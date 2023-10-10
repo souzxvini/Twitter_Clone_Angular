@@ -19,7 +19,8 @@
       </div>
     </div>
 
-    <div fxLayout="row" style="border-bottom: 1px solid rgb(56, 68, 77);">
+    <div fxLayout="row"  style="border-bottom: 1px solid rgb(56, 68, 77);">
+
       <button [fxFlex]="router.url.includes(loggedUser) ? '40' : '30'" class="bigButtonOnGroup" (click)="redirect('verified_followers')"
         [class.bigButtonOnGroupActive]="router.url.includes('verified_followers')">
         <div></div>
@@ -51,8 +52,6 @@
     </div>
   </div>
   
-  
-
   <!--Loading-->
   <div style="padding: 16px" *ngIf="!loaded" fxLayoutAlign="center center">
     <mat-spinner [diameter]="30"></mat-spinner>

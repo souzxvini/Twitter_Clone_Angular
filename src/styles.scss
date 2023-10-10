@@ -902,6 +902,45 @@ button {
   z-index: 1
 }
 
+//Mat Tabs
+.mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-radius: 100px !important;
+  border-top-width: 4px !important;
+  border-color: rgb(29, 155, 240) !important;
+}
+
+.mat-mdc-tab .mdc-tab__text-label {
+  color: rgb(97, 109, 121) !important;
+  letter-spacing:  0.5px !important;
+  font-size: 15px !important;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: white !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+  font-size: 15px !important;
+}
+
+.mat-mdc-tab{
+  transition: background-color 0.2s ease-in-out;
+}
+
+.mat-mdc-tab:hover {
+  background-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+.mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
+  --mdc-tab-indicator-active-indicator-color: transparent !important;
+  --mat-tab-header-active-label-text-color: transparent !important;
+  --mat-tab-header-active-ripple-color: transparent !important;
+  --mat-tab-header-inactive-ripple-color: transparent !important;
+  --mat-tab-header-active-focus-label-text-color: transparent !important;
+  --mat-tab-header-active-hover-label-text-color: transparent !important;
+  --mat-tab-header-active-focus-indicator-color: transparent !important;
+  --mat-tab-header-active-hover-indicator-color: transparent !important;
+}
+
 
 @media screen and (max-width:1111px) {
   .searchContainer {

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { UnfollowConfirmationModalComponent } from '../unfollow-confirmation-modal/unfollow-confirmation-modal.component';
-import { MatDialog  } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -29,20 +29,26 @@ export class FollowProfileButtonDescriptionComponent {
     private accountsService: AccountsService,
     private snackbar: MatSnackBar,
     private router: Router
-    ){}
-  
-    ngOnInit(){
-      this.currentUrl = this.router.url;
-    }
+  ) { }
+
+  ngOnInit() {
+    this.currentUrl = this.router.url;
+  }
 
   followUser(username) {
     let profile = this.suggestedProfiles.find(profile => profile.username === username);
     profile.isFollowedByMe = !profile.isFollowedByMe;
     profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
-    //se a rota for /profile apenas
-    if (this.suggestedProfiles == '/profile') {
-      this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
+    //se usuario estiver na tela following-and-followers e seguir alguém do card who to follow
+    if (this.currentUrl.includes('profile') &&
+      (
+        this.currentUrl.includes('verified_followers') ||
+        this.currentUrl.includes('followers') ||
+        this.currentUrl.includes('known_followers') ||
+        this.currentUrl.includes('following')
+      )) {
+      this.accountsService.followedUserWhileOnFollowingAndFollowersScreen(profile);
     }
 
     this.accountsService.followUser(username).subscribe({
@@ -52,10 +58,17 @@ export class FollowProfileButtonDescriptionComponent {
         profile.isFollowedByMe = !profile.isFollowedByMe;
         profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
-        //se a rota for /profile apenas
-        if (this.currentUrl == '/profile') {
-          this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
+        //se usuario estiver na tela following-and-followers e seguir alguém do card who to follow
+        if (this.currentUrl.includes('profile') &&
+          (
+            this.currentUrl.includes('verified_followers') ||
+            this.currentUrl.includes('followers') ||
+            this.currentUrl.includes('known_followers') ||
+            this.currentUrl.includes('following')
+          )) {
+          this.accountsService.followedUserWhileOnFollowingAndFollowersScreen(profile);
         }
+
         this.loaded = true;
         this.snackbar.open(
           'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
@@ -85,15 +98,15 @@ export class FollowProfileButtonDescriptionComponent {
     })
   }
 
-  setFollowingButtonHoverWidth(){
-    return localStorage.getItem('Language') == 'pt' ?  'width: 150px;' : 'width: 100px;';
+  setFollowingButtonHoverWidth() {
+    return localStorage.getItem('Language') == 'pt' ? 'width: 150px;' : 'width: 100px;';
   }
 
-  setButtonCalc(){
-    return localStorage.getItem('Language') == 'pt' ?  'calc(100% - 150px)' : 'calc(100% - 100px)';
+  setButtonCalc() {
+    return localStorage.getItem('Language') == 'pt' ? 'calc(100% - 150px)' : 'calc(100% - 100px)';
   }
 
-  verifyIfItsLoggedUser(username){
+  verifyIfItsLoggedUser(username) {
     return username == sessionStorage.getItem('userName');
   }
 }

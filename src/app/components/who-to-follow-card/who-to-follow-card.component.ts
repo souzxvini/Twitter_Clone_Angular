@@ -28,6 +28,21 @@ export class WhoToFollowCardComponent {
     this.activatedRoute.params.subscribe(params => {
       params['username'] ? this.getWhoToFollowAccounts(params['username']) : this.getWhoToFollowAccounts();
     });
+
+    /*Se cair nesse método, quer dizer que o usuário seguiu alguém da tela seguidores/seguindo...,
+    então irá verificar se o usuário seguido está na lista de perfis sugeridos mostrados no card, se sim, 
+    vai atualizar o botão de seguindo/seguir + informações*/
+    this.accountsService.followedUserWhileOnFollowingAndFollowersChange$.subscribe(() => {
+      if(this.loaded){
+        var profile = this.whoToFollowAccounts.findIndex(x => x.username == this.accountsService.getUserData().username);
+        if (profile !== -1){
+          this.whoToFollowAccounts[profile] = { ...this.whoToFollowAccounts[profile], ...this.accountsService.getUserData()}
+          setTimeout(() => {
+            this.accountsService.clearUserData();
+          }, 0)
+        }
+      }
+     });
   }
 
   getWhoToFollowAccounts(username?) {

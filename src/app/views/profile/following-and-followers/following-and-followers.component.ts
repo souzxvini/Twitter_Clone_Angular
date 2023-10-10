@@ -38,11 +38,14 @@ export class FollowingAndFollowersComponent {
   ngOnInit() {
     this.loggedUser = sessionStorage.getItem('userName');
 
+    var username;
+
     this.activatedRoute.params.subscribe(params => {
 
+      username = params['username'];
       this.user = this.accountsService.getUserData();
       if (!this.user) {
-        this.getUserByIdentifier(params['username'], true);
+        this.getUserByIdentifier(username, true);
       } else {
         this.userInformationsLoaded = true;
         this.accountsService.clearUserData();
@@ -51,6 +54,21 @@ export class FollowingAndFollowersComponent {
     });
 
     window.addEventListener('scroll', this.scroll, true);
+
+    /*Se cair nesse método, quer dizer que o usuário seguiu alguém do card de 'quem seguir'...,
+    então irá verificar se o usuário seguido está na lista de usuarios mostrada na tela, se sim, 
+    vai atualizar o botão de seguindo/seguir + informações*/
+    this.accountsService.followedSuggestedUserWhileOnFollowingAndFollowersChange$.subscribe(() => {
+      if(this.loaded){
+        var profile = this.accountsList.findIndex(x => x.username == this.accountsService.getUserData().username);
+        if (profile !== -1){
+          this.accountsList[profile] = { ...this.accountsList[profile], ...this.accountsService.getUserData()}
+          setTimeout(() => {
+            this.accountsService.clearUserData();
+          }, 0)
+        }
+      }
+     });
   }
 
   getUserByIdentifier(username, load) {
