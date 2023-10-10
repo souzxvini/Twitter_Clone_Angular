@@ -1,4 +1,7 @@
 .picture {
+  width: 100%;
   border-radius: 0 !important;
   cursor: auto !important;
+  height: calc(33vw - 10px);
+  max-height: 630px;
 }
