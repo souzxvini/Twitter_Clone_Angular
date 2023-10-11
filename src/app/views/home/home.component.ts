@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   scroll = (event): void => {
-    const mainContainerHeader = document.getElementById("mainContainerHeader");
+    const mainContainerHeader = document.getElementById("bluredHeaderStyle");
     this.isHandset$.subscribe(isHandset => {
       if (isHandset) {
         if (event.srcElement.scrollTop < this.prevScrollpos) {
@@ -37,16 +37,14 @@ export class HomeComponent implements OnInit {
           }
         } else {
           if (mainContainerHeader) {
-            mainContainerHeader.style.top = "-6vh";
+            mainContainerHeader.style.top = "-103px";
           }
         }
         this.prevScrollpos = event.srcElement.scrollTop;
       } else {
         if (mainContainerHeader) {
           mainContainerHeader.style.top = "0";
-
         }
-
       }
     });
   };

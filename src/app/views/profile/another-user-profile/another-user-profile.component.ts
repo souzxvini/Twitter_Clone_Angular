@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnotherProfileModel } from 'src/app/models/another-profile-model';
 import { Location } from '@angular/common';
+import { Observable, map } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-another-user-profile',
@@ -27,13 +29,19 @@ export class AnotherUserProfileComponent {
 
   username: string;
 
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(["(max-width: 498px)"])
+    .pipe(map((result) => result.matches));
+  prevScrollpos = 0;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private accountsService: AccountsService,
     private dialog: MatDialog,
     private snackbar: MatSnackBar,
     private router: Router,
-    public location: Location
+    public location: Location,
+    private breakpointObserver: BreakpointObserver
   ) { }
 
   ngOnInit() {
@@ -54,6 +62,8 @@ export class AnotherUserProfileComponent {
         this.accountsService.clearUserData();
       }
     });
+
+    window.addEventListener('scroll', this.scroll, true);
   }
 
   getUserInformations(username, spinner) {
@@ -144,5 +154,27 @@ export class AnotherUserProfileComponent {
     this.accountsService.setUserData(user);
     this.router.navigate(['profile', user.username, 'followers']);
   }
+
+  scroll = (event): void => {
+    const mainContainerHeader = document.getElementById("bluredHeaderStyle");
+    this.isHandset$.subscribe(isHandset => {
+      if (isHandset) {
+        if (event.srcElement.scrollTop < this.prevScrollpos) {
+          if (mainContainerHeader) {
+            mainContainerHeader.style.top = "0";
+          }
+        } else {
+          if (mainContainerHeader) {
+            mainContainerHeader.style.top = "-53px";
+          }
+        }
+        this.prevScrollpos = event.srcElement.scrollTop;
+      } else {
+        if (mainContainerHeader) {
+          mainContainerHeader.style.top = "0";
+        }
+      }
+    });
+  };
 
 }

@@ -3,13 +3,14 @@
 </div>
 
 <div *ngIf="userInformationsLoaded " fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
-  <div class="header bluredHeaderStyle" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
+  <div id="bluredHeaderStyle" class="header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
     <button mat-mini-fab routerLink="/home">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     <div fxLayout="column" fxLayoutGap="4" class="dottedOverflow">
       <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
-        {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+        {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+          src="../../../../assets/img/twitter-verified.png">
       </span>
       <span class="headerUserPosts">
         {{ user.tweetsCount }} posts
@@ -28,21 +29,24 @@
             </div>
           </div>
         </div>
-        <button class="transparentButton cursorPointer _36pxButton" (click)="openEditProfileModal()" style="margin-top:12px">
+        <button class="transparentButton cursorPointer _36pxButton" (click)="openEditProfileModal()"
+          style="margin-top:12px">
           Editar perfil
         </button>
       </div>
 
       <div fxLayout="column" fxLayoutGap="4">
-        <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center" style="word-break: break-all;">
-          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+        <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center"
+          style="word-break: break-all;">
+          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+            src="../../../../assets/img/twitter-verified.png">
         </span>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5"> 
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
           <span class="headerUserUsername dottedOverflow">
-            @{{ user.username }} 
+            @{{ user.username }}
           </span>
         </div>
-        
+
       </div>
 
       <div class="biography" *ngIf="user.biography">
@@ -78,6 +82,8 @@
     <app-profile-nav></app-profile-nav>
 
     <app-tweet></app-tweet>
-
   </div>
 </div>
+
+<app-mobile-footer-nav></app-mobile-footer-nav>
+

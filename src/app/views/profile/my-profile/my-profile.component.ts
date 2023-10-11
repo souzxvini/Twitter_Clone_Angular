@@ -10,6 +10,7 @@ import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-background-photo-modal/full-screen-background-photo-modal.component';
 import { Router } from '@angular/router';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-my-profile',
@@ -23,6 +24,12 @@ export class MyProfileComponent {
   noProfilePicture = noProfilePicture;
   setProfilePhoto = setProfilePhoto;
   setBackgroundPhoto = setBackgroundPhoto;
+
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(["(max-width: 498px)"])
+    .pipe(map((result) => result.matches));
+
+  prevScrollpos = 0;
 
   constructor(
     private accountsService: AccountsService,
@@ -38,6 +45,8 @@ export class MyProfileComponent {
     this.accountsService.followingChange$.subscribe(() => {
      this.user ? this.accountsService.getFollowedSomeone() ? this.user.following++ : this.user.following-- : null;
     });
+
+    window.addEventListener('scroll', this.scroll, true);
   }
 
   getLoggedUserAccount(loadScreen){
@@ -131,5 +140,27 @@ export class MyProfileComponent {
     this.accountsService.setUserData(user);
     this.router.navigate(['profile', user.username, 'followers']);
   }
+
+  scroll = (event): void => {
+    const mainContainerHeader = document.getElementById("bluredHeaderStyle");
+    this.isHandset$.subscribe(isHandset => {
+      if (isHandset) {
+        if (event.srcElement.scrollTop < this.prevScrollpos) {
+          if (mainContainerHeader) {
+            mainContainerHeader.style.top = "0";
+          }
+        } else {
+          if (mainContainerHeader) {
+            mainContainerHeader.style.top = "-53px";
+          }
+        }
+        this.prevScrollpos = event.srcElement.scrollTop;
+      } else {
+        if (mainContainerHeader) {
+          mainContainerHeader.style.top = "0";
+        }
+      }
+    });
+  };
 
 }

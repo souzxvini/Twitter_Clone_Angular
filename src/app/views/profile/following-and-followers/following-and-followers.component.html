@@ -3,8 +3,8 @@
 </div>
 
 <div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
-  <div fxLayout="column" fxLayoutAlign=" stretch" class="bluredHeaderStyle">
-    <div class="header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
+  <div id="bluredHeaderStyle" class="headerTabs" fxLayout="column" fxLayoutAlign=" stretch" class="bluredHeaderStyle">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30" style="padding: 8px 12px;">
       <button mat-mini-fab (click)="goBack()">
         <mat-icon>keyboard_backspace</mat-icon>
       </button>
@@ -20,7 +20,6 @@
     </div>
 
     <div fxLayout="row"  style="border-bottom: 1px solid rgb(56, 68, 77);">
-
       <button [fxFlex]="router.url.includes(loggedUser) ? '40' : '30'" class="bigButtonOnGroup" (click)="redirect('verified_followers')"
         [class.bigButtonOnGroupActive]="router.url.includes('verified_followers')">
         <div></div>
@@ -94,3 +93,5 @@
     </div>
   </div>
 </div>
+
+<app-mobile-footer-nav></app-mobile-footer-nav>

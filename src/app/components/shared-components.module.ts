@@ -11,6 +11,7 @@ import { TweetComponent } from './tweet/tweet.component';
 import { FollowProfileButtonDescriptionComponent } from './follow-profile-button-description/follow-profile-button-description.component';
 import { DefaultSearchSectionComponent } from './default-search-section/default-search-section.component';
 import { FollowProfileButtonComponent } from './follow-profile-button/follow-profile-button.component';
+import { MobileFooterNavComponent } from './mobile-footer-nav/mobile-footer-nav.component';
 @NgModule({
   declarations:[ 
     FollowingButton32pxComponent,
@@ -22,7 +23,8 @@ import { FollowProfileButtonComponent } from './follow-profile-button/follow-pro
     TweetComponent,
     FollowProfileButtonDescriptionComponent,
     DefaultSearchSectionComponent,
-    FollowProfileButtonComponent
+    FollowProfileButtonComponent,
+    MobileFooterNavComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { FollowProfileButtonComponent } from './follow-profile-button/follow-pro
     UnfollowConfirmationModalComponent,
     TweetComponent,
     FollowProfileButtonDescriptionComponent,
-    DefaultSearchSectionComponent
+    DefaultSearchSectionComponent,
+    MobileFooterNavComponent
   ]
 })
 

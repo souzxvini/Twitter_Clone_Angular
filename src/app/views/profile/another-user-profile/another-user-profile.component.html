@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
-  <div class="header bluredHeaderStyle" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
+  <div id="bluredHeaderStyle" class="header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
     <button mat-mini-fab (click)="location.back()">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
@@ -82,6 +82,8 @@
     <app-profile-nav></app-profile-nav>
 
     <app-tweet></app-tweet>
-
+    
   </div>
 </div>
+
+<app-mobile-footer-nav></app-mobile-footer-nav>

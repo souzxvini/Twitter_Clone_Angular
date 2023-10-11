@@ -1,6 +1,8 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, map } from 'rxjs';
 import { verifyIfItsLoggedUser } from 'src/app/helpers/verify-if-its-user-logged';
 import { AccountsService } from 'src/app/services/accounts.service';
 
@@ -28,11 +30,18 @@ export class FollowingAndFollowersComponent {
   size = 10;
   noMoreContent = false;
 
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(["(max-width: 498px)"])
+    .pipe(map((result) => result.matches));
+  prevScrollpos = 0;
+
   constructor(
     private accountsService: AccountsService,
     private location: Location,
     public router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver
+
   ) { }
 
   ngOnInit() {
@@ -59,16 +68,16 @@ export class FollowingAndFollowersComponent {
     então irá verificar se o usuário seguido está na lista de usuarios mostrada na tela, se sim, 
     vai atualizar o botão de seguindo/seguir + informações*/
     this.accountsService.followedSuggestedUserWhileOnFollowingAndFollowersChange$.subscribe(() => {
-      if(this.loaded){
+      if (this.loaded) {
         var profile = this.accountsList.findIndex(x => x.username == this.accountsService.getUserData().username);
-        if (profile !== -1){
-          this.accountsList[profile] = { ...this.accountsList[profile], ...this.accountsService.getUserData()}
+        if (profile !== -1) {
+          this.accountsList[profile] = { ...this.accountsList[profile], ...this.accountsService.getUserData() }
           setTimeout(() => {
             this.accountsService.clearUserData();
           }, 0)
         }
       }
-     });
+    });
   }
 
   getUserByIdentifier(username, load) {
@@ -118,7 +127,7 @@ export class FollowingAndFollowersComponent {
 
           //se tiver menos de 10 itens, quer dizer que acabaram os dados, então eu paro de chamar o endpoint.
           if (res.length < 10) this.noMoreContent = true;
-        },400)
+        }, 400)
 
       },
       error: () => {
@@ -159,22 +168,44 @@ export class FollowingAndFollowersComponent {
 
   //carregar mais conteudo ao chegar no final da pagina
   scroll = (event): void => {
+    this.loadMoreContentScroll(event);
+
+    this.hideHeader(event);
+  }
+
+  loadMoreContentScroll(event) {
     if (this.noMoreContent || this.loadingMoreContent) {
       return;
     }
 
-    if (event.srcElement.scrollTop < this.previousScrollTop) {
-      // User is scrolling up, do nothing
-      return;
-    }
-
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 1) {
+    if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
       this.loadMoreContent();
     }
 
     this.previousScrollTop = event.srcElement.scrollTop;
   }
 
+  hideHeader(event){
+    const mainContainerHeader = document.getElementById("bluredHeaderStyle");
+    this.isHandset$.subscribe(isHandset => {
+      if (isHandset) {
+        if (event.srcElement.scrollTop < this.prevScrollpos) {
+          if (mainContainerHeader) {
+            mainContainerHeader.style.top = "0";
+          }
+        } else {
+          if (mainContainerHeader) {
+            mainContainerHeader.style.top = "-119px";
+          }
+        }
+        this.prevScrollpos = event.srcElement.scrollTop;
+      } else {
+        if (mainContainerHeader) {
+          mainContainerHeader.style.top = "0";
+        }
+      }
+    });
+  }
 
   loadMoreContent() {
     this.page++;

@@ -1,24 +1,24 @@
 <div style="width: 100%; min-height: 100%; display: flex;">
   <div class="mainContainer">
-    <div id="mainContainerHeader bluredHeaderStyle" class="mainContainerHeader">
-      <div class="mainContainerTitle">
+    <div id="bluredHeaderStyle" class="headerTabs" fxLayout="column" style="border-bottom: 1px solid rgb(56, 68, 77);">
+      <div class="mainContainerTitle" fxFlex>
         <span>Página Inicial</span>
       </div>
-      <div class="mainContainerHeaderMobile">
-        <div style="width:33%; height: 6vh; display: flex; align-items: center;">
-          <img src="../../../assets/img/profile-image.png" class="mainContainerHeaderMobileImage"
-            (click)="onButtonClick()">
-        </div>
-        <div style="width:34%; display: flex; justify-content: center;">
-          <div style="width: 6vh; height: 100%;">
-            <div class="headerLogo"></div>
-          </div>
-        </div>
-        <div style="width:33%;">
 
+      <div class="mainContainerHeaderMobile">
+        <div fxLayout="row" style="height: 100%; width: 100%;">
+          <div fxFlex fxLayoutAlign="start center">
+            <img src="../../../assets/img/profile-image.png" class="mainContainerHeaderMobileImage"
+              (click)="onButtonClick()">
+          </div>
+          <div fxFlex fxLayoutAlign="center center">
+            <img src="../../../assets/img/twitter-x-logo.png" class="mainContainerHeaderMobileLogoImage">
+          </div>
+          <div fxFlex></div>
         </div>
       </div>
-      <div fxLayout="row">
+
+      <div fxLayout="row" fxFlex>
         <button fxFlex class="bigButtonOnGroup" (click)="tabState = 'stateForYou'"
           [class.bigButtonOnGroupActive]="tabState == 'stateForYou'">
           <div></div>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div style="height: 200px">
+    <div style="height: 200px; width: 300px; background-color: red;">
       a
     </div>
     <div style="height: 200px">
