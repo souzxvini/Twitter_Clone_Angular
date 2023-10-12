@@ -163,4 +163,9 @@ export class MyProfileComponent {
     });
   };
 
+  
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
+  }
+
 }

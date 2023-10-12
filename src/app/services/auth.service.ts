@@ -28,7 +28,9 @@ export class AuthService {
 
     return this.http.post<any>(API + '/authentication/v1/connect', body, this.httpOptions).pipe(map((resp) => {
       sessionStorage.setItem('token', 'Bearer ' + resp.token);
+      sessionStorage.setItem('firstName', resp.firstName);
       sessionStorage.setItem('userName', resp.username);
+      sessionStorage.setItem('isVerified', resp.isVerified);
       sessionStorage.setItem('firstAccess', resp.firstAccess);
       return resp;
     }));

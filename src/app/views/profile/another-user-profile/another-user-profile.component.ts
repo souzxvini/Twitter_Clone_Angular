@@ -177,4 +177,9 @@ export class AnotherUserProfileComponent {
     });
   };
 
+  
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
+  }
+
 }

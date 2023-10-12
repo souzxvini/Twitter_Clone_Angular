@@ -32,8 +32,7 @@ const routes: Routes = [
       { path: '', component: DefaultSearchSectionComponent, outlet: 'secondary' },
       { path: 'following', component: FollowingAndFollowersComponent },
       { path: 'followers', component: FollowingAndFollowersComponent },
-      { path: 'verified_followers', component: FollowingAndFollowersComponent },
-      { path: 'known_followers', component: FollowingAndFollowersComponent },
+      { path: 'verified_followers', component: FollowingAndFollowersComponent }
     ],
   },
 

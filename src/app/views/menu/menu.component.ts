@@ -4,8 +4,9 @@ import { SidenavService } from 'src/app/services/sidenav.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AuthService } from 'src/app/services/auth.service';
-import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
+import { MyProfileModel } from 'src/app/models/my-profile-model';
+import { AuthModel } from 'src/app/models/auth-model';
 
 @Component({
   selector: 'app-menu',
@@ -21,11 +22,12 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
   ],
 })
 export class MenuComponent implements OnInit {
+  @ViewChild('dashboard', { static: false }) sidenav!: MatSidenav;
 
   settingsAndPrivacyIsClicked = false;
   setProfilePhoto = setProfilePhoto;
 
-  @ViewChild('dashboard', { static: false }) sidenav!: MatSidenav;
+  authModel: AuthModel;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -45,6 +47,15 @@ export class MenuComponent implements OnInit {
           this.settingsAndPrivacyIsClicked = false;
         }
       })
+
+    this.fillUserInformations();
+  }
+
+  fillUserInformations(){
+    this.authModel = new AuthModel();
+    this.authModel.firstName = sessionStorage.getItem('firstName');
+    this.authModel.username = sessionStorage.getItem('userName');
+    this.authModel.isVerified = sessionStorage.getItem('isVerified') == 'true' ? true : false;
   }
 
   logout(){

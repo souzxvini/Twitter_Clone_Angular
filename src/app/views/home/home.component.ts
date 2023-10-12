@@ -53,6 +53,8 @@ export class HomeComponent implements OnInit {
     this.sidenavService.notifyButtonClick();
   }
 
-
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
+  }
 
 }

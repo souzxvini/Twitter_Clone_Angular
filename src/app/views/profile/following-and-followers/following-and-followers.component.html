@@ -20,21 +20,14 @@
     </div>
 
     <div fxLayout="row"  style="border-bottom: 1px solid rgb(56, 68, 77);">
-      <button [fxFlex]="router.url.includes(loggedUser) ? '40' : '30'" class="bigButtonOnGroup" (click)="redirect('verified_followers')"
+      <button fxFlex="40" fxFlex.lt-sm="50" class="bigButtonOnGroup" (click)="redirect('verified_followers')"
         [class.bigButtonOnGroupActive]="router.url.includes('verified_followers')">
         <div></div>
         <span>Seguidores Verificados</span>
         <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('verified_followers')"></div>
       </button>
   
-      <button fxFlex="35" *ngIf="!verifyIfItsLoggedUser(router.url)" class="bigButtonOnGroup" (click)="redirect('known_followers')"
-        [class.bigButtonOnGroupActive]="router.url.includes('known_followers')">
-        <div></div>
-        <span>Seguidores que você conhece</span>
-        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('known_followers')"></div>
-      </button>
-  
-      <button [fxFlex]="router.url.includes(loggedUser) ? '30' : '20'" class="bigButtonOnGroup" (click)="redirect('followers')"
+      <button fxFlex="30" fxFlex.lt-sm="25" class="bigButtonOnGroup" (click)="redirect('followers')"
       [class.bigButtonOnGroupActive]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')">
         <div></div>
         <span>Seguidores</span>
@@ -42,7 +35,7 @@
           [class.bigButtonOnGroupActiveBorder]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')"></div>
       </button>
   
-      <button [fxFlex]="router.url.includes(loggedUser) ? '30' : '15'" class="bigButtonOnGroup" (click)="redirect('following')"
+      <button fxFlex="30" fxFlex.lt-sm="25" class="bigButtonOnGroup" (click)="redirect('following')"
       [class.bigButtonOnGroupActive]="router.url.includes('following')">
         <div></div>
         <span>Seguindo</span>
@@ -69,16 +62,25 @@
 
   <!--Loaded and there is no data-->
   <div style="padding: 32px 16px;" fxLayoutAlign="center center" *ngIf="loaded && !accountsList.length">
-    <div *ngIf="section == 'verified_followers'" fxLayout="column" style="max-width: 350px;">
-      <span class="dialogTitleWithSubtitle" >  @thesouzx não tem nenhum seguidor verificado.</span>
+    <!--Mensagem caso usuário logado não possua seguidores verificados-->
+    <div *ngIf="section == 'verified_followers' && verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
+      <span class="dialogTitleWithSubtitle" >  Você ainda não tem seguidores verificados</span>
+      <span class="dialogSubtitle"> Quando uma conta verificada segue você, ela poderá ser vista aqui. </span>
+    </div>
+
+    <!--Mensagem caso usuário não possua seguidores verificados-->
+    <div *ngIf="section == 'verified_followers'  && !verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
+      <span class="dialogTitleWithSubtitle" >  <span style="word-break: break-all;">@{{ user.username }}</span> não tem nenhum seguidor verificado.</span>
       <span class="dialogSubtitle"> Quando uma pessoa verificada segue essa conta, ela será exibida aqui. </span>
     </div>
 
+    <!--Mensagem caso usuário não possua seguidores verificados-->
     <div *ngIf="section == 'followers'" fxLayout="column" style="max-width: 350px;">
       <span class="dialogTitleWithSubtitle" >  Em busca de seguidores?  </span>
       <span class="dialogSubtitle"> Quando uma pessoa seguir esta conta, ela será exibida aqui. Tweetar e interagir com outras pessoas ajuda a impulsionar o número de seguidores. </span>
     </div>
 
+    <!--Mensagem caso usuário logado não siga nenhum perfil-->
     <div *ngIf="section == 'following' && verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
       <span class="dialogTitleWithSubtitle" >  Fique por dentro  </span>
       <span class="dialogSubtitle"> Seguir contas é uma forma fácil de fazer a curadoria da sua timeline e saber o que está acontecendo com os tópicos e as pessoas que são do seu interesse.</span>
@@ -87,8 +89,9 @@
       </button>
     </div>
 
+    <!--Mensagem caso usuário não siga nenhum perfil-->
     <div *ngIf="section == 'following' && !verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
-      <span class="dialogTitleWithSubtitle" >  @vini06362458666 não está seguindo ninguém  </span>
+      <span class="dialogTitleWithSubtitle" > <span style="word-break: break-all;">@{{user.username}}</span> não está seguindo ninguém  </span>
       <span class="dialogSubtitle"> Depois de seguir as contas, elas serão exibidas aqui.</span>
     </div>
   </div>
