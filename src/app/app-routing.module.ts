@@ -12,7 +12,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', loadChildren: () => import('../app/views/home/home.module').then((m) => m.HomeModule) },
-      { path: 'profile', loadChildren: () => import('../app/views/profile/profile.module').then((m) => m.ProfileModule) }
+      { path: 'profile', loadChildren: () => import('../app/views/profile/profile.module').then((m) => m.ProfileModule) },
+      { path: 'connect_people', loadChildren: () => import('../app/views/connect/connect.module').then((m) => m.ConnectModule) }
     ]
   },
   //Pagina inicial

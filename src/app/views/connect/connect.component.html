@@ -1,0 +1,56 @@
+<div fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
+  <div id="bluredHeaderStyle" class="headerTabs" fxLayout="column" fxLayoutAlign=" stretch" class="bluredHeaderStyle">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30" style="padding: 8px 12px;">
+      <button mat-mini-fab (click)="goBack()">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+      <div fxLayout="column" fxLayoutGap="4" class="headerTitle">
+        Conectar
+      </div>
+    </div>
+
+    <div fxLayout="row" style="border-bottom: 1px solid rgb(56, 68, 77);">
+      <button fxFlex class="bigButtonOnGroup" (click)="redirect('connect_people')"
+      [class.bigButtonOnGroupActive]="router.url.includes('connect_people') && !router.url.includes('is_creator_only')">
+        <div></div>
+        <span>Quem Seguir</span>
+        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('connect_people') && !router.url.includes('is_creator_only')" style="width: 160px;">
+        </div>
+      </button>
+
+      <button fxFlex class="bigButtonOnGroup" (click)="redirect('is_creator_only')"
+        [class.bigButtonOnGroupActive]="router.url.includes('is_creator_only')">
+        <div></div>
+        <span>Criadores para você</span>
+        <div
+          [class.bigButtonOnGroupActiveBorder]="router.url.includes('is_creator_only')"
+          style="width: 180px;"></div>
+      </button>
+
+    </div>
+  </div>
+
+  <!--Loading-->
+  <div style="padding: 16px" *ngIf="!loaded" fxLayoutAlign="center center">
+    <mat-spinner [diameter]="30"></mat-spinner>
+  </div>
+
+  <!--Loaded and have data-->
+  <div *ngIf="loaded && accountsList.length">
+    <app-follow-profile-button-description [profile]="profile" [suggestedProfiles]="accountsList"
+      *ngFor="let profile of accountsList" (click)="redirectToProfile(profile)" class="cursorPointer">
+    </app-follow-profile-button-description>
+    <div *ngIf="loadingMoreContent" style="height: 30vh;" fxLayoutAlign="center star">
+      <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+  </div>
+
+  <!--Loaded and there is no data-->
+  <div style="padding: 32px 16px;" fxLayoutAlign="center center" *ngIf="loaded && !accountsList.length">
+    <div  fxLayout="column"
+      style="max-width: 350px;">
+      <span class="dialogTitleWithSubtitle"> Você ainda não tem seguidores verificados</span>
+      <span class="dialogSubtitle"> Quando uma conta verificada segue você, ela poderá ser vista aqui. </span>
+    </div>
+  </div>
+</div>

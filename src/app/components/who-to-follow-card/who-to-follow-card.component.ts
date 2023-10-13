@@ -69,4 +69,8 @@ export class WhoToFollowCardComponent {
     // Navega para a nova URL
     this.router.navigate(['profile', account.username]);
   }
+
+  redirect(){
+    this.router.navigate(['connect_people']);
+  }
 }

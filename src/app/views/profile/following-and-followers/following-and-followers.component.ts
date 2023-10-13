@@ -41,7 +41,6 @@ export class FollowingAndFollowersComponent {
     public router: Router,
     private activatedRoute: ActivatedRoute,
     private breakpointObserver: BreakpointObserver
-
   ) { }
 
   ngOnInit() {

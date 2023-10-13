@@ -121,6 +121,7 @@
   justify-content: end;
   position: sticky;
   top: 0;
+  border-right: 1px solid rgb(56, 68, 77);
 }
 
 .mainContainer {
@@ -132,6 +133,7 @@
   width: 37%;
   position: sticky;
   top: 0px;
+  border-left: 1px solid rgb(56, 68, 77);
 }
 
 .menuDiv {
@@ -211,7 +213,7 @@
   max-width: 90% !important;
 }
 
-@media screen and (max-width:1278px) {
+@media screen and (max-width:1279px) {
 
   /*Ajustando tamanho do menu*/
   .menuContainer {

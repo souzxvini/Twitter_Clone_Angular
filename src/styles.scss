@@ -718,7 +718,7 @@ button {
 }
 
 .bigButtonOnGroupActiveBorder {
-  min-width: 56px;
+  min-width: 70px;
   height: 4px;
   background-color: rgb(29, 155, 240);
   border-bottom-left-radius: 9999px;
@@ -739,8 +739,15 @@ button {
 .profileContainer {
   width: 100%;
   min-height: 100%;
-  border-left: 1px solid rgb(56, 68, 77);
-  border-right: 1px solid rgb(56, 68, 77);
+}
+
+.headerTitle{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 19px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.3px !important;
 }
 
 .headerTabs {

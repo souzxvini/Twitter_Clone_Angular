@@ -24,22 +24,23 @@
         [class.bigButtonOnGroupActive]="router.url.includes('verified_followers')">
         <div></div>
         <span>Seguidores Verificados</span>
-        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('verified_followers')"></div>
+        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('verified_followers')" 
+        style="width: 160px;"></div>
       </button>
   
       <button fxFlex="30" fxFlex.lt-sm="25" class="bigButtonOnGroup" (click)="redirect('followers')"
       [class.bigButtonOnGroupActive]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')">
         <div></div>
         <span>Seguidores</span>
-        <div
-          [class.bigButtonOnGroupActiveBorder]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')"></div>
+        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')"
+        style="width: 75px;"></div>
       </button>
   
       <button fxFlex="30" fxFlex.lt-sm="25" class="bigButtonOnGroup" (click)="redirect('following')"
       [class.bigButtonOnGroupActive]="router.url.includes('following')">
         <div></div>
         <span>Seguindo</span>
-        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('following')"></div>
+        <div style="width: 70px;" [class.bigButtonOnGroupActiveBorder]="router.url.includes('following')"></div>
       </button>
     </div>
   </div>
@@ -50,8 +51,7 @@
   </div>
 
   <!--Loaded and have data-->
-  <div *ngIf="loaded && accountsList.length"
-    scrollTracker (scrollingFinished)="loadMoreContent()">
+  <div *ngIf="loaded && accountsList.length">
     <app-follow-profile-button-description  [profile]="profile" [suggestedProfiles]="accountsList" *ngFor="let profile of accountsList"
     (click)="redirectToProfile(profile)" class="cursorPointer">
     </app-follow-profile-button-description>
