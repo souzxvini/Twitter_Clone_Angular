@@ -34,6 +34,9 @@ export class AnotherUserProfileComponent {
     .pipe(map((result) => result.matches));
   prevScrollpos = 0;
 
+  commonFollows: any[];
+  loadedCommonFollowers = false;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private accountsService: AccountsService,
@@ -45,9 +48,12 @@ export class AnotherUserProfileComponent {
   ) { }
 
   ngOnInit() {
+    console.log('a')
     this.activatedRoute.params.subscribe(params => {
+
+      this.username = params['username'];
     
-      if(params['username'] == sessionStorage.getItem('userName')){
+      if(this.username == sessionStorage.getItem('userName')){
         this.router.navigate(['profile'])
       }
       /*se essa funcao .getUserData() tiver valor, 
@@ -56,14 +62,25 @@ export class AnotherUserProfileComponent {
       sem precisar chamar o get para trazer as principais informações do usuario*/
       this.user = this.accountsService.getUserData();
       if (!this.user) {
-        this.getUserInformations(params['username'], true);
+        this.getUserInformations(this.username, true);
       } else {
         this.userInformationsLoaded = true;
         this.accountsService.clearUserData();
+        this.getCommonFollows(this.username);
       }
     });
 
     window.addEventListener('scroll', this.scroll, true);
+  }
+
+  getCommonFollows(username){
+    this.loadedCommonFollowers = false;
+    this.accountsService.getCommonFollows(username).subscribe({
+      next: (res) => {
+        this.commonFollows = res;
+        this.loadedCommonFollowers = true;
+      }
+    })
   }
 
   getUserInformations(username, spinner) {
@@ -72,6 +89,7 @@ export class AnotherUserProfileComponent {
       next: (res) => {
         this.user = res;
         this.userInformationsLoaded = true;
+        this.getCommonFollows(this.username);
       },
       error: () => {
         this.userInformationsLoaded = true;

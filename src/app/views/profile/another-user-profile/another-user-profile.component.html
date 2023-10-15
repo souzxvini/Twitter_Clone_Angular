@@ -9,7 +9,8 @@
     </button>
     <div fxLayout="column" fxLayoutGap="4">
       <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
-        {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+        {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+          src="../../../../assets/img/twitter-verified.png">
       </span>
       <span class="headerUserPosts">
         {{ user.tweetsCount }} posts
@@ -22,31 +23,48 @@
     </div>
     <div fxLayout="column" fxLayoutGap="15" style="padding: 0 16px">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-          <div class="profileUserPicture cursorPointer" (click)="visualizeProfilePicture(user.profilePhotoUrl)">
-            <div class="picture" [style]="setProfilePhoto(user.profilePhotoUrl)">
-            </div>
+        <div class="profileUserPicture cursorPointer" (click)="visualizeProfilePicture(user.profilePhotoUrl)">
+          <div class="picture" [style]="setProfilePhoto(user.profilePhotoUrl)">
           </div>
-        <!--Botão 'SEGUIR'-->
-        <button *ngIf="!user.isFollowedByMe" class="whiteButton cursorPointer _36pxButton"
-          (click)="followUser(user.username)">
-          <span>Seguir</span>
-        </button>
-        <!--Botão 'SEGUINDO'-->
-        <app-following-button-36px *ngIf="user.isFollowedByMe" (click)="openUnfollowConfirmationModal(user)">
-        </app-following-button-36px>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10">
+          <button mat-mini-fab class="iconButtonBorder">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+
+          <button mat-mini-fab class="iconButtonBorder">
+            <mat-icon>mail_outline</mat-icon>
+          </button>
+
+          <button mat-mini-fab class="iconButtonBorder" *ngIf="user.isFollowedByMe">
+            <mat-icon *ngIf="!user.isNotificationsAlertedByMe">notifications_off</mat-icon>
+            <mat-icon *ngIf="user.isNotificationsAlertedByMe">notifications_active</mat-icon>
+          </button>
+
+          <!--Botão 'SEGUIR'-->
+          <button *ngIf="!user.isFollowedByMe" class="whiteButton cursorPointer _36pxButton"
+            (click)="followUser(user.username)">
+            <span>Seguir</span>
+          </button>
+          <!--Botão 'SEGUINDO'-->
+          <app-following-button-36px *ngIf="user.isFollowedByMe" (click)="openUnfollowConfirmationModal(user)">
+          </app-following-button-36px>
+        </div>
       </div>
 
       <div fxLayout="column" fxLayoutGap="4">
-        <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center" style="word-break: break-all;">
-          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+        <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center"
+          style="word-break: break-all;">
+          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+            src="../../../../assets/img/twitter-verified.png">
         </span>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5"> 
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
           <span class="headerUserUsername dottedOverflow">
-            @{{ user.username }} 
+            @{{ user.username }}
           </span>
           <span *ngIf="user.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
         </div>
-        
+
       </div>
 
       <div class="biography" *ngIf="user.biography">
@@ -79,10 +97,19 @@
       </div>
     </div>
 
+    <div *ngIf="!loadedCommonFollowers" fxLayout="row" fxLayoutAlign="center center" style="padding: 30px;">
+      <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+
+    <div *ngIf="loadedCommonFollowers && commonFollows.length == 0" class="emptyMessage">
+      Não é seguido por ninguém que você segue
+    </div>
+
+
     <app-profile-nav></app-profile-nav>
 
     <app-tweet></app-tweet>
-    
+
   </div>
 </div>
 

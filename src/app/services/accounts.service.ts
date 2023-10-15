@@ -131,6 +131,13 @@ export class AccountsService {
     return this.http.get<any[]>(API + '/accounts/v1/user/search/followsdetails/' + username + '/' + type, { params });
   }
 
+  //GET /v1/user/search/commonFollows
+  getCommonFollows(username): Observable<any[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.append('targetUserIdentifier', username);
+    return this.http.get<any[]>(API + '/accounts/v1/user/search/commonfollows', { params });
+  }
+
   //USER-INTERACTIONS-CONTROLLER
 
   //PATCH /v1/user/interactions/followtoggle/{identifier}

@@ -486,12 +486,25 @@ button {
   height: 100%;
 }
 
+.mat-mdc-mini-fab.mat-accent{
+  height: 36px;
+  width: 36px;
+}
+
 .selectPhotoIconButton.mat-mdc-mini-fab.mat-accent {
   --mdc-fab-container-color: rgba(22, 26, 34, 0.658) !important;
 }
 
 .selectPhotoIconButton.mat-mdc-mini-fab.mat-accent:hover {
   --mdc-fab-container-color: rgba(22, 26, 34, 0.658) !important;
+}
+
+.iconButtonBorder.mat-mdc-mini-fab.mat-accent {
+  border: 1px solid rgb(56, 68, 77);
+}
+
+.iconButtonBorder mat-icon{
+  transform: scale(0.9);
 }
 
 .selectPhotoIconButton mat-icon {
