@@ -37,6 +37,8 @@ export class AnotherUserProfileComponent {
   commonFollows: any[];
   loadedCommonFollowers = false;
 
+  morePanelState = false;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private accountsService: AccountsService,

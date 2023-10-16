@@ -7,15 +7,15 @@
   border-radius: 100%;
 }
 
-.picture:hover{
+.picture:hover {
   opacity: 0.9;
 }
 
-.notificationIcon{
+.notificationIcon {
   transform: scale(0.9) !important;
 }
 
-.emptyMessage{
+.emptyMessage {
   padding: 16px;
   font-size: 13px;
   color: rgb(113, 118, 123);
@@ -23,12 +23,12 @@
 
 @media screen and (max-width:687px) {
 
-  .profileUserPicture  {
+  .profileUserPicture {
     height: calc(20vw - 1px);
     max-height: 130px;
     width: calc(20vw - 1px);
     max-width: 130px;
     margin-top: calc(0px - ((20vw - 1px) / 2));
   }
-  
+
 }
