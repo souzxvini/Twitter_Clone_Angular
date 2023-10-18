@@ -4,4 +4,5 @@ export class AuthModel {
     isVerified: boolean;
     firstAccess: boolean;
     token: string;
+    profilePhotoUrl: string;
 }

@@ -99,13 +99,18 @@ export class FollowingAndFollowersComponent {
       this.getUserFollowsDetails(this.section, this.page, this.size);
     }
 
-    if (this.router.url.includes('followers') && !this.router.url.includes('verified_followers')) {
+    if (this.router.url.includes('followers') && !this.router.url.includes('verified_followers') && !this.router.url.includes('known_followers')) {
       this.section = 'followers';
       this.getUserFollowsDetails(this.section, this.page, this.size);
     }
 
     if (this.router.url.includes('verified_followers')) {
       this.section = 'verified_followers';
+      this.getUserFollowsDetails(this.section, this.page, this.size);
+    }
+
+    if (this.router.url.includes('known_followers')) {
+      this.section = 'known_followers';
       this.getUserFollowsDetails(this.section, this.page, this.size);
     }
 

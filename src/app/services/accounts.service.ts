@@ -114,11 +114,12 @@ export class AccountsService {
   }
 
   //GET /v1/user/search/byidentifier/{identifier}
-  getWhoToFollowAccounts(page, size, username): Observable<AnotherProfileModel[]> {
+  getWhoToFollowAccounts(page, size, username, isCreatorOnly?): Observable<AnotherProfileModel[]> {
     let params: HttpParams = new HttpParams();
     params = params.append('page', page);
     params = params.append('size', size);
     username ? params = params.append('userOnScreen', username) : null;
+    isCreatorOnly ? params = params.append('isVerified', isCreatorOnly) : null;
 
     return this.http.get<AnotherProfileModel[]>(API + '/accounts/v1/user/search/whotofollow', { params });
   }
@@ -133,9 +134,7 @@ export class AccountsService {
 
   //GET /v1/user/search/commonFollows
   getCommonFollows(username): Observable<any[]> {
-    let params: HttpParams = new HttpParams();
-    params = params.append('targetUserIdentifier', username);
-    return this.http.get<any[]>(API + '/accounts/v1/user/search/commonfollows', { params });
+    return this.http.get<any[]>(API + '/accounts/v1/user/search/allknownfollowers/' + username);
   }
 
   //USER-INTERACTIONS-CONTROLLER

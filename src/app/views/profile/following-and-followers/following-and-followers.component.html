@@ -20,24 +20,33 @@
     </div>
 
     <div fxLayout="row"  style="border-bottom: 1px solid rgb(56, 68, 77);">
-      <button fxFlex="40" fxFlex.lt-sm="50" class="bigButtonOnGroup" (click)="redirect('verified_followers')"
-        [class.bigButtonOnGroupActive]="router.url.includes('verified_followers')">
+      <button [fxFlex]="!verifyIfItsLoggedUser(router.url) ? '30' : '40'"  (click)="redirect('verified_followers')"
+        [class.bigButtonOnGroupActive]="router.url.includes('verified_followers')" class="bigButtonOnGroup">
         <div></div>
         <span>Seguidores Verificados</span>
         <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('verified_followers')" 
         style="width: 160px;"></div>
       </button>
+
+      <button *ngIf="!verifyIfItsLoggedUser(router.url)" fxflex="30" (click)="redirect('known_followers')"
+        [class.bigButtonOnGroupActive]="router.url.includes('known_followers')" class="bigButtonOnGroup">
+        <div></div>
+        <span>Seguidores que você conhece</span>
+        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('known_followers')" 
+        style="width: 180px;"></div>
+      </button>
   
-      <button fxFlex="30" fxFlex.lt-sm="25" class="bigButtonOnGroup" (click)="redirect('followers')"
-      [class.bigButtonOnGroupActive]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')">
+      <button [fxFlex]="!verifyIfItsLoggedUser(router.url) ? '20' : '40'" (click)="redirect('followers')"
+      [class.bigButtonOnGroupActive]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')"
+      class="bigButtonOnGroup">
         <div></div>
         <span>Seguidores</span>
         <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')"
         style="width: 75px;"></div>
       </button>
   
-      <button fxFlex="30" fxFlex.lt-sm="25" class="bigButtonOnGroup" (click)="redirect('following')"
-      [class.bigButtonOnGroupActive]="router.url.includes('following')">
+      <button [fxFlex]="!verifyIfItsLoggedUser(router.url) ? '20' : '40'" (click)="redirect('following')"
+      [class.bigButtonOnGroupActive]="router.url.includes('following')" class="bigButtonOnGroup">
         <div></div>
         <span>Seguindo</span>
         <div style="width: 70px;" [class.bigButtonOnGroupActiveBorder]="router.url.includes('following')"></div>

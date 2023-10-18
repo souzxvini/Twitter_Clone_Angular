@@ -36,7 +36,7 @@
           <ng-template #overlayNotifications cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
             [cdkConnectedOverlayOpen]="morePanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
             [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="morePanelState = !morePanelState"
-            [cdkConnectedOverlayPositions]="[{originX: 'start',originY: 'bottom',overlayX: 'center',overlayY: 'top'}]">
+            [cdkConnectedOverlayPositions]="[{originX: 'start',originY: 'bottom',overlayX: 'end',overlayY: 'top'}]">
             <div class="morePanel mat-elevation-z8" fxLayout="column">
               <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
                 <mat-icon>link</mat-icon>
@@ -126,14 +126,12 @@
       </div>
     </div>
 
+    <!--Seguidores conhecidos-->
     <div *ngIf="!loadedCommonFollowers" fxLayout="row" fxLayoutAlign="center center" style="padding: 30px;">
       <mat-spinner [diameter]="30"></mat-spinner>
     </div>
 
-    <div *ngIf="loadedCommonFollowers && commonFollows.length == 0" class="emptyMessage">
-      Não é seguido por ninguém que você segue
-    </div>
-
+    <app-known-followers *ngIf="loadedCommonFollowers" [knownFollowers]="commonFollows" [username]="user.username"></app-known-followers>
 
     <app-profile-nav></app-profile-nav>
 

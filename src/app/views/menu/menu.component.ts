@@ -26,7 +26,6 @@ export class MenuComponent implements OnInit {
 
   settingsAndPrivacyIsClicked = false;
   setProfilePhoto = setProfilePhoto;
-
   authModel: AuthModel;
 
   constructor(
@@ -56,6 +55,7 @@ export class MenuComponent implements OnInit {
     this.authModel.firstName = sessionStorage.getItem('firstName');
     this.authModel.username = sessionStorage.getItem('userName');
     this.authModel.isVerified = sessionStorage.getItem('isVerified') == 'true' ? true : false;
+    this.authModel.profilePhotoUrl = sessionStorage.getItem('profilePhotoUrl');
   }
 
   logout(){

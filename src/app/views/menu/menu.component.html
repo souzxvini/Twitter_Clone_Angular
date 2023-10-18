@@ -161,14 +161,18 @@
               </button>
             </nav>
 
-            <div fxLayout="row" fxLayoutAlign="start center" class="sideNavMenuProfileButton" (click)="logout()" fxHide.lt-lg>
+            <div fxLayout="row" fxLayoutAlign="start center" class="sideNavMenuProfileButton" (click)="logout()"
+              fxHide.lt-lg>
               <div fxFlex="20">
-                <img src="../../../assets/img/profile-image.png" class="sideNavMenuProfileButtonImage">
+                <div class="profilePicture" style="width: 40px; height: 40px;"
+                  [style]="setProfilePhoto(authModel.profilePhotoUrl)">
+                </div>
               </div>
               <div fxFlex="70" fxLayout="column" style="padding: 0 8px;">
                 <div fxLayout="row" fxLayoutAlign="start center">
-                  <span style="max-width: calc(100% - 18px)" class="userFirstName">{{authModel.firstName}}</span>
-                  <div style="width: 18px;">
+                  <span [style]="authModel.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width:100%'"
+                    class="userFirstName">{{authModel.firstName}}</span>
+                  <div style="width: 18px;" *ngIf="authModel.isVerified">
                     <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
                   </div>
                 </div>

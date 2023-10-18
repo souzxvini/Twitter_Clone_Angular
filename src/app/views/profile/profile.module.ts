@@ -13,6 +13,7 @@ import { FullScreenBackgroundPhotoModalComponent } from './modals/full-screen-ba
 import { EditBackgroundPictureModalComponent } from 'src/app/components/edit-background-picture-modal/edit-background-picture-modal.component';
 import { AlyleModule } from 'src/app/shared/shared-material/Alyle.module';
 import { FollowingAndFollowersComponent } from './following-and-followers/following-and-followers.component';
+import { KnownFollowersComponent } from './another-user-profile/known-followers/known-followers.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FollowingAndFollowersComponent } from './following-and-followers/follow
     EditProfileModalComponent,
     EditBackgroundPictureModalComponent,
     FullScreenBackgroundPhotoModalComponent,
-    FollowingAndFollowersComponent
+    FollowingAndFollowersComponent,
+    KnownFollowersComponent
   ],
   imports: [
     CommonModule,

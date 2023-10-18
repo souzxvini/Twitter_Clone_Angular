@@ -1,0 +1,29 @@
+.knownFollowersText {
+  padding: 16px;
+  font-size: 13px;
+  color: rgb(113, 118, 123);
+}
+
+.profilePicture {
+  width: 18px;
+  height: 18px;
+  border: 2px solid black;
+}
+
+.firstPhoto {
+  z-index: 2;
+}
+
+.secondPhoto {
+  z-index: 1;
+  margin-left: -10px;
+}
+
+.thirdPhoto {
+  z-index: 0;
+  margin-left: -10px;
+}
+
+.knownFollowersText:hover span {
+  text-decoration: underline;
+}

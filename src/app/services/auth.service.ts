@@ -30,6 +30,7 @@ export class AuthService {
       sessionStorage.setItem('token', 'Bearer ' + resp.token);
       sessionStorage.setItem('firstName', resp.firstName);
       sessionStorage.setItem('userName', resp.username);
+      sessionStorage.setItem('profilePhotoUrl', resp.profilePhotoUrl);
       sessionStorage.setItem('isVerified', resp.isVerified);
       sessionStorage.setItem('firstAccess', resp.firstAccess);
       return resp;
