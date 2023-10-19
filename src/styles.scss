@@ -930,6 +930,9 @@ button {
 }
 
 //Mat Tabs
+.mat-mdc-tab-group{
+  border-bottom: 1px solid rgb(56, 68, 77) !important;
+}
 .mat-mdc-tab .mdc-tab-indicator__content--underline {
   border-radius: 100px !important;
   border-top-width: 4px !important;
@@ -947,6 +950,10 @@ button {
   font-weight: 800 !important;
   letter-spacing: 0.5px !important;
   font-size: 15px !important;
+}
+
+.mat-mdc-tab-header-pagination-chevron {
+  border-color: white !important;
 }
 
 .mat-mdc-tab {

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from 'src/app/guards/auth.guard';
 import { ProfileSearchComponent } from './profile-search/profile-search.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AnotherUserProfileComponent } from './another-user-profile/another-user-profile.component';
 import { FollowingAndFollowersComponent } from './following-and-followers/following-and-followers.component';
 import { DefaultSearchSectionComponent } from 'src/app/components/default-search-section/default-search-section.component';
+import { FollowsListComponent } from './following-and-followers/follows-list/follows-list.component';
 
 const routes: Routes = [
 
@@ -29,11 +30,17 @@ const routes: Routes = [
     path: ':username',
     canActivate: [authGuard],
     children: [
+      { path: '',
+        component: FollowingAndFollowersComponent, 
+        children: [
+          { path: 'following', component: FollowsListComponent},
+          { path: 'followers', component: FollowsListComponent},
+          { path: 'verified_followers', component: FollowsListComponent},
+          { path: 'known_followers', component: FollowsListComponent}
+        ] 
+      },
       { path: '', component: DefaultSearchSectionComponent, outlet: 'secondary' },
-      { path: 'following', component: FollowingAndFollowersComponent },
-      { path: 'followers', component: FollowingAndFollowersComponent },
-      { path: 'verified_followers', component: FollowingAndFollowersComponent },
-      { path: 'known_followers', component: FollowingAndFollowersComponent }
+      
     ],
   },
 

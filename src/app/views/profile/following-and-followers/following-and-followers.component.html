@@ -2,108 +2,34 @@
   <mat-spinner [diameter]="30"></mat-spinner>
 </div>
 
-<div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
-  <div id="bluredHeaderStyle" class="headerTabs" fxLayout="column" fxLayoutAlign=" stretch" class="bluredHeaderStyle">
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30" style="padding: 8px 12px;">
-      <button mat-mini-fab (click)="goBack()">
-        <mat-icon>keyboard_backspace</mat-icon>
-      </button>
-      <div fxLayout="column" fxLayoutGap="4">
-        <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
-          {{ user?.firstName }} <img *ngIf="user?.isVerified" style="width: 18px; height: 18px;"
-            src="../../../../assets/img/twitter-verified.png">
-        </span>
-        <span class="headerUserPosts">
-          @{{ user?.username }}
-        </span>
+<div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign="space-between stretch" class="profileContainer">
+  <div>
+
+    <div id="bluredHeaderStyle" class="headerTabs" fxLayout="column" fxLayoutAlign=" stretch" class="bluredHeaderStyle">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30" style="padding: 8px 12px;">
+        <button mat-mini-fab (click)="goBack()">
+          <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+        <div fxLayout="column" fxLayoutGap="4">
+          <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
+            {{ user?.firstName }} <img *ngIf="user?.isVerified" style="width: 18px; height: 18px;"
+              src="../../../../assets/img/twitter-verified.png">
+          </span>
+          <span class="headerUserPosts">
+            @{{ user?.username }}
+          </span>
+        </div>
       </div>
+
+      <mat-tab-group fitInkBarToContent #tabGroup (selectedTabChange)="tabChange(tabGroup.selectedIndex)">
+        <mat-tab label="Seguidores verificados"></mat-tab>
+        <mat-tab label="Seguidores que você conhece" *ngIf="!verifyIfItsLoggedUser(router.url)"></mat-tab>
+        <mat-tab label="Seguidores"></mat-tab>
+        <mat-tab label="Seguindo"></mat-tab>
+      </mat-tab-group>
     </div>
 
-    <div fxLayout="row"  style="border-bottom: 1px solid rgb(56, 68, 77);">
-      <button [fxFlex]="!verifyIfItsLoggedUser(router.url) ? '30' : '40'"  (click)="redirect('verified_followers')"
-        [class.bigButtonOnGroupActive]="router.url.includes('verified_followers')" class="bigButtonOnGroup">
-        <div></div>
-        <span>Seguidores Verificados</span>
-        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('verified_followers')" 
-        style="width: 160px;"></div>
-      </button>
-
-      <button *ngIf="!verifyIfItsLoggedUser(router.url)" fxflex="30" (click)="redirect('known_followers')"
-        [class.bigButtonOnGroupActive]="router.url.includes('known_followers')" class="bigButtonOnGroup">
-        <div></div>
-        <span>Seguidores que você conhece</span>
-        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('known_followers')" 
-        style="width: 180px;"></div>
-      </button>
-  
-      <button [fxFlex]="!verifyIfItsLoggedUser(router.url) ? '20' : '40'" (click)="redirect('followers')"
-      [class.bigButtonOnGroupActive]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')"
-      class="bigButtonOnGroup">
-        <div></div>
-        <span>Seguidores</span>
-        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('followers') && !router.url.includes('verified_followers') && !router.url.includes('known_followers')"
-        style="width: 75px;"></div>
-      </button>
-  
-      <button [fxFlex]="!verifyIfItsLoggedUser(router.url) ? '20' : '40'" (click)="redirect('following')"
-      [class.bigButtonOnGroupActive]="router.url.includes('following')" class="bigButtonOnGroup">
-        <div></div>
-        <span>Seguindo</span>
-        <div style="width: 70px;" [class.bigButtonOnGroupActiveBorder]="router.url.includes('following')"></div>
-      </button>
-    </div>
+    <router-outlet></router-outlet>
   </div>
-  
-  <!--Loading-->
-  <div style="padding: 16px" *ngIf="!loaded" fxLayoutAlign="center center">
-    <mat-spinner [diameter]="30"></mat-spinner>
-  </div>
-
-  <!--Loaded and have data-->
-  <div *ngIf="loaded && accountsList.length">
-    <app-follow-profile-button-description  [profile]="profile" [suggestedProfiles]="accountsList" *ngFor="let profile of accountsList"
-    (click)="redirectToProfile(profile)" class="cursorPointer">
-    </app-follow-profile-button-description>
-    <div *ngIf="loadingMoreContent" style="height: 30vh;" fxLayoutAlign="center star">
-      <mat-spinner [diameter]="30"></mat-spinner>
-    </div>
-  </div>
-
-  <!--Loaded and there is no data-->
-  <div style="padding: 32px 16px;" fxLayoutAlign="center center" *ngIf="loaded && !accountsList.length">
-    <!--Mensagem caso usuário logado não possua seguidores verificados-->
-    <div *ngIf="section == 'verified_followers' && verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
-      <span class="dialogTitleWithSubtitle" >  Você ainda não tem seguidores verificados</span>
-      <span class="dialogSubtitle"> Quando uma conta verificada segue você, ela poderá ser vista aqui. </span>
-    </div>
-
-    <!--Mensagem caso usuário não possua seguidores verificados-->
-    <div *ngIf="section == 'verified_followers'  && !verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
-      <span class="dialogTitleWithSubtitle" >  <span style="word-break: break-all;">@{{ user.username }}</span> não tem nenhum seguidor verificado.</span>
-      <span class="dialogSubtitle"> Quando uma pessoa verificada segue essa conta, ela será exibida aqui. </span>
-    </div>
-
-    <!--Mensagem caso usuário não possua seguidores verificados-->
-    <div *ngIf="section == 'followers'" fxLayout="column" style="max-width: 350px;">
-      <span class="dialogTitleWithSubtitle" >  Em busca de seguidores?  </span>
-      <span class="dialogSubtitle"> Quando uma pessoa seguir esta conta, ela será exibida aqui. Tweetar e interagir com outras pessoas ajuda a impulsionar o número de seguidores. </span>
-    </div>
-
-    <!--Mensagem caso usuário logado não siga nenhum perfil-->
-    <div *ngIf="section == 'following' && verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
-      <span class="dialogTitleWithSubtitle" >  Fique por dentro  </span>
-      <span class="dialogSubtitle"> Seguir contas é uma forma fácil de fazer a curadoria da sua timeline e saber o que está acontecendo com os tópicos e as pessoas que são do seu interesse.</span>
-      <button class="blueButton _52pxButton cursorPointer">
-        <span>Encontre pessoas para seguir</span>
-      </button>
-    </div>
-
-    <!--Mensagem caso usuário não siga nenhum perfil-->
-    <div *ngIf="section == 'following' && !verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
-      <span class="dialogTitleWithSubtitle" > <span style="word-break: break-all;">@{{user.username}}</span> não está seguindo ninguém  </span>
-      <span class="dialogSubtitle"> Depois de seguir as contas, elas serão exibidas aqui.</span>
-    </div>
-  </div>
+  <app-mobile-footer-nav></app-mobile-footer-nav>
 </div>
-
-<app-mobile-footer-nav></app-mobile-footer-nav>

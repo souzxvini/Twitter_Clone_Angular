@@ -50,7 +50,6 @@ export class AnotherUserProfileComponent {
   ) { }
 
   ngOnInit() {
-    console.log('a')
     this.activatedRoute.params.subscribe(params => {
 
       this.username = params['username'];

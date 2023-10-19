@@ -11,10 +11,12 @@
 
     <div fxLayout="row" style="border-bottom: 1px solid rgb(56, 68, 77);">
       <button fxFlex class="bigButtonOnGroup" (click)="redirect('connect_people')"
-      [class.bigButtonOnGroupActive]="router.url.includes('connect_people') && !router.url.includes('is_creator_only')">
+        [class.bigButtonOnGroupActive]="router.url.includes('connect_people') && !router.url.includes('is_creator_only')">
         <div></div>
         <span>Quem Seguir</span>
-        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('connect_people') && !router.url.includes('is_creator_only')" style="width: 160px;">
+        <div
+          [class.bigButtonOnGroupActiveBorder]="router.url.includes('connect_people') && !router.url.includes('is_creator_only')"
+          style="width: 160px;">
         </div>
       </button>
 
@@ -22,9 +24,7 @@
         [class.bigButtonOnGroupActive]="router.url.includes('is_creator_only')">
         <div></div>
         <span>Criadores para você</span>
-        <div
-          [class.bigButtonOnGroupActiveBorder]="router.url.includes('is_creator_only')"
-          style="width: 180px;"></div>
+        <div [class.bigButtonOnGroupActiveBorder]="router.url.includes('is_creator_only')" style="width: 180px;"></div>
       </button>
 
     </div>
@@ -36,7 +36,8 @@
   </div>
 
   <!--Loaded and have data-->
-  <div *ngIf="loaded && accountsList.length">
+  <div *ngIf="loaded && accountsList.length" fxLayout="column">
+    <span style="padding: 16px; font-size: 20px; font-weight: bolder;">Sugestões para você</span>
     <app-follow-profile-button-description [profile]="profile" [suggestedProfiles]="accountsList"
       *ngFor="let profile of accountsList" (click)="redirectToProfile(profile)" class="cursorPointer">
     </app-follow-profile-button-description>
@@ -47,8 +48,7 @@
 
   <!--Loaded and there is no data-->
   <div style="padding: 32px 16px;" fxLayoutAlign="center center" *ngIf="loaded && !accountsList.length">
-    <div  fxLayout="column"
-      style="max-width: 350px;">
+    <div fxLayout="column" style="max-width: 350px;">
       <span class="dialogTitleWithSubtitle"> Você ainda não tem seguidores verificados</span>
       <span class="dialogSubtitle"> Quando uma conta verificada segue você, ela poderá ser vista aqui. </span>
     </div>

@@ -1,0 +1,56 @@
+<!--Loading-->
+<div style="padding: 16px" *ngIf="!loaded" fxLayoutAlign="center center">
+  <mat-spinner [diameter]="30"></mat-spinner>
+</div>
+
+<!--Loaded and have data-->
+<div *ngIf="loaded && accountsList.length">
+  <app-follow-profile-button-description [profile]="profile" [suggestedProfiles]="accountsList"
+    *ngFor="let profile of accountsList" (click)="redirectToProfile(profile)" class="cursorPointer">
+  </app-follow-profile-button-description>
+  <div *ngIf="loadingMoreContent" style="height: 30vh;" fxLayoutAlign="center star">
+    <mat-spinner [diameter]="30"></mat-spinner>
+  </div>
+</div>
+
+<!--Loaded and there is no data-->
+<div style="padding: 32px 16px;" fxLayoutAlign="center center" *ngIf="loaded && !accountsList.length">
+  <!--Mensagem caso usuário logado não possua seguidores verificados-->
+  <div *ngIf="section == 'verified_followers' && verifyIfItsLoggedUser(router.url)" fxLayout="column"
+    style="max-width: 350px;">
+    <span class="dialogTitleWithSubtitle"> Você ainda não tem seguidores verificados</span>
+    <span class="dialogSubtitle"> Quando uma conta verificada segue você, ela poderá ser vista aqui. </span>
+  </div>
+
+  <!--Mensagem caso usuário não possua seguidores verificados-->
+  <div *ngIf="section == 'verified_followers'  && !verifyIfItsLoggedUser(router.url)" fxLayout="column"
+    style="max-width: 350px;">
+    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;">@{{ user.username }}</span> não tem
+      nenhum seguidor verificado.</span>
+    <span class="dialogSubtitle"> Quando uma pessoa verificada segue essa conta, ela será exibida aqui. </span>
+  </div>
+
+  <!--Mensagem caso usuário não possua seguidores verificados-->
+  <div *ngIf="section == 'followers'" fxLayout="column" style="max-width: 350px;">
+    <span class="dialogTitleWithSubtitle"> Em busca de seguidores? </span>
+    <span class="dialogSubtitle"> Quando uma pessoa seguir esta conta, ela será exibida aqui. Tweetar e interagir
+      com outras pessoas ajuda a impulsionar o número de seguidores. </span>
+  </div>
+
+  <!--Mensagem caso usuário logado não siga nenhum perfil-->
+  <div *ngIf="section == 'following' && verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
+    <span class="dialogTitleWithSubtitle"> Fique por dentro </span>
+    <span class="dialogSubtitle"> Seguir contas é uma forma fácil de fazer a curadoria da sua timeline e saber o que
+      está acontecendo com os tópicos e as pessoas que são do seu interesse.</span>
+    <button class="blueButton _52pxButton cursorPointer">
+      <span>Encontre pessoas para seguir</span>
+    </button>
+  </div>
+
+  <!--Mensagem caso usuário não siga nenhum perfil-->
+  <div *ngIf="section == 'following' && !verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
+    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;">@{{user.username}}</span> não está
+      seguindo ninguém </span>
+    <span class="dialogSubtitle"> Depois de seguir as contas, elas serão exibidas aqui.</span>
+  </div>
+</div>

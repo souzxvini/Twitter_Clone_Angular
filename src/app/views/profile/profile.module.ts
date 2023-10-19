@@ -14,6 +14,7 @@ import { EditBackgroundPictureModalComponent } from 'src/app/components/edit-bac
 import { AlyleModule } from 'src/app/shared/shared-material/Alyle.module';
 import { FollowingAndFollowersComponent } from './following-and-followers/following-and-followers.component';
 import { KnownFollowersComponent } from './another-user-profile/known-followers/known-followers.component';
+import { FollowsListComponent } from './following-and-followers/follows-list/follows-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { KnownFollowersComponent } from './another-user-profile/known-followers/
     EditBackgroundPictureModalComponent,
     FullScreenBackgroundPhotoModalComponent,
     FollowingAndFollowersComponent,
-    KnownFollowersComponent
+    KnownFollowersComponent,
+    FollowsListComponent
   ],
   imports: [
     CommonModule,
