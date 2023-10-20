@@ -3,8 +3,7 @@
 </div>
 
 <div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign="space-between stretch" class="profileContainer">
-  <div>
-
+  <div style="height: 100%; width: 100%;">
     <div id="bluredHeaderStyle" class="headerTabs" fxLayout="column" fxLayoutAlign=" stretch" class="bluredHeaderStyle">
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30" style="padding: 8px 12px;">
         <button mat-mini-fab (click)="back()">
@@ -31,5 +30,7 @@
 
     <router-outlet></router-outlet>
   </div>
-  <app-mobile-footer-nav></app-mobile-footer-nav>
 </div>
+
+<app-mobile-footer-nav></app-mobile-footer-nav>
+
