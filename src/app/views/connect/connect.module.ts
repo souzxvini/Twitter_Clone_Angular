@@ -5,11 +5,13 @@ import { ConnectSearchComponent } from './connect-search/connect-search.componen
 import { SharedMaterialModule } from 'src/app/shared/shared-material/shared-material.module';
 import { SharedComponentsModule } from 'src/app/components/shared-components.module';
 import { ConnectComponent } from './connect.component';
+import { ConnectListComponent } from './connect-list/connect-list.component';
 
 @NgModule({
   declarations: [
     ConnectSearchComponent,
-    ConnectComponent
+    ConnectComponent,
+    ConnectListComponent
   ],
   imports: [
     CommonModule,
