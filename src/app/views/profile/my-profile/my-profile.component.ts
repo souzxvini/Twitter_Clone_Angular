@@ -135,12 +135,12 @@ export class MyProfileComponent {
 
   redirectToFollowing(user){
     this.accountsService.setUserData(user);
-    this.router.navigate(['profile', user.username, 'following']);
+    this.router.navigate(['profile', user.username, 'following'], { replaceUrl: true });
   }
 
   redirectToFollowers(user){
     this.accountsService.setUserData(user);
-    this.router.navigate(['profile', user.username, 'followers']);
+    this.router.navigate(['profile', user.username, 'followers'], { replaceUrl: true });
   }
 
   scroll = (event): void => {

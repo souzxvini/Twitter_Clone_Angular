@@ -96,38 +96,42 @@ export class FollowingAndFollowersComponent {
     if (verifyIfItsLoggedUser(this.router.url)) {
       if (selectedIndex == 0) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'verified_followers']);
+        this.router.navigate(['profile', this.user.username, 'verified_followers'], { replaceUrl: true });
       };
       if (selectedIndex == 1) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'followers']);
+        this.router.navigate(['profile', this.user.username, 'followers'], { replaceUrl: true });
       }
       if (selectedIndex == 2) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'following']);
+        this.router.navigate(['profile', this.user.username, 'following'], { replaceUrl: true });
       }
     } else {
       if (selectedIndex == 0) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'verified_followers']);
+        this.router.navigate(['profile', this.user.username, 'verified_followers'], { replaceUrl: true });
       }
       if (selectedIndex == 1) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'known_followers']);
+        this.router.navigate(['profile', this.user.username, 'known_followers'], { replaceUrl: true });
       }
       if (selectedIndex == 2) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'followers']);
+        this.router.navigate(['profile', this.user.username, 'followers'], { replaceUrl: true });
       }
       if (selectedIndex == 3) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'following']);
+        this.router.navigate(['profile', this.user.username, 'following'], { replaceUrl: true });
       }
     }
   }
 
-  back(){
-    this.router.navigate(['profile', this.user.username]);
+  back() {
+    if (verifyIfItsLoggedUser(this.user.username)) {
+      this.router.navigate(['profile'], { replaceUrl: true });
+    } else {
+      this.router.navigate(['profile/' + this.user.username], { replaceUrl: true });
+    }
   }
 
 }

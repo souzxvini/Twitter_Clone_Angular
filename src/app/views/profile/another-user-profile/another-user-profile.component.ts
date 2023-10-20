@@ -53,8 +53,8 @@ export class AnotherUserProfileComponent {
     this.activatedRoute.params.subscribe(params => {
 
       this.username = params['username'];
-    
-      if(this.username == sessionStorage.getItem('userName')){
+
+      if (this.username == sessionStorage.getItem('userName')) {
         this.router.navigate(['profile'])
       }
       /*se essa funcao .getUserData() tiver valor, 
@@ -74,7 +74,7 @@ export class AnotherUserProfileComponent {
     window.addEventListener('scroll', this.scroll, true);
   }
 
-  getCommonFollows(username){
+  getCommonFollows(username) {
     this.loadedCommonFollowers = false;
     this.accountsService.getCommonFollows(username).subscribe({
       next: (res) => {
@@ -164,14 +164,14 @@ export class AnotherUserProfileComponent {
     })
   }
 
-  redirectToFollowing(user){
+  redirectToFollowing(user) {
     this.accountsService.setUserData(user);
-    this.router.navigate(['profile', user.username, 'following']);
+    this.router.navigate(['profile', user.username, 'following'], { replaceUrl: true });
   }
 
-  redirectToFollowers(user){
+  redirectToFollowers(user) {
     this.accountsService.setUserData(user);
-    this.router.navigate(['profile', user.username, 'followers']);
+    this.router.navigate(['profile', user.username, 'followers'], { replaceUrl: true });
   }
 
   scroll = (event): void => {
@@ -196,7 +196,10 @@ export class AnotherUserProfileComponent {
     });
   };
 
-  
+  voltarParaPrimeiraRotaSemUser() {
+    this.location.back();
+  }
+
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
   }
