@@ -8,6 +8,7 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { AuthModel } from 'src/app/models/auth-model';
 import { AccountsService } from 'src/app/services/accounts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -34,7 +35,8 @@ export class MenuComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private sidenavService: SidenavService,
     private authService: AuthService,
-    private accountsService: AccountsService
+    private accountsService: AccountsService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -67,5 +69,17 @@ export class MenuComponent implements OnInit {
 
   logout(){
     this.authService.logout();
+  }
+
+  redirectToFollowing(user){
+    this.accountsService.setUserData(user);
+    this.router.navigate(['profile', user.username, 'following'], { replaceUrl: true });
+    this.sidenav.toggle();
+  }
+
+  redirectToFollowers(user){
+    this.accountsService.setUserData(user);
+    this.router.navigate(['profile', user.username, 'followers'], { replaceUrl: true });
+    this.sidenav.toggle();
   }
 }

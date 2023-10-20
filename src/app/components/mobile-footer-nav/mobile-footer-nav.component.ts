@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mobile-footer-nav',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class MobileFooterNavComponent {
 
+  constructor(
+    private router: Router
+  ){}
+
+  redirectHome(){
+    this.router.navigate(['home']);
+  }
 }
