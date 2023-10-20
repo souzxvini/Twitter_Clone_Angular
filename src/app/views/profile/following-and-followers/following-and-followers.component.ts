@@ -1,9 +1,7 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { Location } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
 import { verifyIfItsLoggedUser } from 'src/app/helpers/verify-if-its-user-logged';
 import { AccountsService } from 'src/app/services/accounts.service';
 
@@ -27,9 +25,10 @@ export class FollowingAndFollowersComponent {
 
   constructor(
     private accountsService: AccountsService,
-    private location: Location,
+    public location: Location,
     public router: Router,
     private activatedRoute: ActivatedRoute,
+
   ) { }
 
   ngOnInit() {
@@ -37,7 +36,6 @@ export class FollowingAndFollowersComponent {
 
     var username;
     this.activatedRoute.params.subscribe(params => {
-
       username = params['username'];
       this.user = this.accountsService.getUserData();
       if (!this.user) {
@@ -128,9 +126,8 @@ export class FollowingAndFollowersComponent {
     }
   }
 
-  goBack() {
-    this.accountsService.setUserData(this.user);
-    this.location.back()
+  back(){
+    this.router.navigate(['profile', this.user.username]);
   }
 
 }

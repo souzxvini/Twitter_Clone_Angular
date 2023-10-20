@@ -4,7 +4,7 @@
 
 <div *ngIf="userInformationsLoaded " fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
   <div id="bluredHeaderStyle" class="header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
-    <button mat-mini-fab routerLink="/home">
+    <button mat-mini-fab (click)="location.back()">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     <div fxLayout="column" fxLayoutGap="4" class="dottedOverflow">

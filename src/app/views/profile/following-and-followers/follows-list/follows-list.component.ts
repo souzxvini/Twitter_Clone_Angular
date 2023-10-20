@@ -1,6 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { verifyIfItsLoggedUser } from 'src/app/helpers/verify-if-its-user-logged';
 import { AccountsService } from 'src/app/services/accounts.service';

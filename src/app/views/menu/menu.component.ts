@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { AuthModel } from 'src/app/models/auth-model';
+import { AccountsService } from 'src/app/services/accounts.service';
 
 @Component({
   selector: 'app-menu',
@@ -26,12 +27,14 @@ export class MenuComponent implements OnInit {
 
   settingsAndPrivacyIsClicked = false;
   setProfilePhoto = setProfilePhoto;
-  authModel: AuthModel;
+  user: MyProfileModel;
+  userInformationsLoaded = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private sidenavService: SidenavService,
-    private authService: AuthService
+    private authService: AuthService,
+    private accountsService: AccountsService
     ) { }
 
   ngOnInit() {
@@ -47,15 +50,19 @@ export class MenuComponent implements OnInit {
         }
       })
 
-    this.fillUserInformations();
+      this.getLoggedUserAccount();
   }
 
-  fillUserInformations(){
-    this.authModel = new AuthModel();
-    this.authModel.firstName = sessionStorage.getItem('firstName');
-    this.authModel.username = sessionStorage.getItem('userName');
-    this.authModel.isVerified = sessionStorage.getItem('isVerified') == 'true' ? true : false;
-    this.authModel.profilePhotoUrl = sessionStorage.getItem('profilePhotoUrl');
+  getLoggedUserAccount(){
+    this.accountsService.getLoggedUserAccount().subscribe({
+      next: (res) => {
+        if(res) this.user = res;
+        this.userInformationsLoaded = true;
+      },
+      error: () => {
+        this.userInformationsLoaded = true;
+      }
+    })
   }
 
   logout(){

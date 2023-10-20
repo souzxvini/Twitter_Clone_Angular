@@ -9,8 +9,9 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-background-photo-modal/full-screen-background-photo-modal.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-my-profile',
@@ -35,7 +36,8 @@ export class MyProfileComponent {
     private accountsService: AccountsService,
     private dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    public location: Location
   ){}
 
   ngOnInit(){
@@ -162,7 +164,7 @@ export class MyProfileComponent {
       }
     });
   };
-  
+
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
   }
