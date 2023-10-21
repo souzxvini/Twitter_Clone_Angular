@@ -22,7 +22,6 @@ export class ConnectComponent {
   ){}
 
   ngOnInit(){
-    console.log('a')
     this.getTabIndex();
   }
 

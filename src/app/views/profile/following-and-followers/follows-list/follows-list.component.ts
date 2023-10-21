@@ -154,12 +154,10 @@ export class FollowsListComponent {
       if (isHandset) {
         if (event.srcElement.scrollTop < this.prevScrollpos) {
           if (mainContainerHeader) {
-            console.log("d")
             mainContainerHeader.style.top = "0";
           }
         } else {
           if (mainContainerHeader) {
-            console.log("e")
             mainContainerHeader.style.top = "-119px";
           }
         }
