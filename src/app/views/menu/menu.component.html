@@ -5,7 +5,7 @@
       <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10" style="padding:16px">
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <div class="sideNavMobileMenuHeaderProfileImage" routerLink="/profile" (click)="sidenav.toggle()">
-            <img src="../../../assets/img/profile-image.png" style="width: 100%; height: 100%; border-radius: 100%;">
+            <div class="sideNavMenuProfileButtonImage" [style]="setProfilePhoto(user?.profilePhotoUrl)"></div>
           </div>
           <div class="sideNavMobileMenuHeaderButton blockCursor" fxLayoutAlign="center center">
             <mat-icon>add</mat-icon>
@@ -13,21 +13,21 @@
         </div>
 
         <div fxLayout="column" fxLayoutGap="4" routerLink="/profile" (click)="sidenav.toggle()">
-          <div class="sideNavMobileMenuProfileName">
-            souzinha
+          <div class="sideNavMobileMenuProfileName wordBreak">
+            {{user?.firstName}}
           </div>
           <div class="sideNavMobileMenuProfileId">
-            @souzxvini
+            @{{user?.username}}
           </div>
         </div>
 
         <div class="sideNavMobileMenuProfileInfos">
           <div (click)="redirectToFollowing(user)">
-            <strong>173</strong> Following
+            <strong>{{user?.following}}</strong> Following
           </div>
 
           <div (click)="redirectToFollowers(user)">
-            <strong>289</strong> Followers
+            <strong>{{user?.followers}}</strong> Followers
           </div>
         </div>
       </div>
@@ -189,7 +189,7 @@
             </div>
 
             <div class="sideNavMenuProfileIcon" fxHide.gt-md>
-              <div class="sideNavMenuProfileButtonImage" [style]="setProfilePhoto(null)"></div>
+              <div class="sideNavMenuProfileButtonImage" [style]="setProfilePhoto(user.profilePhotoUrl)"></div>
             </div>
           </div>
         </div>

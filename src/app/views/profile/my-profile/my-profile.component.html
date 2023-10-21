@@ -8,9 +8,9 @@
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     <div fxLayout="column" fxLayoutGap="4" class="dottedOverflow">
-      <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
-        {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
-          src="../../../../assets/img/twitter-verified.png">
+      <span class="headerUserFirstName dottedOverflow" fxLayout="row" fxLayoutAlign="start center">
+        {{ user.firstName }} 
+        <img *ngIf="user.isVerified" style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
       </span>
       <span class="headerUserPosts">
         {{ user.tweetsCount }} posts

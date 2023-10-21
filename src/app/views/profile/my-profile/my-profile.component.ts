@@ -115,6 +115,7 @@ export class MyProfileComponent {
           this.user.site = res.site;
           this.user.backgroundPhotoUrl = res.backgroundPhotoUrl;
           this.user.profilePhotoUrl = res.profilePhotoUrl;
+          this.accountsService.updateMyProfileInfosOnMenuComponent(this.user);
         }
       }
     })

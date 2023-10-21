@@ -4,7 +4,7 @@
 
 <div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
   <div id="bluredHeaderStyle" class="header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
-    <button mat-mini-fab (click)="voltarParaPrimeiraRotaSemUser()">
+    <button mat-mini-fab (click)="location.back()">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     <div fxLayout="column" fxLayoutGap="4">
@@ -38,7 +38,7 @@
             [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="morePanelState = !morePanelState"
             [cdkConnectedOverlayPositions]="[{originX: 'start',originY: 'bottom',overlayX: 'end',overlayY: 'top'}]">
             <div class="morePanel mat-elevation-z8" fxLayout="column">
-              <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+              <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="copyProfileURL()">
                 <mat-icon>link</mat-icon>
                 <span>Copiar link para o perfil</span>
               </div>
@@ -48,7 +48,7 @@
                 <span style="word-break: break-all;">Silenciar @{{user.username}}</span>
               </div>
 
-              <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+              <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="blockAccount(user.userIdentifier)">
                 <mat-icon>block</mat-icon>
                 <span style="word-break: break-all;">Bloquear @{{user.username}}</span>
               </div>
@@ -65,7 +65,7 @@
             <mat-icon>mail_outline</mat-icon>
           </button>
 
-          <button mat-mini-fab class="iconButtonBorder" *ngIf="user.isFollowedByMe">
+          <button mat-mini-fab class="iconButtonBorder" *ngIf="user.isFollowedByMe" (click)="userNotificationsToggle(user.userIdentifier)">
             <mat-icon *ngIf="!user.isNotificationsAlertedByMe">notifications_off</mat-icon>
             <mat-icon *ngIf="user.isNotificationsAlertedByMe">notifications_active</mat-icon>
           </button>

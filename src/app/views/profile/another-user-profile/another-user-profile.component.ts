@@ -12,6 +12,7 @@ import { AnotherProfileModel } from 'src/app/models/another-profile-model';
 import { Location } from '@angular/common';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-another-user-profile',
@@ -46,7 +47,8 @@ export class AnotherUserProfileComponent {
     private snackbar: MatSnackBar,
     private router: Router,
     public location: Location,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private clipboard: Clipboard
   ) { }
 
   ngOnInit() {
@@ -196,12 +198,39 @@ export class AnotherUserProfileComponent {
     });
   };
 
-  voltarParaPrimeiraRotaSemUser() {
-    this.location.back();
+  copyProfileURL() {
+    this.morePanelState = !this.morePanelState;
+    if (this.clipboard.copy(window.location.href)) {
+      this.snackbar.open(
+        'Copiado para a área de transferência.',
+        '',
+        { duration: 5000, panelClass: ['snackbarLoginError'] }
+      );
+    }
+  }
+
+  userNotificationsToggle(username) {
+    this.user.isNotificationsAlertedByMe = !this.user.isNotificationsAlertedByMe;
+    this.accountsService.userNotificationsToggle(username).subscribe({
+      error: () => {
+        this.user.isNotificationsAlertedByMe = !this.user.isNotificationsAlertedByMe;
+      }
+    })
+  }
+
+  blockAccount(username) {
+    this.user.isBlockedByMe = !this.user.isBlockedByMe;
+    this.accountsService.blockToggle(username).subscribe({
+      error: () => {
+        this.user.isBlockedByMe = !this.user.isBlockedByMe;
+      }
+    })
   }
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
   }
+
+
 
 }

@@ -144,6 +144,14 @@ export class AccountsService {
     return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + username, this.httpOptions);
   }
 
+  userNotificationsToggle(username: string) {
+    return this.http.patch(API + '/accounts/v1/user/interactions/alerttoggle/' + username, this.httpOptions);
+  }
+
+  blockToggle(username: string) {
+    return this.http.patch(API + '/accounts/v1/user/interactions/blocktoggle/' + username, this.httpOptions);
+  }
+
   //CLICAR EM UM PERFIL E REDIRECIONAR PARA O PERFIL DESSA PESSOA PASSANDO OS DADOS, SEM PRECISAR CHAMAR UM ENDPOINT PARA CARREGAR OS DADOS
   private userData: AnotherProfileModel;
   setUserData(userData) {
@@ -186,11 +194,20 @@ export class AccountsService {
 
   /*Se eu seguir alguém da lista perfis da tela de seguidores/seguindo, vou 'notificar' o card who-to-follow,
    e ele vai verificar se o perfil que eu segui, está presente na lista de perfis sugeridos*/
-   private followedUserWhileOnFollowingAndFollowersListening = new BehaviorSubject<boolean>(false);
-   followedUserWhileOnFollowingAndFollowersChange$ = this.followedUserWhileOnFollowingAndFollowersListening.asObservable();
- 
-   followedUserWhileOnFollowingAndFollowersScreen(userData) {
-     this.setUserData(userData);
-     this.followedUserWhileOnFollowingAndFollowersListening.next(true);
-   }
+  private followedUserWhileOnFollowingAndFollowersListening = new BehaviorSubject<boolean>(false);
+  followedUserWhileOnFollowingAndFollowersChange$ = this.followedUserWhileOnFollowingAndFollowersListening.asObservable();
+
+  followedUserWhileOnFollowingAndFollowersScreen(userData) {
+    this.setUserData(userData);
+    this.followedUserWhileOnFollowingAndFollowersListening.next(true);
+  }
+
+  /*Quando eu editar o meu perfil, eu atualizo as mnhas informacoes no menu component*/
+  private updateMyProfileInfosOnMenuComponentListening = new BehaviorSubject<boolean>(false);
+  updateMyProfileInfosOnMenuComponenChange$ = this.updateMyProfileInfosOnMenuComponentListening.asObservable();
+
+  updateMyProfileInfosOnMenuComponent(userData) {
+    this.setUserData(userData);
+    this.updateMyProfileInfosOnMenuComponentListening.next(true);
+  }
 }

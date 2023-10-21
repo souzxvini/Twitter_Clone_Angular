@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
 
   settingsAndPrivacyIsClicked = false;
   setProfilePhoto = setProfilePhoto;
-  user: MyProfileModel;
+  user: any;
   userInformationsLoaded = false;
 
   constructor(
@@ -37,9 +37,19 @@ export class MenuComponent implements OnInit {
     private authService: AuthService,
     private accountsService: AccountsService,
     private router: Router
-    ) { }
+  ) { }
 
   ngOnInit() {
+    this.accountsService.updateMyProfileInfosOnMenuComponenChange$.subscribe(() => {
+      this.user = this.accountsService.getUserData();
+      if(this.user){
+        this.userInformationsLoaded = true;
+        this.accountsService.clearUserData();
+      }else{
+        this.getLoggedUserAccount();
+      }
+    });
+
     this.sidenavService.buttonClick$.subscribe(() => {
       this.sidenav.toggle();
     });
@@ -51,14 +61,13 @@ export class MenuComponent implements OnInit {
           this.settingsAndPrivacyIsClicked = false;
         }
       })
-
-      this.getLoggedUserAccount();
   }
 
-  getLoggedUserAccount(){
+  getLoggedUserAccount() {
+    this.userInformationsLoaded = false;
     this.accountsService.getLoggedUserAccount().subscribe({
       next: (res) => {
-        if(res) this.user = res;
+        if (res) this.user = res;
         this.userInformationsLoaded = true;
       },
       error: () => {
@@ -67,17 +76,17 @@ export class MenuComponent implements OnInit {
     })
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
   }
 
-  redirectToFollowing(user){
+  redirectToFollowing(user) {
     this.accountsService.setUserData(user);
     this.router.navigate(['profile', user.username, 'following'], { replaceUrl: true });
     this.sidenav.toggle();
   }
 
-  redirectToFollowers(user){
+  redirectToFollowers(user) {
     this.accountsService.setUserData(user);
     this.router.navigate(['profile', user.username, 'followers'], { replaceUrl: true });
     this.sidenav.toggle();

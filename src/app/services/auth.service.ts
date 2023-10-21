@@ -27,29 +27,29 @@ export class AuthService {
     const body = JSON.stringify(payload)
 
     return this.http.post<any>(API + '/authentication/v1/connect', body, this.httpOptions).pipe(map((resp) => {
-      sessionStorage.setItem('token', 'Bearer ' + resp.token);
-      sessionStorage.setItem('userName', resp.username);
-      sessionStorage.setItem('firstAccess', resp.firstAccess);
+      localStorage.setItem('token', 'Bearer ' + resp.token);
+      localStorage.setItem('userName', resp.username);
+      localStorage.setItem('firstAccess', resp.firstAccess);
       return resp;
     }));
   }
 
   isUserSignedin() {
-    return sessionStorage.getItem('token') !== null;
+    return localStorage.getItem('token') !== null;
   }
 
   isUserFirstAcess() {
-    return sessionStorage.getItem('firstAccess');
+    return localStorage.getItem('firstAccess');
   }
 
   getAuthToken() {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   }
 
   logout() {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('userName');
-    sessionStorage.removeItem('firstAccess');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('firstAccess');
 
     this.router.navigate(['initial-page']);
   }

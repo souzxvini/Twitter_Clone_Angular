@@ -23,16 +23,14 @@ export class EditProfileModalComponent {
   
   editProfileForm = new FormGroup<{
     firstName: FormControl<any>, 
-    lastName: FormControl<any>, 
     biography: FormControl<any>, 
     location: FormControl<any>,
     site: FormControl<any>
   }>({
-    firstName: new FormControl(null, Validators.required),
-    lastName: new FormControl(null, Validators.required),
-    biography: new FormControl(null),
-    location: new FormControl(null),
-    site: new FormControl(null)
+    firstName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+    biography: new FormControl(null, Validators.maxLength(160)),
+    location: new FormControl(null, Validators.maxLength(30)),
+    site: new FormControl(null, Validators.maxLength(100))
   });
 
   loaded = true;
@@ -62,7 +60,6 @@ export class EditProfileModalComponent {
 
   preencherForm(){
     this.editProfileForm.controls['firstName'].setValue(this.data.firstName);
-    this.editProfileForm.controls['lastName'].setValue('teste');
     this.editProfileForm.controls['biography'].setValue(this.data.biography);
     this.editProfileForm.controls['location'].setValue(this.data.location);
     this.editProfileForm.controls['site'].setValue(this.data.site);
