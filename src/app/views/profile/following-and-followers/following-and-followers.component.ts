@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { verifyIfItsLoggedUser } from 'src/app/helpers/verify-if-its-user-logged';
 import { AccountsService } from 'src/app/services/accounts.service';
 
@@ -17,6 +17,7 @@ export class FollowingAndFollowersComponent {
 
   user: any;
   loggedUser: string;
+  username = this.activatedRoute.snapshot.params['username'];
 
   loaded = false;
   userInformationsLoaded = false;
@@ -34,15 +35,25 @@ export class FollowingAndFollowersComponent {
   ngOnInit() {
     this.loggedUser = localStorage.getItem('userName');
 
-    var username;
-    this.activatedRoute.params.subscribe(params => {
-      username = params['username'];
+    //ao carregar o componente pela primeira vez
+    this.activatedRoute.params.subscribe(() => {
       this.user = this.accountsService.getUserData();
       if (!this.user) {
-        this.getUserByIdentifier(username, true);
+        this.getUserByIdentifier(this.username, true);
       } else {
         this.userInformationsLoaded = true;
         this.getTabIndex();
+      }
+    });
+
+    //ao mudar a rota
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (this.userInformationsLoaded) {
+          this.user = this.accountsService.getUserData();
+          this.userInformationsLoaded = true;
+          this.getTabIndex();
+        }
       }
     });
   }
@@ -63,6 +74,7 @@ export class FollowingAndFollowersComponent {
   }
 
   getTabIndex() {
+    console.log('tabIndex')
     if (this.router.url.includes('verified_followers')) {
       setTimeout(() => {
         this.tabGroup.selectedIndex = 0;
@@ -96,42 +108,39 @@ export class FollowingAndFollowersComponent {
     if (verifyIfItsLoggedUser(this.router.url)) {
       if (selectedIndex == 0) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'verified_followers'], { replaceUrl: true });
+        this.router.navigate(['profile', this.user.username, 'verified_followers']);
       };
       if (selectedIndex == 1) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'followers'], { replaceUrl: true });
+        this.router.navigate(['profile', this.user.username, 'followers']);
       }
       if (selectedIndex == 2) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'following'], { replaceUrl: true });
+        this.router.navigate(['profile', this.user.username, 'following']);
       }
     } else {
       if (selectedIndex == 0) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'verified_followers'], { replaceUrl: true });
+        this.router.navigate(['profile', this.user.username, 'verified_followers']);
       }
       if (selectedIndex == 1) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'known_followers'], { replaceUrl: true });
+        this.router.navigate(['profile', this.user.username, 'known_followers']);
       }
       if (selectedIndex == 2) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'followers'], { replaceUrl: true });
+        this.router.navigate(['profile', this.user.username, 'followers']);
       }
       if (selectedIndex == 3) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'following'], { replaceUrl: true });
+        this.router.navigate(['profile', this.user.username, 'following']);
       }
     }
   }
 
   back() {
-    if (verifyIfItsLoggedUser(this.user.username)) {
-      this.router.navigate(['profile'], { replaceUrl: true });
-    } else {
-      this.router.navigate(['profile/' + this.user.username], { replaceUrl: true });
-    }
+    this.accountsService.setUserData(this.user);
+    this.location.back();
   }
 
 }
