@@ -106,6 +106,6 @@ export class FollowProfileButtonDescriptionComponent {
   }
 
   verifyIfItsLoggedUser(username) {
-    return username == sessionStorage.getItem('userName');
+    return username == localStorage.getItem('userName');
   }
 }

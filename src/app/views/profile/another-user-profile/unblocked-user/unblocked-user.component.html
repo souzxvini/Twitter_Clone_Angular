@@ -1,1 +1,90 @@
-<p>unblocked-user works!</p>
+<div fxLayout="column">
+    <div class="profileBackground" [style]="setBackgroundPhoto(user.backgroundPhotoUrl)"
+      (click)="user.backgroundPhotoUrl ? visualizeBackgroundPicture(user.backgroundPhotoUrl) : null">
+    </div>
+    <div fxLayout="column" fxLayoutGap="15" style="padding: 0 16px">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="profileUserPicture cursorPointer" (click)="visualizeProfilePicture(user.profilePhotoUrl)">
+          <div class="picture" [style]="setProfilePhoto(user.profilePhotoUrl)">
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10">
+          <app-unblocked-user-actions [user]="user"></app-unblocked-user-actions>
+
+          <button mat-mini-fab class="iconButtonBorder">
+            <mat-icon>mail_outline</mat-icon>
+          </button>
+
+          <button mat-mini-fab class="iconButtonBorder" *ngIf="user.isFollowedByMe" (click)="userNotificationsToggle(user.userIdentifier)">
+            <mat-icon *ngIf="!user.isNotificationsAlertedByMe">notifications_off</mat-icon>
+            <mat-icon *ngIf="user.isNotificationsAlertedByMe">notifications_active</mat-icon>
+          </button>
+
+          <!--Botão 'SEGUIR'-->
+          <button *ngIf="!user.isFollowedByMe" class="whiteButton cursorPointer _36pxButton"
+            (click)="followUser(user.username)">
+            <span>Seguir</span>
+          </button>
+          <!--Botão 'SEGUINDO'-->
+          <app-following-button-36px *ngIf="user.isFollowedByMe" (click)="openUnfollowConfirmationModal(user)">
+          </app-following-button-36px>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayoutGap="4">
+        <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center"
+          style="word-break: break-all;">
+          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+            src="../../../../assets/img/twitter-verified.png">
+        </span>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
+          <span class="headerUserUsername dottedOverflow">
+            @{{ user.username }}
+          </span>
+          <span *ngIf="user.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
+        </div>
+
+      </div>
+
+      <div class="biography" *ngIf="user.biography">
+        <span>
+          {{ user.biography }}
+        </span>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="10" class="informations">
+        <span class="info" fxLayout="row" fxLayoutAlign="center center" *ngIf="user.location">
+          <mat-icon>location_on</mat-icon> <span>{{ user.location }}</span>
+        </span>
+        <span class="info" fxLayout="row" fxLayoutAlign="center center" *ngIf="user.site">
+          <mat-icon>link</mat-icon> <a class="blueLinks" target="_blank" href="{{user.site}}">{{ user.site }}</a>
+        </span>
+        <span class="info" fxLayout="row" fxLayoutAlign="center center">
+          <mat-icon>event_note</mat-icon> <span>Ingressou em {{user.registrationTime | date: 'MMMM'}} de
+            {{user.registrationTime | date: 'YYYY'}}</span>
+        </span>
+      </div>
+
+      <div class="sideNavMobileMenuProfileInfos">
+        <div (click)="redirectToFollowing(user)">
+          <strong>{{ user.following }}</strong> Seguindo
+        </div>
+
+        <div (click)="redirectToFollowers(user)">
+          <strong>{{ user.followers }}</strong> Seguidores
+        </div>
+      </div>
+    </div>
+
+    <!--Seguidores conhecidos-->
+    <div *ngIf="!loadedCommonFollowers" fxLayout="row" fxLayoutAlign="center center" style="padding: 30px;">
+      <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+
+    <app-known-followers *ngIf="loadedCommonFollowers" [knownFollowers]="commonFollows" [username]="user.username"></app-known-followers>
+
+    <app-profile-nav></app-profile-nav>
+
+    <app-tweet></app-tweet>
+
+  </div>

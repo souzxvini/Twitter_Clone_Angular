@@ -210,7 +210,7 @@ export class CreateAccountModalComponent implements OnInit {
             this.step++;
             this.router.navigate(['signup']);
             this.accountsService.updateFirstAcess().subscribe();
-            this.usernameForm.controls['username'].setValue(sessionStorage.getItem('userName'));
+            this.usernameForm.controls['username'].setValue(localStorage.getItem('userName'));
           }
         })
       },

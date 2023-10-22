@@ -1,7 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { Observable, map } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { Observable, map } from 'rxjs';
 })
 export class UnblockedUserActionsComponent {
 
-  @Input() user : any;
+  @Input() user: any;
   morePanelState = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -39,9 +39,41 @@ export class UnblockedUserActionsComponent {
 
   blockAccount(username) {
     this.user.isBlockedByMe = !this.user.isBlockedByMe;
+    const followedByMe = this.user.isFollowedByMe;
+    if (followedByMe) {
+      this.user.isFollowedByMe = false;
+      this.user.followers = this.user.followers - 1;
+    }
+
     this.accountsService.blockToggle(username).subscribe({
+      complete: () => {
+        let mySnackBar: MatSnackBarRef<TextOnlySnackBar> = this.snackbar.open(
+          'Bloqueado com sucesso.',
+          'Desbloquear',
+          { duration: 50000, panelClass: ['snackbarLoginError'] }
+        );
+
+        mySnackBar.onAction().subscribe(() => {
+          mySnackBar.dismiss();
+          this.user.isBlockedByMe = false;
+          this.accountsService.blockToggle(username).subscribe({
+            error: () => {
+              this.user.isBlockedByMe = true;
+             }
+          })
+        });
+      },
       error: () => {
+        this.snackbar.open(
+          'Erro ao bloquear usuário',
+          '',
+          { duration: 50000, panelClass: ['snackbarLoginError'] }
+        );
         this.user.isBlockedByMe = !this.user.isBlockedByMe;
+        if (followedByMe) {
+          this.user.isFollowedByMe = true;
+          this.user.followers = this.user.followers + 1;
+        }
       }
     })
   }

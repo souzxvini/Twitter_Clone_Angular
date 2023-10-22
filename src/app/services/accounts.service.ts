@@ -51,7 +51,7 @@ export class AccountsService {
   //PATCH /v1/user/infos/firstAccess
   updateFirstAcess() {
     return this.http.patch(API + '/accounts/v1/user/infos/firstaccess', this.httpOptions).pipe(map((resp) => {
-      sessionStorage.setItem('firstAccess', 'false');
+      localStorage.setItem('firstAccess', 'false');
       return resp;
     }));
   }
@@ -148,7 +148,7 @@ export class AccountsService {
     return this.http.patch(API + '/accounts/v1/user/interactions/alerttoggle/' + username, this.httpOptions);
   }
 
-  blockToggle(username: string) {
+  blockToggle(username?: string) {
     return this.http.patch(API + '/accounts/v1/user/interactions/blocktoggle/' + username, this.httpOptions);
   }
 

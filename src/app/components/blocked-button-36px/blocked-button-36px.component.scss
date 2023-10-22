@@ -1,0 +1,14 @@
+.blockedButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'TwitterChirp';
+  font-weight: 600;
+  border-radius: 50px;
+  color: rgb(255, 255, 255);
+  background-color: #dc1e29 !important;
+  transition: background-color 0.2s ease-in-out !important;
+  padding: 0 16px;
+  font-size: 15px !important;
+  letter-spacing: 1.1px;
+}

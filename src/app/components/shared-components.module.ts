@@ -12,10 +12,12 @@ import { FollowProfileButtonDescriptionComponent } from './follow-profile-button
 import { DefaultSearchSectionComponent } from './default-search-section/default-search-section.component';
 import { FollowProfileButtonComponent } from './follow-profile-button/follow-profile-button.component';
 import { MobileFooterNavComponent } from './mobile-footer-nav/mobile-footer-nav.component';
+import { BlockedButton36pxComponent } from './blocked-button-36px/blocked-button-36px.component';
 @NgModule({
   declarations:[ 
     FollowingButton32pxComponent,
     FollowingButton36pxComponent,
+    BlockedButton36pxComponent,
     FooterComponent,
     WhoToFollowCardComponent,
     SearchTwitterButtonComponent,
@@ -24,7 +26,7 @@ import { MobileFooterNavComponent } from './mobile-footer-nav/mobile-footer-nav.
     FollowProfileButtonDescriptionComponent,
     DefaultSearchSectionComponent,
     FollowProfileButtonComponent,
-    MobileFooterNavComponent
+    MobileFooterNavComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { MobileFooterNavComponent } from './mobile-footer-nav/mobile-footer-nav.
   exports: [ 
     FollowingButton32pxComponent,
     FollowingButton36pxComponent,
+    BlockedButton36pxComponent,
     FooterComponent,
     WhoToFollowCardComponent,
     SearchTwitterButtonComponent,

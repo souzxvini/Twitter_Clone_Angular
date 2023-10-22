@@ -1,0 +1,29 @@
+.profileUserPicture {
+  background-color: black;
+  width: 130px;
+  height: 130px;
+  margin-top: -65px;
+  border: 4px solid rgb(0, 0, 0);
+  border-radius: 100%;
+}
+
+.picture:hover {
+  opacity: 0.9;
+}
+
+.notificationIcon {
+  transform: scale(0.9) !important;
+}
+
+
+@media screen and (max-width:687px) {
+
+  .profileUserPicture {
+    height: calc(20vw - 1px);
+    max-height: 130px;
+    width: calc(20vw - 1px);
+    max-width: 130px;
+    margin-top: calc(0px - ((20vw - 1px) / 2));
+  }
+
+}

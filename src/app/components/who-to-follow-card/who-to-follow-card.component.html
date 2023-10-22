@@ -4,7 +4,7 @@
 
 <div *ngIf="loaded && whoToFollowAccounts.length > 0" class="whoToFollowCard">
   <div class="whoToFollowCardTitle">
-    <span>Who to follow</span>
+    <span>Quem seguir</span>
   </div>
 
   <div fxLayout="column">
@@ -16,14 +16,14 @@
   </div>
 
   <div class="whoToFollowCardFooter" (click)="redirect()">
-    <span>Show more</span>
+    <span>Mostrar mais</span>
   </div>
 </div>
 
 <div *ngIf="loaded && whoToFollowAccounts.length == 0" class="noAccountsCard" fxLayout="column"
   fxLayoutAlign="space-between start" >
   <div class="whoToFollowCardTitle" fxFlex="20">
-    <span>Who to follow</span>
+    <span>Quem Seguir</span>
   </div>
   <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="padding: 16px" fxLayoutGap="30">
     <mat-icon>error_outline</mat-icon>

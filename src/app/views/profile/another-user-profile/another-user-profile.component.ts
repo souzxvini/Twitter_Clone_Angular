@@ -20,7 +20,6 @@ import { Clipboard } from '@angular/cdk/clipboard';
   styleUrls: ['./another-user-profile.component.scss']
 })
 export class AnotherUserProfileComponent {
-
   user: AnotherProfileModel;
   loaded = false;
 
@@ -35,18 +34,12 @@ export class AnotherUserProfileComponent {
     .pipe(map((result) => result.matches));
   prevScrollpos = 0;
 
-  commonFollows: any[];
-  loadedCommonFollowers = false;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private accountsService: AccountsService,
-    private dialog: MatDialog,
-    private snackbar: MatSnackBar,
     private router: Router,
     public location: Location,
     private breakpointObserver: BreakpointObserver,
-    private clipboard: Clipboard
   ) { }
 
   ngOnInit() {
@@ -54,7 +47,7 @@ export class AnotherUserProfileComponent {
 
       this.username = params['username'];
 
-      if (this.username == sessionStorage.getItem('userName')) {
+      if (this.username == localStorage.getItem('userName')) {
         this.router.navigate(['profile'])
       }
       /*se essa funcao .getUserData() tiver valor, 
@@ -67,21 +60,10 @@ export class AnotherUserProfileComponent {
       } else {
         this.userInformationsLoaded = true;
         this.accountsService.clearUserData();
-        this.getCommonFollows(this.username);
       }
     });
 
     window.addEventListener('scroll', this.scroll, true);
-  }
-
-  getCommonFollows(username) {
-    this.loadedCommonFollowers = false;
-    this.accountsService.getCommonFollows(username).subscribe({
-      next: (res) => {
-        this.commonFollows = res;
-        this.loadedCommonFollowers = true;
-      }
-    })
   }
 
   getUserInformations(username, spinner) {
@@ -90,88 +72,11 @@ export class AnotherUserProfileComponent {
       next: (res) => {
         this.user = res;
         this.userInformationsLoaded = true;
-        this.getCommonFollows(this.username);
       },
       error: () => {
         this.userInformationsLoaded = true;
       }
     })
-  }
-
-  visualizeProfilePicture(profilePhoto) {
-    this.dialog.open(FullScreenProfilePhotoModalComponent, {
-      width: '100vw',
-      height: '100vh',
-      panelClass: 'fullScreenPictureModalStyle',
-      backdropClass: 'transparentModalStyleBackdrop',
-      disableClose: true,
-      autoFocus: false,
-      data: {
-        profilePhotoUrl: profilePhoto
-      },
-
-    });
-  }
-
-  visualizeBackgroundPicture(backgroundPhoto) {
-    this.dialog.open(FullScreenBackgroundPhotoModalComponent, {
-      width: '100vw',
-      height: '100vh',
-      panelClass: 'fullScreenPictureModalStyle',
-      backdropClass: 'transparentModalStyleBackdrop',
-      disableClose: true,
-      autoFocus: false,
-      data: {
-        backgroundPhotoUrl: backgroundPhoto
-      },
-
-    });
-  }
-
-  openUnfollowConfirmationModal(profile) {
-    const dialogRef = this.dialog.open(UnfollowConfirmationModalComponent, {
-      width: '320px',
-      panelClass: 'bordered-dialog',
-      backdropClass: 'modalStyleBackdrop',
-      disableClose: false,
-      autoFocus: false,
-      data: profile
-    });
-
-    dialogRef.afterClosed().subscribe({
-      next: (res) => {
-        if (res) {
-          this.followUser(profile.username);
-        }
-      }
-    })
-  }
-
-  followUser(username) {
-    this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
-    this.user.isFollowedByMe = !this.user.isFollowedByMe;
-    this.accountsService.followUser(username).subscribe({
-      error: () => {
-        this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
-        this.user.isFollowedByMe = !this.user.isFollowedByMe;
-        this.loaded = true;
-        this.snackbar.open(
-          'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
-          '',
-          { duration: 5000, panelClass: ['snackbarLoginError'] }
-        );
-      }
-    })
-  }
-
-  redirectToFollowing(user) {
-    this.accountsService.setUserData(user);
-    this.router.navigate(['profile', user.username, 'following'], { replaceUrl: true });
-  }
-
-  redirectToFollowers(user) {
-    this.accountsService.setUserData(user);
-    this.router.navigate(['profile', user.username, 'followers'], { replaceUrl: true });
   }
 
   scroll = (event): void => {
@@ -195,15 +100,6 @@ export class AnotherUserProfileComponent {
       }
     });
   };
-
-  userNotificationsToggle(username) {
-    this.user.isNotificationsAlertedByMe = !this.user.isNotificationsAlertedByMe;
-    this.accountsService.userNotificationsToggle(username).subscribe({
-      error: () => {
-        this.user.isNotificationsAlertedByMe = !this.user.isNotificationsAlertedByMe;
-      }
-    })
-  }
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
