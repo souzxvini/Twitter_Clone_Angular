@@ -38,8 +38,6 @@ export class AnotherUserProfileComponent {
   commonFollows: any[];
   loadedCommonFollowers = false;
 
-  morePanelState = false;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private accountsService: AccountsService,
@@ -198,17 +196,6 @@ export class AnotherUserProfileComponent {
     });
   };
 
-  copyProfileURL() {
-    this.morePanelState = !this.morePanelState;
-    if (this.clipboard.copy(window.location.href)) {
-      this.snackbar.open(
-        'Copiado para a área de transferência.',
-        '',
-        { duration: 5000, panelClass: ['snackbarLoginError'] }
-      );
-    }
-  }
-
   userNotificationsToggle(username) {
     this.user.isNotificationsAlertedByMe = !this.user.isNotificationsAlertedByMe;
     this.accountsService.userNotificationsToggle(username).subscribe({
@@ -218,19 +205,8 @@ export class AnotherUserProfileComponent {
     })
   }
 
-  blockAccount(username) {
-    this.user.isBlockedByMe = !this.user.isBlockedByMe;
-    this.accountsService.blockToggle(username).subscribe({
-      error: () => {
-        this.user.isBlockedByMe = !this.user.isBlockedByMe;
-      }
-    })
-  }
-
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
   }
-
-
 
 }

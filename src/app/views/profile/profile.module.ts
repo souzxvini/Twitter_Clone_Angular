@@ -15,6 +15,10 @@ import { AlyleModule } from 'src/app/shared/shared-material/Alyle.module';
 import { FollowingAndFollowersComponent } from './following-and-followers/following-and-followers.component';
 import { KnownFollowersComponent } from './another-user-profile/known-followers/known-followers.component';
 import { FollowsListComponent } from './following-and-followers/follows-list/follows-list.component';
+import { BlockedUserComponent } from './another-user-profile/blocked-user/blocked-user.component';
+import { BlockedUserActionsComponent } from './another-user-profile/blocked-user/blocked-user-actions/blocked-user-actions.component';
+import { UnblockedUserComponent } from './another-user-profile/unblocked-user/unblocked-user.component';
+import { UnblockedUserActionsComponent } from './another-user-profile/unblocked-user/unblocked-user-actions/unblocked-user-actions.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { FollowsListComponent } from './following-and-followers/follows-list/fol
     FullScreenBackgroundPhotoModalComponent,
     FollowingAndFollowersComponent,
     KnownFollowersComponent,
-    FollowsListComponent
+    FollowsListComponent,
+    BlockedUserComponent,
+    BlockedUserActionsComponent,
+    UnblockedUserComponent,
+    UnblockedUserActionsComponent
   ],
   imports: [
     CommonModule,

@@ -28,38 +28,7 @@
           </div>
         </div>
         <div fxLayout="row" fxLayoutGap="10">
-          <button mat-mini-fab class="iconButtonBorder" (click)="morePanelState = !morePanelState" cdkOverlayOrigin
-            #trigger="cdkOverlayOrigin">
-            <mat-icon>more_horiz</mat-icon>
-          </button>
-
-          <ng-template #overlayNotifications cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
-            [cdkConnectedOverlayOpen]="morePanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
-            [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="morePanelState = !morePanelState"
-            [cdkConnectedOverlayPositions]="[{originX: 'start',originY: 'bottom',overlayX: 'end',overlayY: 'top'}]">
-            <div class="morePanel mat-elevation-z8" fxLayout="column">
-              <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="copyProfileURL()">
-                <mat-icon>link</mat-icon>
-                <span>Copiar link para o perfil</span>
-              </div>
-
-              <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
-                <mat-icon>volume_off</mat-icon>
-                <span style="word-break: break-all;">Silenciar @{{user.username}}</span>
-              </div>
-
-              <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="blockAccount(user.userIdentifier)">
-                <mat-icon>block</mat-icon>
-                <span style="word-break: break-all;">Bloquear @{{user.username}}</span>
-              </div>
-
-              <div style="padding: 12px 16px" *ngIf="isHandset$ | async">
-                <div class="transparentButton _44pxButton cursorPointer" (click)="morePanelState = !morePanelState">
-                  <strong>Cancelar</strong>
-                </div>
-              </div>
-            </div>
-          </ng-template>
+          <app-unblocked-user-actions [user]="user"></app-unblocked-user-actions>
 
           <button mat-mini-fab class="iconButtonBorder">
             <mat-icon>mail_outline</mat-icon>
