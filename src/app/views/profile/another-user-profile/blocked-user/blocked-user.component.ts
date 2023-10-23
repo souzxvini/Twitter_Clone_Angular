@@ -6,6 +6,7 @@ import { FullScreenBackgroundPhotoModalComponent } from '../../modals/full-scree
 import { MatDialog } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { Router } from '@angular/router';
+import { ModalUnblockUserComponent } from 'src/app/components/modal-unblock-user/modal-unblock-user.component';
 
 @Component({
   selector: 'app-blocked-user',
@@ -25,6 +26,25 @@ export class BlockedUserComponent {
     private router: Router
   ){
 
+  }
+
+  openUnblockUserModal(user){
+    const dialogRef = this.dialog.open(ModalUnblockUserComponent, {
+      width: '320px',
+      panelClass: 'bordered-dialog',
+      backdropClass: 'modalStyleBackdrop',
+      disableClose: false,
+      autoFocus: false,
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          this.unblockProfile(user.username);
+        }
+      }
+    })
   }
 
   unblockProfile(username) {

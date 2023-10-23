@@ -13,6 +13,8 @@ import { DefaultSearchSectionComponent } from './default-search-section/default-
 import { FollowProfileButtonComponent } from './follow-profile-button/follow-profile-button.component';
 import { MobileFooterNavComponent } from './mobile-footer-nav/mobile-footer-nav.component';
 import { BlockedButton36pxComponent } from './blocked-button-36px/blocked-button-36px.component';
+import { ModalBlockUserComponent } from './modal-block-user/modal-block-user.component';
+import { ModalUnblockUserComponent } from './modal-unblock-user/modal-unblock-user.component';
 @NgModule({
   declarations:[ 
     FollowingButton32pxComponent,
@@ -27,6 +29,8 @@ import { BlockedButton36pxComponent } from './blocked-button-36px/blocked-button
     DefaultSearchSectionComponent,
     FollowProfileButtonComponent,
     MobileFooterNavComponent,
+    ModalBlockUserComponent,
+    ModalUnblockUserComponent,
   ],
   imports: [
     CommonModule,

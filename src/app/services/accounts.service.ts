@@ -148,7 +148,7 @@ export class AccountsService {
     return this.http.patch(API + '/accounts/v1/user/interactions/alerttoggle/' + username, this.httpOptions);
   }
 
-  blockToggle(username?: string) {
+  blockToggle(username: string) {
     return this.http.patch(API + '/accounts/v1/user/interactions/blocktoggle/' + username, this.httpOptions);
   }
 

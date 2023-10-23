@@ -25,7 +25,7 @@
   <!--Mensagem caso usuário não possua seguidores verificados-->
   <div *ngIf="section == 'verified_followers'  && !verifyIfItsLoggedUser(router.url)" fxLayout="column"
     style="max-width: 350px;">
-    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;">@{{ user.username }}</span> não tem
+    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;  font-family: 'TwitterChirpExtendedHeavy' !important;">@{{ user.username }}</span> não tem
       nenhum seguidor verificado.</span>
     <span class="dialogSubtitle"> Quando uma pessoa verificada segue essa conta, ela será exibida aqui. </span>
   </div>
@@ -42,14 +42,14 @@
     <span class="dialogTitleWithSubtitle"> Fique por dentro </span>
     <span class="dialogSubtitle"> Seguir contas é uma forma fácil de fazer a curadoria da sua timeline e saber o que
       está acontecendo com os tópicos e as pessoas que são do seu interesse.</span>
-    <button class="blueButton _52pxButton cursorPointer">
+    <button class="blueButton _52pxButton cursorPointer" (click)="redirect()">
       <span>Encontre pessoas para seguir</span>
     </button>
   </div>
 
   <!--Mensagem caso usuário não siga nenhum perfil-->
   <div *ngIf="section == 'following' && !verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
-    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;">@{{user.username}}</span> não está
+    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;  font-family: 'TwitterChirpExtendedHeavy' !important;">@{{user.username}}</span> não está
       seguindo ninguém </span>
     <span class="dialogSubtitle"> Depois de seguir as contas, elas serão exibidas aqui.</span>
   </div>

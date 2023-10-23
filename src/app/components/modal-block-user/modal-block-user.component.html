@@ -1,0 +1,18 @@
+<div fxLayout="column" style="padding: 32px">
+    <span class="smallerDialogTitleWithSubtitle">
+      Bloquear <span style="word-break: break-all;">@{{data.username}}</span>?
+    </span>
+    <span class="dialogSubtitle">
+       Ele não poderá seguir você ou ver seus posts, e você não verá posts nem notificações de <span style="word-break: break-all;">@{{data.username}}</span>.
+    </span>
+    <div fxLayout="column"fxLayoutGap="10">
+      <button class="blockedButton cursorPointer _44pxButton" style="padding: 12px" (click)="confirmBlockUser()">
+        Bloquear
+      </button>
+      <button class="transparentButton cursorPointer _44pxButton" style="padding: 12px" matDialogClose>
+        Cancelar
+      </button>
+    </div>
+  
+  </div>
+  

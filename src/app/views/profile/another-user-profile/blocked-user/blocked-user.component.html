@@ -1,44 +1,56 @@
 <div fxLayout="column">
-    <div class="profileBackground" [style]="setBackgroundPhoto(user.backgroundPhotoUrl)"
-      (click)="user.backgroundPhotoUrl ? visualizeBackgroundPicture(user.backgroundPhotoUrl) : null">
-    </div>
-    <div fxLayout="column" fxLayoutGap="15" style="padding: 0 16px">
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="profileUserPicture cursorPointer" (click)="visualizeProfilePicture(user.profilePhotoUrl)">
-          <div class="picture" [style]="setProfilePhoto(user.profilePhotoUrl)">
-          </div>
-        </div>
-        <div fxLayout="row" fxLayoutGap="10">
-          <app-blocked-user-actions [user]="user"></app-blocked-user-actions>
-
-          <app-blocked-button-36px (click)="unblockProfile(user.username)"></app-blocked-button-36px>
-        </div>
-      </div>
-
-      <div fxLayout="column" fxLayoutGap="4">
-        <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center"
-          style="word-break: break-all;">
-          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
-            src="../../../../assets/img/twitter-verified.png">
-        </span>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
-          <span class="headerUserUsername dottedOverflow">
-            @{{ user.username }}
-          </span>
-          <span *ngIf="user.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
-        </div>
-
-      </div>
-
-      <div class="sideNavMobileMenuProfileInfos">
-        <div (click)="redirectToFollowing(user)">
-          <strong>{{ user.following }}</strong> Seguindo
-        </div>
-
-        <div (click)="redirectToFollowers(user)">
-          <strong>{{ user.followers }}</strong> Seguidores
-        </div>
-      </div>
-    </div>
+  <div class="profileBackground" [style]="setBackgroundPhoto(user.backgroundPhotoUrl)"
+    (click)="user.backgroundPhotoUrl ? visualizeBackgroundPicture(user.backgroundPhotoUrl) : null">
+  </div>
+  <div>
 
   </div>
+  <div fxLayout="column" fxLayoutGap="15" style="padding: 0 16px">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="profileUserPicture cursorPointer" (click)="visualizeProfilePicture(user.profilePhotoUrl)">
+        <div class="picture" [style]="setProfilePhoto(user.profilePhotoUrl)">
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10">
+        <app-blocked-user-actions [user]="user"></app-blocked-user-actions>
+
+        <app-blocked-button-36px (click)="openUnblockUserModal(user)"></app-blocked-button-36px>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="4">
+      <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center"
+        style="word-break: break-all;">
+        {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+          src="../../../../assets/img/twitter-verified.png">
+      </span>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
+        <span class="headerUserUsername dottedOverflow">
+          @{{ user.username }}
+        </span>
+        <span *ngIf="user.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
+      </div>
+
+    </div>
+
+    <div class="sideNavMobileMenuProfileInfos">
+      <div (click)="redirectToFollowing(user)">
+        <strong>{{ user.following }}</strong> Seguindo
+      </div>
+
+      <div (click)="redirectToFollowers(user)">
+        <strong>{{ user.followers }}</strong> Seguidores
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign=" start" style="padding: 100px;">
+      <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all; font-family: 'TwitterChirpExtendedHeavy' !important;">@{{user.username}}</span> está bloqueado </span>
+      <span class="dialogSubtitle"> Tem certeza de que deseja ver estes posts? Ver os posts não desbloqueará @shitpostverdade.
+        <a class="blueLinks blockCursor">Saiba mais</a>
+      </span>
+      <button class="blueButton _52pxButton cursorPointer">
+        <span>Ver posts</span>
+      </button>
+    </div>
+  </div>
+</div>

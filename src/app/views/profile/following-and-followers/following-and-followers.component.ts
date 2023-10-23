@@ -56,6 +56,11 @@ export class FollowingAndFollowersComponent {
         }
       }
     });
+
+    // Adicione um ouvinte para o evento popstate
+    window.addEventListener('popstate', () => {
+      this.accountsService.setUserData(this.user);
+    });
   }
 
   getUserByIdentifier(username, load) {
@@ -74,33 +79,28 @@ export class FollowingAndFollowersComponent {
   }
 
   getTabIndex() {
-    console.log('tabIndex')
     if (this.router.url.includes('verified_followers')) {
       setTimeout(() => {
         this.tabGroup.selectedIndex = 0;
       }, 0);
-
     }
 
     if (this.router.url.includes('known_followers')) {
       setTimeout(() => {
         this.tabGroup.selectedIndex = 1;
       }, 0);
-
     }
 
     if (this.router.url.includes('followers') && !this.router.url.includes('verified_followers') && !this.router.url.includes('known_followers')) {
       setTimeout(() => {
         verifyIfItsLoggedUser(this.router.url) ? this.tabGroup.selectedIndex = 1 : this.tabGroup.selectedIndex = 2;
       }, 0);
-
     }
 
     if (this.router.url.includes('following')) {
       setTimeout(() => {
         verifyIfItsLoggedUser(this.router.url) ? this.tabGroup.selectedIndex = 2 : this.tabGroup.selectedIndex = 3;
       }, 0);
-
     }
   }
 

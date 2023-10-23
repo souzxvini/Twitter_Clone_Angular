@@ -4,6 +4,8 @@ import { Component, Input } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { Observable, map } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalBlockUserComponent } from 'src/app/components/modal-block-user/modal-block-user.component';
 
 @Component({
   selector: 'app-unblocked-user-actions',
@@ -23,7 +25,8 @@ export class UnblockedUserActionsComponent {
     private accountsService: AccountsService,
     private snackbar: MatSnackBar,
     private clipboard: Clipboard,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog
   ) { }
 
   copyProfileURL() {
@@ -37,6 +40,26 @@ export class UnblockedUserActionsComponent {
     }
   }
 
+  openBlockUserModal(user){
+    this.morePanelState = !this.morePanelState;
+    const dialogRef = this.dialog.open(ModalBlockUserComponent, {
+      width: '320px',
+      panelClass: 'bordered-dialog',
+      backdropClass: 'modalStyleBackdrop',
+      disableClose: false,
+      autoFocus: false,
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          this.blockAccount(user.username);
+        }
+      }
+    })
+  }
+
   blockAccount(username) {
     this.user.isBlockedByMe = !this.user.isBlockedByMe;
     const followedByMe = this.user.isFollowedByMe;
@@ -45,22 +68,29 @@ export class UnblockedUserActionsComponent {
       this.user.followers = this.user.followers - 1;
     }
 
+    const followingMe = this.user.isFollowingMe;
+    if (followingMe) {
+      this.user.isFollowingMe = false;
+    }
+
     this.accountsService.blockToggle(username).subscribe({
       complete: () => {
         let mySnackBar: MatSnackBarRef<TextOnlySnackBar> = this.snackbar.open(
           'Bloqueado com sucesso.',
           'Desbloquear',
-          { duration: 50000, panelClass: ['snackbarLoginError'] }
+          { duration: 5000, panelClass: ['snackbarLoginError'] }
         );
 
         mySnackBar.onAction().subscribe(() => {
           mySnackBar.dismiss();
-          this.user.isBlockedByMe = false;
-          this.accountsService.blockToggle(username).subscribe({
-            error: () => {
-              this.user.isBlockedByMe = true;
-             }
-          })
+          if (this.user.isBlockedByMe == true) {
+            this.user.isBlockedByMe = false;
+            this.accountsService.blockToggle(username).subscribe({
+              error: () => {
+                this.user.isBlockedByMe = true;
+              }
+            })
+          }
         });
       },
       error: () => {
@@ -73,6 +103,9 @@ export class UnblockedUserActionsComponent {
         if (followedByMe) {
           this.user.isFollowedByMe = true;
           this.user.followers = this.user.followers + 1;
+        }
+        if (followingMe) {
+          this.user.isFollowingMe = true;
         }
       }
     })

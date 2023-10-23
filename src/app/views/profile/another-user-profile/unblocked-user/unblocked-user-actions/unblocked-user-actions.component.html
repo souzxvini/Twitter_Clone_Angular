@@ -18,7 +18,7 @@
       <span style="word-break: break-all;">Silenciar @{{user.username}}</span>
     </div>
 
-    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="blockAccount(user.userIdentifier)">
+    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="openBlockUserModal(user)">
       <mat-icon>block</mat-icon>
       <span style="word-break: break-all;">Bloquear @{{user.username}}</span>
     </div>

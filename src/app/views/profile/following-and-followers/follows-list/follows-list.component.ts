@@ -175,6 +175,10 @@ export class FollowsListComponent {
     this.getUserFollowsDetails(this.section, this.page, this.size);
   }
 
+  redirect(){
+    this.router.navigate(['connect_people']);
+  }
+
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
   }

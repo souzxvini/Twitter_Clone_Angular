@@ -8,7 +8,7 @@
   [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="morePanelState = !morePanelState"
   [cdkConnectedOverlayPositions]="[{originX: 'start',originY: 'bottom',overlayX: 'end',overlayY: 'top'}]">
   <div class="morePanel mat-elevation-z8" fxLayout="column">
-    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="unblockProfile(user.userIdentifier)">
+    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="openUnblockUserModal(user)">
       <mat-icon>lock_open</mat-icon>
       <span style="word-break: break-all;">Desbloquear @{{user.username}}</span>
     </div>
