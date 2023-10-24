@@ -43,14 +43,23 @@
       </div>
     </div>
 
-    <div fxLayout="column" fxLayoutAlign=" start" style="padding: 100px;">
-      <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all; font-family: 'TwitterChirpExtendedHeavy' !important;">@{{user.username}}</span> está bloqueado </span>
-      <span class="dialogSubtitle"> Tem certeza de que deseja ver estes posts? Ver os posts não desbloqueará @shitpostverdade.
+    <div *ngIf="!seeBlockedUserPosts" fxLayout="column" fxLayoutAlign=" start" style="padding: 100px;">
+      <span class="dialogTitleWithSubtitle"> <span
+          style="word-break: break-all; font-family: 'TwitterChirpExtendedHeavy' !important;">@{{user.username}}</span>
+        está bloqueado </span>
+      <span class="dialogSubtitle"> Tem certeza de que deseja ver estes posts? Ver os posts não desbloqueará
+        @shitpostverdade.
         <a class="blueLinks blockCursor">Saiba mais</a>
       </span>
-      <button class="blueButton _52pxButton cursorPointer">
+      <button class="blueButton _52pxButton cursorPointer" (click)="seeBlockedUserPosts = !seeBlockedUserPosts">
         <span>Ver posts</span>
       </button>
     </div>
   </div>
+  <div *ngIf="seeBlockedUserPosts" style="margin-top: 20px;">
+    <app-profile-nav></app-profile-nav>
+
+    <app-tweet></app-tweet>
+  </div>
+
 </div>

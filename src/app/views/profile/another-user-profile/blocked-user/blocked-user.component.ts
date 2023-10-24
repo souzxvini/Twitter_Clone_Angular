@@ -20,6 +20,8 @@ export class BlockedUserComponent {
   setBackgroundPhoto = setBackgroundPhoto;
   setProfilePhoto = setProfilePhoto;
 
+  seeBlockedUserPosts = false;
+
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
