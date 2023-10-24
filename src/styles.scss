@@ -558,6 +558,7 @@ button {
   background-color: transparent !important;
   border: solid 1px rgb(83, 100, 113) !important;
   transition: background-color 0.2s ease-in-out !important;
+  letter-spacing: none;
 }
 
 .transparentButton:hover {
@@ -574,6 +575,7 @@ button {
   color: #0F1419 !important;
   background-color: white;
   transition: background-color 0.2s ease-in-out !important;
+  letter-spacing: none;
 }
 
 .whiteButton:hover {
@@ -583,6 +585,7 @@ button {
 .whiteButton[disabled] {
   background-color: rgb(120, 122, 122) !important;
   color: #000 !important;
+  letter-spacing: none;
 }
 
 .blueButton {
@@ -595,6 +598,7 @@ button {
   color: rgb(255, 255, 255);
   background-color: rgb(29, 155, 240);
   transition: background-color 0.2s ease-in-out !important;
+  letter-spacing: none;
 }
 
 .blueButton:hover {
@@ -613,6 +617,7 @@ button {
   background-color: transparent !important;
   border: solid 1px rgb(83, 100, 113) !important;
   transition: background-color 0.2s ease-in-out !important;
+  letter-spacing: none;
 }
 
 .transparentButtonBlueText:hover {
@@ -631,7 +636,7 @@ button {
   transition: background-color 0.2s ease-in-out !important;
   padding: 0 16px;
   font-size: 15px !important;
-  letter-spacing: 1.1px;
+  letter-spacing: none;
 }
 
 .formFieldError {

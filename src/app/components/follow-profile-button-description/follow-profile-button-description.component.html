@@ -6,7 +6,7 @@
     </div>
     <div *ngIf="!verifyIfItsLoggedUser(profile.username)" fxFlex="calc(100% - 40px)" fxLayout="column">
       <div fxLayout="row">
-        <div fxLayout="column" [fxFlex]="profile.isFollowedByMe ? isMouseOverFollowingButton ? 'calc(100% - 150px)' : 'calc(100% - 100px)' : 'calc(100% - 80px)'"
+        <div fxLayout="column" [fxFlex]="profile.isBlockedByMe ? 'calc(100% - 200px)' : profile.isFollowedByMe ? isMouseOverFollowingButton ? 'calc(100% - 150px)' : 'calc(100% - 100px)' : 'calc(100% - 80px)'"
           style="padding: 0 8px;">
           <div fxLayout="row" fxLayoutAlign="start center">
             <span style="max-width: calc(100% - 18px)" class="userFirstName">{{ profile.firstName }}</span>
@@ -22,17 +22,21 @@
             <span *ngIf="profile.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
           </div>
         </div>
-        <div fxLayoutAlign="center center" [style]="profile.isFollowedByMe ? isMouseOverFollowingButton ? setFollowingButtonHoverWidth() : 'width: 100px;' : 'width: 80px;'">
-          <!--Botão 'SEGUIR'-->
-          <button *ngIf="!profile.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
+        <div fxLayoutAlign="center center" [style]="profile.isBlockedByMe ? '200px' : profile.isFollowedByMe ? isMouseOverFollowingButton ? setFollowingButtonHoverWidth() : 'width: 100px;' : 'width: 80px;'">
+          <button *ngIf="!profile.isBlockedByMe && !profile.isFollowedByMe" class="whiteButton cursorPointer _32pxButton"
             (click)="$event.stopPropagation(); followUser(profile.username);">
             <span>Seguir</span>
           </button>
-          <!--Botão 'SEGUINDO'-->
-          <app-following-button-32px *ngIf="profile.isFollowedByMe" (click)="$event.stopPropagation(); openUnfollowConfirmationModal(profile)"
+
+          <app-following-button-32px *ngIf="!profile.isBlockedByMe && profile.isFollowedByMe" (click)="$event.stopPropagation(); openUnfollowConfirmationModal(profile)"
           (mouseenter)="isMouseOverFollowingButton = true"
           (mouseleave)="isMouseOverFollowingButton = false" style="border-radius: 50px;">
           </app-following-button-32px>
+
+          <app-blocked-button-32px *ngIf="profile.isBlockedByMe" (click)="$event.stopPropagation(); openUnblockUserModal(profile)"
+          (mouseenter)="isMouseOverBlockedButton = true"
+          (mouseleave)="isMouseOverBlockedButton = false" style="border-radius: 50px;">
+          </app-blocked-button-32px>
         </div>
       </div>
   

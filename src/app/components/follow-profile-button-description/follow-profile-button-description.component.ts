@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ModalUnblockUserComponent } from '../modal-unblock-user/modal-unblock-user.component';
 
 @Component({
   selector: 'app-follow-profile-button-description',
@@ -21,6 +22,7 @@ export class FollowProfileButtonDescriptionComponent {
 
   loaded = false;
   isMouseOverFollowingButton: boolean = false;
+  isMouseOverBlockedButton: boolean = false;
   currentUrl: string;
 
   constructor(
@@ -101,11 +103,35 @@ export class FollowProfileButtonDescriptionComponent {
     return localStorage.getItem('Language') == 'pt' ? 'width: 150px;' : 'width: 100px;';
   }
 
-  setButtonCalc() {
-    return localStorage.getItem('Language') == 'pt' ? 'calc(100% - 150px)' : 'calc(100% - 100px)';
-  }
-
   verifyIfItsLoggedUser(username) {
     return username == localStorage.getItem('userName');
+  }
+
+  openUnblockUserModal(profile){
+    const dialogRef = this.dialog.open(ModalUnblockUserComponent, {
+      width: '320px',
+      panelClass: 'bordered-dialog',
+      backdropClass: 'modalStyleBackdrop',
+      disableClose: false,
+      autoFocus: false,
+      data: profile
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          this.unblockProfile(profile.username);
+        }
+      }
+    })
+  }
+
+  unblockProfile(username) {
+    this.profile.isBlockedByMe = !this.profile.isBlockedByMe;
+    this.accountsService.blockToggle(username).subscribe({
+      error: () => {
+        this.profile.isBlockedByMe = !this.profile.isBlockedByMe;
+      }
+    })
   }
 }

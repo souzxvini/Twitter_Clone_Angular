@@ -15,10 +15,12 @@ import { MobileFooterNavComponent } from './mobile-footer-nav/mobile-footer-nav.
 import { BlockedButton36pxComponent } from './blocked-button-36px/blocked-button-36px.component';
 import { ModalBlockUserComponent } from './modal-block-user/modal-block-user.component';
 import { ModalUnblockUserComponent } from './modal-unblock-user/modal-unblock-user.component';
+import { BlockedButton32pxComponent } from './blocked-button-32px/blocked-button-32px.component';
 @NgModule({
   declarations:[ 
     FollowingButton32pxComponent,
     FollowingButton36pxComponent,
+    BlockedButton32pxComponent,
     BlockedButton36pxComponent,
     FooterComponent,
     WhoToFollowCardComponent,
