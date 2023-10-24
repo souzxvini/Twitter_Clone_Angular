@@ -7,7 +7,7 @@ import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-b
 import { MatDialog } from '@angular/material/dialog';
 import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AnotherProfileModel } from 'src/app/models/another-profile-model';
 import { Location } from '@angular/common';
 import { Observable, map } from 'rxjs';
@@ -60,6 +60,15 @@ export class AnotherUserProfileComponent {
       } else {
         this.userInformationsLoaded = true;
         this.accountsService.clearUserData();
+      }
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (this.userInformationsLoaded) {
+          this.getUserInformations(this.username, true);
+          this.userInformationsLoaded = true;
+        }
       }
     });
 

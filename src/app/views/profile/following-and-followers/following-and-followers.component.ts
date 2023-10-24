@@ -37,6 +37,7 @@ export class FollowingAndFollowersComponent {
 
     //ao carregar o componente pela primeira vez
     this.activatedRoute.params.subscribe(() => {
+      console.log("entrou")
       this.user = this.accountsService.getUserData();
       if (!this.user) {
         this.getUserByIdentifier(this.username, true);
@@ -49,18 +50,17 @@ export class FollowingAndFollowersComponent {
     //ao mudar a rota
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if (this.userInformationsLoaded) {
-          this.user = this.accountsService.getUserData();
-          this.userInformationsLoaded = true;
-          this.getTabIndex();
+        if (!this.userInformationsLoaded) {
+          console.log(this.username)
+          this.getUserByIdentifier(this.username, true);
         }
       }
     });
 
     // Adicione um ouvinte para o evento popstate
-    window.addEventListener('popstate', () => {
-      this.accountsService.setUserData(this.user);
-    });
+    //window.addEventListener('popstate', () => {
+    //  this.accountsService.setUserData(this.user);
+    //});
   }
 
   getUserByIdentifier(username, load) {
@@ -108,38 +108,37 @@ export class FollowingAndFollowersComponent {
     if (verifyIfItsLoggedUser(this.router.url)) {
       if (selectedIndex == 0) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'verified_followers']);
+        this.router.navigate(['profile', this.user.username, 'verified_followers'], { replaceUrl: true });
       };
       if (selectedIndex == 1) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'followers']);
+        this.router.navigate(['profile', this.user.username, 'followers'], { replaceUrl: true });
       }
       if (selectedIndex == 2) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'following']);
+        this.router.navigate(['profile', this.user.username, 'following'], { replaceUrl: true });
       }
     } else {
       if (selectedIndex == 0) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'verified_followers']);
+        this.router.navigate(['profile', this.user.username, 'verified_followers'], { replaceUrl: true });
       }
       if (selectedIndex == 1) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'known_followers']);
+        this.router.navigate(['profile', this.user.username, 'known_followers'], { replaceUrl: true });
       }
       if (selectedIndex == 2) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'followers']);
+        this.router.navigate(['profile', this.user.username, 'followers'], { replaceUrl: true });
       }
       if (selectedIndex == 3) {
         this.accountsService.setUserData(this.user);
-        this.router.navigate(['profile', this.user.username, 'following']);
+        this.router.navigate(['profile', this.user.username, 'following'], { replaceUrl: true });
       }
     }
   }
 
   back() {
-    this.accountsService.setUserData(this.user);
     this.location.back();
   }
 

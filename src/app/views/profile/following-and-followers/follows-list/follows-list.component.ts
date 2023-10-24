@@ -176,7 +176,7 @@ export class FollowsListComponent {
   }
 
   redirect(){
-    this.router.navigate(['connect_people']);
+    this.router.navigate(['connect_people'], { replaceUrl: true });
   }
 
   ngOnDestroy() {
