@@ -1,16 +1,15 @@
-<div fxLayout="column" fxLayoutAlign="space-between stretch" style="min-height: 660px; max-height: 660px;">
-  <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 16px;">
-    <div fxLayout="row" fxLayoutAlign=" center">
-      <mat-icon style="margin-right: 35px" class="cursorPointer" mat-dialog-close>
-        keyboard_backspace
-      </mat-icon>
-      <span class="dialogSteps">Editar mídia</span>
-    </div>
-    <div>
-      <button mat-flat-button class="whiteButton cursorPointer _36pxButton" (click)="cropper.crop()">
-        <span>Aplicar</span>
+<div style="height: 100%; width: 100%;">
+  <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
+    fxLayoutAlign="space-between center">
+    <div fxLayoutAlign=" center" fxLayoutGap="30" fxLayoutGap="30">
+      <button mat-mini-fab mat-dialog-close>
+        <mat-icon>close</mat-icon>
       </button>
+      <span class="dialogSteps">Editar perfil</span>
     </div>
+    <button class="whiteButton cursorPointer _32pxButton" (click)="cropper.crop()">
+      Aplicar
+    </button>
   </div>
 
   <div style="height: 540px;" fxLayout="column" fxLayoutAlign="center stretch">

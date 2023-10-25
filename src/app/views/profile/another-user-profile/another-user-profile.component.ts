@@ -2,17 +2,11 @@ import { Component } from '@angular/core';
 import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { AccountsService } from 'src/app/services/accounts.service';
-import { FullScreenProfilePhotoModalComponent } from '../modals/full-screen-profile-photo-modal/full-screen-profile-photo-modal.component';
-import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-background-photo-modal/full-screen-background-photo-modal.component';
-import { MatDialog } from '@angular/material/dialog';
-import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AnotherProfileModel } from 'src/app/models/another-profile-model';
 import { Location } from '@angular/common';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-another-user-profile',
@@ -44,7 +38,6 @@ export class AnotherUserProfileComponent {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-
       this.username = params['username'];
 
       if (this.username == localStorage.getItem('userName')) {
@@ -56,6 +49,7 @@ export class AnotherUserProfileComponent {
       sem precisar chamar o get para trazer as principais informações do usuario*/
       this.user = this.accountsService.getUserData();
       if (!this.user) {
+        console.log('A')
         this.getUserInformations(this.username, true);
       } else {
         this.userInformationsLoaded = true;
@@ -63,19 +57,11 @@ export class AnotherUserProfileComponent {
       }
     });
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if (this.userInformationsLoaded) {
-          this.getUserInformations(this.username, true);
-          this.userInformationsLoaded = true;
-        }
-      }
-    });
-
     window.addEventListener('scroll', this.scroll, true);
   }
 
   getUserInformations(username, spinner) {
+    console.log('C')
     spinner ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
     this.accountsService.getUserByIdentifier(username).subscribe({
       next: (res) => {

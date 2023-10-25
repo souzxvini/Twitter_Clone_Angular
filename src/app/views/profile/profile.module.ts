@@ -19,6 +19,7 @@ import { BlockedUserComponent } from './another-user-profile/blocked-user/blocke
 import { BlockedUserActionsComponent } from './another-user-profile/blocked-user/blocked-user-actions/blocked-user-actions.component';
 import { UnblockedUserComponent } from './another-user-profile/unblocked-user/unblocked-user.component';
 import { UnblockedUserActionsComponent } from './another-user-profile/unblocked-user/unblocked-user-actions/unblocked-user-actions.component';
+import { ModalDiscardChangesComponent } from './modals/edit-profile-modal/modal-discard-changes/modal-discard-changes.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UnblockedUserActionsComponent } from './another-user-profile/unblocked-
     MyProfileComponent,
     AnotherUserProfileComponent,
     FullScreenProfilePhotoModalComponent,
+    ModalDiscardChangesComponent,
     EditProfileModalComponent,
     EditBackgroundPictureModalComponent,
     FullScreenBackgroundPhotoModalComponent,

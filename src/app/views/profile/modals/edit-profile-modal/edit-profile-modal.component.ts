@@ -10,6 +10,7 @@ import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { AccountsService } from 'src/app/services/accounts.service';
+import { ModalDiscardChangesComponent } from './modal-discard-changes/modal-discard-changes.component';
 
 @Component({
   selector: 'app-edit-profile-modal',
@@ -20,10 +21,10 @@ export class EditProfileModalComponent {
 
   @ViewChild('selectBackgroundFileButton') selectBackgroundFileButton!: ElementRef<HTMLInputElement>;
   @ViewChild('selectProfileFileButton') selectProfileFileButton!: ElementRef<HTMLInputElement>;
-  
+
   editProfileForm = new FormGroup<{
-    firstName: FormControl<any>, 
-    biography: FormControl<any>, 
+    firstName: FormControl<any>,
+    biography: FormControl<any>,
     location: FormControl<any>,
     site: FormControl<any>
   }>({
@@ -49,23 +50,23 @@ export class EditProfileModalComponent {
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
     private breakpointObserver: BreakpointObserver
-  ){}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.preencherForm();
 
     this.backgroundPhotoUrl = this.data.backgroundPhotoUrl;
     this.profilePhotoUrl = this.data.profilePhotoUrl;
   }
 
-  preencherForm(){
+  preencherForm() {
     this.editProfileForm.controls['firstName'].setValue(this.data.firstName);
     this.editProfileForm.controls['biography'].setValue(this.data.biography);
     this.editProfileForm.controls['location'].setValue(this.data.location);
     this.editProfileForm.controls['site'].setValue(this.data.site);
   }
 
-  patchProfileInformations(){
+  patchProfileInformations() {
     this.loaded = false;
     const payload = {
       firstName: this.editProfileForm.controls['firstName'].value,
@@ -80,7 +81,7 @@ export class EditProfileModalComponent {
       complete: () => {
         this.dialogRef.close(payload);
         this.loaded = true;
-      }, 
+      },
       error: () => {
         this.loaded = true;
         this.snackbar.open(
@@ -180,4 +181,25 @@ export class EditProfileModalComponent {
     }
   }
 
+  closeModal() {
+    if (this.editProfileForm.dirty) {
+      const dialogRef = this.dialog.open(ModalDiscardChangesComponent, {
+        width: '320px',
+        panelClass: 'bordered-dialog',
+        backdropClass: 'modalStyleBackdrop',
+        disableClose: false,
+        autoFocus: false
+      });
+  
+      dialogRef.afterClosed().subscribe({
+        next: (res) => {
+          if (res) {
+            this.dialogRef.close();
+          }
+        }
+      })
+    } else {
+      this.dialogRef.close();
+    }
+  }
 }

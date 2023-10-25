@@ -1,18 +1,16 @@
 <div fxLayout="column" style="padding: 32px">
-    <span class="smallerDialogTitleWithSubtitle">
-      Desbloquear <span style="word-break: break-all;">@{{data.username}}</span>?
-    </span>
-    <span class="dialogSubtitle">
-        Essa pessoa poderá seguir você e ver seus posts.
-    </span>
-    <div fxLayout="column"fxLayoutGap="10">
-      <button class="whiteButton cursorPointer _44pxButton" style="padding: 12px" (click)="confirmUnblockUser()">
-        Desbloquear
-      </button>
-      <button class="transparentButton cursorPointer _44pxButton" style="padding: 12px" matDialogClose>
-        Cancelar
-      </button>
-    </div>
-  
+  <span class="smallerDialogTitleWithSubtitle">
+    Desbloquear <span style="word-break: break-all;">@{{data.username}}</span>?
+  </span>
+  <span class="dialogSubtitle">
+    Essa pessoa poderá seguir você e ver seus posts.
+  </span>
+  <div fxLayout="column" fxLayoutGap="10">
+    <button class="whiteButton cursorPointer _44pxButton" style="padding: 12px" (click)="confirmUnblockUser()">
+      Desbloquear
+    </button>
+    <button class="transparentButton cursorPointer _44pxButton" style="padding: 12px" matDialogClose>
+      Cancelar
+    </button>
   </div>
-  
+</div>

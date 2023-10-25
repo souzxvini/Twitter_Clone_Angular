@@ -9,7 +9,7 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-background-photo-modal/full-screen-background-photo-modal.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Location } from '@angular/common';
 

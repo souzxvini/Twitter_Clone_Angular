@@ -56,11 +56,6 @@ export class FollowingAndFollowersComponent {
         }
       }
     });
-
-    // Adicione um ouvinte para o evento popstate
-    //window.addEventListener('popstate', () => {
-    //  this.accountsService.setUserData(this.user);
-    //});
   }
 
   getUserByIdentifier(username, load) {

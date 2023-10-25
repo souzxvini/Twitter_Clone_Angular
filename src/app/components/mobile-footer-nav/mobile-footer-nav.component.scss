@@ -1,12 +1,13 @@
 .mainContainerFooter {
   display: none;
-  background: black;
+  background: black !important;
   height: 53px;
   position: sticky;
   bottom: 0;
   justify-content: space-around;
   align-items: center;
   border-top: 1px solid rgb(56, 68, 77);
+  z-index: 1;
 }
 
 mat-icon {

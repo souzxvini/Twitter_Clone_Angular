@@ -42,10 +42,11 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     this.accountsService.updateMyProfileInfosOnMenuComponenChange$.subscribe(() => {
       this.user = this.accountsService.getUserData();
-      if(this.user){
-        this.userInformationsLoaded = true;
-        this.accountsService.clearUserData();
-      }else{
+      if (this.user && this.userInformationsLoaded == true) {
+        setTimeout(() => {
+          this.accountsService.clearUserData();
+        }, 0)
+      } else {
         this.getLoggedUserAccount();
       }
     });
@@ -64,6 +65,7 @@ export class MenuComponent implements OnInit {
   }
 
   getLoggedUserAccount() {
+    console.log('a');
     this.userInformationsLoaded = false;
     this.accountsService.getLoggedUserAccount().subscribe({
       next: (res) => {

@@ -43,10 +43,10 @@ export class ConnectComponent {
 
   tabChange(selectedIndex){
     if (selectedIndex == 0) {
-      this.router.navigate(['connect_people']);
+      this.router.navigate(['connect_people'], { replaceUrl: true });
     };
     if (selectedIndex == 1) {
-      this.router.navigate(['connect_people/is_creator_only']);
+      this.router.navigate(['connect_people/is_creator_only'], { replaceUrl: true });
     }
   }
 

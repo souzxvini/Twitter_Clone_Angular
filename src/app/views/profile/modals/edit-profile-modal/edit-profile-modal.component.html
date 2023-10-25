@@ -2,7 +2,7 @@
   <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
     fxLayoutAlign="space-between center">
     <div fxLayoutAlign=" center" fxLayoutGap="30" fxLayoutGap="30">
-      <button mat-mini-fab mat-dialog-close [disabled]="!loaded">
+      <button mat-mini-fab [disabled]="!loaded" (click)="closeModal()">
         <mat-icon>close</mat-icon>
       </button>
       <span class="dialogSteps">Editar perfil</span>
