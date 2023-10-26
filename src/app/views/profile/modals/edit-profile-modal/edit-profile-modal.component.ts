@@ -182,7 +182,9 @@ export class EditProfileModalComponent {
   }
 
   closeModal() {
-    if (this.editProfileForm.dirty) {
+    if (this.editProfileForm.dirty ||
+      this.backgroundPhotoUrl != this.data.backgroundPhotoUrl ||
+      this.profilePhotoUrl != this.data.profilePhotoUrl) {
       const dialogRef = this.dialog.open(ModalDiscardChangesComponent, {
         width: '320px',
         panelClass: 'bordered-dialog',
