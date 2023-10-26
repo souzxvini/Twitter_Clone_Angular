@@ -17,6 +17,7 @@
       </span>
     </div>
   </div>
-  <app-unblocked-user *ngIf="!user.isBlockedByMe" [user]="user"></app-unblocked-user>
+  <app-user-has-blocked-logged-user *ngIf="user.hasBlockedMe" [user]="user"></app-user-has-blocked-logged-user>
+  <app-unblocked-user *ngIf="!user.isBlockedByMe && !user.hasBlockedMe" [user]="user"></app-unblocked-user>
   <app-blocked-user *ngIf="user.isBlockedByMe && !user.hasBlockedMe" [user]="user"></app-blocked-user>
 </div>

@@ -45,18 +45,27 @@ export class FollowProfileButtonComponent {
     this.accountsService.followUser(username).subscribe({
       complete: () => {
       },
-      error: () => {
+      error: (res) => {
         profile.isFollowedByMe = !profile.isFollowedByMe;
         profile.isFollowedByMe ? profile.followers++ : profile.followers--;
         
         this.notifyComponents(profile);
 
         this.loaded = true;
-        this.snackbar.open(
-          'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
-          '',
-          { duration: 5000, panelClass: ['snackbarLoginError'] }
-        );
+        
+        if(res.error.error == '410.010'){
+          this.snackbar.open(
+            res.error.message,
+            '',
+            { duration: 5000, panelClass: ['snackbarLoginError'] }
+          );
+        } else{
+          this.snackbar.open(
+            'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
+            '',
+            { duration: 5000, panelClass: ['snackbarLoginError'] }
+          );
+        }
       }
     })
   }

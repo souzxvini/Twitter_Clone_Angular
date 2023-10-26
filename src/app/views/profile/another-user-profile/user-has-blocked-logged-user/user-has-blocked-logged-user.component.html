@@ -12,9 +12,7 @@
         </div>
       </div>
       <div fxLayout="row" fxLayoutGap="10">
-        <app-blocked-user-actions [user]="user"></app-blocked-user-actions>
-
-        <app-blocked-button-36px (click)="openUnblockUserModal(user)"></app-blocked-button-36px>
+        <app-user-has-blocked-logged-user-actions [user]="user"></app-user-has-blocked-logged-user-actions>
       </div>
     </div>
 
@@ -33,32 +31,12 @@
 
     </div>
 
-    <div class="sideNavMobileMenuProfileInfos">
-      <div (click)="redirectToFollowing(user)">
-        <strong>{{ user.following }}</strong> Seguindo
-      </div>
-
-      <div (click)="redirectToFollowers(user)">
-        <strong>{{ user.followers }}</strong> Seguidores
-      </div>
-    </div>
-
-    <div *ngIf="!seeBlockedUserPosts" fxLayout="column" fxLayoutAlign=" start" style="padding: 100px;">
-      <span class="dialogTitleWithSubtitle"> <span
-          style="word-break: break-all; font-family: 'TwitterChirpExtendedHeavy' !important;">@{{user.username}}</span>
-        está bloqueado </span>
-      <span class="dialogSubtitle"> Tem certeza de que deseja ver estes posts? Ver os posts não desbloqueará @{{user.username}}.
+    <div fxLayout="column" fxLayoutAlign=" start" style="padding: 100px;">
+      <span class="dialogTitleWithSubtitle">Você foi bloqueado </span>
+      <span class="dialogSubtitle"> Você não pode seguir nem ver os posts de
+        <span style="word-break: break-all;">@{{user.username}}</span>.
         <a class="blueLinks blockCursor">Saiba mais</a>
       </span>
-      <button class="blueButton _52pxButton cursorPointer" (click)="seeBlockedUserPosts = !seeBlockedUserPosts">
-        <span>Ver posts</span>
-      </button>
     </div>
   </div>
-  <div *ngIf="seeBlockedUserPosts" style="margin-top: 20px;">
-    <app-profile-nav></app-profile-nav>
-
-    <app-tweet></app-tweet>
-  </div>
-
 </div>

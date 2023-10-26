@@ -85,14 +85,22 @@ export class UnblockedUserComponent {
     this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
     this.user.isFollowedByMe = !this.user.isFollowedByMe;
     this.accountsService.followUser(username).subscribe({
-      error: () => {
+      error: (res) => {
         this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
         this.user.isFollowedByMe = !this.user.isFollowedByMe;
-        this.snackbar.open(
-          'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
-          '',
-          { duration: 5000, panelClass: ['snackbarLoginError'] }
-        );
+        if(res.error.error == '410.010'){
+          this.snackbar.open(
+            res.error.message,
+            '',
+            { duration: 5000, panelClass: ['snackbarLoginError'] }
+          );
+        } else{
+          this.snackbar.open(
+            'Desculpe, houve algum erro ao seguir o usuário. Por favor, tente novamente.',
+            '',
+            { duration: 5000, panelClass: ['snackbarLoginError'] }
+          );
+        }
       }
     })
   }

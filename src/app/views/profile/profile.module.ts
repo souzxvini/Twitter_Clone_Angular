@@ -20,6 +20,8 @@ import { BlockedUserActionsComponent } from './another-user-profile/blocked-user
 import { UnblockedUserComponent } from './another-user-profile/unblocked-user/unblocked-user.component';
 import { UnblockedUserActionsComponent } from './another-user-profile/unblocked-user/unblocked-user-actions/unblocked-user-actions.component';
 import { ModalDiscardChangesComponent } from './modals/edit-profile-modal/modal-discard-changes/modal-discard-changes.component';
+import { UserHasBlockedLoggedUserComponent } from './another-user-profile/user-has-blocked-logged-user/user-has-blocked-logged-user.component';
+import { UserHasBlockedLoggedUserActionsComponent } from './another-user-profile/user-has-blocked-logged-user/actions/user-has-blocked-logged-user-actions.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { ModalDiscardChangesComponent } from './modals/edit-profile-modal/modal-
     BlockedUserComponent,
     BlockedUserActionsComponent,
     UnblockedUserComponent,
-    UnblockedUserActionsComponent
+    UnblockedUserActionsComponent,
+    UserHasBlockedLoggedUserComponent,
+    UserHasBlockedLoggedUserActionsComponent
   ],
   imports: [
     CommonModule,
