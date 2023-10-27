@@ -1,10 +1,6 @@
 <div style="width: 100%; min-height: 100%; display: flex;">
   <div class="mainContainer">
-    <div id="bluredHeaderStyle" class="headerTabs" fxLayout="column" style="border-bottom: 1px solid rgb(56, 68, 77);">
-      <div class="mainContainerTitle" fxFlex>
-        <span>Página Inicial</span>
-      </div>
-
+    <div id="bluredHeaderStyle" [style]="(isHandset$ |async) ? 'height: 103px;' : '53px'" fxLayout="column" style="border-bottom: 1px solid rgb(56, 68, 77);">
       <div class="mainContainerHeaderMobile">
         <div fxLayout="row" style="height: 100%; width: 100%;">
           <div fxFlex fxLayoutAlign="start center">
@@ -34,17 +30,7 @@
       </div>
     </div>
 
-    <div class="mainContainerTweet">
-      <div>
-        <div>
-
-        </div>
-        <div>
-        </div>
-      </div>
-    </div>
-
-    <div style="height: 200px; width: 300px;">
+    <div style="height: 200px; width: 300px;" >
       a
     </div>
     <div style="height: 200px">

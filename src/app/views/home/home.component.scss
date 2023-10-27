@@ -8,27 +8,6 @@
   display: none;
 }
 
-.mainContainerTitle {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-size: 19px !important;
-  font-weight: 600 !important;
-  letter-spacing: 1.3px !important;
-  padding: 0 17px;
-}
-
-.mainContainerTweet{
-  width: 100%;
-}
-
-.mainContainerTweet{
-  width: 100%;
-  padding: 0px 16px;
-  display: flex;
-  background-color: red;
-}
-
 .mainContainerHeaderMobileImage{
   width: 30px;
   height: 30px;
@@ -45,10 +24,6 @@
 
   .mainContainer{
     border: none;
-  }
-
-  .mainContainerTitle{
-    display: none;
   }
 
   .mainContainerHeaderMobile{
