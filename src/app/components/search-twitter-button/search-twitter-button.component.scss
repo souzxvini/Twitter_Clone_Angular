@@ -1,65 +1,67 @@
-
 .searchButtonHeader {
-    display: flex;
-    width: 100%;
-    height: 6vh;
-    position: sticky;
-    top: 0;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .searchButton {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 4.5vh;
-    border-radius: 40px;
-    background-color: #202327;
-  }
-  
-  .searchButtonIcon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 17%;
-    height: 100%;
-    cursor: auto;
-    color: rgb(120, 133, 147) !important;
-  }
-  
-  .searchButtonInput {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 83%;
-    height: 100%;
-    cursor: text;
-  }
-  
-  .searchButtonInput input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    border-radius: 0px 20px 20px 0px;
-  }
-  
-  input:focus {
-    outline: none;
-    caret-color: white;
-  }
-  
-  input::placeholder {
-    font-size: 16px !important;
-    color: rgb(120, 133, 147) !important;
-  }
-  
-  .clicked {
-    background-color: transparent !important;
-    border: solid 1px rgb(29, 155, 240);
-  }
-  
-  .clicked .searchButtonIcon mat-icon {
-    color: rgb(29, 155, 240);
-  }
+  display: flex;
+  width: 100%;
+  height: 6vh;
+  position: sticky;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 4.5vh;
+  border-radius: 40px;
+  background-color: #202327;
+}
+
+.searchButtonIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 17%;
+  height: 100%;
+  cursor: auto;
+  color: rgb(113, 118, 123) !important;
+}
+
+.searchButtonInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 83%;
+  height: 100%;
+  color: white !important;
+  cursor: text;
+}
+
+.searchButtonInput input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0px 20px 20px 0px;
+  color: #e7e9ea;
+  font-size: 15px !important;
+}
+
+input:focus {
+  outline: none;
+  caret-color: white;
+}
+
+input::placeholder {
+  font-size: 15px !important;
+  color: rgb(113, 118, 123) !important;
+}
+
+.clicked {
+  background-color: transparent !important;
+  border: solid 1px rgb(29, 155, 240);
+}
+
+.clicked .searchButtonIcon mat-icon {
+  color: rgb(29, 155, 240);
+}
