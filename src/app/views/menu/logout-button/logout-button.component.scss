@@ -1,0 +1,44 @@
+//botão profile normal
+.sideNavMenuProfileButton {
+  border-radius: 50px;
+  padding: 12px;
+  margin: 16px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.sideNavMenuProfileButton:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+//botão profile mobile
+.sideNavMenuProfileIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  transition: background-color 0.2s ease-in-out;
+  padding: 12px;
+}
+
+.sideNavMenuProfileIcon:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+}
+
+.logoutPanel {
+  width: 280px !important;
+  background-color: black;
+  border-radius: 12px;
+  box-shadow: rgba(255, 255, 255, 0.27) 0px 0px 0.3em, rgba(255, 255, 255, 0.1) 0px 0.5em 1em;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 10px 0;
+}
+
+@media screen and (max-width:687px) {
+
+  .sideNavMenuProfileButton {
+    margin: 16px 2px !important;
+  }
+
+}

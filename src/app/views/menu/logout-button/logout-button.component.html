@@ -1,0 +1,39 @@
+<div fxLayout="row" fxLayoutAlign="start center" class="sideNavMenuProfileButton"
+  (click)="logoutPanelState = !logoutPanelState" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+  <div fxFlex="20" fxFlex.lt-lg="100">
+    <div class="profilePicture" style="width: 40px; height: 40px;" [style]="setProfilePhoto(user.profilePhotoUrl)">
+    </div>
+  </div>
+  <div fxFlex="70" fxLayout="column" style="padding: 0 8px;" fxHide.lt-lg>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <span [style]="user.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width:100%'"
+        class="userFirstName">{{user.firstName}}</span>
+      <div style="width: 18px;" *ngIf="user.isVerified">
+        <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+      </div>
+    </div>
+    <div class="userUsername">
+      @{{user.username}}
+    </div>
+  </div>
+  <div fxFlex="10" fxHide.lt-lg>
+    <mat-icon>more_horiz</mat-icon>
+  </div>
+</div>
+
+<ng-template #overlayNotifications cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="logoutPanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
+  [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="logoutPanelState = !logoutPanelState"
+  [cdkConnectedOverlayPositions]="cdkConnectedOverlayPositions">
+  <div fxLayout="column" [fxLayoutAlign]="(isHandset$ | async) ? 'start start' : 'center center'">
+    <div class="logoutPanel mat-elevation-z8" fxLayout="column">
+      <div class="morePanelItem blockCursor" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+        <span style="word-break: break-all;">Adicionar uma conta existente</span>
+      </div>
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="logout()">
+        <span style="word-break: break-all;">Sair de @{{user.username}}</span>
+      </div>
+    </div>
+    <div class="arrow-down"></div>
+  </div>
+</ng-template>

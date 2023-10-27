@@ -3,10 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { SidenavService } from 'src/app/services/sidenav.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AuthService } from 'src/app/services/auth.service';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
-import { MyProfileModel } from 'src/app/models/my-profile-model';
-import { AuthModel } from 'src/app/models/auth-model';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { Router } from '@angular/router';
 
@@ -34,7 +31,6 @@ export class MenuComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private sidenavService: SidenavService,
-    private authService: AuthService,
     private accountsService: AccountsService,
     private router: Router
   ) { }
@@ -76,10 +72,6 @@ export class MenuComponent implements OnInit {
         this.userInformationsLoaded = true;
       }
     })
-  }
-
-  logout() {
-    this.authService.logout();
   }
 
   redirectToFollowing(user) {

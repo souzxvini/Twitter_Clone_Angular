@@ -77,7 +77,8 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="padding: 16px; width: 100vw; height: 100vh;" *ngIf="!userInformationsLoaded" fxLayoutAlign="center center">
+    <div style="padding: 16px; width: 100vw; height: 100vh;" *ngIf="!userInformationsLoaded"
+      fxLayoutAlign="center center">
       <img src="../../../../assets/img/twitter-x-logo.png" style="width: 50px; height: 50px; opacity: 0.6;">
     </div>
     <div class="fullContainer" *ngIf="userInformationsLoaded">
@@ -164,33 +165,7 @@
               </button>
             </nav>
 
-            <div fxLayout="row" fxLayoutAlign="start center" class="sideNavMenuProfileButton" (click)="logout()"
-              fxHide.lt-lg>
-              <div fxFlex="20">
-                <div class="profilePicture" style="width: 40px; height: 40px;"
-                  [style]="setProfilePhoto(user.profilePhotoUrl)">
-                </div>
-              </div>
-              <div fxFlex="70" fxLayout="column" style="padding: 0 8px;">
-                <div fxLayout="row" fxLayoutAlign="start center">
-                  <span [style]="user.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width:100%'"
-                    class="userFirstName">{{user.firstName}}</span>
-                  <div style="width: 18px;" *ngIf="user.isVerified">
-                    <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
-                  </div>
-                </div>
-                <div class="userUsername">
-                  @{{user.username}}
-                </div>
-              </div>
-              <div fxFlex="10">
-                <mat-icon>more_horiz</mat-icon>
-              </div>
-            </div>
-
-            <div class="sideNavMenuProfileIcon" fxHide.gt-md>
-              <div class="sideNavMenuProfileButtonImage" [style]="setProfilePhoto(user.profilePhotoUrl)"></div>
-            </div>
+            <app-logout-button [user]="user"></app-logout-button>
           </div>
         </div>
       </div>

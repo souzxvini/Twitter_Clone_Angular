@@ -1009,7 +1009,7 @@ button {
 .morePanel {
   background-color: black;
   border-radius: 12px;
-  box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 10px, rgba(136, 153, 166, 0.25) 0px 3px 10px 3px;
+  box-shadow: rgba(255, 255, 255, 0.27) 0px 0px 0.3em, rgba(255, 255, 255, 0.1) 0px 0.5em 1em;
   font-size: 15px;
   font-weight: 900;
   max-width: 350px;
@@ -1024,7 +1024,7 @@ button {
 }
 
 .morePanelItem {
-  padding: 12px 16px;
+  padding: 12px 16px !important;
   cursor: pointer;
   transition: 0.2s background-color ease-in-out !important;
 }
@@ -1034,7 +1034,16 @@ button {
 }
 
 .morePanelItem:hover {
-  background-color: rgba(255, 255, 255, 0.07) !important;
+  background-color: rgba(212, 217, 245, 0.07) !important;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid black;
+  filter: drop-shadow(0px 0px 0.4em rgba(255, 255, 255, 0.5));
 }
 
 @media screen and (max-width:1111px) {
