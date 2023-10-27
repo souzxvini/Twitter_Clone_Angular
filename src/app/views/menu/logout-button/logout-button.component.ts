@@ -16,8 +16,8 @@ export class LogoutButtonComponent {
   setProfilePhoto = setProfilePhoto;
 
   logoutPanelState = false;
-
   cdkConnectedOverlayPositions: ConnectedPosition[];
+  arrowStyle = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(["(max-width: 1278px)"])
@@ -35,8 +35,10 @@ export class LogoutButtonComponent {
       .subscribe((res) => {
         if (res.matches) {
           this.cdkConnectedOverlayPositions = [{ originX: 'center', originY: 'top', overlayX: 'start', overlayY: 'top', offsetY: -120, offsetX: -30 }];
+          this.arrowStyle = 'margin-left: 28px;';
         } else {
           this.cdkConnectedOverlayPositions = [{ originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'top', offsetY: -120 }];
+          this.arrowStyle = 'margin-left: 0px;';
         }
       })
 
