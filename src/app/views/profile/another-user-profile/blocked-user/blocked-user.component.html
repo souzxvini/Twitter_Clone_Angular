@@ -26,7 +26,7 @@
       </span>
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
         <span class="headerUserUsername dottedOverflow">
-          @{{ user.username }}
+          {{"@" + user.username }}
         </span>
         <span *ngIf="user.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
       </div>
@@ -45,9 +45,9 @@
 
     <div *ngIf="!seeBlockedUserPosts" fxLayout="column" fxLayoutAlign=" start" style="padding: 100px;">
       <span class="dialogTitleWithSubtitle"> <span
-          style="word-break: break-all; font-family: 'TwitterChirpExtendedHeavy' !important;">@{{user.username}}</span>
+          style="word-break: break-all; font-family: 'TwitterChirpExtendedHeavy' !important;">{{user.username}}</span>
         está bloqueado </span>
-      <span class="dialogSubtitle"> Tem certeza de que deseja ver estes posts? Ver os posts não desbloqueará @{{user.username}}.
+      <span class="dialogSubtitle"> Tem certeza de que deseja ver estes posts? Ver os posts não desbloqueará {{user.username}}.
         <a class="blueLinks blockCursor">Saiba mais</a>
       </span>
       <button class="blueButton _52pxButton cursorPointer" (click)="seeBlockedUserPosts = !seeBlockedUserPosts">

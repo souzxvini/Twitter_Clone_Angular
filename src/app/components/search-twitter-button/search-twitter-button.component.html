@@ -47,7 +47,7 @@
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3">
               <span [style]="item.searchedUser.isFollowingMe ? 'max-width: calc(100% - 70px)' : 'max-width: 100%'"
                 class="userUsername">
-                @{{ item.searchedUser.username  }}
+                {{"@" + item.searchedUser.username  }}
               </span>
               <span *ngIf="item.searchedUser.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue
                 você</span>
@@ -94,7 +94,7 @@
           </div>
           <div fxLayout="row" fxLayoutAlign="start center">
             <span fxFlex class="userUsername">
-              @{{ profile.username  }}
+              {{ profile.username  }}
             </span>
           </div>
           <div fxLayout="row" fxLayoutAlign="start center" *ngIf="profile.isFollowingMe && profile.isFollowedByMe">
@@ -122,7 +122,7 @@
     </div>
 
     <div class="searchBy" *ngIf="loaded && searchInputValue">
-      Acesse @{{searchInputValue}}
+      Acesse {{searchInputValue}}
     </div>
   </div>
 </ng-template>

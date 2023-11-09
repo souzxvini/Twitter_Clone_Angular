@@ -24,7 +24,7 @@
       </span>
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
         <span class="headerUserUsername dottedOverflow">
-          @{{ user.username }}
+          {{"@" + user.username }}
         </span>
         <span *ngIf="user.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
       </div>
@@ -34,7 +34,7 @@
     <div fxLayout="column" fxLayoutAlign=" start" style="padding: 100px;">
       <span class="dialogTitleWithSubtitle">Você foi bloqueado </span>
       <span class="dialogSubtitle"> Você não pode seguir nem ver os posts de
-        <span style="word-break: break-all;">@{{user.username}}</span>.
+        <span style="word-break: break-all;">{{"@" + user.username}}</span>.
         <a class="blueLinks blockCursor">Saiba mais</a>
       </span>
     </div>

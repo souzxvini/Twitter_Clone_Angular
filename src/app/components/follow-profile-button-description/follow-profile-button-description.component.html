@@ -17,7 +17,7 @@
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3">
             <span [style]="profile.isFollowingMe ? 'max-width: calc(100% - 70px)' : 'max-width: 100%'"
               class="userUsername">
-              @{{ profile.username }}
+              {{"@" + profile.username }}
             </span>
             <span *ngIf="profile.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
           </div>
@@ -58,7 +58,7 @@
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3">
             <span [style]="profile.isFollowingMe ? 'max-width: calc(100% - 70px)' : 'max-width: 100%'"
               class="userUsername">
-              @{{ profile.username }}
+              {{ profile.username }}
             </span>
             <span *ngIf="profile.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
           </div>

@@ -39,7 +39,7 @@
         </span>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
           <span class="headerUserUsername dottedOverflow">
-            @{{ user.username }}
+            {{"@" + user.username }}
           </span>
           <span *ngIf="user.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
         </div>

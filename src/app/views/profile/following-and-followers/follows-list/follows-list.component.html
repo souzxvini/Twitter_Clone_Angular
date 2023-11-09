@@ -25,7 +25,7 @@
   <!--Mensagem caso usuário não possua seguidores verificados-->
   <div *ngIf="section == 'verified_followers'  && !verifyIfItsLoggedUser(router.url)" fxLayout="column"
     style="max-width: 350px;">
-    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;  font-family: 'TwitterChirpExtendedHeavy' !important;">@{{ user.username }}</span> não tem
+    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;  font-family: 'TwitterChirpExtendedHeavy' !important;">{{ "@" + user.username }}</span> não tem
       nenhum seguidor verificado.</span>
     <span class="dialogSubtitle"> Quando uma pessoa verificada segue essa conta, ela será exibida aqui. </span>
   </div>
@@ -49,7 +49,7 @@
 
   <!--Mensagem caso usuário não siga nenhum perfil-->
   <div *ngIf="section == 'following' && !verifyIfItsLoggedUser(router.url)" fxLayout="column" style="max-width: 350px;">
-    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;  font-family: 'TwitterChirpExtendedHeavy' !important;">@{{user.username}}</span> não está
+    <span class="dialogTitleWithSubtitle"> <span style="word-break: break-all;  font-family: 'TwitterChirpExtendedHeavy' !important;">{{user.username}}</span> não está
       seguindo ninguém </span>
     <span class="dialogSubtitle"> Depois de seguir as contas, elas serão exibidas aqui.</span>
   </div>

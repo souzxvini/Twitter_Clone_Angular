@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="userUsername">
-      @{{user.username}}
+      {{"@" + user.username}}
     </div>
   </div>
   <div fxFlex="10" fxHide.lt-lg>
@@ -31,7 +31,7 @@
         <span style="word-break: break-all;">Adicionar uma conta existente</span>
       </div>
       <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="logout()">
-        <span style="word-break: break-all;">Sair de @{{user.username}}</span>
+        <span style="word-break: break-all;">Sair de {{user.username}}</span>
       </div>
     </div>
     <div class="arrow-down" [style]="arrowStyle"></div>
