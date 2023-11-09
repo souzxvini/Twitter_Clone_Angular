@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuRoutingModule } from './menu-routing.module';
-import { MenuComponent } from './menu.component';
 import { SharedMaterialModule } from 'src/app/shared/shared-material/shared-material.module';
-import { LogoutButtonComponent } from './logout-button/logout-button.component';
 import { SharedComponentsModule } from 'src/app/components/shared-components.module';
+import { SearchRoutingModule } from './search-routing.module';
+import { AccountsListComponent } from './accounts-list/accounts-list.component';
+import { PostsListComponent } from './posts-list/posts-list.component';
 
 @NgModule({
   declarations: [
-    MenuComponent,
-    LogoutButtonComponent
+    AccountsListComponent,
+    PostsListComponent
   ],
   imports: [
     CommonModule,
-    MenuRoutingModule,
     SharedMaterialModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    SearchRoutingModule
   ]
 })
-export class MenuModule { }
+export class SearchModule { }

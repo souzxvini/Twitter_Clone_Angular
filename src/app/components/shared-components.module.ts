@@ -16,6 +16,7 @@ import { BlockedButton36pxComponent } from './blocked-button-36px/blocked-button
 import { ModalBlockUserComponent } from './modal-block-user/modal-block-user.component';
 import { ModalUnblockUserComponent } from './modal-unblock-user/modal-unblock-user.component';
 import { BlockedButton32pxComponent } from './blocked-button-32px/blocked-button-32px.component';
+import { ModalClearHistoricComponent } from './search-twitter-button/modal-clear-historic/modal-clear-historic.component';
 @NgModule({
   declarations:[ 
     FollowingButton32pxComponent,
@@ -33,6 +34,7 @@ import { BlockedButton32pxComponent } from './blocked-button-32px/blocked-button
     MobileFooterNavComponent,
     ModalBlockUserComponent,
     ModalUnblockUserComponent,
+    ModalClearHistoricComponent,
   ],
   imports: [
     CommonModule,

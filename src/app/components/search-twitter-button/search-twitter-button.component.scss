@@ -1,38 +1,22 @@
 .searchButtonHeader {
-  display: flex;
   width: 100%;
-  height: 6vh;
+  height: 100%;
   position: sticky;
   top: 0;
-  justify-content: center;
-  align-items: center;
 }
 
 .searchButton {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 4.5vh;
+  height: 100%;
   border-radius: 40px;
   background-color: #202327;
 }
 
 .searchButtonIcon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 17%;
-  height: 100%;
   cursor: auto;
   color: rgb(113, 118, 123) !important;
 }
 
 .searchButtonInput {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 83%;
-  height: 100%;
   color: white !important;
   cursor: text;
 }
@@ -64,4 +48,119 @@ input::placeholder {
 
 .clicked .searchButtonIcon mat-icon {
   color: rgb(29, 155, 240);
+}
+
+.filteredProfilesPanel {
+  min-height: 80px;
+  max-height: 700px;
+  width: 350px !important;
+}
+
+.exploreFilteredProfilesPanel {
+  min-height: 80px;
+  max-height: 700px;
+  width: 520px !important;
+}
+
+.searchFilteredProfilesPanel {
+  min-height: 80px;
+  max-height: 700px;
+  width: 470px !important;
+}
+
+.profile {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: 0.2S background-color ease-in-out;
+}
+
+.profile:hover {
+  background-color: rgba(212, 217, 245, 0.1) !important;
+}
+
+.searchBy {
+  font-size: 15px;
+  padding: 16px;
+  cursor: pointer;
+  transition: 0.2S background-color ease-in-out;
+  border-bottom: 1px solid rgb(56, 68, 77) !important;
+}
+
+.searchBy:hover {
+  background-color: rgba(212, 217, 245, 0.1) !important;
+}
+
+.clearAllButton {
+  font-size: 14px;
+  color: rgb(29, 155, 240);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 50px;
+}
+
+.clearAllButton:hover{
+  background-color: rgba(29, 155, 240, 0.1);
+}
+
+.selectPhotoIconButton.mat-mdc-mini-fab.mat-accent {
+  --mdc-fab-container-color: transparent !important;
+}
+
+.selectPhotoIconButton.mat-mdc-mini-fab.mat-accent:hover {
+  --mdc-fab-container-color: rgba(15, 65, 99, 0.2) !important;
+}
+
+.selectPhotoIconButton mat-icon{
+  color: rgb(29, 155, 240);
+}
+
+@media screen and (max-width:1111px) {
+  .filteredProfilesPanel {
+    width: 280px !important;
+  }
+
+  .exploreFilteredProfilesPanel {
+    width: 510px !important;
+  }
+}
+
+@media screen and (max-width:1021px) {
+  .filteredProfilesPanel {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width:687px) {
+  .exploreFilteredProfilesPanel {
+    width: calc(100vw - 170px) !important;
+  }
+
+  .searchFilteredProfilesPanel{
+    width: calc(100vw - 220px) !important;
+  }
+}
+
+@media screen and (max-width:498px) {
+  .exploreFilteredProfilesPanel {
+    max-height: calc(100vh - 53px) !important;
+    height: calc(100vh - 53px) !important;
+    width: 100vw !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .searchFilteredProfilesPanel {
+    max-height: calc(100vh - 53px) !important;
+    height: calc(100vh - 53px) !important;
+    width: 100vw !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  
+
+  .morePanelStyleBackdrop{
+    background-color: transparent !important;
+  }
 }

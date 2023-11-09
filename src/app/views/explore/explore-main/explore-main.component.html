@@ -1,0 +1,36 @@
+<div fxLayout="column" fxLayoutAlign=" stretch">
+  <!--HEADER-->
+  <div style="padding: 0px 16px; height: 53px;" fxLayout="row" fxLayoutAlign="start center">
+    <div style="width: 56px;" fxLayout="row" fxLayoutAlign="start center" *ngIf="(isMobileSize | async)">
+      <div fxFlex fxLayoutAlign="start center"  >
+        <img *ngIf="!filteredProfilesPanelState" src="../../../assets/img/profile-image.png" 
+        style="width: 30px; height: 30px; border-radius: 100%;" (click)="onButtonClick()">
+        
+        <button *ngIf="filteredProfilesPanelState" mat-mini-fab class="selectPhotoIconButton" (click)="filteredProfilesPanelState = false;">
+          <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div [style]="(isMobileSize | async) ? 'width: calc(100% - 112px); height: 27px !important;' : 'width: calc(100% - 56px); height: 43px;'">
+      <app-search-twitter-button [filteredProfilesPanelState]="filteredProfilesPanelState" (newItemEvent)="setPanelState($event);"></app-search-twitter-button>
+    </div>
+    <div style="width: 56px;" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-mini-fab class="selectPhotoIconButton blockCursor">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-tab-group fitInkBarToContent>
+    <mat-tab label="Para você"></mat-tab>
+    <mat-tab label="Assuntos do momento"></mat-tab>
+    <mat-tab label="Notícias"></mat-tab>
+    <mat-tab label="Esportes"></mat-tab>
+    <mat-tab label="Entretenimento"></mat-tab>
+  </mat-tab-group>
+
+  <div fxLayout="column" fxLayoutAlign="center center" style="padding: 16px;  color: rgb(121, 134, 147);" fxLayoutGap="30">
+    <mat-icon style="transform: scale(1.3);">error_outline</mat-icon>
+    <span style="font-size: 15px;">Desculpe, não há nada a ser exibido aqui.</span>
+  </div>
+</div>

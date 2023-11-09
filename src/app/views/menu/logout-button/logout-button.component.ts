@@ -20,7 +20,7 @@ export class LogoutButtonComponent {
   arrowStyle = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(["(max-width: 1278px)"])
+    .observe(["(max-width: 1279px)"])
     .pipe(map((result) => result.matches));
 
   constructor(
@@ -31,7 +31,7 @@ export class LogoutButtonComponent {
   ngOnInit() {
     this.cdkConnectedOverlayPositions = [{ originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'top', offsetY: -120 }];
 
-    this.breakpointObserver.observe(["(max-width: 1278px)"])
+    this.breakpointObserver.observe(["(max-width: 1279px)"])
       .subscribe((res) => {
         if (res.matches) {
           this.cdkConnectedOverlayPositions = [{ originX: 'center', originY: 'top', overlayX: 'start', overlayY: 'top', offsetY: -120, offsetX: -30 }];

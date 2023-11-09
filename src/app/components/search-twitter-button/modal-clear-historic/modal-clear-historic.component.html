@@ -1,0 +1,16 @@
+<div #modalRef fxLayout="column" style="padding: 32px">
+  <span class="smallerDialogTitleWithSubtitle">
+    Apagar todas as buscas recentes?
+  </span>
+  <span class="dialogSubtitle">
+    Não será possível desfazer essa ação, e você removerá todas as suas buscas recentes. 
+  </span>
+  <div fxLayout="column" fxLayoutGap="10">
+    <button class="blockedButton cursorPointer _44pxButton" style="padding: 12px" (click)="clearHistoric()" [disabled]="!loaded">
+      Limpar
+    </button>
+    <button class="transparentButton cursorPointer _44pxButton" style="padding: 12px" [matDialogClose]="false" [disabled]="!loaded">
+      Cancelar
+    </button>
+  </div>
+</div>

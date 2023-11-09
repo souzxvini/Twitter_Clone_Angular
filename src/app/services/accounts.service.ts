@@ -113,7 +113,7 @@ export class AccountsService {
     return this.http.get<any>(API + '/accounts/v1/user/search/byidentifier/' + username);
   }
 
-  //GET /v1/user/search/byidentifier/{identifier}
+  //GET /v1/user/search/whotofollow
   getWhoToFollowAccounts(page, size, username, isCreatorOnly?): Observable<AnotherProfileModel[]> {
     let params: HttpParams = new HttpParams();
     params = params.append('page', page);
@@ -135,6 +135,32 @@ export class AccountsService {
   //GET /v1/user/search/commonFollows
   getCommonFollows(username): Observable<any[]> {
     return this.http.get<any[]>(API + '/accounts/v1/user/search/allknownfollowers/' + username);
+  }
+
+  getProfilesByUsername(username, page, size): Observable<any[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.append('page', page);
+    params = params.append('size', size);
+    params = params.append('username', username);
+    return this.http.get<any[]>(API + '/accounts/v1/user/search/byusername', { params });
+  }
+
+  getSearchHistoric(): Observable<any[]> {
+    return this.http.get<any[]>(API + '/accounts/v1/user/search/historic');
+  }
+
+  postSearchHistoric(payload){
+    const body = JSON.stringify(payload);
+
+    return this.http.post(API + '/accounts/v1/user/search/historic', body, this.httpOptions);
+  }
+
+  clearHistoric(){
+    return this.http.delete(API + '/accounts/v1/user/search/historic/all', this.httpOptions);
+  }
+
+  deleteFromHistoric(identifier?){
+    return this.http.delete(API + '/accounts/v1/user/search/historic/' + identifier, this.httpOptions);
   }
 
   //USER-INTERACTIONS-CONTROLLER

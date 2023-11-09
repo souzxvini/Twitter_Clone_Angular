@@ -49,7 +49,6 @@ export class AnotherUserProfileComponent {
       sem precisar chamar o get para trazer as principais informações do usuario*/
       this.user = this.accountsService.getUserData();
       if (!this.user) {
-        console.log('A')
         this.getUserInformations(this.username, true);
       } else {
         this.userInformationsLoaded = true;
@@ -61,7 +60,6 @@ export class AnotherUserProfileComponent {
   }
 
   getUserInformations(username, spinner) {
-    console.log('C')
     spinner ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
     this.accountsService.getUserByIdentifier(username).subscribe({
       next: (res) => {

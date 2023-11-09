@@ -8,10 +8,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { SharedMaterialModule } from './shared/shared-material/shared-material.module';
 import { SharedComponentsModule } from './components/shared-components.module';
+import { SearchComponent } from './views/search/search.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

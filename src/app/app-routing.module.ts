@@ -13,7 +13,9 @@ const routes: Routes = [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', loadChildren: () => import('../app/views/home/home.module').then((m) => m.HomeModule) },
       { path: 'profile', loadChildren: () => import('../app/views/profile/profile.module').then((m) => m.ProfileModule) },
-      { path: 'connect_people', loadChildren: () => import('../app/views/connect/connect.module').then((m) => m.ConnectModule) }
+      { path: 'connect_people', loadChildren: () => import('../app/views/connect/connect.module').then((m) => m.ConnectModule) },
+      { path: 'explore', loadChildren: () => import('../app/views/explore/explore.module').then((m) => m.ExploreModule) },
+      { path: 'search', loadChildren: () => import('../app/views/search/search.module').then((m) => m.SearchModule) },
     ]
   },
   //Pagina inicial

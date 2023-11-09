@@ -61,7 +61,6 @@ export class MenuComponent implements OnInit {
   }
 
   getLoggedUserAccount() {
-    console.log('a');
     this.userInformationsLoaded = false;
     this.accountsService.getLoggedUserAccount().subscribe({
       next: (res) => {

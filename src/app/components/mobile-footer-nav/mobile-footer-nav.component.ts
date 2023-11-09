@@ -15,4 +15,8 @@ export class MobileFooterNavComponent {
   redirectHome(){
     this.router.navigate(['home']);
   }
+
+  redirectExplore(){
+    this.router.navigate(['explore']);
+  }
 }

@@ -37,7 +37,6 @@ export class FollowingAndFollowersComponent {
 
     //ao carregar o componente pela primeira vez
     this.activatedRoute.params.subscribe(() => {
-      console.log("entrou")
       this.user = this.accountsService.getUserData();
       if (!this.user) {
         this.getUserByIdentifier(this.username, true);
@@ -51,7 +50,6 @@ export class FollowingAndFollowersComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (!this.userInformationsLoaded) {
-          console.log(this.username)
           this.getUserByIdentifier(this.username, true);
         }
       }

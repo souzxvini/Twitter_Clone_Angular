@@ -50,6 +50,11 @@ body {
   --mdc-circular-progress-active-indicator-color: rgb(26, 140, 216) !important;
 }
 
+//Progress bar
+.mdc-linear-progress__bar-inner {
+  border-color: rgb(26, 140, 216) !important;
+}
+
 //cor do background do mat-form-field-fill
 .mdc-text-field--filled {
   background-color: transparent !important;
@@ -498,6 +503,7 @@ button {
 
 .selectPhotoIconButton.mat-mdc-mini-fab.mat-accent {
   --mdc-fab-container-color: rgba(22, 26, 34, 0.658) !important;
+  transition: 0.2S ease-in-out;
 }
 
 .selectPhotoIconButton.mat-mdc-mini-fab.mat-accent:hover {
@@ -563,6 +569,10 @@ button {
 
 .transparentButton:hover {
   background-color: rgba(255, 255, 255, 0.082) !important;
+}
+
+.transparentButton[disabled]{
+  opacity: 0.5;
 }
 
 .whiteButton {
@@ -637,6 +647,10 @@ button {
   padding: 0 16px;
   font-size: 15px !important;
   letter-spacing: none;
+}
+
+.blockedButton[disabled]{
+  opacity: 0.5;
 }
 
 .formFieldError {
@@ -978,7 +992,9 @@ button {
 }
 
 .mat-mdc-tab {
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out !important;
+  padding-right: 12px !important;
+  padding-left: 12px !important;
 }
 
 .mat-mdc-tab:hover {
@@ -1040,6 +1056,28 @@ button {
   border-right: 7px solid transparent;
   border-top: 7px solid black;
   filter: drop-shadow(0px 0px 0.4em rgba(255, 255, 255, 0.5));
+}
+
+//Buscar Perfis
+.filteredProfilesPanel {
+  background-color: black;
+  border-radius: 12px;
+  box-shadow: rgba(255, 255, 255, 0.27) 0px 0px 0.3em, rgba(255, 255, 255, 0.1) 0px 0.5em 1em;
+  overflow-y: auto;
+}
+
+.exploreFilteredProfilesPanel {
+  background-color: black;
+  border-radius: 12px;
+  box-shadow: rgba(255, 255, 255, 0.27) 0px 0px 0.3em, rgba(255, 255, 255, 0.1) 0px 0.5em 1em;
+  overflow-y: auto;
+}
+
+.searchFilteredProfilesPanel {
+  background-color: black;
+  border-radius: 12px;
+  box-shadow: rgba(255, 255, 255, 0.27) 0px 0px 0.3em, rgba(255, 255, 255, 0.1) 0px 0.5em 1em;
+  overflow-y: auto;
 }
 
 @media screen and (max-width:1111px) {

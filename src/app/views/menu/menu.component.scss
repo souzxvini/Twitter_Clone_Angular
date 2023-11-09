@@ -110,7 +110,7 @@
 
 .fullContainer {
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   display: flex;
   overflow-y: auto;
 }
@@ -275,6 +275,10 @@
   .mainContainer {
     width: 100%;
     min-width: 100%;
+  }
+
+  .fullContainer {
+    height: calc(100vh - 53px);
   }
 
 }
