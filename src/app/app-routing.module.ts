@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, provideRouter, withViewTransitions } from '@angular/router';
 import { MenuComponent } from './views/menu/menu.component';
 import { authGuard } from './guards/auth.guard';
 
@@ -30,6 +30,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    provideRouter([],
+      withViewTransitions({ skipInitialTransition: false })
+    )
+  ],
 })
 export class AppRoutingModule { }

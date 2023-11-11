@@ -1,8 +1,10 @@
-<div *ngIf="!userInformationsLoaded" fxLayout="row" fxLayoutAlign="center center" class="profileContainer">
+@if (!userInformationsLoaded) {
+<div fxLayout="row" fxLayoutAlign="center center" class="profileContainer">
   <mat-spinner [diameter]="30"></mat-spinner>
 </div>
-
-<div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign="space-between stretch" class="profileContainer">
+}
+@else {
+<div fxLayout="column" fxLayoutAlign="space-between stretch" class="profileContainer">
   <div style="height: 100%; width: 100%;">
     <div id="bluredHeaderStyle" class="headerTabs" fxLayout="column" fxLayoutAlign=" stretch" class="bluredHeaderStyle">
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30" style="padding: 8px 12px;">
@@ -31,4 +33,4 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-
+}

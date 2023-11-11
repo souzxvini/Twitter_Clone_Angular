@@ -1,23 +1,35 @@
-<div *ngIf="!userInformationsLoaded" fxLayout="row" fxLayoutAlign="center center" class="profileContainer">
-  <mat-spinner [diameter]="30"></mat-spinner>
-</div>
-
-<div *ngIf="userInformationsLoaded" fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
-  <div id="bluredHeaderStyle" class="header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
-    <button mat-mini-fab (click)="location.back()">
-      <mat-icon>keyboard_backspace</mat-icon>
-    </button>
-    <div fxLayout="column" fxLayoutGap="4">
-      <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
-        {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
-          src="../../../../assets/img/twitter-verified.png">
-      </span>
-      <span class="headerUserPosts">
-        {{ user.tweetsCount }} posts
-      </span>
-    </div>
+@if(!userInformationsLoaded){
+  <div fxLayout="row" fxLayoutAlign="center center" class="profileContainer">
+    <mat-spinner [diameter]="30"></mat-spinner>
   </div>
-  <app-user-has-blocked-logged-user *ngIf="user.hasBlockedMe" [user]="user"></app-user-has-blocked-logged-user>
-  <app-unblocked-user *ngIf="!user.isBlockedByMe && !user.hasBlockedMe" [user]="user"></app-unblocked-user>
-  <app-blocked-user *ngIf="user.isBlockedByMe && !user.hasBlockedMe" [user]="user"></app-blocked-user>
-</div>
+}@else {
+  <div fxLayout="column" fxLayoutAlign=" stretch" class="profileContainer">
+    <div id="bluredHeaderStyle" class="header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30">
+      <button mat-mini-fab (click)="location.back()">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+      <div fxLayout="column" fxLayoutGap="4">
+        <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
+          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+            src="../../../../assets/img/twitter-verified.png">
+        </span>
+        <span class="headerUserPosts">
+          {{ user.tweetsCount }} posts
+        </span>
+      </div>
+    </div>
+    @if(user.hasBlockedMe){
+      <app-user-has-blocked-logged-user [user]="user"></app-user-has-blocked-logged-user>
+    }@else {
+      @if(user.isBlockedByMe){
+        <app-blocked-user [user]="user"></app-blocked-user>
+      }@else {
+        <app-unblocked-user [user]="user"></app-unblocked-user>
+      }
+    }
+  </div>
+}
+
+
+
+
