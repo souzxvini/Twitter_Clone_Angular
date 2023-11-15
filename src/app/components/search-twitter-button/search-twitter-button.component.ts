@@ -19,12 +19,14 @@ export class SearchTwitterButtonComponent {
   @ViewChild('filteredProfilesPanel') filteredProfilesPanel!: ElementRef<HTMLDivElement>;
   @Input() filteredProfilesPanelState: boolean;
   @Output() newItemEvent = new EventEmitter<boolean>();
+  @Input() searchvalue: string;
 
   filteredProfiles: any[] = [];
   searchHistoric: any[] = [];
 
   searchInputValue = null;
   searchInputSubject = new Subject<string>();
+  latestSearchedText: string;
 
   cdkConnectedOverlayPositions: ConnectedPosition[] = [{ originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top' }];
 
@@ -48,11 +50,17 @@ export class SearchTwitterButtonComponent {
       debounceTime(350),
       switchMap(value => of(value))
     ).subscribe((value) => {
+      this.latestSearchedText = value;
       this.getProfilesByUsername(value);
     });
   }
 
   ngOnInit() {
+    if(this.searchvalue){
+      this.searchInputValue = this.searchvalue;
+      this.latestSearchedText = this.searchvalue;
+      this.getProfilesByUsername(this.searchInputValue);
+    }
     this.getSearchHistoric();
   }
 
@@ -70,7 +78,6 @@ export class SearchTwitterButtonComponent {
 
     // Adicione uma nova classe à div searchButton quando ela for clicada
     this.searchButtonRef.nativeElement.classList.add('clicked');
-
     this.newItemEvent.emit(true);
   }
 
@@ -117,27 +124,30 @@ export class SearchTwitterButtonComponent {
     }
   }
 
-  searchByText(){
-    this.router.navigate(['search', this.searchInputValue]);
+  searchByText(searchByText?: string){
+    this.filteredProfilesPanelState = false;
+    this.postSearchHistoric(null, searchByText ? searchByText : this.latestSearchedText);
+    this.router.navigate(['search', searchByText ? searchByText : this.latestSearchedText]);
   }
 
   getProfilesByUsername(searchInputValue) {
     this.loadedFilteredUsers = false;
     this.accountsService.getProfilesByUsername(searchInputValue, 0, 12).subscribe({
       next: (res) => {
-        if (this.searchInputValue) {
-          this.filteredProfiles = res;
-        } else {
-          this.filteredProfiles = [];
-        }
-        this.loadedFilteredUsers = true;
-        this.loaded = true;
+        setTimeout(() => {
+          if (this.searchInputValue) {
+            this.filteredProfiles = res;
+          } else {
+            this.filteredProfiles = [];
+          }
+          this.loadedFilteredUsers = true;
+          this.loaded = true;
+        }, 300);
       }
     })
   }
 
   postSearchHistoric(username: string, text: string) {
-
     const payload = {
       targetUserIdentifier: username ? username : null,
       text: text ? text : null
@@ -186,6 +196,7 @@ export class SearchTwitterButtonComponent {
     this.searchInputValue = '';
     this.filteredProfiles = [];
     this.postSearchHistoric(username, null);
+    this.accountsService.clearUserData();
     this.router.navigate(['profile', username]);
   }
 

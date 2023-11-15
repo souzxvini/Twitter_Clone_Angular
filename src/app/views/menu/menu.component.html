@@ -57,7 +57,9 @@
               expand_more
             </mat-icon>
           </div>
-          <div class="expansionPanelBody" *ngIf="settingsAndPrivacyIsClicked" fxLayout="column"
+
+          @if(settingsAndPrivacyIsClicked) {
+            <div class="expansionPanelBody" fxLayout="column"
             fxLayoutAlign="start stretch">
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
               <mat-icon>settings</mat-icon>
@@ -72,110 +74,118 @@
               <span>Log out</span>
             </div>
           </div>
+          }
+          
         </div>
       </div>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="padding: 16px; width: 100vw; height: 100vh;" *ngIf="!userInformationsLoaded"
-      fxLayoutAlign="center center">
-      <img src="../../../../assets/img/twitter-x-logo.png" style="width: 50px; height: 50px; opacity: 0.6;">
-    </div>
-    <div class="fullContainer" *ngIf="userInformationsLoaded">
-      <div class="menuContainer">
-        <div class="menuDiv">
-          <div class="menuHeaderLogo" fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.lt-lg="center center">
-            <img src="../../../../assets/img/twitter-x-logo.png" style="width: 25px; height: 25px;">
-          </div>
-          <div class="sideNavMenu" fxLayout="column" fxLayoutAlign="space-between stretch">
-            <nav class="sideNavMenuOptions" fxLayout="column" fxLayoutAlign="center stretch"
-              fxLayoutAlign.lt-lg="center center" fxLayoutGap="3">
-              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
-                fxLayoutAlign.lt-lg="center center">
-                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
-                  routerLink="/home" routerLinkActive="sideNavMenuOptionActive">
-                  <mat-icon>home</mat-icon>
-                  <p>Página Inicial</p>
+    @if(!userInformationsLoaded) {
+      <div style="padding: 16px; width: 100vw; height: 100vh;"
+        fxLayoutAlign="center center">
+        <img src="../../../../assets/img/twitter-x-logo.png" style="width: 50px; height: 50px; opacity: 0.6;">
+      </div>
+    }
+    @else {
+      <div class="fullContainer">
+        <div class="menuContainer">
+          <div class="menuDiv">
+            <div class="menuHeaderLogo" fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.lt-lg="center center">
+              <img src="../../../../assets/img/twitter-x-logo.png" style="width: 25px; height: 25px;">
+            </div>
+            <div class="sideNavMenu" fxLayout="column" fxLayoutAlign="space-between stretch">
+              <nav class="sideNavMenuOptions" fxLayout="column" fxLayoutAlign="center stretch"
+                fxLayoutAlign.lt-lg="center center" fxLayoutGap="3">
+                <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                  fxLayoutAlign.lt-lg="center center">
+                  <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                    routerLink="/home" routerLinkActive="sideNavMenuOptionActive">
+                    <mat-icon>home</mat-icon>
+                    <p>Página Inicial</p>
+                  </div>
                 </div>
-              </div>
-
-              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
-                fxLayoutAlign.lt-lg="center center">
-                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
-                  routerLink="/explore" routerLinkActive="sideNavMenuOptionActive">
-                  <mat-icon>search</mat-icon>
-                  <p>Explorar</p>
+  
+                <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                  fxLayoutAlign.lt-lg="center center">
+                  <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                    routerLink="/explore" routerLinkActive="sideNavMenuOptionActive">
+                    <mat-icon>search</mat-icon>
+                    <p>Explorar</p>
+                  </div>
                 </div>
-              </div>
-
-              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
-                fxLayoutAlign.lt-lg="center center">
-                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
-                  routerLink="/notifications" routerLinkActive="sideNavMenuOptionActive">
-                  <mat-icon>notifications_none</mat-icon>
-                  <p>Notificações</p>
+  
+                <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                  fxLayoutAlign.lt-lg="center center">
+                  <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                    routerLink="/notifications" routerLinkActive="sideNavMenuOptionActive">
+                    <mat-icon>notifications_none</mat-icon>
+                    <p>Notificações</p>
+                  </div>
                 </div>
-              </div>
-
-              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
-                fxLayoutAlign.lt-lg="center center">
-                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
-                  routerLink="/messages" routerLinkActive="sideNavMenuOptionActive">
-                  <mat-icon>mail_outline</mat-icon>
-                  <p>Mensagens</p>
+  
+                <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                  fxLayoutAlign.lt-lg="center center">
+                  <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                    routerLink="/messages" routerLinkActive="sideNavMenuOptionActive">
+                    <mat-icon>mail_outline</mat-icon>
+                    <p>Mensagens</p>
+                  </div>
                 </div>
-              </div>
-
-              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
-                fxLayoutAlign.lt-lg="center center">
-                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
-                  routerLink="/messages" routerLinkActive="sideNavMenuOptionActive">
-                  <mat-icon>bookmark_border</mat-icon>
-                  <p>Itens Salvos</p>
+  
+                <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                  fxLayoutAlign.lt-lg="center center">
+                  <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                    routerLink="/messages" routerLinkActive="sideNavMenuOptionActive">
+                    <mat-icon>bookmark_border</mat-icon>
+                    <p>Itens Salvos</p>
+                  </div>
                 </div>
-              </div>
-
-              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
-                fxLayoutAlign.lt-lg="center center">
-                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
-                  routerLink="/profile" routerLinkActive="sideNavMenuOptionActive">
-                  <mat-icon>person_outline</mat-icon>
-                  <p>Perfil</p>
+  
+                <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                  fxLayoutAlign.lt-lg="center center">
+                  <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20"
+                    routerLink="/profile" routerLinkActive="sideNavMenuOptionActive">
+                    <mat-icon>person_outline</mat-icon>
+                    <p>Perfil</p>
+                  </div>
                 </div>
-              </div>
-
-              <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
-                fxLayoutAlign.lt-lg="center center">
-                <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20">
-                  <mat-icon>more_horiz</mat-icon>
-                  <p>Mais</p>
+  
+                <div style="padding: 4px;" fxLayout="column" fxLayoutAlign="start start"
+                  fxLayoutAlign.lt-lg="center center">
+                  <div class="sideNavMenuOption" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20">
+                    <mat-icon>more_horiz</mat-icon>
+                    <p>Mais</p>
+                  </div>
                 </div>
-              </div>
-
-              <!--botão de fazer novo tweet para versão web-->
-              <div style="padding: 16px;" fxLayout="column" fxLayoutAlign="start stretch" fxHide.lt-lg>
-                <button class="blueButton _52pxButton cursorPointer">
-                  <span>Postar</span>
+  
+                <!--botão de fazer novo tweet para versão web-->
+                <div style="padding: 16px;" fxLayout="column" fxLayoutAlign="start stretch" fxHide.lt-lg>
+                  <button class="blueButton _52pxButton cursorPointer">
+                    <span>Postar</span>
+                  </button>
+                </div>
+  
+                <!--botão de fazer novo tweet para versão mobile-->
+                <button class="postTweetMobileButton" mat-fab fxHide.gt-md>
+                  <mat-icon>add</mat-icon>
                 </button>
-              </div>
-
-              <!--botão de fazer novo tweet para versão mobile-->
-              <button class="postTweetMobileButton" mat-fab fxHide.gt-md>
-                <mat-icon>add</mat-icon>
-              </button>
-            </nav>
-
-            <app-logout-button [user]="user"></app-logout-button>
+              </nav>
+  
+              <app-logout-button [user]="user"></app-logout-button>
+            </div>
           </div>
         </div>
+        <main class="mainContainer">
+          <router-outlet></router-outlet>
+        </main>
+        <div class="exploreContainer">
+          <router-outlet name="secondary"></router-outlet>
+        </div>
       </div>
-      <main class="mainContainer">
-        <router-outlet></router-outlet>
-      </main>
-      <div class="exploreContainer">
-        <router-outlet name="secondary"></router-outlet>
-      </div>
-    </div>
+    }
+    
+    
     <app-mobile-footer-nav></app-mobile-footer-nav>
   </mat-sidenav-content>
 </mat-sidenav-container>

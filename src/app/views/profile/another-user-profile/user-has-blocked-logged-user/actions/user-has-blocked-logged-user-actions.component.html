@@ -8,20 +8,26 @@
   [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="morePanelState = !morePanelState"
   [cdkConnectedOverlayPositions]="[{originX: 'start',originY: 'bottom',overlayX: 'end',overlayY: 'top'}]">
   <div class="morePanel mat-elevation-z8" fxLayout="column">
-    <div *ngIf="!user.isBlockedByMe" class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="openBlockUserModal(user)">
-      <mat-icon>lock_open</mat-icon>
-      <span style="word-break: break-all;">Bloquear {{"@" + user.username}}</span>
-    </div>
-
-    <div *ngIf="user.isBlockedByMe" class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="openUnblockUserModal(user)">
-      <mat-icon>lock_open</mat-icon>
-      <span style="word-break: break-all;">Desbloquear {{"@" + user.username}}</span>
-    </div>
-
-    <div style="padding: 12px 16px" *ngIf="isHandset$ | async">
-      <div class="transparentButton _44pxButton cursorPointer" (click)="morePanelState = !morePanelState">
-        <strong>Cancelar</strong>
+    @if(user.isBlockedByMe){
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="openUnblockUserModal(user)">
+        <mat-icon>lock_open</mat-icon>
+        <span style="word-break: break-all;">Desbloquear {{"@" + user.username}}</span>
       </div>
-    </div>
+    }
+    @else {
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="openBlockUserModal(user)">
+        <mat-icon>lock_open</mat-icon>
+        <span style="word-break: break-all;">Bloquear {{"@" + user.username}}</span>
+      </div>
+    }
+
+    @if(isHandset$ | async){
+      <div style="padding: 12px 16px">
+        <div class="transparentButton _44pxButton cursorPointer" (click)="morePanelState = !morePanelState">
+          <strong>Cancelar</strong>
+        </div>
+      </div>
+    }
+    
   </div>
 </ng-template>

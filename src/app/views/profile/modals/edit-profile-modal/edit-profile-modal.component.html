@@ -26,10 +26,13 @@
               <mat-icon>add_a_photo</mat-icon>
             </button>
 
-            <button mat-mini-fab class="selectPhotoIconButton" *ngIf="backgroundPhotoUrl"
-              (click)="backgroundPhotoUrl = null">
-              <mat-icon>close</mat-icon>
-            </button>
+            @if(backgroundPhotoUrl){
+              <button mat-mini-fab class="selectPhotoIconButton"
+                (click)="backgroundPhotoUrl = null">
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+            
           </div>
         </div>
       </div>
@@ -58,10 +61,13 @@
               {{editProfileForm.controls['firstName'].value ? editProfileForm.controls['firstName'].value.length : '0'}}/50
             </mat-hint>
           </mat-form-field>
-          <small class="formFieldError"
-            *ngIf="editProfileForm.controls['firstName'].hasError('required') && editProfileForm.controls['firstName'].touched">
-            O nome não pode estar em branco
-          </small>
+          
+          @if(editProfileForm.controls['firstName'].hasError('required') && editProfileForm.controls['firstName'].touched){
+            <small class="formFieldError">
+              O nome não pode estar em branco
+            </small>
+          }
+          
         </div>
 
         <mat-form-field class="textAreaFormField noInvisibleDivFormField">

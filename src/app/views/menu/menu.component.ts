@@ -64,8 +64,10 @@ export class MenuComponent implements OnInit {
     this.userInformationsLoaded = false;
     this.accountsService.getLoggedUserAccount().subscribe({
       next: (res) => {
-        if (res) this.user = res;
-        this.userInformationsLoaded = true;
+        setTimeout(() => {
+          if (res) this.user = res;
+          this.userInformationsLoaded = true;
+        }, 500)
       },
       error: () => {
         this.userInformationsLoaded = true;

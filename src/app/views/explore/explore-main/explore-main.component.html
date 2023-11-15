@@ -1,16 +1,22 @@
 <div fxLayout="column" fxLayoutAlign=" stretch">
   <!--HEADER-->
   <div style="padding: 0px 16px; height: 53px;" fxLayout="row" fxLayoutAlign="start center">
-    <div style="width: 56px;" fxLayout="row" fxLayoutAlign="start center" *ngIf="(isMobileSize | async)">
-      <div fxFlex fxLayoutAlign="start center"  >
-        <img *ngIf="!filteredProfilesPanelState" src="../../../assets/img/profile-image.png" 
-        style="width: 30px; height: 30px; border-radius: 100%;" (click)="onButtonClick()">
-        
-        <button *ngIf="filteredProfilesPanelState" mat-mini-fab class="selectPhotoIconButton" (click)="filteredProfilesPanelState = false;">
-          <mat-icon>keyboard_backspace</mat-icon>
-        </button>
+    @if (isMobileSize | async) {
+      <div style="width: 56px;" fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex fxLayoutAlign="start center" >
+          @if(filteredProfilesPanelState) {
+            <button mat-mini-fab class="selectPhotoIconButton" (click)="filteredProfilesPanelState = false;">
+              <mat-icon>keyboard_backspace</mat-icon>
+            </button>
+          }
+          @else {
+            <img src="../../../assets/img/profile-image.png" 
+          style="width: 30px; height: 30px; border-radius: 100%;" (click)="onButtonClick()">
+          }
+        </div>
       </div>
-    </div>
+    }
+    
     <div [style]="(isMobileSize | async) ? 'width: calc(100% - 112px); height: 27px !important;' : 'width: calc(100% - 56px); height: 43px;'">
       <app-search-twitter-button [filteredProfilesPanelState]="filteredProfilesPanelState" (newItemEvent)="setPanelState($event);"></app-search-twitter-button>
     </div>

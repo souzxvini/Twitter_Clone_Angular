@@ -24,7 +24,9 @@
 
       <mat-tab-group fitInkBarToContent #tabGroup (selectedTabChange)="tabChange(tabGroup.selectedIndex)">
         <mat-tab label="Seguidores verificados"></mat-tab>
-        <mat-tab label="Seguidores que você conhece" *ngIf="!verifyIfItsLoggedUser(router.url)"></mat-tab>
+        @if(!verifyIfItsLoggedUser(router.url)){
+          <mat-tab label="Seguidores que você conhece"></mat-tab>
+        }
         <mat-tab label="Seguidores"></mat-tab>
         <mat-tab label="Seguindo"></mat-tab>
       </mat-tab-group>

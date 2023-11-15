@@ -11,7 +11,11 @@
       <div [style]="(isMobileSize | async) && !filteredProfilesPanelState ? 'width: calc(100% - 112px); height: 27px !important;' :
       (isMobileSize | async) && filteredProfilesPanelState ? 'width: calc(100% - 56px); height: 27px;' : 
       'width: calc(100% - 56px); height: 43px;'">
-        <app-search-twitter-button [filteredProfilesPanelState]="filteredProfilesPanelState" (newItemEvent)="setPanelState($event);"></app-search-twitter-button>
+        <app-search-twitter-button 
+        [searchvalue]="searchvalue"
+        [filteredProfilesPanelState]="filteredProfilesPanelState" 
+        (newItemEvent)="setPanelState($event);">
+      </app-search-twitter-button>
       </div>
       <div style="width: 56px;" fxLayout="row" fxLayoutAlign="end center" [fxHide]="(isMobileSize | async) && filteredProfilesPanelState">
         <button mat-mini-fab class="selectPhotoIconButton blockCursor">
@@ -20,7 +24,7 @@
       </div>
     </div>
   
-    <mat-tab-group fitInkBarToContent>
+    <mat-tab-group fitInkBarToContent #tabGroup (selectedTabChange)="tabChange(tabGroup.selectedIndex)">
       <mat-tab label="Principais"></mat-tab>
       <mat-tab label="Mais recentes"></mat-tab>
       <mat-tab label="Pessoas"></mat-tab>

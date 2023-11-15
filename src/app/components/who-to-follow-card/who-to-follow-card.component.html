@@ -1,32 +1,37 @@
-<div *ngIf="!loaded" class="whoToFollowCard" style="height: 200px" fxLayoutAlign="center center">
-  <mat-spinner [diameter]="30"></mat-spinner>
-</div>
-
-<div *ngIf="loaded && whoToFollowAccounts.length > 0" class="whoToFollowCard">
-  <div class="whoToFollowCardTitle">
-    <span>Quem seguir</span>
+@if(!loaded){
+  <div class="whoToFollowCard" style="height: 200px" fxLayoutAlign="center center">
+    <mat-spinner [diameter]="30"></mat-spinner>
   </div>
-
-  <div fxLayout="column">
-    <div class="whoToFollowAccountButton cursorPointer" *ngFor="let profile of whoToFollowAccounts"
-      (click)="redirectToProfile(profile)">
-      <app-follow-profile-button [profile]="profile" [profilesList]="whoToFollowAccounts">
-      </app-follow-profile-button>
+}
+@else {
+  @if(whoToFollowAccounts.length > 0){
+    <div class="whoToFollowCard">
+      <div class="whoToFollowCardTitle">
+        <span>Quem seguir</span>
+      </div>
+    
+      <div fxLayout="column">
+        @for (profile of whoToFollowAccounts; track $index) {
+          <div class="whoToFollowAccountButton cursorPointer" (click)="redirectToProfile(profile)">
+            <app-follow-profile-button [profile]="profile" [profilesList]="whoToFollowAccounts">
+            </app-follow-profile-button>
+          </div>
+        }
+      </div>
+    
+      <div class="whoToFollowCardFooter" (click)="redirect()">
+        <span>Mostrar mais</span>
+      </div>
     </div>
-  </div>
+  }
+  @else {
+    <div class="noAccountsCard" fxLayout="column" fxLayoutAlign="space-between start" >
+      <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="padding: 16px" fxLayoutGap="30">
+        <mat-icon>error_outline</mat-icon>
+        <span class="message">Não existem mais sugestões de contas para você seguir! </span>
+      </div>
+    </div>
+  }
+}
 
-  <div class="whoToFollowCardFooter" (click)="redirect()">
-    <span>Mostrar mais</span>
-  </div>
-</div>
 
-<div *ngIf="loaded && whoToFollowAccounts.length == 0" class="noAccountsCard" fxLayout="column"
-  fxLayoutAlign="space-between start" >
-  <div class="whoToFollowCardTitle" fxFlex="20">
-    <span>Quem Seguir</span>
-  </div>
-  <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="padding: 16px" fxLayoutGap="30">
-    <mat-icon>error_outline</mat-icon>
-    <span class="message">Não existem mais sugestões de contas para você seguir! </span>
-  </div>
-</div>

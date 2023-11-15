@@ -63,8 +63,10 @@ export class AnotherUserProfileComponent {
     spinner ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
     this.accountsService.getUserByIdentifier(username).subscribe({
       next: (res) => {
-        this.user = res;
-        this.userInformationsLoaded = true;
+        setTimeout(() => {
+          this.user = res;
+          this.userInformationsLoaded = true;
+        }, 300)
       },
       error: () => {
         this.userInformationsLoaded = true;

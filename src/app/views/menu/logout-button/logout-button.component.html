@@ -8,9 +8,11 @@
     <div fxLayout="row" fxLayoutAlign="start center">
       <span [style]="user.isVerified ? 'max-width: calc(100% - 18px)' : 'max-width:100%'"
         class="userFirstName">{{user.firstName}}</span>
-      <div style="width: 18px;" *ngIf="user.isVerified">
-        <img style="width: 18px; height: 18px;" src="../../../../assets/img/twitter-verified.png">
-      </div>
+        @if(user.isVerified){
+          <div style="width: 18px;">
+            <img style="width: 100%; height: 18px;" src="../../../../assets/img/twitter-verified.png">
+          </div>
+        }
     </div>
     <div class="userUsername">
       {{"@" + user.username}}

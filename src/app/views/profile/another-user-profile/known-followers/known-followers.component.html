@@ -1,46 +1,39 @@
-<div *ngIf="knownFollowers.length == 0" class="emptyKnownFollowers">
-  <span>
-    Não é seguido por ninguém que você segue
-  </span>
-</div>
-
-<div *ngIf="knownFollowers.length == 1" class="knownFollowersText cursorPointer" fxLayout="row" fxLayoutAlign="start center"
-  fxLayoutGap="5" (click)="redirectToKnownFollowers()">
-  <div [style]="setProfilePhoto(knownFollowers[0].profilePhotoUrl)" class="profilePicture"></div>
-  <span>Seguido por {{knownFollowers[0].firstName}}</span>
-</div>
-
-<div *ngIf="knownFollowers.length == 2" class="knownFollowersText cursorPointer" fxLayout="row" fxLayoutAlign="start center"
-  fxLayoutGap="5" (click)="redirectToKnownFollowers()">
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <div [style]="setProfilePhoto(knownFollowers[0].profilePhotoUrl)" class="profilePicture firstPhoto"></div>
-    <div [style]="setProfilePhoto(knownFollowers[1].profilePhotoUrl)" class="profilePicture secondPhoto"
-      style=" margin-left: -10px; z-index: 0;"></div>
+@if(knownFollowers.length == 0){
+  <div class="emptyKnownFollowers">
+    <span>
+      Não é seguido por ninguém que você segue
+    </span>
   </div>
-  <span>Seguido por {{knownFollowers[0].firstName}} e {{knownFollowers[1].firstName}}</span>
-</div>
+}
+@else if(knownFollowers.length > 0){
+  <div class="knownFollowersText cursorPointer" fxLayout="row" fxLayoutAlign="start center"
+    fxLayoutGap="5" (click)="redirectToKnownFollowers()">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      @if(knownFollowers.length > 0){
+        <div [style]="setProfilePhoto(knownFollowers[0].profilePhotoUrl)" class="profilePicture firstPhoto"></div>
+      }
+      @if(knownFollowers.length > 1){
+        <div [style]="setProfilePhoto(knownFollowers[1].profilePhotoUrl)" class="profilePicture secondPhoto"></div>
+      }
+      @if(knownFollowers.length > 2){
+        <div [style]="setProfilePhoto(knownFollowers[2].profilePhotoUrl)" class="profilePicture thirdPhoto"></div>
+      }
+    </div>
 
-<div *ngIf="knownFollowers.length == 3" class="knownFollowersText cursorPointer" fxLayout="row" fxLayoutAlign="start center"
-  fxLayoutGap="5" (click)="redirectToKnownFollowers()">
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <div [style]="setProfilePhoto(knownFollowers[0].profilePhotoUrl)" class="profilePicture firstPhoto"></div>
-    <div [style]="setProfilePhoto(knownFollowers[1].profilePhotoUrl)" class="profilePicture secondPhoto"></div>
-    <div [style]="setProfilePhoto(knownFollowers[2].profilePhotoUrl)" class="profilePicture thirdPhoto"></div>
+    @if(knownFollowers.length == 1){
+      <span>Seguido por {{knownFollowers[0].firstName}}</span>
+    }
+    @if(knownFollowers.length == 2){
+      <span>Seguido por {{knownFollowers[0].firstName}} e {{knownFollowers[1].firstName}}</span>
+    }
+    @if(knownFollowers.length == 3){
+      <span>Seguido por {{knownFollowers[0].firstName}}, {{knownFollowers[1].firstName}} e {{knownFollowers[2].firstName}}</span>
+    }
+    @if(knownFollowers.length > 3){
+      <span>
+        Seguido por {{knownFollowers[0].firstName}}, {{knownFollowers[1].firstName}} e outros {{knownFollowers.length - 2}}
+        que você segue
+      </span>
+    }
   </div>
-  <span>
-    Seguido por {{knownFollowers[0].firstName}}, {{knownFollowers[1].firstName}} e {{knownFollowers[2].firstName}}
-  </span>
-</div>
-
-<div *ngIf="knownFollowers.length > 3" class="knownFollowersText cursorPointer" fxLayout="row" fxLayoutAlign="start center"
-  fxLayoutGap="5" (click)="redirectToKnownFollowers()">
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <div [style]="setProfilePhoto(knownFollowers[0].profilePhotoUrl)" class="profilePicture firstPhoto"></div>
-    <div [style]="setProfilePhoto(knownFollowers[1].profilePhotoUrl)" class="profilePicture secondPhoto"></div>
-    <div [style]="setProfilePhoto(knownFollowers[2].profilePhotoUrl)" class="profilePicture thirdPhoto"></div>
-  </div>
-  <span>
-    Seguido por {{knownFollowers[0].firstName}}, {{knownFollowers[1].firstName}} e outros {{knownFollowers.length - 2}}
-    que você segue
-  </span>
-</div>
+}
