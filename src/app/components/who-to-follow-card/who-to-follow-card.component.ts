@@ -3,6 +3,7 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnotherProfileModel } from 'src/app/models/another-profile-model';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-who-to-follow-card',
@@ -21,7 +22,9 @@ export class WhoToFollowCardComponent {
   constructor(
     private accountsService: AccountsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private globalVariablesService: GlobalVariablesService
+
   ) { }
 
   ngOnInit() {
@@ -32,13 +35,13 @@ export class WhoToFollowCardComponent {
     /*Se cair nesse método, quer dizer que o usuário seguiu alguém da tela seguidores/seguindo...,
     então irá verificar se o usuário seguido está na lista de perfis sugeridos mostrados no card, se sim, 
     vai atualizar o botão de seguindo/seguir + informações*/
-    this.accountsService.followedUserWhileOnFollowingAndFollowersChange$.subscribe(() => {
+    this.globalVariablesService.followedUserWhileOnFollowingAndFollowersChange$.subscribe(() => {
       if(this.loaded){
-        var profile = this.whoToFollowAccounts.findIndex(x => x.username == this.accountsService.getUserData().username);
+        var profile = this.whoToFollowAccounts.findIndex(x => x.username == this.globalVariablesService.getAnotherUser().username);
         if (profile !== -1){
-          this.whoToFollowAccounts[profile] = { ...this.whoToFollowAccounts[profile], ...this.accountsService.getUserData()}
+          this.whoToFollowAccounts[profile] = { ...this.whoToFollowAccounts[profile], ...this.globalVariablesService.getAnotherUser()}
           setTimeout(() => {
-            this.accountsService.clearUserData();
+            this.globalVariablesService.clearAnotherUser();
           }, 0)
         }
       }
@@ -64,7 +67,7 @@ export class WhoToFollowCardComponent {
      e ao carregar o outro componente (a tela do perfil do usuario que eu redirecionei),
      eu vou pegar os dados do usuário a partir dessa variável que estou preenchendo no service, 
      assim não preciso realizar outra chamada de endpoint para pegar dados que eu ja possuo nesse componente*/
-    this.accountsService.setUserData(account);
+    this.globalVariablesService.setAnotherUser(account);
 
     // Navega para a nova URL
     this.router.navigate(['profile', account.username]);

@@ -7,6 +7,7 @@ import { AccountsService } from 'src/app/services/accounts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ModalUnblockUserComponent } from '../modal-unblock-user/modal-unblock-user.component';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-follow-profile-button-description',
@@ -29,7 +30,8 @@ export class FollowProfileButtonDescriptionComponent {
     private dialog: MatDialog,
     private accountsService: AccountsService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private globalVariablesService: GlobalVariablesService
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,11 @@ export class FollowProfileButtonDescriptionComponent {
     profile.isFollowedByMe = !profile.isFollowedByMe;
     profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
+    const loggedUser = this.globalVariablesService.getCurrentLoggedUser();
+    profile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--;
+
+    this.globalVariablesService.updateMyProfileInfos(loggedUser);
+
     //se usuario estiver na tela following-and-followers e seguir alguém do card who to follow
     if (this.currentUrl.includes('profile') &&
       (
@@ -49,7 +56,7 @@ export class FollowProfileButtonDescriptionComponent {
         this.currentUrl.includes('known_followers') ||
         this.currentUrl.includes('following')
       )) {
-      this.accountsService.followedUserWhileOnFollowingAndFollowersScreen(profile);
+      this.globalVariablesService.followedUserWhileOnFollowingAndFollowersScreen(profile);
     }
 
     this.accountsService.followUser(username).subscribe({
@@ -59,6 +66,9 @@ export class FollowProfileButtonDescriptionComponent {
         profile.isFollowedByMe = !profile.isFollowedByMe;
         profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
+        profile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--;
+        this.globalVariablesService.updateMyProfileInfos(loggedUser);
+
         //se usuario estiver na tela following-and-followers e seguir alguém do card who to follow
         if (this.currentUrl.includes('profile') &&
           (
@@ -67,7 +77,7 @@ export class FollowProfileButtonDescriptionComponent {
             this.currentUrl.includes('known_followers') ||
             this.currentUrl.includes('following')
           )) {
-          this.accountsService.followedUserWhileOnFollowingAndFollowersScreen(profile);
+          this.globalVariablesService.followedUserWhileOnFollowingAndFollowersScreen(profile);
         }
 
         this.loaded = true;

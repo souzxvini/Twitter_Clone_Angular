@@ -7,6 +7,7 @@ import { Observable, Subject, debounceTime, map, of, switchMap } from 'rxjs';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { ModalClearHistoricComponent } from './modal-clear-historic/modal-clear-historic.component';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-search-twitter-button',
@@ -43,7 +44,8 @@ export class SearchTwitterButtonComponent {
     private accountsService: AccountsService,
     public router: Router,
     private breakpointObserver: BreakpointObserver,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private globalVariablesService: GlobalVariablesService
   ) {
     //Search profiles
     this.searchInputSubject.pipe(
@@ -196,7 +198,7 @@ export class SearchTwitterButtonComponent {
     this.searchInputValue = '';
     this.filteredProfiles = [];
     this.postSearchHistoric(username, null);
-    this.accountsService.clearUserData();
+    this.globalVariablesService.clearAnotherUser();
     this.router.navigate(['profile', username]);
   }
 

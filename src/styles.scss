@@ -499,6 +499,7 @@ button {
 .mat-mdc-mini-fab.mat-accent {
   height: 36px;
   width: 36px;
+  --mdc-fab-container-color: rgba(255, 64, 128, 0) !important;
 }
 
 .selectPhotoIconButton.mat-mdc-mini-fab.mat-accent {

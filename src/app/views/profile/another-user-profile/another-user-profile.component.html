@@ -10,21 +10,21 @@
       </button>
       <div fxLayout="column" fxLayoutGap="4">
         <span class="headerUserFirstName" fxLayout="row" fxLayoutAlign="start center">
-          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+          {{ anotherUserProfile.firstName }} <img *ngIf="anotherUserProfile.isVerified" style="width: 18px; height: 18px;"
             src="../../../../assets/img/twitter-verified.png">
         </span>
         <span class="headerUserPosts">
-          {{ user.tweetsCount }} posts
+          {{ anotherUserProfile.tweetsCount }} posts
         </span>
       </div>
     </div>
-    @if(user.hasBlockedMe){
-      <app-user-has-blocked-logged-user [user]="user"></app-user-has-blocked-logged-user>
+    @if(anotherUserProfile.hasBlockedMe){
+      <app-user-has-blocked-logged-user [user]="anotherUserProfile"></app-user-has-blocked-logged-user>
     }@else {
-      @if(user.isBlockedByMe){
-        <app-blocked-user [user]="user"></app-blocked-user>
+      @if(anotherUserProfile.isBlockedByMe){
+        <app-blocked-user [user]="anotherUserProfile"></app-blocked-user>
       }@else {
-        <app-unblocked-user [user]="user"></app-unblocked-user>
+        <app-unblocked-user [anotherUserProfile]="anotherUserProfile"></app-unblocked-user>
       }
     }
   </div>

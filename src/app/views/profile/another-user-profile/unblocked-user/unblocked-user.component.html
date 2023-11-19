@@ -1,23 +1,23 @@
 <div fxLayout="column">
-    <div class="profileBackground" [style]="setBackgroundPhoto(user.backgroundPhotoUrl)"
-      (click)="user.backgroundPhotoUrl ? visualizeBackgroundPicture(user.backgroundPhotoUrl) : null">
+    <div class="profileBackground" [style]="setBackgroundPhoto(anotherUserProfile.backgroundPhotoUrl)"
+      (click)="anotherUserProfile.backgroundPhotoUrl ? visualizeBackgroundPicture(anotherUserProfile.backgroundPhotoUrl) : null">
     </div>
     <div fxLayout="column" fxLayoutGap="15" style="padding: 0 16px">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="profileUserPicture cursorPointer" (click)="visualizeProfilePicture(user.profilePhotoUrl)">
-          <div class="picture" [style]="setProfilePhoto(user.profilePhotoUrl)">
+        <div class="profileUserPicture cursorPointer" (click)="visualizeProfilePicture(anotherUserProfile.profilePhotoUrl)">
+          <div class="picture" [style]="setProfilePhoto(anotherUserProfile.profilePhotoUrl)">
           </div>
         </div>
         <div fxLayout="row" fxLayoutGap="10">
-          <app-unblocked-user-actions [user]="user"></app-unblocked-user-actions>
+          <app-unblocked-user-actions [user]="anotherUserProfile"></app-unblocked-user-actions>
 
           <button mat-mini-fab class="iconButtonBorder">
             <mat-icon>mail_outline</mat-icon>
           </button>
 
-          @if(user.isFollowedByMe){
-            <button mat-mini-fab class="iconButtonBorder" (click)="userNotificationsToggle(user.userIdentifier)">
-              @if(user.isNotificationsAlertedByMe){
+          @if(anotherUserProfile.isFollowedByMe){
+            <button mat-mini-fab class="iconButtonBorder" (click)="userNotificationsToggle(anotherUserProfile.userIdentifier)">
+              @if(anotherUserProfile.isNotificationsAlertedByMe){
                 <mat-icon>notifications_active</mat-icon>
               }
               @else {
@@ -26,11 +26,11 @@
             </button>
           }
 
-          @if(user.isFollowedByMe){
-            <app-following-button-36px (click)="openUnfollowConfirmationModal(user)"></app-following-button-36px>
+          @if(anotherUserProfile.isFollowedByMe){
+            <app-following-button-36px (click)="openUnfollowConfirmationModal(anotherUserProfile)"></app-following-button-36px>
           }
           @else {
-            <button class="whiteButton cursorPointer _36pxButton" (click)="followUser(user.username)">
+            <button class="whiteButton cursorPointer _36pxButton" (click)="followUser(anotherUserProfile.username)">
               <span>Seguir</span>
             </button>
           }
@@ -40,52 +40,52 @@
       <div fxLayout="column" fxLayoutGap="4">
         <span class="headerUserFirstName wordBreak" fxLayout="row" fxLayoutAlign="start center"
           style="word-break: break-all;">
-          {{ user.firstName }} <img *ngIf="user.isVerified" style="width: 18px; height: 18px;"
+          {{ anotherUserProfile.firstName }} <img *ngIf="anotherUserProfile.isVerified" style="width: 18px; height: 18px;"
             src="../../../../assets/img/twitter-verified.png">
         </span>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
           <span class="headerUserUsername dottedOverflow">
-            {{"@" + user.username }}
+            {{"@" + anotherUserProfile.username }}
           </span>
-          <span *ngIf="user.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
+          <span *ngIf="anotherUserProfile.isFollowingMe" class="followsYou" fxLayoutAlign="center center">Segue você</span>
         </div>
 
       </div>
 
-      @if(user.biography){
+      @if(anotherUserProfile.biography){
         <div class="biography">
           <span>
-            {{ user.biography }}
+            {{ anotherUserProfile.biography }}
           </span>
         </div>
       }
       
       <div fxLayout="row" fxLayoutGap="10" class="informations">
-        @if(user.location){
+        @if(anotherUserProfile.location){
           <span class="info" fxLayout="row" fxLayoutAlign="center center">
-            <mat-icon>location_on</mat-icon> <span>{{ user.location }}</span>
+            <mat-icon>location_on</mat-icon> <span>{{ anotherUserProfile.location }}</span>
           </span>
         }
 
-        @if(user.site){
+        @if(anotherUserProfile.site){
           <span class="info" fxLayout="row" fxLayoutAlign="center center">
-            <mat-icon>link</mat-icon> <a class="blueLinks" target="_blank" href="{{user.site}}">{{ user.site }}</a>
+            <mat-icon>link</mat-icon> <a class="blueLinks" target="_blank" href="{{anotherUserProfile.site}}">{{ anotherUserProfile.site }}</a>
           </span>
         }
         
         <span class="info" fxLayout="row" fxLayoutAlign="center center">
-          <mat-icon>event_note</mat-icon> <span>Ingressou em {{user.registrationTime | date: 'MMMM'}} de
-            {{user.registrationTime | date: 'YYYY'}}</span>
+          <mat-icon>event_note</mat-icon> <span>Ingressou em {{anotherUserProfile.registrationTime | date: 'MMMM'}} de
+            {{anotherUserProfile.registrationTime | date: 'YYYY'}}</span>
         </span>
       </div>
 
       <div class="sideNavMobileMenuProfileInfos">
-        <div (click)="redirectToFollowing(user)">
-          <strong>{{ user.following }}</strong> Seguindo
+        <div (click)="redirectToFollowing(anotherUserProfile)">
+          <strong>{{ anotherUserProfile.following }}</strong> Seguindo
         </div>
 
-        <div (click)="redirectToFollowers(user)">
-          <strong>{{ user.followers }}</strong> Seguidores
+        <div (click)="redirectToFollowers(anotherUserProfile)">
+          <strong>{{ anotherUserProfile.followers }}</strong> Seguidores
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@
       </div>
     }
     @else {
-      <app-known-followers [knownFollowers]="commonFollows" [username]="user.username"></app-known-followers>
+      <app-known-followers [knownFollowers]="commonFollows" [username]="anotherUserProfile.username"></app-known-followers>
     }
 
     <app-profile-nav></app-profile-nav>

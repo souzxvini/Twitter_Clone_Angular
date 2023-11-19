@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { Router } from '@angular/router';
 import { ModalUnblockUserComponent } from 'src/app/components/modal-unblock-user/modal-unblock-user.component';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-blocked-user',
@@ -25,7 +26,8 @@ export class BlockedUserComponent {
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
-    private router: Router
+    private router: Router,
+    private globalVariablesService: GlobalVariablesService
   ){
 
   }
@@ -87,12 +89,12 @@ export class BlockedUserComponent {
   }
 
   redirectToFollowing(user) {
-    this.accountsService.setUserData(user);
+    this.globalVariablesService.setAnotherUser(this.user);
     this.router.navigate(['profile', user.username, 'following']);
   }
 
   redirectToFollowers(user) {
-    this.accountsService.setUserData(user);
+    this.globalVariablesService.setAnotherUser(this.user);
     this.router.navigate(['profile', user.username, 'followers']);
   }
 

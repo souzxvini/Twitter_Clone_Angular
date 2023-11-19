@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, DestroyRef, inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
@@ -6,6 +6,9 @@ import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { UnfollowConfirmationModalComponent } from '../unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { Router } from '@angular/router';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MyProfileModel } from 'src/app/models/my-profile-model';
 
 @Component({
   selector: 'app-follow-profile-button',
@@ -13,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./follow-profile-button.component.scss']
 })
 export class FollowProfileButtonComponent {
+  private destroyRef = inject(DestroyRef);
 
   @Input() profile: any;
   @Input() profilesList: any[];
@@ -24,15 +28,22 @@ export class FollowProfileButtonComponent {
   isMouseOverFollowingButton: boolean = false;
   currentUrl: string;
 
+  loggedUser: MyProfileModel;
+
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
     private snackbar: MatSnackBar,
     private router: Router,
+    private globalVariablesService: GlobalVariablesService
   ) { }
 
   ngOnInit() {
     this.currentUrl = this.router.url;
+
+    this.globalVariablesService.loggedUser$
+    .pipe(takeUntilDestroyed(this.destroyRef)) // Unsubscribe when component is destroyed
+    .subscribe(user => this.loggedUser = user);
   }
 
   followUser(username) {
@@ -40,7 +51,10 @@ export class FollowProfileButtonComponent {
     profile.isFollowedByMe = !profile.isFollowedByMe;
     profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
-    this.notifyComponents(profile);
+    const loggedUser = this.globalVariablesService.getCurrentLoggedUser();
+    profile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--;
+
+    this.globalVariablesService.updateMyProfileInfos(loggedUser);
 
     this.accountsService.followUser(username).subscribe({
       complete: () => {
@@ -49,8 +63,6 @@ export class FollowProfileButtonComponent {
         profile.isFollowedByMe = !profile.isFollowedByMe;
         profile.isFollowedByMe ? profile.followers++ : profile.followers--;
         
-        this.notifyComponents(profile);
-
         this.loaded = true;
         
         if(res.error.error == '410.010'){
@@ -95,23 +107,5 @@ export class FollowProfileButtonComponent {
 
   setButtonCalc() {
     return localStorage.getItem('Language') == 'pt' ? 'calc(100% - 190px)' : 'calc(100% - 140px)';
-  }
-
-  notifyComponents(profile) {
-    //Se usuario estiver na sua tela de perfil, e seguir alguém do card 'who to follow'
-    if (this.currentUrl == '/profile') {
-      this.accountsService.followedSuggestedUserWhileOnYourProfileScreen(profile.isFollowedByMe);
-    }
-
-    //se usuario estiver na tela following-and-followers e seguir alguém do card who to follow
-    if (this.currentUrl.includes('profile') &&
-      (
-        this.currentUrl.includes('verified_followers') ||
-        this.currentUrl.includes('followers') ||
-        this.currentUrl.includes('known_followers') ||
-        this.currentUrl.includes('following')
-      )) {
-      this.accountsService.followedSuggestedUserWhileOnFollowingAndFollowersScreen(profile);
-    }
   }
 }

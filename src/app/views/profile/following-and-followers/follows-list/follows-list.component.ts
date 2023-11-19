@@ -1,10 +1,10 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { verifyIfItsLoggedUser } from 'src/app/helpers/verify-if-its-user-logged';
 import { AccountsService } from 'src/app/services/accounts.service';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-follows-list',
@@ -40,25 +40,26 @@ export class FollowsListComponent {
     private accountsService: AccountsService,
     public router: Router,
     private breakpointObserver: BreakpointObserver,
+    private globalVariablesService: GlobalVariablesService
   ) { }
 
   ngOnInit(){
     window.addEventListener('scroll', this.scroll, true);
 
-    this.user = this.accountsService.getUserData();
+    this.user = this.globalVariablesService.getAnotherUser();
 
-    this.accountsService.clearUserData();
+    this.globalVariablesService.clearAnotherUser();
 
     /*Se cair nesse método, quer dizer que o usuário seguiu alguém do card de 'quem seguir'...,
     então irá verificar se o usuário seguido está na lista de usuarios mostrada na tela, se sim, 
     vai atualizar o botão de seguindo/seguir + informações*/
-    this.accountsService.followedSuggestedUserWhileOnFollowingAndFollowersChange$.subscribe(() => {
+    this.globalVariablesService.followedSuggestedUserWhileOnFollowingAndFollowersChange$.subscribe(() => {
       if (this.loaded) {
-        var profile = this.accountsList.findIndex(x => x.username == this.accountsService.getUserData().username);
+        var profile = this.accountsList.findIndex(x => x.username == this.globalVariablesService.getAnotherUser().username);
         if (profile !== -1) {
-          this.accountsList[profile] = { ...this.accountsList[profile], ...this.accountsService.getUserData() }
+          this.accountsList[profile] = { ...this.accountsList[profile], ...this.globalVariablesService.getAnotherUser() }
           setTimeout(() => {
-            this.accountsService.clearUserData();
+            this.globalVariablesService.clearAnotherUser();
           }, 0)
         }
       }
@@ -110,7 +111,6 @@ export class FollowsListComponent {
         this.loadingMoreContent = false;
       }
     });
-
   }
 
   //Método para redirecionar o usuario logado para o perfil de outra pessoa
@@ -123,7 +123,7 @@ export class FollowsListComponent {
      e ao carregar o outro componente (a tela do perfil do usuario que eu redirecionei),
      eu vou pegar os dados do usuário a partir dessa variável que estou preenchendo no service, 
      assim não preciso realizar outra chamada de endpoint para pegar dados que eu ja possuo nesse componente*/
-      this.accountsService.setUserData(profile);
+      this.globalVariablesService.setAnotherUser(profile);
 
       // Navega para a nova URL 
       this.router.navigate(['profile', profile.username]);

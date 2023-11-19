@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, DestroyRef, Input, inject } from '@angular/core';
 import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { FullScreenProfilePhotoModalComponent } from '../../modals/full-screen-profile-photo-modal/full-screen-profile-photo-modal.component';
 import { FullScreenBackgroundPhotoModalComponent } from '../../modals/full-screen-background-photo-modal/full-screen-background-photo-modal.component';
@@ -8,6 +8,7 @@ import { AccountsService } from 'src/app/services/accounts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { Router } from '@angular/router';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-unblocked-user',
@@ -15,7 +16,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./unblocked-user.component.scss']
 })
 export class UnblockedUserComponent {
-  @Input() user: any;
+  private destroyRef = inject(DestroyRef);
+
+  @Input() anotherUserProfile: any;
 
   setBackgroundPhoto = setBackgroundPhoto;
   setProfilePhoto = setProfilePhoto;
@@ -27,7 +30,8 @@ export class UnblockedUserComponent {
     private dialog: MatDialog,
     private accountsService: AccountsService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private globalVariablesService: GlobalVariablesService
   ){}
 
   ngOnChanges(){
@@ -36,7 +40,7 @@ export class UnblockedUserComponent {
 
   getCommonFollows() {
     this.loadedCommonFollowers = false;
-    this.accountsService.getCommonFollows(this.user.username).subscribe({
+    this.accountsService.getCommonFollows(this.anotherUserProfile.username).subscribe({
       next: (res) => {
         this.commonFollows = res;
         this.loadedCommonFollowers = true;
@@ -73,21 +77,31 @@ export class UnblockedUserComponent {
   }
 
   userNotificationsToggle(username) {
-    this.user.isNotificationsAlertedByMe = !this.user.isNotificationsAlertedByMe;
+    this.anotherUserProfile.isNotificationsAlertedByMe = !this.anotherUserProfile.isNotificationsAlertedByMe;
     this.accountsService.userNotificationsToggle(username).subscribe({
       error: () => {
-        this.user.isNotificationsAlertedByMe = !this.user.isNotificationsAlertedByMe;
+        this.anotherUserProfile.isNotificationsAlertedByMe = !this.anotherUserProfile.isNotificationsAlertedByMe;
       }
     })
   }
 
   followUser(username) {
-    this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
-    this.user.isFollowedByMe = !this.user.isFollowedByMe;
+    this.anotherUserProfile.isFollowedByMe ? this.anotherUserProfile.followers-- : this.anotherUserProfile.followers++;
+    this.anotherUserProfile.isFollowedByMe = !this.anotherUserProfile.isFollowedByMe;
+
+    const loggedUser = this.globalVariablesService.getCurrentLoggedUser();
+    this.anotherUserProfile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--;
+
+    this.globalVariablesService.updateMyProfileInfos(loggedUser);
+
     this.accountsService.followUser(username).subscribe({
       error: (res) => {
-        this.user.isFollowedByMe ? this.user.followers-- : this.user.followers++;
-        this.user.isFollowedByMe = !this.user.isFollowedByMe;
+        this.anotherUserProfile.isFollowedByMe ? this.anotherUserProfile.followers-- : this.anotherUserProfile.followers++;
+        this.anotherUserProfile.isFollowedByMe = !this.anotherUserProfile.isFollowedByMe;
+
+        this.anotherUserProfile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--; 
+        this.globalVariablesService.updateMyProfileInfos(loggedUser);
+
         if(res.error.error == '410.010'){
           this.snackbar.open(
             res.error.message,
@@ -124,13 +138,13 @@ export class UnblockedUserComponent {
     })
   }
 
-  redirectToFollowing(user) {
-    this.accountsService.setUserData(user);
-    this.router.navigate(['profile', user.username, 'following']);
+  redirectToFollowing(anotherUserProfile) {
+    this.globalVariablesService.setAnotherUser(this.anotherUserProfile);
+    this.router.navigate(['profile', anotherUserProfile.username, 'following']);
   }
 
-  redirectToFollowers(user) {
-    this.accountsService.setUserData(user);
-    this.router.navigate(['profile', user.username, 'followers']);
+  redirectToFollowers(anotherUserProfile) {
+    this.globalVariablesService.setAnotherUser(this.anotherUserProfile);
+    this.router.navigate(['profile', anotherUserProfile.username, 'followers']);
   }
 }

@@ -4,6 +4,7 @@ import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { verifyIfItsLoggedUser } from 'src/app/helpers/verify-if-its-user-logged';
 import { AccountsService } from 'src/app/services/accounts.service';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-following-and-followers',
@@ -29,7 +30,7 @@ export class FollowingAndFollowersComponent {
     public location: Location,
     public router: Router,
     private activatedRoute: ActivatedRoute,
-
+    private globalVariablesService: GlobalVariablesService
   ) { }
 
   ngOnInit() {
@@ -37,7 +38,7 @@ export class FollowingAndFollowersComponent {
 
     //ao carregar o componente pela primeira vez
     this.activatedRoute.params.subscribe(() => {
-      this.user = this.accountsService.getUserData();
+      this.user = this.globalVariablesService.getAnotherUser();
       if (!this.user) {
         this.getUserByIdentifier(this.username, true);
       } else {
@@ -61,7 +62,7 @@ export class FollowingAndFollowersComponent {
     this.accountsService.getUserByIdentifier(username).subscribe({
       next: (res) => {
         this.user = res;
-        this.accountsService.setUserData(this.user);
+        this.globalVariablesService.setAnotherUser(this.user);
         this.userInformationsLoaded = true;
         this.getTabIndex();
       },
@@ -100,32 +101,32 @@ export class FollowingAndFollowersComponent {
   tabChange(selectedIndex) {
     if (verifyIfItsLoggedUser(this.router.url)) {
       if (selectedIndex == 0) {
-        this.accountsService.setUserData(this.user);
+        this.globalVariablesService.setAnotherUser(this.user);
         this.router.navigate(['profile', this.user.username, 'verified_followers'], { replaceUrl: true });
       };
       if (selectedIndex == 1) {
-        this.accountsService.setUserData(this.user);
+        this.globalVariablesService.setAnotherUser(this.user);
         this.router.navigate(['profile', this.user.username, 'followers'], { replaceUrl: true });
       }
       if (selectedIndex == 2) {
-        this.accountsService.setUserData(this.user);
+        this.globalVariablesService.setAnotherUser(this.user);
         this.router.navigate(['profile', this.user.username, 'following'], { replaceUrl: true });
       }
     } else {
       if (selectedIndex == 0) {
-        this.accountsService.setUserData(this.user);
+        this.globalVariablesService.setAnotherUser(this.user);
         this.router.navigate(['profile', this.user.username, 'verified_followers'], { replaceUrl: true });
       }
       if (selectedIndex == 1) {
-        this.accountsService.setUserData(this.user);
+        this.globalVariablesService.setAnotherUser(this.user);
         this.router.navigate(['profile', this.user.username, 'known_followers'], { replaceUrl: true });
       }
       if (selectedIndex == 2) {
-        this.accountsService.setUserData(this.user);
+        this.globalVariablesService.setAnotherUser(this.user);
         this.router.navigate(['profile', this.user.username, 'followers'], { replaceUrl: true });
       }
       if (selectedIndex == 3) {
-        this.accountsService.setUserData(this.user);
+        this.globalVariablesService.setAnotherUser(this.user);
         this.router.navigate(['profile', this.user.username, 'following'], { replaceUrl: true });
       }
     }

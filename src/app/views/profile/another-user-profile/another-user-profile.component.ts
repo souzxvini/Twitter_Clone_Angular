@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { setBackgroundPhoto } from 'src/app/helpers/set-background-photo';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { AccountsService } from 'src/app/services/accounts.service';
@@ -7,6 +7,10 @@ import { AnotherProfileModel } from 'src/app/models/another-profile-model';
 import { Location } from '@angular/common';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { GlobalVariables } from 'src/app/shared/shared-material/Alyle.module';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
+import { MyProfileModel } from 'src/app/models/my-profile-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-another-user-profile',
@@ -14,18 +18,19 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./another-user-profile.component.scss']
 })
 export class AnotherUserProfileComponent {
-  user: AnotherProfileModel;
-  loaded = false;
+  anotherUserProfile: AnotherProfileModel;
+  username: string;
 
+  loaded = false;
   userInformationsLoaded = false;
+
   setProfilePhoto = setProfilePhoto;
   setBackgroundPhoto = setBackgroundPhoto;
-
-  username: string;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(["(max-width: 498px)"])
     .pipe(map((result) => result.matches));
+    
   prevScrollpos = 0;
 
   constructor(
@@ -34,37 +39,40 @@ export class AnotherUserProfileComponent {
     private router: Router,
     public location: Location,
     private breakpointObserver: BreakpointObserver,
+    private globalVariablesService: GlobalVariablesService
   ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.username = params['username'];
 
+      //Se passar o nome do usuário logado na url, redireciona para o perfil dele
       if (this.username == localStorage.getItem('userName')) {
         this.router.navigate(['profile'])
       }
+
       /*se essa funcao .getUserData() tiver valor, 
       então quer dizer que o usuario clicou para ver o perfil de alguém,
       então eu seto as informações do usuário através do valor que estiver nessa funcao,
       sem precisar chamar o get para trazer as principais informações do usuario*/
-      this.user = this.accountsService.getUserData();
-      if (!this.user) {
-        this.getUserInformations(this.username, true);
+      this.anotherUserProfile = this.globalVariablesService.getAnotherUser();
+      if (!this.anotherUserProfile) {
+        this.getUserInformations(this.username);
       } else {
         this.userInformationsLoaded = true;
-        this.accountsService.clearUserData();
+        this.globalVariablesService.clearAnotherUser();
       }
     });
 
     window.addEventListener('scroll', this.scroll, true);
   }
 
-  getUserInformations(username, spinner) {
-    spinner ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
+  getUserInformations(username) {
+    this.userInformationsLoaded = false;
     this.accountsService.getUserByIdentifier(username).subscribe({
       next: (res) => {
         setTimeout(() => {
-          this.user = res;
+          this.anotherUserProfile = res;
           this.userInformationsLoaded = true;
         }, 300)
       },

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
 import { FullScreenProfilePhotoModalComponent } from '../modals/full-screen-profile-photo-modal/full-screen-profile-photo-modal.component';
@@ -12,6 +12,8 @@ import { FullScreenBackgroundPhotoModalComponent } from '../modals/full-screen-b
 import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Location } from '@angular/common';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-my-profile',
@@ -19,9 +21,10 @@ import { Location } from '@angular/common';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent {
+  private destroyRef = inject(DestroyRef);
 
   user: MyProfileModel;
-  userInformationsLoaded = false;
+
   noProfilePicture = noProfilePicture;
   setProfilePhoto = setProfilePhoto;
   setBackgroundPhoto = setBackgroundPhoto;
@@ -37,31 +40,16 @@ export class MyProfileComponent {
     private dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    public location: Location
+    public location: Location,
+    private globalVariablesService: GlobalVariablesService
   ){}
 
   ngOnInit(){
-    this.getLoggedUserAccount(true);
-
-    //Se cair nesse método, quer dizer que o usuário seguiu alguém do card de 'quem seguir'..., serve para atualizar o numero de 'seguindo' instantaneamente
-    this.accountsService.followingChange$.subscribe(() => {
-     this.user ? this.accountsService.getFollowedSomeone() ? this.user.following++ : this.user.following-- : null;
-    });
+    this.globalVariablesService.loggedUser$
+    .pipe(takeUntilDestroyed(this.destroyRef)) // Unsubscribe when component is destroyed
+    .subscribe(user => this.user = user);
 
     window.addEventListener('scroll', this.scroll, true);
-  }
-
-  getLoggedUserAccount(loadScreen){
-    loadScreen ? this.userInformationsLoaded = false : this.userInformationsLoaded = true;
-    this.accountsService.getLoggedUserAccount().subscribe({
-      next: (res) => {
-        if(res) this.user = res;
-        this.userInformationsLoaded = true;
-      },
-      error: () => {
-        this.userInformationsLoaded = true;
-      }
-    })
   }
 
   visualizeProfilePicture(profilePhoto){
@@ -115,7 +103,7 @@ export class MyProfileComponent {
           this.user.site = res.site;
           this.user.backgroundPhotoUrl = res.backgroundPhotoUrl;
           this.user.profilePhotoUrl = res.profilePhotoUrl;
-          this.accountsService.updateMyProfileInfosOnMenuComponent(this.user);
+          this.globalVariablesService.updateMyProfileInfosOnMenuComponent(this.user);
         }
       }
     })
@@ -135,12 +123,12 @@ export class MyProfileComponent {
   }
 
   redirectToFollowing(user){
-    this.accountsService.setUserData(user);
+    this.globalVariablesService.setAnotherUser(user);
     this.router.navigate(['profile', user.username, 'following']);
   }
 
   redirectToFollowers(user){
-    this.accountsService.setUserData(user);
+    this.globalVariablesService.setAnotherUser(user);
     this.router.navigate(['profile', user.username, 'followers']);
   }
 

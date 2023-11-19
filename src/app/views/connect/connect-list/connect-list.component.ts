@@ -2,8 +2,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountsService } from 'src/app/services/accounts.service';
-import { Location } from '@angular/common';
 import { Observable, map } from 'rxjs';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-connect-list',
@@ -32,7 +32,8 @@ export class ConnectListComponent {
   constructor(
     public router: Router,
     private accountsService: AccountsService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private globalVariablesService: GlobalVariablesService
   ) { }
 
   ngOnInit() {
@@ -58,7 +59,7 @@ export class ConnectListComponent {
   }
 
   redirectToProfile(profile) {
-    this.accountsService.setUserData(profile);
+    this.globalVariablesService.setAnotherUser(profile);
 
     // Navega para a nova URL 
     this.router.navigate(['profile', profile.username]);
