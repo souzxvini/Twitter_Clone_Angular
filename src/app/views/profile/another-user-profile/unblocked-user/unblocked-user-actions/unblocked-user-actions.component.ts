@@ -6,6 +6,7 @@ import { AccountsService } from 'src/app/services/accounts.service';
 import { Observable, map } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBlockUserComponent } from 'src/app/components/modal-block-user/modal-block-user.component';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-unblocked-user-actions',
@@ -26,7 +27,8 @@ export class UnblockedUserActionsComponent {
     private snackbar: MatSnackBar,
     private clipboard: Clipboard,
     private breakpointObserver: BreakpointObserver,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private globalVariablesService: GlobalVariablesService
   ) { }
 
   copyProfileURL() {
@@ -61,17 +63,22 @@ export class UnblockedUserActionsComponent {
   }
 
   blockAccount(username) {
+    const loggedUser = this.globalVariablesService.getCurrentLoggedUser();
+
     this.user.isBlockedByMe = !this.user.isBlockedByMe;
+    loggedUser.followers--;
     const followedByMe = this.user.isFollowedByMe;
     if (followedByMe) {
       this.user.isFollowedByMe = false;
       this.user.followers = this.user.followers - 1;
+      loggedUser.following--;
     }
 
     const followingMe = this.user.isFollowingMe;
     if (followingMe) {
       this.user.isFollowingMe = false;
     }
+    this.globalVariablesService.updateMyProfileInfos(loggedUser);
 
     this.accountsService.blockToggle(username).subscribe({
       complete: () => {
@@ -100,13 +107,16 @@ export class UnblockedUserActionsComponent {
           { duration: 50000, panelClass: ['snackbarLoginError'] }
         );
         this.user.isBlockedByMe = !this.user.isBlockedByMe;
+        loggedUser.followers++;
         if (followedByMe) {
           this.user.isFollowedByMe = true;
           this.user.followers = this.user.followers + 1;
+          loggedUser.following++;
         }
         if (followingMe) {
           this.user.isFollowingMe = true;
         }
+        this.globalVariablesService.updateMyProfileInfos(loggedUser);
       }
     })
   }

@@ -160,7 +160,7 @@
                 </div>
   
                 <!--botão de fazer novo tweet para versão web-->
-                <div style="padding: 16px;" fxLayout="column" fxLayoutAlign="start stretch" fxHide.lt-lg>
+                <div style="padding: 16px;" fxLayout="column" fxLayoutAlign="start stretch" fxHide.lt-lg (click)="postNewTweet()">
                   <button class="blueButton _52pxButton cursorPointer">
                     <span>Postar</span>
                   </button>
@@ -184,7 +184,6 @@
         </div>
       </div>
     }
-    
     
     <app-mobile-footer-nav></app-mobile-footer-nav>
   </mat-sidenav-content>

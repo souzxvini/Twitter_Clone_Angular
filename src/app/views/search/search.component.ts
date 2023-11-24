@@ -14,8 +14,9 @@ export class SearchComponent {
 
   @ViewChild(MatTabGroup) tabGroup: MatTabGroup;
 
+  searchvalue: string;
+
   filteredProfilesPanelState = false;
-  searchvalue = this.activatedRoute.snapshot.params['searchvalue'];
 
   isMobileSize: Observable<boolean> = this.breakpointObserver
   .observe(["(max-width: 498px)"])
@@ -29,6 +30,14 @@ export class SearchComponent {
   ){}
 
   ngOnInit(){
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.searchvalue = params.get('searchvalue');
+    });
+
+    this.activatedRoute.parent.paramMap.subscribe(params => {
+      this.searchvalue = params.get('searchvalue');
+    });
+
     this.getTabIndex();
 
     //ao mudar a rota

@@ -1,0 +1,64 @@
+.tweetAction {
+  cursor: pointer;
+}
+
+.tweetAction mat-icon {
+  transform: scale(0.7);
+  color: #71767b;
+}
+
+.tweetAction span {
+  color: #71767b;
+  font-size: 13px;
+}
+
+.tweetActionBlue mat-icon,
+.tweetActionBlue span {
+  transition: 0.2s ease-in-out !important;
+}
+
+.tweetActionBlue:hover mat-icon {
+  color: #1d9bf0 !important;
+}
+
+.tweetActionBlue:hover span {
+  color: #1d9bf0 !important;
+}
+
+//GREEN
+.tweetActionGreen mat-icon,
+.tweetActionGreen span {
+  transition: 0.2s ease-in-out !important;
+}
+
+.tweetActionGreen:hover mat-icon {
+  color: #00ba7c !important;
+}
+
+.tweetActionGreen:hover span {
+  color: #00ba7c !important;
+}
+
+.tweetActionGreenActive mat-icon,
+.tweetActionGreenActive span{
+color: #00ba7c !important;
+}
+
+//RED
+.tweetActionRed mat-icon,
+.tweetActionRed span {
+  transition: 0.2s ease-in-out !important;
+}
+
+.tweetActionRed:hover mat-icon {
+  color: #c21465 !important;
+}
+
+.tweetActionRed:hover span {
+  color: #c21465 !important;
+}
+
+.tweetActionRedActive mat-icon,
+.tweetActionRedActive span{
+color: #c21465 !important;
+}

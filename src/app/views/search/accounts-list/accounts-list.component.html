@@ -1,1 +1,32 @@
-<p>accounts-list works!</p>
+@if (!loaded) {
+    <div style="padding: 16px" fxLayoutAlign="center center">
+        <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+}
+@else {
+    <div fxLayout="column" fxLayoutAlign="start stretch">
+        @for (profile of filteredProfiles; track $index) {
+            <app-follow-profile-button-description [profile]="profile" [suggestedProfiles]="filteredProfiles"
+            (click)="redirectToProfile(profile)" class="cursorPointer" />
+        }@empty {
+            <div fxLayout="row" fxLayoutAlign="center start">
+                <div style="max-width: 350px;  margin-top: 40px;">
+                    <div>
+                        <span class="dialogTitleWithSubtitle">
+                            Não há resultados para <span style="word-break: break-all; font-family: 'TwitterChirpExtendedHeavy' !important;"> "{{searchValue}}" </span>
+                        </span>
+                    </div>
+                
+                    <div>
+                        <span class="dialogSubtitle">
+                            Procure pesquisar por outra coisa ou verifique as configurações de busca para determinar se elas estão protegendo você contra conteúdo 
+                            potencialmente sigiloso.
+                        </span>
+                    </div>
+        
+                </div>
+            </div>
+        }
+    </div>
+
+}

@@ -1,0 +1,40 @@
+.newTweetMessage,
+.newTweetMessage:focus {
+  background-color: transparent !important;
+  border: none;
+  outline: none;
+  padding: 10px 0 0 0;
+  caret-color: white;
+  color: #e7e9ea;
+  font-size: 20px;
+  font-family: 'TwitterChirp';
+  width: 100%;
+  overflow: hidden;
+}
+
+.newTweetMessage::placeholder {
+  font-size: 20px;
+  color: rgb(121, 134, 147);
+  font-family: 'TwitterChirp';
+}
+/*
+.messageArea,
+.messageArea:focus{
+  background-color: red;
+  min-height: 130px;
+  background-color: transparent !important;
+  border: none;
+  outline: none;
+  padding: 10px 0 0 0;
+  caret-color: white;
+  color: #e7e9ea;
+  font-size: 20px;
+  font-family: 'TwitterChirp';
+}*/
+
+.boldBlueText{
+  color: #1d9bf0;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+}

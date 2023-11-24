@@ -18,9 +18,7 @@ export class PostsListComponent {
   noMoreContent = false;
   loadingMoreContent = false;
 
-  searchvalue = this.activatedRoute.snapshot.params['searchvalue'];
-
-  section: string;
+  searchValue: string;
 
   constructor(
     private feedService: FeedService,
@@ -29,32 +27,36 @@ export class PostsListComponent {
   ){}
 
   ngOnInit(){
+    this.activatedRoute.parent.paramMap.subscribe(params => {
+      this.searchValue = params.get('searchvalue');
+    });
+
     this.verifySelectedTab();
   }
 
   verifySelectedTab(){
     if (this.router.url.includes('recent')) {
-      this.section = 'recent';
       this.getTweets('LATTER');
     }
-    else if (this.router.url.includes('peoples')) {
-      this.section = 'peoples';
-      //this.getTweets('LATTER');
-    }
     else if (this.router.url.includes('medias')) {
-      this.section = 'medias';
       this.getTweets('MEDIA');
     }
     else{
-      this.section = 'MAIN';
       this.getTweets('MAIN');
     }
   }
 
   getTweets(type){
-    this.feedService.searchByText(type, this.searchvalue, this.page, this.size).subscribe({
+    this.feedService.searchByText(type, this.searchValue, this.page, this.size).subscribe({
       next: (res) => {
-        this.tweetsList = res;
+        setTimeout(() => {
+          this.tweetsList = res;
+          this.loaded = true;
+        }, 300);
+        
+      },
+      error: () => {
+        this.loaded = true;
       }
     })
   }

@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { SearchTwitterButtonComponent } from 'src/app/components/search-twitter-button/search-twitter-button.component';
 import { SharedMaterialModule } from '../shared/shared-material/shared-material.module';
 import { UnfollowConfirmationModalComponent } from './unfollow-confirmation-modal/unfollow-confirmation-modal.component';
-import { TweetComponent } from './tweet/tweet.component';
 import { FollowProfileButtonDescriptionComponent } from './follow-profile-button-description/follow-profile-button-description.component';
 import { DefaultSearchSectionComponent } from './default-search-section/default-search-section.component';
 import { FollowProfileButtonComponent } from './follow-profile-button/follow-profile-button.component';
@@ -17,6 +16,11 @@ import { ModalBlockUserComponent } from './modal-block-user/modal-block-user.com
 import { ModalUnblockUserComponent } from './modal-unblock-user/modal-unblock-user.component';
 import { BlockedButton32pxComponent } from './blocked-button-32px/blocked-button-32px.component';
 import { ModalClearHistoricComponent } from './search-twitter-button/modal-clear-historic/modal-clear-historic.component';
+import { TweetComponent } from './tweet/tweet/tweet.component';
+import { RetweetComponent } from './tweet/retweet/retweet.component';
+import { NoCommentRetweetComponent } from './tweet/no-comment-retweet/no-comment-retweet.component';
+import { CommentComponent } from './tweet/comment/comment.component';
+import { TweetTypesComponent } from './tweet/tweet-types/tweet-types.component';
 @NgModule({
   declarations:[ 
     FollowingButton32pxComponent,
@@ -27,7 +31,6 @@ import { ModalClearHistoricComponent } from './search-twitter-button/modal-clear
     WhoToFollowCardComponent,
     SearchTwitterButtonComponent,
     UnfollowConfirmationModalComponent,
-    TweetComponent,
     FollowProfileButtonDescriptionComponent,
     DefaultSearchSectionComponent,
     FollowProfileButtonComponent,
@@ -35,6 +38,11 @@ import { ModalClearHistoricComponent } from './search-twitter-button/modal-clear
     ModalBlockUserComponent,
     ModalUnblockUserComponent,
     ModalClearHistoricComponent,
+    TweetTypesComponent,
+    TweetComponent,
+    RetweetComponent,
+    NoCommentRetweetComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,
@@ -48,10 +56,14 @@ import { ModalClearHistoricComponent } from './search-twitter-button/modal-clear
     WhoToFollowCardComponent,
     SearchTwitterButtonComponent,
     UnfollowConfirmationModalComponent,
-    TweetComponent,
     FollowProfileButtonDescriptionComponent,
     DefaultSearchSectionComponent,
-    MobileFooterNavComponent
+    MobileFooterNavComponent,
+    TweetTypesComponent,
+    TweetComponent,
+    RetweetComponent,
+    NoCommentRetweetComponent,
+    CommentComponent
   ]
 })
 

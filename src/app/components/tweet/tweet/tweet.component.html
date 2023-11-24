@@ -1,0 +1,59 @@
+<div fxLayout="row" style="padding: 12px 16px; border-bottom: 1px solid rgb(56, 68, 77);">
+    <div style="width: 40px;">
+        <div class="profilePicture" style="width: 40px; height: 40px;"
+          [style]="setProfilePhoto(tweet?.userProfilePhotoUrl)">
+        </div>
+    </div>
+
+    <div fxFlex="calc(100% - 40px)" fxLayout="column" fxLayoutAlign="start stretch" style="padding-left: 12px;" fxLayoutGap="5">
+        <div fxLayout="row" fxLayoutGap="5">
+            <span class="userFirstName">{{tweet.userFirstName}}</span>
+            <span class="userUsername">{{'@' + tweet.userUsername}}</span>
+            <span class="userUsername"> | </span>
+            <span class="userUsername">13h</span>
+        </div>
+
+        <div class="userBiography">
+            {{tweet.tweetMessage}}
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" >
+            <div fxFlex="22" class="tweetAction tweetActionBlue" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
+                <mat-icon>chat_bubble_outline</mat-icon>
+                <span>{{ tweet.tweetCommentsCount }}</span>
+            </div>
+
+            <div fxFlex="22" class="tweetAction" fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="5"
+            [class.tweetActionGreen]="!tweet.retweetedByMe" [class.tweetActionGreenActive]="tweet.retweetedByMe" (click)="retweetToggle(tweet.tweetIdentifier)">
+                <mat-icon>cached</mat-icon>
+                <span>{{ tweet.tweetRetweetsCount }}</span>
+            </div>
+
+            <div fxFlex="22" class="tweetAction" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5"
+            [class.tweetActionRed]="!tweet.likedByMe" [class.tweetActionRedActive]="tweet.likedByMe" (click)="likeToggle(tweet.tweetIdentifier)">
+                @if(tweet.likedByMe){
+                    <mat-icon>favorite</mat-icon>
+                }
+                @else {
+                    <mat-icon>favorite_border</mat-icon>
+                }
+                <span>{{ tweet.tweetLikesCount }}</span>
+            </div>
+
+            <div fxFlex="22" class="tweetAction tweetActionBlue" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5">
+                <mat-icon>assessment</mat-icon> 
+                <span>{{ tweet.tweetViewsCount }}</span>
+            </div>
+
+            <div fxFlex="12" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10">
+                <div class="tweetAction tweetActionBlue" (click)="favToggle(tweet.tweetIdentifier)">
+                    <mat-icon>bookmark_border</mat-icon>
+                </div>
+                <div class="tweetAction tweetActionBlue">
+                    <mat-icon>open_in_browser</mat-icon>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

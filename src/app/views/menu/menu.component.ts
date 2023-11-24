@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { PostNewTweetModalComponent } from './post-new-tweet-modal/post-new-tweet-modal.component';
 
 @Component({
   selector: 'app-menu',
@@ -38,7 +40,8 @@ export class MenuComponent implements OnInit {
     private sidenavService: SidenavService,
     private accountsService: AccountsService,
     private router: Router,
-    private globalVariablesService: GlobalVariablesService
+    private globalVariablesService: GlobalVariablesService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -88,5 +91,38 @@ export class MenuComponent implements OnInit {
     this.globalVariablesService.setAnotherUser(user);
     this.router.navigate(['profile', user.username, 'followers']);
     this.sidenav.toggle();
+  }
+
+  postNewTweet(){
+    const dialogRef = this.dialog.open(PostNewTweetModalComponent, {
+      width: '600px',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      panelClass: 'modalStyle',
+      backdropClass: 'modalStyleBackdrop',
+      disableClose: true,
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          
+        }
+      }
+    })
+
+    this.breakpointObserver.observe(["(max-width: 700px)"])
+      .subscribe((res) => {
+        if (res.matches) {
+          dialogRef.updateSize('100vw', '100vh');
+          dialogRef.removePanelClass('bordered-dialog');
+          dialogRef.addPanelClass('no-border-dialog');
+        } else {
+          dialogRef.updateSize('600px');
+          dialogRef.addPanelClass('bordered-dialog');
+          dialogRef.removePanelClass('no-border-dialog');
+        }
+      })
   }
 }

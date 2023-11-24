@@ -1,0 +1,17 @@
+@switch (tweet.tweetTypeDescription) {
+    @case ('TWEET') {
+        <app-tweet [tweet]="tweet"/>
+    }
+
+    @case ('RETWEET') {
+        <app-retweet/>
+    }
+
+    @case ('NO_COMMENT_RETWEET') {
+        <app-no-comment-retweet/>
+    }
+
+    @case ('COMMENT') {
+        <app-comment/>
+    }
+}

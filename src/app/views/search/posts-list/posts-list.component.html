@@ -1,10 +1,35 @@
-@for (tweet of tweetsList; track $index) {
-    <div>
-        a
+@if(!loaded){
+    <div style="padding: 16px" fxLayoutAlign="center center">
+        <mat-spinner [diameter]="30"></mat-spinner>
     </div>
 }
-@empty {
-    <div>
-        vazio
+@else {
+    <div fxLayout="column" fxLayoutAlign="start stretch">
+        @for (tweet of tweetsList; track $index) {
+           <app-tweet-types [tweet]="tweet"/>
+        }
+        @empty {
+            <div fxLayout="row" fxLayoutAlign="center start">
+                <div style="max-width: 350px;  margin-top: 40px;">
+                    <div>
+                        <span class="dialogTitleWithSubtitle">
+                            Não há resultados para <span style="word-break: break-all; font-family: 'TwitterChirpExtendedHeavy' !important;"> "{{searchValue}}" </span>
+                        </span>
+                    </div>
+                   
+                    <div>
+                        <span class="dialogSubtitle">
+                            Procure pesquisar por outra coisa ou verifique as configurações de busca para determinar se elas estão protegendo você contra conteúdo 
+                            potencialmente sigiloso.
+                        </span>
+                    </div>
+        
+                </div>
+            </div>
+            
+        }
     </div>
 }
+
+
+

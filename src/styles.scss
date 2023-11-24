@@ -45,6 +45,14 @@ body {
   line-height: inherit;
 }
 
+.mat-divider {
+  border-top-width: 1px !important;
+  border-top-color: #363636 !important;
+}
+
+.mat-mdc-progress-spinner {
+    --mdc-circular-progress-active-indicator-color: rgb(26, 140, 216) !important;
+}
 //spinner
 .mat-mdc-progress-spinner {
   --mdc-circular-progress-active-indicator-color: rgb(26, 140, 216) !important;
@@ -146,6 +154,12 @@ textarea {
 
 .textAreaFormField .mdc-text-field .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
   height: 100% !important;
+}
+
+//invisible text area
+.invisibleTextAreaFormField .mat-mdc-text-field-wrapper,
+.invisibleTextAreaFormField .mat-form-field-invalid .mat-mdc-text-field--wrapper  {
+  border: none !important;
 }
 
 //mat-form-field disabled
@@ -689,6 +703,7 @@ button {
 
 .userBiography {
   font-size: 15px !important;
+  color: rgb(231, 233, 234);
 }
 
 .sideNavMenuProfileButtonImage {
@@ -782,7 +797,6 @@ button {
 
 .searchContainer {
   width: 345px;
-  min-height: 100%;
   margin-left: 30px;
   margin-right: 30px;
 }

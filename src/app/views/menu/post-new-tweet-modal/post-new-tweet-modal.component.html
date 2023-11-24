@@ -1,0 +1,51 @@
+<div style="height: 100%; width: 100%;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''">
+  <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
+    fxLayoutAlign="space-between center">
+    <button mat-mini-fab [disabled]="!loaded" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+    <span class="boldBlueText">Rascunhos</span>
+  </div>
+
+  <form [formGroup]="newTweetForm">
+    <div fxLayout="column" fxLayoutGap="15" style="padding: 16px;">
+      <div fxLayout="row" style="min-height: 140px;">
+        <div style="width: 50px;">
+          <div class="profilePicture" style="width: 40px; height: 40px;"
+            [style]="setProfilePhoto(loggedUser.profilePhotoUrl)">
+          </div>
+        </div>
+  
+        <textarea  class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)" placeholder="O que está acontecendo?"></textarea>
+  
+      </div>
+    
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5" class="boldBlueText">
+        <mat-icon style="transform: scale(0.8);">public</mat-icon> <span>Qualquer pessoa pode responder</span>
+      </div>
+  
+      <mat-divider></mat-divider>
+  
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutGap="5" class="boldBlueText">
+          <mat-icon style="transform: scale(0.8);">image</mat-icon>
+          <mat-icon style="transform: scale(0.8);">gif</mat-icon>
+          <mat-icon style="transform: scale(0.8);">poll</mat-icon>
+          <mat-icon style="transform: scale(0.8);">public</mat-icon>
+          <mat-icon style="transform: scale(0.8);">public</mat-icon>
+          <mat-icon style="transform: scale(0.8);">location_on</mat-icon>
+        </div>
+  
+        <div fxLayout="row" fxLayoutGap="5">
+          <!--<mat-progress-spinner mode="determinate" [value]="10" [diameter]="40">10</mat-progress-spinner>-->
+  
+          <button class="blueButton _36pxButton cursorPointer" (click)="postNewTweet()">
+            <span>Postar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  
+</div>

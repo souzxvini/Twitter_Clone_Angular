@@ -128,8 +128,8 @@ export class SearchTwitterButtonComponent {
 
   searchByText(searchByText?: string){
     this.filteredProfilesPanelState = false;
-    this.postSearchHistoric(null, searchByText ? searchByText : this.latestSearchedText);
-    this.router.navigate(['search', searchByText ? searchByText : this.latestSearchedText]);
+    this.postSearchHistoric(null, searchByText ? searchByText : this.searchInputValue);
+    this.router.navigate(['search', searchByText ? searchByText : this.searchInputValue]);
   }
 
   getProfilesByUsername(searchInputValue) {
@@ -201,6 +201,5 @@ export class SearchTwitterButtonComponent {
     this.globalVariablesService.clearAnotherUser();
     this.router.navigate(['profile', username]);
   }
-
 
 }
