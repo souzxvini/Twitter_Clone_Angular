@@ -123,7 +123,7 @@ export class FollowProfileButtonDescriptionComponent {
   }
 
   verifyIfItsLoggedUser(username) {
-    return username == localStorage.getItem('userName');
+    return username == sessionStorage.getItem('userName');
   }
 
   openUnblockUserModal(profile){

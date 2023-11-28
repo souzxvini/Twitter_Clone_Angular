@@ -34,7 +34,7 @@ export class FollowingAndFollowersComponent {
   ) { }
 
   ngOnInit() {
-    this.loggedUser = localStorage.getItem('userName');
+    this.loggedUser = sessionStorage.getItem('userName');
 
     //ao carregar o componente pela primeira vez
     this.activatedRoute.params.subscribe(() => {

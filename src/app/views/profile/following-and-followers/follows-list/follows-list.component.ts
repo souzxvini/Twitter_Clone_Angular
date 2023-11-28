@@ -116,7 +116,7 @@ export class FollowsListComponent {
   //Método para redirecionar o usuario logado para o perfil de outra pessoa
   redirectToProfile(profile: any) {
 
-    if (profile.username == localStorage.getItem('userName')) {
+    if (profile.username == sessionStorage.getItem('userName')) {
       this.router.navigate(['profile']);
     } else {
       /*Como eu ja possuo os dados do usuário nesse componente, eu vou salvar os dados no service,

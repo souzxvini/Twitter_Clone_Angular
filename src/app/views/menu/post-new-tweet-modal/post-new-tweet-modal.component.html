@@ -1,4 +1,4 @@
-<div style="height: 100%; width: 100%;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''">
+<div style="height: 100%; width: 100%; overflow-y: auto;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''" >
   <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
     fxLayoutAlign="space-between center">
     <button mat-mini-fab [disabled]="!loaded" mat-dialog-close>
@@ -9,43 +9,128 @@
 
   <form [formGroup]="newTweetForm">
     <div fxLayout="column" fxLayoutGap="15" style="padding: 16px;">
-      <div fxLayout="row" style="min-height: 140px;">
+      <div fxLayout="row" style="min-height: 100px;">
         <div style="width: 50px;">
           <div class="profilePicture" style="width: 40px; height: 40px;"
             [style]="setProfilePhoto(loggedUser.profilePhotoUrl)">
           </div>
         </div>
   
-        <textarea  class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)" placeholder="O que está acontecendo?"></textarea>
-  
-      </div>
-    
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5" class="boldBlueText">
-        <mat-icon style="transform: scale(0.8);">public</mat-icon> <span>Qualquer pessoa pode responder</span>
-      </div>
-  
-      <mat-divider></mat-divider>
-  
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxLayout="row" fxLayoutGap="5" class="boldBlueText">
-          <mat-icon style="transform: scale(0.8);">image</mat-icon>
-          <mat-icon style="transform: scale(0.8);">gif</mat-icon>
-          <mat-icon style="transform: scale(0.8);">poll</mat-icon>
-          <mat-icon style="transform: scale(0.8);">public</mat-icon>
-          <mat-icon style="transform: scale(0.8);">public</mat-icon>
-          <mat-icon style="transform: scale(0.8);">location_on</mat-icon>
-        </div>
-  
-        <div fxLayout="row" fxLayoutGap="5">
-          <!--<mat-progress-spinner mode="determinate" [value]="10" [diameter]="40">10</mat-progress-spinner>-->
-  
-          <button class="blueButton _36pxButton cursorPointer" (click)="postNewTweet()">
-            <span>Postar</span>
-          </button>
+        <div fxFlex="calc(100% - 50px)" fxLayout="column" fxLayoutGap="10">
+          <textarea  class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)" placeholder="O que está acontecendo?"></textarea>
+
+          @if(selectedFilesUrl.length > 0){
+            @switch (selectedFilesUrl.length) {
+              @case(1){
+                <div id="tweetImage" class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[0] + ')'" fxLayoutAlign="end">
+                  <button mat-mini-fab class="selectPhotoIconButton" (click)="selectedFilesUrl = null" >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              }
+
+              @case (2) {
+                <div fxLayout="row" fxLayoutGap="12">
+                  @for (file of selectedFilesUrl; track $index) {
+                    <div fxFlex style="height: 300px;" class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[$index] + ')'" fxLayoutAlign="end">
+                      <button mat-mini-fab class="selectPhotoIconButton">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                  }
+                </div>
+              }
+
+              @case (3) {
+                  <div fxLayout="row" fxLayoutGap="12">
+                    <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[0] + ')'" fxLayoutAlign="end">
+                      <button mat-mini-fab class="selectPhotoIconButton" >
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+
+                    <div fxFlex fxLayout="column" fxLayoutGap="12" style="height: 300px;" >
+                      <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[1] + ')'" fxLayoutAlign="end">
+                        <button mat-mini-fab class="selectPhotoIconButton" >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </div>
+
+                      <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[2] + ')'" fxLayoutAlign="end">
+                        <button mat-mini-fab class="selectPhotoIconButton" >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                </div>
+              }
+
+              @case (4) {
+                <div fxLayout="column" fxLayoutGap="12" style="height: 300px;">
+                  <div fxFlex fxLayout="row" fxLayoutGap="12">
+                    <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[0] + ')'" fxLayoutAlign="end">
+                      <button mat-mini-fab class="selectPhotoIconButton" >
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+
+                    <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[1] + ')'" fxLayoutAlign="end">
+                      <button mat-mini-fab class="selectPhotoIconButton" >
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div fxFlex fxLayout="row" fxLayoutGap="12">
+                    <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[2] + ')'" fxLayoutAlign="end">
+                      <button mat-mini-fab class="selectPhotoIconButton" >
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+
+                    <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[3] + ')'" fxLayoutAlign="end">
+                      <button mat-mini-fab class="selectPhotoIconButton" >
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+              </div>
+            }
+            }
+          }
+          
         </div>
       </div>
     </div>
   </form>
+
+  <div fxLayout="column" fxLayoutGap="15" style="background-color: black; padding: 16px; position: sticky; bottom: 0;">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5" class="boldBlueText">
+      <mat-icon style="transform: scale(0.8);">public</mat-icon> <span>Qualquer pessoa pode responder</span>
+    </div>
   
+    <mat-divider></mat-divider>
   
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutGap="5">
+        <label for="fileInput" class="cursorPointer boldBlueText" [class.disabledIcon]="selectedFilesUrl.length >= 4" [style]="selectedFilesUrl.length >= 4 ? 'pointer-events: none;' : ''">
+          <mat-icon style="transform: scale(0.8);">image</mat-icon>
+        </label>
+        <input type="file" id="fileInput" accept="image/*" multiple (change)="onFileSelected($event)" 
+        hidden>
+        <mat-icon class="disabledIcon">gif</mat-icon>
+        <mat-icon class="disabledIcon">poll</mat-icon>
+        <mat-icon class="disabledIcon">insert_emoticon</mat-icon>
+        <mat-icon class="disabledIcon">insert_invitation</mat-icon>
+        <mat-icon class="disabledIcon">location_on</mat-icon>
+      </div>
+  
+      <div fxLayout="row" fxLayoutGap="5">
+  
+        <button class="blueButton _36pxButton cursorPointer" (click)="postNewTweet()">
+          <span>Postar</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

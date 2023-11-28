@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ConnectedPosition } from '@angular/cdk/overlay';
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subject, debounceTime, map, of, switchMap } from 'rxjs';
@@ -45,7 +45,8 @@ export class SearchTwitterButtonComponent {
     public router: Router,
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
-    private globalVariablesService: GlobalVariablesService
+    private globalVariablesService: GlobalVariablesService,
+    private cdr: ChangeDetectorRef
   ) {
     //Search profiles
     this.searchInputSubject.pipe(
@@ -116,6 +117,7 @@ export class SearchTwitterButtonComponent {
     if (this.searchInputValue) {
       if (event.key === 'Enter') {
         this.searchByText();
+        this.cdr.detectChanges();
       } else {
         this.searchInputSubject.next(event.target.value);
       }

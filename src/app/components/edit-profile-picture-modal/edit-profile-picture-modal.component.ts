@@ -10,7 +10,6 @@ import {
 } from '@alyle/ui/image-cropper';
 import { LySliderChange } from '@alyle/ui/slider';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DialogRef } from '@angular/cdk/dialog';
 
 const STYLES = (_theme: ThemeVariables, ref: ThemeRef) => {
   ref.renderStyleSheet(CROPPER_STYLES);

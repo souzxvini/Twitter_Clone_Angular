@@ -14,9 +14,7 @@ export class TweetModel {
     tweetViewsCount: number;
     tweetFavsCount: number;
     userProfilePhotoUrl: string;
-    tweetAttachment: [
-      string
-    ];
+    tweetAttachment: string[];
     retweetedByMe: boolean;
     likedByMe: boolean
 }

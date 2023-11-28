@@ -285,6 +285,12 @@ textarea {
   --mdc-dialog-container-shape: 0px !important;
 }
 
+.newTweetDialog{
+    max-height: 90vh !important;
+    top: 50px !important;
+    position: absolute !important;
+}
+
 .modalStyleBackdrop {
   background: rgba(91, 112, 131, 0.4);
 }
@@ -518,7 +524,6 @@ button {
 
 .selectPhotoIconButton.mat-mdc-mini-fab.mat-accent {
   --mdc-fab-container-color: rgba(22, 26, 34, 0.658) !important;
-  transition: 0.2S ease-in-out;
 }
 
 .selectPhotoIconButton.mat-mdc-mini-fab.mat-accent:hover {
@@ -683,6 +688,10 @@ button {
   font-size: 15px;
 }
 
+.userFirstName:hover {
+  text-decoration: underline;
+}
+
 .userUsername {
   white-space: nowrap;
   overflow: hidden;
@@ -704,6 +713,7 @@ button {
 .userBiography {
   font-size: 15px !important;
   color: rgb(231, 233, 234);
+  word-break: break-all;
 }
 
 .sideNavMenuProfileButtonImage {
@@ -1093,6 +1103,13 @@ button {
   border-radius: 12px;
   box-shadow: rgba(255, 255, 255, 0.27) 0px 0px 0.3em, rgba(255, 255, 255, 0.1) 0px 0.5em 1em;
   overflow-y: auto;
+}
+
+.tweetImage{
+  background-size: cover;
+  background-position: center;
+  padding: 6px;
+  border-radius: 20px;
 }
 
 @media screen and (max-width:1111px) {

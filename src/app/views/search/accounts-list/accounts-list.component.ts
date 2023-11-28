@@ -42,15 +42,11 @@ export class AccountsListComponent {
     })
   }
 
-  //Método para redirecionar o usuario logado para o perfil de outra pessoa
   redirectToProfile(profile: any) {
 
-    if (profile.username == localStorage.getItem('userName')) {
+    if (profile.username == sessionStorage.getItem('userName')) {
       this.router.navigate(['profile']);
     } else {
-      this.globalVariablesService.setAnotherUser(profile);
-
-      // Navega para a nova URL 
       this.router.navigate(['profile', profile.username]);
     }
   }

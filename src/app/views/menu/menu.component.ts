@@ -98,10 +98,11 @@ export class MenuComponent implements OnInit {
       width: '600px',
       maxWidth: '100vw',
       maxHeight: '100vh',
-      panelClass: 'modalStyle',
+      panelClass: ['modalStyle', 'newTweetDialog'],
       backdropClass: 'modalStyleBackdrop',
       disableClose: true,
-      autoFocus: false
+      autoFocus: false,
+      position: { top: '0px' }
     });
 
     dialogRef.afterClosed().subscribe({
@@ -117,6 +118,7 @@ export class MenuComponent implements OnInit {
         if (res.matches) {
           dialogRef.updateSize('100vw', '100vh');
           dialogRef.removePanelClass('bordered-dialog');
+          dialogRef.removePanelClass('newTweetDialog');
           dialogRef.addPanelClass('no-border-dialog');
         } else {
           dialogRef.updateSize('600px');

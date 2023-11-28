@@ -44,13 +44,15 @@ export class ConnectListComponent {
 
   getSuggestedAccounts(page, size) {
     page > 0 ? this.loadingMoreContent = true : this.loaded = false;
-    this.accountsService.getWhoToFollowAccounts(page, size, localStorage.getItem('userName'), this.router.url.includes('is_creator_only') ? true : false).subscribe({
+    this.accountsService.getWhoToFollowAccounts(page, size, sessionStorage.getItem('userName'), this.router.url.includes('is_creator_only') ? true : false).subscribe({
       next: (res) => {
-        this.accountsList = this.accountsList.concat(res);
-        this.loaded = true;
-        this.loadingMoreContent = false;
+        setTimeout(() => {
+          this.accountsList = this.accountsList.concat(res);
+          this.loaded = true;
+          this.loadingMoreContent = false;
 
-        if (res.length < 10) this.noMoreContent = true;
+          if (res.length < 10) this.noMoreContent = true;
+        }, 400);
       },
       error: () => {
         this.loaded = true;

@@ -47,8 +47,8 @@ export class AnotherUserProfileComponent {
       this.username = params['username'];
 
       //Se passar o nome do usuário logado na url, redireciona para o perfil dele
-      if (this.username == localStorage.getItem('userName')) {
-        this.router.navigate(['profile'])
+      if (this.username == sessionStorage.getItem('userName')) {
+        this.router.navigate(['profile'], { replaceUrl: true })
       }
 
       /*se essa funcao .getUserData() tiver valor, 

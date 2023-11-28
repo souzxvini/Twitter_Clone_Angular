@@ -31,10 +31,10 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [
+  /*providers: [
     provideRouter([],
       withViewTransitions({ skipInitialTransition: false })
     )
-  ],
+  ],*/
 })
 export class AppRoutingModule { }
