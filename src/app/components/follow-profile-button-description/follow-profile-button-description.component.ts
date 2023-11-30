@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, DestroyRef, Input, inject } from '@angular/core';
 import { noProfilePicture } from 'src/app/helpers/no-profile-picture';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { UnfollowConfirmationModalComponent } from '../unfollow-confirmation-modal/unfollow-confirmation-modal.component';
@@ -8,6 +8,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ModalUnblockUserComponent } from '../modal-unblock-user/modal-unblock-user.component';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
+import { AnotherProfileModel } from 'src/app/models/another-profile-model';
+import { MyProfileModel } from 'src/app/models/my-profile-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-follow-profile-button-description',
@@ -15,6 +18,8 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
   styleUrls: ['./follow-profile-button-description.component.scss']
 })
 export class FollowProfileButtonDescriptionComponent {
+  private destroyRef = inject(DestroyRef);
+
   @Input() profile: any;
   @Input() suggestedProfiles: any;
 
@@ -26,6 +31,8 @@ export class FollowProfileButtonDescriptionComponent {
   isMouseOverBlockedButton: boolean = false;
   currentUrl: string;
 
+  loggedUser: MyProfileModel;
+
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
@@ -36,26 +43,22 @@ export class FollowProfileButtonDescriptionComponent {
 
   ngOnInit() {
     this.currentUrl = this.router.url;
+
+    this.globalVariablesService.loggedUser$
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(user => this.loggedUser = user);
   }
 
   followUser(username) {
     let profile = this.suggestedProfiles.find(profile => profile.username === username);
-    profile.isFollowedByMe = !profile.isFollowedByMe;
-    profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
-    const loggedUser = this.globalVariablesService.getCurrentLoggedUser();
-    profile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--;
+    this.toggleFollowStatus(profile);
 
-    this.globalVariablesService.updateMyProfileInfos(loggedUser);
-
-    //se usuario estiver na tela following-and-followers e seguir alguém do card who to follow
     if (this.currentUrl.includes('profile') &&
-      (
-        this.currentUrl.includes('verified_followers') ||
+        (this.currentUrl.includes('verified_followers') ||
         this.currentUrl.includes('followers') ||
         this.currentUrl.includes('known_followers') ||
-        this.currentUrl.includes('following')
-      )) {
+        this.currentUrl.includes('following'))) {
       this.globalVariablesService.followedUserWhileOnFollowingAndFollowersScreen(profile);
     }
 
@@ -63,20 +66,14 @@ export class FollowProfileButtonDescriptionComponent {
       complete: () => {
       },
       error: (res) => {
-        profile.isFollowedByMe = !profile.isFollowedByMe;
-        profile.isFollowedByMe ? profile.followers++ : profile.followers--;
-
-        profile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--;
-        this.globalVariablesService.updateMyProfileInfos(loggedUser);
+        this.toggleFollowStatus(profile);
 
         //se usuario estiver na tela following-and-followers e seguir alguém do card who to follow
         if (this.currentUrl.includes('profile') &&
-          (
-            this.currentUrl.includes('verified_followers') ||
+            (this.currentUrl.includes('verified_followers') ||
             this.currentUrl.includes('followers') ||
             this.currentUrl.includes('known_followers') ||
-            this.currentUrl.includes('following')
-          )) {
+            this.currentUrl.includes('following'))) {
           this.globalVariablesService.followedUserWhileOnFollowingAndFollowersScreen(profile);
         }
 
@@ -97,6 +94,13 @@ export class FollowProfileButtonDescriptionComponent {
         }
       }
     })
+  }
+
+  toggleFollowStatus(profile: AnotherProfileModel){
+    profile.isFollowedByMe = !profile.isFollowedByMe;
+    profile.isFollowedByMe ? profile.followers++ : profile.followers--;
+    profile.isFollowedByMe ? this.loggedUser.following++ : this.loggedUser.following--;
+    this.globalVariablesService.updateMyProfileInfos(this.loggedUser);
   }
 
   openUnfollowConfirmationModal(profile) {

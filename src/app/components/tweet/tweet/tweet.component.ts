@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { TweetModel } from 'src/app/models/tweet-model';
@@ -17,8 +16,7 @@ export class TweetComponent {
   
   constructor(
     private feedService: FeedService,
-    private router: Router, 
-    private sanitizer: DomSanitizer
+    private router: Router
   ){}
 
   redirectToProfile(username){
@@ -26,27 +24,33 @@ export class TweetComponent {
   }
 
   likeToggle(tweetIdentifier){
-    this.tweet.likedByMe = !this.tweet.likedByMe;
-    this.tweet.likedByMe ? this.tweet.tweetLikesCount++ : this.tweet.tweetLikesCount--;
+    this.toggleLikeStatus();
     
     this.feedService.likeToggle(tweetIdentifier).subscribe({
       error: () => {
-        this.tweet.likedByMe = !this.tweet.likedByMe;
-        this.tweet.likedByMe ? this.tweet.tweetLikesCount++ : this.tweet.tweetLikesCount--;
+        this.toggleLikeStatus();
       }
     })
   }
 
+  toggleLikeStatus() {
+    this.tweet.likedByMe = !this.tweet.likedByMe;
+    this.tweet.likedByMe ? this.tweet.tweetLikesCount++ : this.tweet.tweetLikesCount--;
+  }
+
   retweetToggle(tweetIdentifier){
-    this.tweet.retweetedByMe = !this.tweet.retweetedByMe;
-    this.tweet.retweetedByMe ? this.tweet.tweetRetweetsCount++ : this.tweet.tweetRetweetsCount--;
+    this.toggleRetweetStatus();
     
     this.feedService.retweetToggle(tweetIdentifier).subscribe({
       error: () => {
-        this.tweet.retweetedByMe = !this.tweet.retweetedByMe;
-        this.tweet.retweetedByMe ? this.tweet.tweetRetweetsCount++ : this.tweet.tweetRetweetsCount--;
+        this.toggleRetweetStatus();
       }
     })
+  }
+
+  toggleRetweetStatus() {
+    this.tweet.retweetedByMe = !this.tweet.retweetedByMe;
+    this.tweet.retweetedByMe ? this.tweet.tweetRetweetsCount++ : this.tweet.tweetRetweetsCount--;
   }
 
   favToggle(tweetIdentifier){

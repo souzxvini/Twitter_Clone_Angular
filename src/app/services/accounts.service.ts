@@ -166,7 +166,7 @@ export class AccountsService {
   //USER-INTERACTIONS-CONTROLLER
 
   //PATCH /v1/user/interactions/followtoggle/{identifier}
-  followUser(username: string) {
+  followUser(username?: string) {
     return this.http.patch(API + '/accounts/v1/user/interactions/followtoggle/' + username, this.httpOptions);
   }
 

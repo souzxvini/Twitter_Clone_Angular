@@ -80,11 +80,11 @@
       </div>
 
       <div class="sideNavMobileMenuProfileInfos">
-        <div (click)="redirectToFollowing(anotherUserProfile)">
+        <div (click)="redirectTo('following', anotherUserProfile)">
           <strong>{{ anotherUserProfile.following }}</strong> Seguindo
         </div>
 
-        <div (click)="redirectToFollowers(anotherUserProfile)">
+        <div (click)="redirectTo('followers', anotherUserProfile)">
           <strong>{{ anotherUserProfile.followers }}</strong> Seguidores
         </div>
       </div>

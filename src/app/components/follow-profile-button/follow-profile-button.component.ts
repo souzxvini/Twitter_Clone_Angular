@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
+import { AnotherProfileModel } from 'src/app/models/another-profile-model';
 
 @Component({
   selector: 'app-follow-profile-button',
@@ -42,26 +43,20 @@ export class FollowProfileButtonComponent {
     this.currentUrl = this.router.url;
 
     this.globalVariablesService.loggedUser$
-    .pipe(takeUntilDestroyed(this.destroyRef)) // Unsubscribe when component is destroyed
+    .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(user => this.loggedUser = user);
   }
 
   followUser(username) {
     let profile = this.profilesList.find(profile => profile.username === username);
-    profile.isFollowedByMe = !profile.isFollowedByMe;
-    profile.isFollowedByMe ? profile.followers++ : profile.followers--;
 
-    const loggedUser = this.globalVariablesService.getCurrentLoggedUser();
-    profile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--;
+    this.toggleFollowStatus(profile);
 
-    this.globalVariablesService.updateMyProfileInfos(loggedUser);
-
-    this.accountsService.followUser(username).subscribe({
+    this.accountsService.followUser().subscribe({
       complete: () => {
       },
       error: (res) => {
-        profile.isFollowedByMe = !profile.isFollowedByMe;
-        profile.isFollowedByMe ? profile.followers++ : profile.followers--;
+        this.toggleFollowStatus(profile);
         
         this.loaded = true;
         
@@ -80,6 +75,13 @@ export class FollowProfileButtonComponent {
         }
       }
     })
+  }
+
+  toggleFollowStatus(profile: AnotherProfileModel){
+    profile.isFollowedByMe = !profile.isFollowedByMe;
+    profile.isFollowedByMe ? profile.followers++ : profile.followers--;
+    profile.isFollowedByMe ? this.loggedUser.following++ : this.loggedUser.following--;
+    this.globalVariablesService.updateMyProfileInfos(this.loggedUser);
   }
 
   openUnfollowConfirmationModal(profile) {

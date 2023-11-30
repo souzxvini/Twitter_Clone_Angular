@@ -9,6 +9,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UnfollowConfirmationModalComponent } from 'src/app/components/unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { Router } from '@angular/router';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
+import { AnotherProfileModel } from 'src/app/models/another-profile-model';
+import { MyProfileModel } from 'src/app/models/my-profile-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-unblocked-user',
@@ -26,6 +29,8 @@ export class UnblockedUserComponent {
   loadedCommonFollowers = false;
   commonFollows: any[] = [];
 
+  loggedUser: MyProfileModel;
+
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
@@ -36,6 +41,10 @@ export class UnblockedUserComponent {
 
   ngOnChanges(){
     this.getCommonFollows();
+
+    this.globalVariablesService.loggedUser$
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(user => this.loggedUser = user);
   }
 
   getCommonFollows() {
@@ -77,30 +86,25 @@ export class UnblockedUserComponent {
   }
 
   userNotificationsToggle(username) {
-    this.anotherUserProfile.isNotificationsAlertedByMe = !this.anotherUserProfile.isNotificationsAlertedByMe;
+    this.toggleUserNotificationsStatus();
+
     this.accountsService.userNotificationsToggle(username).subscribe({
       error: () => {
-        this.anotherUserProfile.isNotificationsAlertedByMe = !this.anotherUserProfile.isNotificationsAlertedByMe;
+        this.toggleUserNotificationsStatus();
       }
     })
   }
 
+  toggleUserNotificationsStatus(){
+    this.anotherUserProfile.isNotificationsAlertedByMe = !this.anotherUserProfile.isNotificationsAlertedByMe;
+  }
+
   followUser(username) {
-    this.anotherUserProfile.isFollowedByMe ? this.anotherUserProfile.followers-- : this.anotherUserProfile.followers++;
-    this.anotherUserProfile.isFollowedByMe = !this.anotherUserProfile.isFollowedByMe;
-
-    const loggedUser = this.globalVariablesService.getCurrentLoggedUser();
-    this.anotherUserProfile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--;
-
-    this.globalVariablesService.updateMyProfileInfos(loggedUser);
+    this.toggleFollowStatus();
 
     this.accountsService.followUser(username).subscribe({
       error: (res) => {
-        this.anotherUserProfile.isFollowedByMe ? this.anotherUserProfile.followers-- : this.anotherUserProfile.followers++;
-        this.anotherUserProfile.isFollowedByMe = !this.anotherUserProfile.isFollowedByMe;
-
-        this.anotherUserProfile.isFollowedByMe ? loggedUser.following++ : loggedUser.following--; 
-        this.globalVariablesService.updateMyProfileInfos(loggedUser);
+        this.toggleFollowStatus();
 
         if(res.error.error == '410.010'){
           this.snackbar.open(
@@ -117,6 +121,13 @@ export class UnblockedUserComponent {
         }
       }
     })
+  }
+
+  toggleFollowStatus(){
+    this.anotherUserProfile.isFollowedByMe = !this.anotherUserProfile.isFollowedByMe;
+    this.anotherUserProfile.isFollowedByMe ? this.anotherUserProfile.followers++ : this.anotherUserProfile.followers--;
+    this.anotherUserProfile.isFollowedByMe ? this.loggedUser.following++ : this.loggedUser.following--;
+    this.globalVariablesService.updateMyProfileInfos(this.loggedUser);
   }
 
   openUnfollowConfirmationModal(profile) {
@@ -138,13 +149,8 @@ export class UnblockedUserComponent {
     })
   }
 
-  redirectToFollowing(anotherUserProfile) {
+  redirectTo(url, anotherUserProfile) {
     this.globalVariablesService.setAnotherUser(this.anotherUserProfile);
-    this.router.navigate(['profile', anotherUserProfile.username, 'following']);
-  }
-
-  redirectToFollowers(anotherUserProfile) {
-    this.globalVariablesService.setAnotherUser(this.anotherUserProfile);
-    this.router.navigate(['profile', anotherUserProfile.username, 'followers']);
+    this.router.navigate(['profile', anotherUserProfile.username, url]);
   }
 }

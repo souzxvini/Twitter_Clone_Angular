@@ -23,7 +23,7 @@
             @switch (selectedFilesUrl.length) {
               @case(1){
                 <div id="tweetImage" class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[0] + ')'" fxLayoutAlign="end">
-                  <button mat-mini-fab class="selectPhotoIconButton" (click)="selectedFilesUrl = null" >
+                  <button mat-mini-fab class="selectPhotoIconButton" (click)="selectedFilesUrl = []" >
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>
@@ -33,7 +33,7 @@
                 <div fxLayout="row" fxLayoutGap="12">
                   @for (file of selectedFilesUrl; track $index) {
                     <div fxFlex style="height: 300px;" class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[$index] + ')'" fxLayoutAlign="end">
-                      <button mat-mini-fab class="selectPhotoIconButton">
+                      <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile($index)">
                         <mat-icon>close</mat-icon>
                       </button>
                     </div>
@@ -44,20 +44,20 @@
               @case (3) {
                   <div fxLayout="row" fxLayoutGap="12">
                     <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[0] + ')'" fxLayoutAlign="end">
-                      <button mat-mini-fab class="selectPhotoIconButton" >
+                      <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile(0)">
                         <mat-icon>close</mat-icon>
                       </button>
                     </div>
 
                     <div fxFlex fxLayout="column" fxLayoutGap="12" style="height: 300px;" >
                       <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[1] + ')'" fxLayoutAlign="end">
-                        <button mat-mini-fab class="selectPhotoIconButton" >
+                        <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile(1)">
                           <mat-icon>close</mat-icon>
                         </button>
                       </div>
 
                       <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[2] + ')'" fxLayoutAlign="end">
-                        <button mat-mini-fab class="selectPhotoIconButton" >
+                        <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile(2)">
                           <mat-icon>close</mat-icon>
                         </button>
                       </div>
@@ -69,13 +69,13 @@
                 <div fxLayout="column" fxLayoutGap="12" style="height: 300px;">
                   <div fxFlex fxLayout="row" fxLayoutGap="12">
                     <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[0] + ')'" fxLayoutAlign="end">
-                      <button mat-mini-fab class="selectPhotoIconButton" >
+                      <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile(0)">
                         <mat-icon>close</mat-icon>
                       </button>
                     </div>
 
                     <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[1] + ')'" fxLayoutAlign="end">
-                      <button mat-mini-fab class="selectPhotoIconButton" >
+                      <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile(1)">
                         <mat-icon>close</mat-icon>
                       </button>
                     </div>
@@ -83,13 +83,13 @@
 
                   <div fxFlex fxLayout="row" fxLayoutGap="12">
                     <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[2] + ')'" fxLayoutAlign="end">
-                      <button mat-mini-fab class="selectPhotoIconButton" >
+                      <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile(2)">
                         <mat-icon>close</mat-icon>
                       </button>
                     </div>
 
                     <div fxFlex class="tweetImage" [style.background-image]="'url(' + selectedFilesUrl[3] + ')'" fxLayoutAlign="end">
-                      <button mat-mini-fab class="selectPhotoIconButton" >
+                      <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile(3)">
                         <mat-icon>close</mat-icon>
                       </button>
                     </div>
