@@ -31,3 +31,22 @@
   transform: scale(0.8);
   cursor: auto;
 }
+
+.addThread {
+  border: solid 1px rgb(92, 95, 99);
+}
+
+.addThread mat-icon{
+  transform: scale(0.7);
+  color: #1d9bf0 !important;
+}
+
+.addThread {
+  height: 25px !important;
+  width: 25px !important;
+}
+
+.vertical-line {
+  border-left: 1px solid #474747; 
+  height: 32px;
+}

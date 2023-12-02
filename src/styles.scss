@@ -627,12 +627,16 @@ button {
   border-radius: 50px;
   color: rgb(255, 255, 255);
   background-color: rgb(29, 155, 240);
-  transition: background-color 0.2s ease-in-out !important;
+  transition:  0.2s ease-in-out !important;
   letter-spacing: none;
 }
 
 .blueButton:hover {
   background-color: rgb(18, 147, 233);
+}
+
+.blueButton[disabled]{
+  opacity: 0.5 !important;
 }
 
 .transparentButtonBlueText {

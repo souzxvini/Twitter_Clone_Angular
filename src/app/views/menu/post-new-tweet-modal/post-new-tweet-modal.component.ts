@@ -2,6 +2,7 @@ import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject, map } from 'rxjs';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { FeedService } from 'src/app/services/feed.service';
@@ -20,20 +21,24 @@ export class PostNewTweetModalComponent {
   
   loaded = true;
 
-  message: string;
+  selectedFiles: any[] = [];
+  selectedFilesUrl: any[] = [];
+
+  completedColor: string = '#1d9bf0';
+  emptyColor: string = '#474747';
+  textColor: string = '#e7e9ea';
+  progressSpinnerWH = '30px';
+  showRemainingCharacters = false;
+  remainingCharacters: number = 280;
+  maxMessageLength: number = 280;
 
   newTweetForm = new FormGroup<{
     message: FormControl<string>,
     canBeReplied: FormControl<boolean>,
-    attachment: FormControl<string>
   }>({
-    message: new FormControl(null, [Validators.required, Validators.maxLength(255)]),
-    canBeReplied: new FormControl(null, Validators.required),
-    attachment: new FormControl(null)
+    message: new FormControl(null, [Validators.maxLength(280)]),
+    canBeReplied: new FormControl(true, Validators.required)
   });
-
-  selectedFiles: any[] = [];
-  selectedFilesUrl: any[] = [];
 
   constructor(
     private globalVariablesService: GlobalVariablesService,
@@ -51,7 +56,7 @@ export class PostNewTweetModalComponent {
 
     const payload = {
       message: this.newTweetForm.controls['message'].value,
-      canBeReplied: true, 
+      canBeReplied: this.newTweetForm.controls['canBeReplied'].value, 
       attachment: this.selectedFiles
     }
 
@@ -72,10 +77,52 @@ export class PostNewTweetModalComponent {
   }
 
   adjustTextarea(event: any): void {
+    this.adjustTextareaHeight(event);
+    this.adjustProgressSpinner();
+  }
+
+  adjustTextareaHeight(event){
     const textarea: HTMLTextAreaElement = event.target;
     textarea.style.height = 'auto'; // Reset height to recalculate
     textarea.style.height = textarea.scrollHeight + 'px'; // Reset height to recalculate
   }
+
+  adjustProgressSpinner(){
+    if(this.newTweetForm.controls['message'].value){
+
+      if(this.newTweetForm.controls['message'].value){
+        this.completedColor = '#1d9bf0';
+        this.progressSpinnerWH = '30px';
+        this.showRemainingCharacters = false;
+      }
+
+      if(this.newTweetForm.controls['message'].value.length > this.maxMessageLength - 21){
+        this.showRemainingCharacters = true;
+        this.completedColor = '#ffd400';
+        this.progressSpinnerWH = '36px';
+        this.textColor = '#e7e9ea';
+      }
+
+      if(this.newTweetForm.controls['message'].value.length >= this.maxMessageLength){
+        this.completedColor = '#be212a';
+        this.textColor = '#be212a';
+      }
+
+      if(this.newTweetForm.controls['message'].value.length >= this.maxMessageLength + 10){
+        this.completedColor = 'transparent';
+        this.emptyColor = 'transparent';
+      }
+    }
+
+    this.updateStrokeDasharray();
+  }
+
+  updateStrokeDasharray() {
+    const filled = ((this.maxMessageLength - this.newTweetForm.controls['message'].value.length ) / this.maxMessageLength) * 100;
+    const remaining = 100 - filled;
+
+    return `${remaining} ${filled}`;
+}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -98,6 +145,7 @@ export class PostNewTweetModalComponent {
           );
         }
       }
+
       if(this.selectedFiles.length > 1){
         if(this.selectedFilesUrl.length + this.selectedFiles.length <= 4){
           this.selectedFiles.forEach((file, index) => {
@@ -121,34 +169,27 @@ export class PostNewTweetModalComponent {
   }
 
   deselectFile(fileIndex){
+    this.selectedFilesUrl.splice(fileIndex, 1);
+
     if(this.selectedFilesUrl.length == 1){
       this.resizeSelectedImage();
     }
-
-    this.selectedFilesUrl.splice(fileIndex, 1);
   } 
 
   resizeSelectedImage(){
     var img = new Image();
     
-    // Define a URL da imagem
     img.src = this.selectedFilesUrl[0];
 
-    // Quando a imagem é carregada, acessa suas dimensões
     img.onload = () => {
         var width = img.width;
         var height = img.height;
 
         var div = document.getElementById('tweetImage');
-        var divWidth = div.offsetWidth; // Get current width of the div
+        var divWidth = div.offsetWidth;
         var aspectRatio = height / width;
         var calculatedHeight = divWidth * aspectRatio;
         div.style.height = calculatedHeight + 'px';
-    };
-
-    // Caso a imagem não possa ser carregada
-    img.onerror = () => {
-        console.log("Não foi possível carregar a imagem.");
     };
   }
   

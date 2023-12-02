@@ -52,7 +52,7 @@ export class FollowProfileButtonComponent {
 
     this.toggleFollowStatus(profile);
 
-    this.accountsService.followUser().subscribe({
+    this.accountsService.followUser(username).subscribe({
       complete: () => {
       },
       error: (res) => {

@@ -17,7 +17,8 @@
         </div>
   
         <div fxFlex="calc(100% - 50px)" fxLayout="column" fxLayoutGap="10">
-          <textarea  class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)" placeholder="O que está acontecendo?"></textarea>
+
+          <textarea class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)" placeholder="O que está acontecendo?"></textarea>
 
           @if(selectedFilesUrl.length > 0){
             @switch (selectedFilesUrl.length) {
@@ -123,11 +124,30 @@
         <mat-icon class="disabledIcon">insert_emoticon</mat-icon>
         <mat-icon class="disabledIcon">insert_invitation</mat-icon>
         <mat-icon class="disabledIcon">location_on</mat-icon>
-      </div>
+      </div> 
   
-      <div fxLayout="row" fxLayoutGap="5">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10">
+        @if(newTweetForm.controls['message'].value){
+          <svg [attr.width]="progressSpinnerWH" [attr.height]="progressSpinnerWH" height="30px" viewBox="0 0 42 42" class="donut" style="transition-duration: 0.15s;">
+            <circle class="donut-hole" cx="50%" cy="50%" r="15.91549430918954" fill="transparent"></circle>
+            <circle class="donut-ring" cx="50%" cy="50%" r="15.91549430918954" fill="transparent" [attr.stroke]="emptyColor" stroke-width="3"></circle>
+          
+            <circle class="donut-segment" cx="50%" cy="50%" r="15.91549430918954" fill="transparent" [attr.stroke]="completedColor"  stroke-width="3" [attr.stroke-dasharray]="updateStrokeDasharray()"
+            stroke-dashoffset="25"></circle>
+
+            @if(showRemainingCharacters){
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" [attr.fill]="textColor">{{maxMessageLength - newTweetForm.controls['message'].value.length}}</text>
+            }
+          </svg>
+
+          <div class="vertical-line"></div>
+
+          <button mat-mini-fab class="addThread blockCursor">
+            <mat-icon>add</mat-icon>
+          </button>
+        }
   
-        <button class="blueButton _36pxButton cursorPointer" (click)="postNewTweet()">
+        <button class="blueButton _36pxButton cursorPointer" (click)="postNewTweet()" [disabled]="newTweetForm.invalid">
           <span>Postar</span>
         </button>
       </div>
