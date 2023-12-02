@@ -1,8 +1,9 @@
-import { Dialog, DialogRef } from '@angular/cdk/dialog';
+import { DialogRef } from '@angular/cdk/dialog';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
 import { FeedService } from 'src/app/services/feed.service';
@@ -34,17 +35,24 @@ export class PostNewTweetModalComponent {
 
   newTweetForm = new FormGroup<{
     message: FormControl<string>,
-    canBeReplied: FormControl<boolean>,
+    canBeReplied: FormControl<string>,
   }>({
     message: new FormControl(null, [Validators.maxLength(280)]),
-    canBeReplied: new FormControl(true, Validators.required)
+    canBeReplied: new FormControl('1', Validators.required)
   });
+
+  tweetPermissionPanelState = false;
+
+  isHandset$: Observable<boolean> = this.breakpointObserver
+  .observe(["(max-width: 498px)"])
+  .pipe(map((result) => result.matches));
 
   constructor(
     private globalVariablesService: GlobalVariablesService,
     private feedService: FeedService,
     private dialogRef: DialogRef<PostNewTweetModalComponent>,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private breakpointObserver: BreakpointObserver
   ){} 
 
   ngOnInit(){
@@ -74,6 +82,11 @@ export class PostNewTweetModalComponent {
         this.loaded = true;
       }
     })
+  }
+
+  changeTweetPrivacy(privacy: string){
+    this.newTweetForm.controls['canBeReplied'].setValue(privacy);
+    this.tweetPermissionPanelState = false;
   }
 
   adjustTextarea(event: any): void {
@@ -192,5 +205,7 @@ export class PostNewTweetModalComponent {
         div.style.height = calculatedHeight + 'px';
     };
   }
+
+  
   
 }

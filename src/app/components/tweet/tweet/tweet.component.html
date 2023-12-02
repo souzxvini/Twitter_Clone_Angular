@@ -10,8 +10,9 @@
             <div fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center">
                 <span class="userFirstName" (click)="redirectToProfile(tweet.userUsername)">{{tweet.userFirstName}}</span>
                 <span class="userUsername" (click)="redirectToProfile(tweet.userUsername)">{{'@' + tweet.userUsername}}</span>
-                <i fxLayoutAlign="start center">.</i>
-                <span class="userUsername">13h</span>
+                <mat-icon class="userUsername" style="transform: scale(0.2);">brightness_1</mat-icon>
+
+                <span class="userUsername">{{ tweet.publicationTime | date: 'HH'}}</span>
             </div>
 
             <div>
@@ -19,7 +20,7 @@
             </div>
         </div>
 
-        <div class="userBiography">
+        <div class="userBiography" style="padding-bottom: 10px">
             {{tweet.tweetMessage}}
         </div>
 

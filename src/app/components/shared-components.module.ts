@@ -21,6 +21,8 @@ import { RetweetComponent } from './tweet/retweet/retweet.component';
 import { NoCommentRetweetComponent } from './tweet/no-comment-retweet/no-comment-retweet.component';
 import { CommentComponent } from './tweet/comment/comment.component';
 import { TweetTypesComponent } from './tweet/tweet-types/tweet-types.component';
+import { PostNewTweetModalComponent } from './../views/menu/post-new-tweet-modal/post-new-tweet-modal.component';
+
 @NgModule({
   declarations:[ 
     FollowingButton32pxComponent,
@@ -42,7 +44,8 @@ import { TweetTypesComponent } from './tweet/tweet-types/tweet-types.component';
     TweetComponent,
     RetweetComponent,
     NoCommentRetweetComponent,
-    CommentComponent
+    CommentComponent,
+    PostNewTweetModalComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +66,8 @@ import { TweetTypesComponent } from './tweet/tweet-types/tweet-types.component';
     TweetComponent,
     RetweetComponent,
     NoCommentRetweetComponent,
-    CommentComponent
+    CommentComponent,
+    PostNewTweetModalComponent
   ]
 })
 

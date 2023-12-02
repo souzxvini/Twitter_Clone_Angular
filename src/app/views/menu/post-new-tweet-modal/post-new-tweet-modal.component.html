@@ -95,8 +95,8 @@
                       </button>
                     </div>
                   </div>
-              </div>
-            }
+                </div>
+              }
             }
           }
           
@@ -106,9 +106,94 @@
   </form>
 
   <div fxLayout="column" fxLayoutGap="15" style="background-color: black; padding: 16px; position: sticky; bottom: 0;">
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5" class="boldBlueText">
-      <mat-icon style="transform: scale(0.8);">public</mat-icon> <span>Qualquer pessoa pode responder</span>
+    <div fxLayout="row" >
+      <div fxLayoutAlign="start center" fxLayoutGap="5" class="boldBlueText" (click)="tweetPermissionPanelState = !tweetPermissionPanelState" cdkOverlayOrigin
+      #trigger="cdkOverlayOrigin">
+
+        @switch (newTweetForm.controls['canBeReplied'].value) {
+          @case ('1') {
+              <mat-icon style="transform: scale(0.8);">public</mat-icon> <span>Qualquer pessoa pode responder</span>
+          }
+
+          @case ('0') {
+            <mat-icon style="transform: scale(0.8);">how_to_reg</mat-icon> <span>Conta que você segue podem responder</span>
+          }
+
+          @case ('-1') {
+            <mat-icon style="transform: scale(0.8);">check_circle_outline</mat-icon> <span>Somente as contas verificadas podem responder</span>
+          }
+        }
+
+      </div>
     </div>
+
+    <ng-template #overlayNotifications cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+      [cdkConnectedOverlayOpen]="tweetPermissionPanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
+      [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="tweetPermissionPanelState = !tweetPermissionPanelState"
+      [cdkConnectedOverlayPositions]="[{originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top'}]">
+      <div class="morePanel mat-elevation-z8" fxLayout="column">
+
+        <div fxLayout="column" fxLayoutGap="2" style="padding: 12px 16px;">
+          <span style="font-weight: 900;">Quem pode responder?</span>
+
+          <span style="color: rgb(87, 91, 95);">Escolha quem pode responder a este post: as pessoas mencionadas poderão responder.</span>
+        </div>
+
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('1')">
+          <div fxLayoutAlign="start center" fxLayoutGap="10">
+            <button mat-mini-fab class="blueWhiteMiniFabIcon">
+              <mat-icon>public</mat-icon>
+            </button>
+            <span>Qualquer pessoa</span>
+          </div>
+
+          @if(newTweetForm.controls['canBeReplied'].value == '1'){
+            <div>
+              <mat-icon>done</mat-icon>
+            </div>
+          }
+        </div>
+
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('0')">
+          <div fxLayoutAlign="start center" fxLayoutGap="10">
+            <button mat-mini-fab class="blueWhiteMiniFabIcon">
+              <mat-icon>how_to_reg</mat-icon>
+            </button>
+            <span>Contas que você segue</span>
+          </div>
+          
+          @if(newTweetForm.controls['canBeReplied'].value == '0'){
+            <div>
+              <mat-icon>done</mat-icon>
+            </div>
+          }
+        </div>
+
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('-1')">
+          <div fxLayoutAlign="start center" fxLayoutGap="10">
+            <button mat-mini-fab class="blueWhiteMiniFabIcon">
+              <mat-icon>check_circle_outline</mat-icon>
+            </button>
+            <span>Contas verificadas</span>
+          </div>
+
+          @if(newTweetForm.controls['canBeReplied'].value == '-1'){
+            <div>
+              <mat-icon>done</mat-icon>
+            </div>
+          }
+        </div>
+
+        @if(isHandset$ | async){
+          <div style="padding: 12px 16px">
+            <div class="transparentButton _44pxButton cursorPointer" (click)="tweetPermissionPanelState = !tweetPermissionPanelState">
+              <strong>Cancelar</strong>
+            </div>
+          </div>
+        } 
+        
+      </div>
+    </ng-template>
   
     <mat-divider></mat-divider>
   
@@ -147,7 +232,7 @@
           </button>
         }
   
-        <button class="blueButton _36pxButton cursorPointer" (click)="postNewTweet()" [disabled]="newTweetForm.invalid">
+        <button class="blueButton _36pxButton cursorPointer" (click)="postNewTweet()" [disabled]="newTweetForm.invalid || (!newTweetForm.controls['message'].value && !selectedFilesUrl.length)">
           <span>Postar</span>
         </button>
       </div>

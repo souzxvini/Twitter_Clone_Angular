@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
+import { showTweetTime } from 'src/app/helpers/show-tweet-time';
 import { TweetModel } from 'src/app/models/tweet-model';
 import { FeedService } from 'src/app/services/feed.service';
 
@@ -13,6 +14,7 @@ export class TweetComponent {
   @Input() tweet: TweetModel;
 
   setProfilePhoto = setProfilePhoto;
+  showTweetTime = showTweetTime;
   
   constructor(
     private feedService: FeedService,

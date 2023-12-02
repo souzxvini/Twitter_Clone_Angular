@@ -16,5 +16,6 @@ export class TweetModel {
     userProfilePhotoUrl: string;
     tweetAttachment: string[];
     retweetedByMe: boolean;
-    likedByMe: boolean
+    likedByMe: boolean;
+    publicationTime: Date;
 }

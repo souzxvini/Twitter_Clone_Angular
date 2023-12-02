@@ -530,6 +530,14 @@ button {
   --mdc-fab-container-color: rgba(22, 26, 34, 0.658) !important;
 }
 
+.blueWhiteMiniFabIcon.mat-mdc-mini-fab.mat-accent{
+  --mdc-fab-container-color: rgb(29, 155, 240) !important;
+}
+
+.blueWhiteMiniFabIcon.mat-mdc-mini-fab.mat-accent:hover{
+  --mdc-fab-container-color: rgb(29, 155, 240) !important;
+}
+
 .iconButtonBorder.mat-mdc-mini-fab.mat-accent {
   border: 1px solid rgb(56, 68, 77);
 }
