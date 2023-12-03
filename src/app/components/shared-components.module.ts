@@ -27,6 +27,7 @@ import { TweetActionsComponent } from './tweet/tweet-actions/tweet-actions.compo
 import { TweetHeaderComponent } from './tweet/tweet-header/tweet-header.component';
 import { TweetMessageComponent } from './tweet/tweet-message/tweet-message.component';
 import { NewTweetImagesComponent } from './tweet/modals/new-tweet-images/new-tweet-images.component';
+import { NewTweetIconsActionsComponent } from './tweet/modals/new-tweet-icons-actions/new-tweet-icons-actions.component';
 
 @NgModule({
   declarations:[ 
@@ -55,7 +56,8 @@ import { NewTweetImagesComponent } from './tweet/modals/new-tweet-images/new-twe
     TweetActionsComponent,
     TweetHeaderComponent,
     TweetMessageComponent,
-    NewTweetImagesComponent
+    NewTweetImagesComponent,
+    NewTweetIconsActionsComponent
   ],
   imports: [
     CommonModule,
@@ -80,7 +82,9 @@ import { NewTweetImagesComponent } from './tweet/modals/new-tweet-images/new-twe
     PostNewTweetModalComponent,
     NewCommentModalComponent,
     TweetActionsComponent,
-    TweetHeaderComponent
+    TweetHeaderComponent,
+    NewTweetImagesComponent,
+    NewTweetIconsActionsComponent
   ]
 })
 

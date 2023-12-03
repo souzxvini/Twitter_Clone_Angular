@@ -57,24 +57,14 @@
           <textarea class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)"
             placeholder="Postar sua resposta"></textarea>
 
-          <app-new-tweet-images [selectedFilesUrl]="selectedFilesUrl"/>
+          <app-new-tweet-images [selectedFilesUrl]="selectedFilesUrl" [selectedFiles]="selectedFiles"/>
 
         </div>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;">
-        <div fxLayout="row" fxLayoutGap="5">
-          <label for="fileInput" class="cursorPointer boldBlueText" [class.disabledIcon]="selectedFilesUrl.length >= 4"
-            [style]="selectedFilesUrl.length >= 4 ? 'pointer-events: none;' : ''">
-            <mat-icon style="transform: scale(0.8);">image</mat-icon>
-          </label>
-          <input type="file" id="fileInput" accept="image/*" multiple (change)="onFileSelected($event)" hidden>
-          <mat-icon class="disabledIcon">gif</mat-icon>
-          <mat-icon class="disabledIcon">poll</mat-icon>
-          <mat-icon class="disabledIcon">insert_emoticon</mat-icon>
-          <mat-icon class="disabledIcon">insert_invitation</mat-icon>
-          <mat-icon class="disabledIcon">location_on</mat-icon>
-        </div>
+
+        <app-new-tweet-icons-actions [selectedFilesUrl]="selectedFilesUrl" [selectedFiles]="selectedFiles"/>
 
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10">
           @if(newCommentForm.controls['message'].value){

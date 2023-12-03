@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-new-tweet-images',
@@ -7,12 +7,18 @@ import { Component, Input } from '@angular/core';
 })
 export class NewTweetImagesComponent {
 
-  @Input() selectedFilesUrl: string[];
+  @Input() selectedFilesUrl: any[];
+  @Input() selectedFiles: any[];
 
   constructor(){}
 
   deselectFile(fileIndex){
+    console.log('this.selectedFilesUrl')
+    console.log(this.selectedFilesUrl)
+    console.log('this.selectedFiles')
+    console.log(this.selectedFiles)
     this.selectedFilesUrl.splice(fileIndex, 1);
+    this.selectedFiles.splice(fileIndex, 1);
 
     if(this.selectedFilesUrl.length == 1){
       this.resizeSelectedImage();

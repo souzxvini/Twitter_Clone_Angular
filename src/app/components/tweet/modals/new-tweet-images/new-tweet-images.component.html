@@ -3,7 +3,7 @@
         @case(1){
             <div id="tweetImage" class="moreThanOneAttachmentImage" [style.background-image]="'url(' + selectedFilesUrl[0] + ')'"
             fxLayoutAlign="end">
-                <button mat-mini-fab class="selectPhotoIconButton" (click)="selectedFilesUrl = []">
+                <button mat-mini-fab class="selectPhotoIconButton" (click)="deselectFile(0)">
                     <mat-icon>close</mat-icon>
                 </button>
             </div>
