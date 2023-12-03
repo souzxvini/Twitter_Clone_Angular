@@ -1,0 +1,58 @@
+<div class="userBiography" style="margin-bottom: 5px;">
+    {{tweet.tweetMessage}}
+</div>
+
+@if (tweet.tweetAttachment) {
+    @switch (tweet.tweetAttachment.length) {
+        @case (1) {
+            <div class="tweetOneAttachment">
+                <img class="oneAttachmentImage" [src]="transformByteToImage(tweet.tweetAttachment[0])">
+            </div>
+        }
+
+        @case (2) {
+            <div fxLayout="row" fxLayoutGap="2" style="height: 300px; margin-top: 5px;">
+                @for (file of tweet.tweetAttachment; track $index) {
+                  <div fxFlex class="moreThanOneAttachmentImage" [style.background-image]="'url(' + transformByteToImage(tweet.tweetAttachment[$index]) + ')'"
+                    [style.border-radius]="$index == 0 ? '20px 0 0 20px' : '0 20px 20px 0'"></div>
+                }
+            </div>
+        }
+
+        @case (3) {
+            <div fxLayout="row" fxLayoutGap="2" style="margin-top: 5px;">
+                <div fxFlex class="moreThanOneAttachmentImage" [style.background-image]="'url(' + transformByteToImage(tweet.tweetAttachment[0]) + ')'"
+                [style.border-radius]="'20px 0 0 20px'"></div>
+
+                <div fxFlex fxLayout="column" fxLayoutGap="2" style="height: 300px;">
+                    <div fxFlex class="moreThanOneAttachmentImage" [style.background-image]="'url(' + transformByteToImage(tweet.tweetAttachment[1]) + ')'"
+                    [style.border-radius]="'0 20px 0 0'"></div>
+
+                    <div fxFlex class="moreThanOneAttachmentImage" [style.background-image]="'url(' + transformByteToImage(tweet.tweetAttachment[2]) + ')'"
+                    [style.border-radius]="'0 0 20px 0'"></div>
+                </div>
+            </div>
+        }
+
+        @case (4) {
+            <div fxLayout="column" fxLayoutGap="2" style="height: 300px; margin-top: 5px;">
+                <div fxFlex fxLayout="row" fxLayoutGap="2">
+                    <div fxFlex class="moreThanOneAttachmentImage" [style.background-image]="'url(' + transformByteToImage(tweet.tweetAttachment[0]) + ')'"
+                    [style.border-radius]="'20px 0 0 0'"></div>
+
+                    <div fxFlex class="moreThanOneAttachmentImage" [style.background-image]="'url(' + transformByteToImage(tweet.tweetAttachment[1]) + ')'"
+                    [style.border-radius]="'0 20px 0 0'"></div>
+                </div>
+                
+                <div fxFlex fxLayout="row" fxLayoutGap="2">
+                    <div fxFlex class="moreThanOneAttachmentImage" [style.background-image]="'url(' + transformByteToImage(tweet.tweetAttachment[2]) + ')'"
+                    [style.border-radius]="'0 0 0 20px'"></div>
+
+                    <div fxFlex class="moreThanOneAttachmentImage" [style.background-image]="'url(' + transformByteToImage(tweet.tweetAttachment[3]) + ')'"
+                    [style.border-radius]="'0 0 20px 0'"></div>
+                </div>
+
+            </div>
+        }
+    }
+}

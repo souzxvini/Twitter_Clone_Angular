@@ -1,0 +1,19 @@
+<div fxLayout="row" style="padding: 12px 16px; border-bottom: 1px solid rgb(56, 68, 77);" class="cursorPointer">
+    <div style="width: 45px;" fxLayoutAlign="center start">
+        <div class="profilePicture" style="width: 40px; height: 40px; margin-top: 5px;"
+          [style]="setProfilePhoto(tweet?.userProfilePhotoUrl)" (click)="redirectToProfile(tweet.userUsername)">
+        </div>
+    </div>
+
+    <div fxFlex="calc(100% - 45px)" fxLayout="column" fxLayoutAlign="start stretch" style="padding-left: 12px;">
+
+        <app-tweet-header [tweet]="tweet"/>
+        
+        <span class="userUsername" style="margin-bottom: 5px;">Em resposta a <span
+            style="color: #1d9bf0">{{'@teste'}}</span></span>
+
+        <app-tweet-message [tweet]="tweet"/>
+
+        <app-tweet-actions [tweet]="tweet"/>
+    </div>
+</div>

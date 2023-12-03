@@ -1,21 +1,20 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DialogRef } from '@angular/cdk/dialog';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, map } from 'rxjs';
+import { Router } from '@angular/router';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
+import { TweetModel } from 'src/app/models/tweet-model';
 import { FeedService } from 'src/app/services/feed.service';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
-  selector: 'app-post-new-tweet-modal',
-  templateUrl: './post-new-tweet-modal.component.html',
-  styleUrl: './post-new-tweet-modal.component.scss'
+  selector: 'app-new-comment-modal',
+  templateUrl: './new-comment-modal.component.html',
+  styleUrl: './new-comment-modal.component.scss'
 })
-export class PostNewTweetModalComponent {
+export class NewCommentModalComponent {
 
   loggedUser: MyProfileModel;
 
@@ -26,6 +25,12 @@ export class PostNewTweetModalComponent {
   selectedFiles: any[] = [];
   selectedFilesUrl: any[] = [];
 
+  newCommentForm = new FormGroup<{
+    message: FormControl<string>
+  }>({
+    message: new FormControl(null, [Validators.maxLength(280)])
+  });
+
   completedColor: string = '#1d9bf0';
   emptyColor: string = '#474747';
   textColor: string = '#e7e9ea';
@@ -34,60 +39,40 @@ export class PostNewTweetModalComponent {
   remainingCharacters: number = 280;
   maxMessageLength: number = 280;
 
-  newTweetForm = new FormGroup<{
-    message: FormControl<string>,
-    canBeReplied: FormControl<string>,
-  }>({
-    message: new FormControl(null, [Validators.maxLength(280)]),
-    canBeReplied: new FormControl('1', Validators.required)
-  });
-
-  tweetPermissionPanelState = false;
-
-  isHandset$: Observable<boolean> = this.breakpointObserver
-  .observe(["(max-width: 498px)"])
-  .pipe(map((result) => result.matches));
-
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: TweetModel,
+    private dialogRef: MatDialogRef<NewCommentModalComponent>,
     private globalVariablesService: GlobalVariablesService,
-    private feedService: FeedService,
-    private dialogRef: DialogRef<PostNewTweetModalComponent>,
     private snackbar: MatSnackBar,
-    private breakpointObserver: BreakpointObserver
-  ){} 
-
-  ngOnInit(){
+    private feedService: FeedService
+  ){
     this.loggedUser = this.globalVariablesService.getCurrentLoggedUser();
   }
 
-  postNewTweet(){
+  postComment(){
     this.loaded = false;
 
     const payload = {
-      message: this.newTweetForm.controls['message'].value,
-      canBeReplied: this.newTweetForm.controls['canBeReplied'].value, 
+      message: this.newCommentForm.controls['message'].value,
       attachment: this.selectedFiles
     }
 
-    this.feedService.newTweet(payload).subscribe({
+    this.feedService.newComment(payload, this.data.tweetIdentifier).subscribe({
       complete: () => {
         this.loaded = true;
+        this.dialogRef.close();
+
         this.snackbar.open(
           'Seu post foi enviado.',
           'Ver',
           { duration: 5000, panelClass: ['snackbarLoginError'] }
         );
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       },
       error: () => {
         this.loaded = true;
       }
     })
-  }
-
-  changeTweetPrivacy(privacy: string){
-    this.newTweetForm.controls['canBeReplied'].setValue(privacy);
-    this.tweetPermissionPanelState = false;
   }
 
   adjustTextarea(event: any): void {
@@ -102,27 +87,27 @@ export class PostNewTweetModalComponent {
   }
 
   adjustProgressSpinner(){
-    if(this.newTweetForm.controls['message'].value){
+    if(this.newCommentForm.controls['message'].value){
 
-      if(this.newTweetForm.controls['message'].value){
+      if(this.newCommentForm.controls['message'].value){
         this.completedColor = '#1d9bf0';
         this.progressSpinnerWH = '30px';
         this.showRemainingCharacters = false;
       }
 
-      if(this.newTweetForm.controls['message'].value.length > this.maxMessageLength - 21){
+      if(this.newCommentForm.controls['message'].value.length > this.maxMessageLength - 21){
         this.showRemainingCharacters = true;
         this.completedColor = '#ffd400';
         this.progressSpinnerWH = '36px';
         this.textColor = '#e7e9ea';
       }
 
-      if(this.newTweetForm.controls['message'].value.length >= this.maxMessageLength){
+      if(this.newCommentForm.controls['message'].value.length >= this.maxMessageLength){
         this.completedColor = '#be212a';
         this.textColor = '#be212a';
       }
 
-      if(this.newTweetForm.controls['message'].value.length >= this.maxMessageLength + 10){
+      if(this.newCommentForm.controls['message'].value.length >= this.maxMessageLength + 10){
         this.completedColor = 'transparent';
         this.emptyColor = 'transparent';
       }
@@ -132,10 +117,27 @@ export class PostNewTweetModalComponent {
   }
 
   updateStrokeDasharray() {
-    const filled = ((this.maxMessageLength - this.newTweetForm.controls['message'].value.length ) / this.maxMessageLength) * 100;
+    const filled = ((this.maxMessageLength - this.newCommentForm.controls['message'].value.length ) / this.maxMessageLength) * 100;
     const remaining = 100 - filled;
 
     return `${remaining} ${filled}`;
+  }
+
+  resizeSelectedImage(){
+    var img = new Image();
+    
+    img.src = this.selectedFilesUrl[0];
+
+    img.onload = () => {
+        var width = img.width;
+        var height = img.height;
+
+        var div = document.getElementById('tweetImage');
+        var divWidth = div.offsetWidth;
+        var aspectRatio = height / width;
+        var calculatedHeight = divWidth * aspectRatio;
+        div.style.height = calculatedHeight + 'px';
+    };
   }
 
   onFileSelected(event: Event): void {
@@ -182,29 +184,4 @@ export class PostNewTweetModalComponent {
     }
   }
 
-  deselectFile(fileIndex){
-    this.selectedFilesUrl.splice(fileIndex, 1);
-
-    if(this.selectedFilesUrl.length == 1){
-      this.resizeSelectedImage();
-    }
-  } 
-
-  resizeSelectedImage(){
-    var img = new Image();
-    
-    img.src = this.selectedFilesUrl[0];
-
-    img.onload = () => {
-        var width = img.width;
-        var height = img.height;
-
-        var div = document.getElementById('tweetImage');
-        var divWidth = div.offsetWidth;
-        var aspectRatio = height / width;
-        var calculatedHeight = divWidth * aspectRatio;
-        div.style.height = calculatedHeight + 'px';
-    };
-  }
-  
 }

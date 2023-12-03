@@ -516,6 +516,9 @@ button {
   height: 100%;
 }
 
+.blueIcon{
+  color: rgb(29, 155, 240) !important;
+}
 .mat-mdc-mini-fab.mat-accent {
   height: 36px;
   width: 36px;
@@ -1117,11 +1120,18 @@ button {
   overflow-y: auto;
 }
 
-.tweetImage{
+.moreThanOneAttachmentImage{
   background-size: cover;
   background-position: center;
   padding: 6px;
   border-radius: 20px;
+}
+
+.boldBlueText{
+  color: #1d9bf0;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 @media screen and (max-width:1111px) {
@@ -1165,8 +1175,8 @@ button {
   .morePanel {
     border-radius: 12px 12px 0 0;
     box-shadow: none;
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% ;
   }
 
   .morePanel .morePanelItem:last-child {

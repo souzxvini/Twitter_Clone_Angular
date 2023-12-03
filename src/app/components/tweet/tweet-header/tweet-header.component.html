@@ -1,0 +1,13 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <span class="userFirstName" (click)="redirectToProfile(tweet.userUsername)" style="margin-right: 5px;">{{tweet.userFirstName}}</span>
+        <span class="userUsername" (click)="redirectToProfile(tweet.userUsername)">{{'@' + tweet.userUsername}}</span>
+        <mat-icon class="userUsername" style="transform: scale(0.2); margin: 0 -5px;">brightness_1</mat-icon>
+
+        <span class="userUsername">{{ tweet.publicationTime | date: 'HH'}}</span>
+    </div>
+
+    <div>
+        <mat-icon class="userUsername" style="transform: scale(1.2);">more_horiz</mat-icon>
+    </div>
+</div>

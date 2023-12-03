@@ -16,12 +16,17 @@ import { ModalBlockUserComponent } from './modal-block-user/modal-block-user.com
 import { ModalUnblockUserComponent } from './modal-unblock-user/modal-unblock-user.component';
 import { BlockedButton32pxComponent } from './blocked-button-32px/blocked-button-32px.component';
 import { ModalClearHistoricComponent } from './search-twitter-button/modal-clear-historic/modal-clear-historic.component';
-import { TweetComponent } from './tweet/tweet/tweet.component';
-import { RetweetComponent } from './tweet/retweet/retweet.component';
-import { NoCommentRetweetComponent } from './tweet/no-comment-retweet/no-comment-retweet.component';
-import { CommentComponent } from './tweet/comment/comment.component';
+import { TweetComponent } from './tweet/tweet-types/tweet/tweet.component';
+import { RetweetComponent } from './tweet/tweet-types/retweet/retweet.component';
+import { NoCommentRetweetComponent } from './tweet/tweet-types/no-comment-retweet/no-comment-retweet.component';
+import { CommentComponent } from './tweet/tweet-types/comment/comment.component';
 import { TweetTypesComponent } from './tweet/tweet-types/tweet-types.component';
 import { PostNewTweetModalComponent } from './../views/menu/post-new-tweet-modal/post-new-tweet-modal.component';
+import { NewCommentModalComponent } from './tweet/modals/new-comment-modal/new-comment-modal.component';
+import { TweetActionsComponent } from './tweet/tweet-actions/tweet-actions.component';
+import { TweetHeaderComponent } from './tweet/tweet-header/tweet-header.component';
+import { TweetMessageComponent } from './tweet/tweet-message/tweet-message.component';
+import { NewTweetImagesComponent } from './tweet/modals/new-tweet-images/new-tweet-images.component';
 
 @NgModule({
   declarations:[ 
@@ -45,7 +50,12 @@ import { PostNewTweetModalComponent } from './../views/menu/post-new-tweet-modal
     RetweetComponent,
     NoCommentRetweetComponent,
     CommentComponent,
-    PostNewTweetModalComponent
+    PostNewTweetModalComponent,
+    NewCommentModalComponent,
+    TweetActionsComponent,
+    TweetHeaderComponent,
+    TweetMessageComponent,
+    NewTweetImagesComponent
   ],
   imports: [
     CommonModule,
@@ -67,7 +77,10 @@ import { PostNewTweetModalComponent } from './../views/menu/post-new-tweet-modal
     RetweetComponent,
     NoCommentRetweetComponent,
     CommentComponent,
-    PostNewTweetModalComponent
+    PostNewTweetModalComponent,
+    NewCommentModalComponent,
+    TweetActionsComponent,
+    TweetHeaderComponent
   ]
 })
 

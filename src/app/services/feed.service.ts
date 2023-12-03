@@ -46,6 +46,17 @@ export class FeedService {
     return this.http.post(API + '/feed/v1/posts/newtweet', formData);
   }
 
+  //v1/posts/newtweet
+  newComment(payload, tweetIdentifier: string) {
+    const formData: FormData = new FormData();
+    formData.append('message', payload.message);
+    payload.attachment.forEach(file => {
+      formData.append('attachment', file);
+    });
+
+    return this.http.post(API + '/feed/v1/posts/commenttoggle/' + tweetIdentifier , formData);
+  }
+
   //v1/posts/liketoggle/{tweet}
   likeToggle(tweetIdentifier) {
     return this.http.post(API + '/feed/v1/posts/liketoggle/' + tweetIdentifier, this.httpOptions);

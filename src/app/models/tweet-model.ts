@@ -1,7 +1,7 @@
 export class TweetModel {
     tweetIdentifier: string;
     originalTweetIdentifier: string;
-    originalTweetResponse: string;
+    originalTweetResponse: TweetModel;
     tweetTypeDescription: string;
     userIdentifier: string;
     userUsername: string;

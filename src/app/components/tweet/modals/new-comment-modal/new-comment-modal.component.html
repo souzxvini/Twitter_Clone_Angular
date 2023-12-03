@@ -1,0 +1,106 @@
+<div style="height: 100%; width: 100%; overflow-y: auto;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''">
+  <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
+    fxLayoutAlign="space-between center">
+    <button mat-mini-fab [disabled]="!loaded" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+    <span class="boldBlueText blockCursor">Rascunhos</span>
+  </div>
+
+  <div fxLayout="column" style="padding: 16px;" fxLayoutGap="15">
+    <div fxLayout="row" fxLayoutGap="5">
+      <div fxLayout="column" fxLayoutGap="5" fxLayoutAlign="start center">
+        <div style="width: 50px;" fxLayoutAlign="center start">
+          <div class="profilePicture" style="width: 40px; height: 40px;"
+            [style]="setProfilePhoto(data.userProfilePhotoUrl)">
+          </div>
+        </div>
+
+        <div style="width: 2px; background-color: #333639; height: 100%;"></div>
+      </div>
+
+      <div fxFlex="calc(100% - 50px)" fxLayout="column">
+        <app-tweet-header [tweet]="data"/>
+
+        @if(data.tweetMessage){
+        <span class="userBiography" style="margin-bottom: 5px;"> {{ data.tweetMessage }}</span>
+        }
+
+        @if(data.originalTweetResponse){
+        <div style="border: solid 1px 333639; border-radius: 20px;">
+          <div fxLayout="column">
+            <div fxLayout="row">
+              TESTE
+            </div>
+            <div fxLayout="row">
+              TESTE
+            </div>
+          </div>
+        </div>
+        }
+
+        <span class="userUsername" style="margin: 7px 0 16px 0">Respondendo a <span
+            style="color: #1d9bf0">{{'@' + data.userUsername}}</span></span>
+      </div>
+    </div>
+
+    <form [formGroup]="newCommentForm">
+      <div fxLayout="row" style="min-height: 100px;" fxLayoutGap="5">
+        <div style="width: 50px;" fxLayoutAlign="center start">
+          <div class="profilePicture" style="width: 40px; height: 40px;"
+            [style]="setProfilePhoto(loggedUser.profilePhotoUrl)">
+          </div>
+        </div>
+
+        <div fxFlex="calc(100% - 50px)" fxLayout="column" fxLayoutGap="10">
+
+          <textarea class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)"
+            placeholder="Postar sua resposta"></textarea>
+
+          <app-new-tweet-images [selectedFilesUrl]="selectedFilesUrl"/>
+
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;">
+        <div fxLayout="row" fxLayoutGap="5">
+          <label for="fileInput" class="cursorPointer boldBlueText" [class.disabledIcon]="selectedFilesUrl.length >= 4"
+            [style]="selectedFilesUrl.length >= 4 ? 'pointer-events: none;' : ''">
+            <mat-icon style="transform: scale(0.8);">image</mat-icon>
+          </label>
+          <input type="file" id="fileInput" accept="image/*" multiple (change)="onFileSelected($event)" hidden>
+          <mat-icon class="disabledIcon">gif</mat-icon>
+          <mat-icon class="disabledIcon">poll</mat-icon>
+          <mat-icon class="disabledIcon">insert_emoticon</mat-icon>
+          <mat-icon class="disabledIcon">insert_invitation</mat-icon>
+          <mat-icon class="disabledIcon">location_on</mat-icon>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10">
+          @if(newCommentForm.controls['message'].value){
+          <svg [attr.width]="progressSpinnerWH" [attr.height]="progressSpinnerWH" height="30px" viewBox="0 0 42 42"
+            class="donut" style="transition-duration: 0.15s;">
+            <circle class="donut-hole" cx="50%" cy="50%" r="15.91549430918954" fill="transparent"></circle>
+            <circle class="donut-ring" cx="50%" cy="50%" r="15.91549430918954" fill="transparent"
+              [attr.stroke]="emptyColor" stroke-width="3"></circle>
+
+            <circle class="donut-segment" cx="50%" cy="50%" r="15.91549430918954" fill="transparent"
+              [attr.stroke]="completedColor" stroke-width="3" [attr.stroke-dasharray]="updateStrokeDasharray()"
+              stroke-dashoffset="25"></circle>
+
+            @if(showRemainingCharacters){
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+              [attr.fill]="textColor">{{maxMessageLength - newCommentForm.controls['message'].value.length}}</text>
+            }
+          </svg>
+          }
+
+          <button class="blueButton _36pxButton cursorPointer" (click)="postComment()"
+            [disabled]="newCommentForm.invalid || (!newCommentForm.controls['message'].value && !selectedFilesUrl.length)">
+            <span>Responder</span>
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>

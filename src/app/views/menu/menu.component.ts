@@ -123,6 +123,7 @@ export class MenuComponent implements OnInit {
         } else {
           dialogRef.updateSize('600px');
           dialogRef.addPanelClass('bordered-dialog');
+          dialogRef.addPanelClass('newTweetDialog');
           dialogRef.removePanelClass('no-border-dialog');
         }
       })

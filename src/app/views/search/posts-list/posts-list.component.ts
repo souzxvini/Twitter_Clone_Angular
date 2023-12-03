@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeedService } from 'src/app/services/feed.service';
 
@@ -8,6 +9,7 @@ import { FeedService } from 'src/app/services/feed.service';
   styleUrls: ['./posts-list.component.scss']
 })
 export class PostsListComponent {
+  private destroyRef = inject(DestroyRef);
 
   loaded = false;
 
@@ -47,7 +49,7 @@ export class PostsListComponent {
   }
 
   getTweets(type){
-    this.feedService.searchByText(type, this.searchValue, this.page, this.size).subscribe({
+    this.feedService.searchByText(type, this.searchValue, this.page, this.size).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         setTimeout(() => {
           this.tweetsList = res;
