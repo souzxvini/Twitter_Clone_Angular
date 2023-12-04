@@ -1,0 +1,15 @@
+<svg [attr.width]="progressSpinnerWH" [attr.height]="progressSpinnerWH" height="30px" viewBox="0 0 42 42" class="donut"
+  style="transition-duration: 0.15s;">
+  <circle class="donut-hole" cx="50%" cy="50%" r="15.91549430918954" fill="transparent"></circle>
+  <circle class="donut-ring" cx="50%" cy="50%" r="15.91549430918954" fill="transparent" [attr.stroke]="emptyColor"
+    stroke-width="3"></circle>
+
+  <circle class="donut-segment" cx="50%" cy="50%" r="15.91549430918954" fill="transparent"
+    [attr.stroke]="completedColor" stroke-width="3" [attr.stroke-dasharray]="updateStrokeDasharray()"
+    stroke-dashoffset="25"></circle>
+
+  @if(showRemainingCharacters){
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+        [attr.fill]="textColor">{{maxMessageLength - message.length}}</text>
+  }
+</svg>

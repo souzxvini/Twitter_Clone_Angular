@@ -30,14 +30,6 @@ export class NewCommentModalComponent {
     message: new FormControl(null, [Validators.maxLength(280)])
   });
 
-  completedColor: string = '#1d9bf0';
-  emptyColor: string = '#474747';
-  textColor: string = '#e7e9ea';
-  progressSpinnerWH = '30px';
-  showRemainingCharacters = false;
-  remainingCharacters: number = 280;
-  maxMessageLength: number = 280;
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: TweetModel,
     private dialogRef: MatDialogRef<NewCommentModalComponent>,
@@ -76,50 +68,12 @@ export class NewCommentModalComponent {
 
   adjustTextarea(event: any): void {
     this.adjustTextareaHeight(event);
-    this.adjustProgressSpinner();
   }
 
   adjustTextareaHeight(event){
     const textarea: HTMLTextAreaElement = event.target;
     textarea.style.height = 'auto'; // Reset height to recalculate
     textarea.style.height = textarea.scrollHeight + 'px'; // Reset height to recalculate
-  }
-
-  adjustProgressSpinner(){
-    if(this.newCommentForm.controls['message'].value){
-
-      if(this.newCommentForm.controls['message'].value){
-        this.completedColor = '#1d9bf0';
-        this.progressSpinnerWH = '30px';
-        this.showRemainingCharacters = false;
-      }
-
-      if(this.newCommentForm.controls['message'].value.length > this.maxMessageLength - 21){
-        this.showRemainingCharacters = true;
-        this.completedColor = '#ffd400';
-        this.progressSpinnerWH = '36px';
-        this.textColor = '#e7e9ea';
-      }
-
-      if(this.newCommentForm.controls['message'].value.length >= this.maxMessageLength){
-        this.completedColor = '#be212a';
-        this.textColor = '#be212a';
-      }
-
-      if(this.newCommentForm.controls['message'].value.length >= this.maxMessageLength + 10){
-        this.completedColor = 'transparent';
-        this.emptyColor = 'transparent';
-      }
-    }
-
-    this.updateStrokeDasharray();
-  }
-
-  updateStrokeDasharray() {
-    const filled = ((this.maxMessageLength - this.newCommentForm.controls['message'].value.length ) / this.maxMessageLength) * 100;
-    const remaining = 100 - filled;
-
-    return `${remaining} ${filled}`;
   }
 
 }
