@@ -54,7 +54,7 @@ export class FeedService {
       formData.append('attachment', file);
     });
 
-    return this.http.post(API + '/feed/v1/posts/commenttoggle/' + tweetIdentifier , formData);
+    return this.http.post(API + '/feed/v1/posts/newcomment/' + tweetIdentifier , formData);
   }
 
   //v1/posts/liketoggle/{tweet}

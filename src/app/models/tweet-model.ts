@@ -18,4 +18,5 @@ export class TweetModel {
     retweetedByMe: boolean;
     likedByMe: boolean;
     publicationTime: Date;
+    nowTime: Date;
 }

@@ -4,7 +4,7 @@
         <span class="userUsername" (click)="redirectToProfile(tweet.userUsername)">{{'@' + tweet.userUsername}}</span>
         <mat-icon class="userUsername" style="transform: scale(0.2); margin: 0 -5px;">brightness_1</mat-icon>
 
-        <span class="userUsername">{{ tweet.publicationTime | date: 'HH'}}</span>
+        <span class="userUsername">{{ showTweetTime(tweet.publicationTime, tweet.nowTime)}}</span>
     </div>
 
     <div>

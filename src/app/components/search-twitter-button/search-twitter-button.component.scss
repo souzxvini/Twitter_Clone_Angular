@@ -115,6 +115,10 @@ input::placeholder {
   color: rgb(29, 155, 240);
 }
 
+.userFirstName{
+  text-decoration: none;
+}
+
 @media screen and (max-width:1111px) {
   .filteredProfilesPanel {
     width: 280px !important;

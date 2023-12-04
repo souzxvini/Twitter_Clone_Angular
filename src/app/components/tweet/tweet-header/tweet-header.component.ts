@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { TweetModel } from 'src/app/models/tweet-model';
+import { showTweetTime } from 'src/app/helpers/show-tweet-time';
 
 @Component({
   selector: 'app-tweet-header',
@@ -9,6 +10,8 @@ import { TweetModel } from 'src/app/models/tweet-model';
 })
 export class TweetHeaderComponent {
   @Input() tweet: TweetModel;
+
+  showTweetTime = showTweetTime;
 
   constructor(
     private router: Router
