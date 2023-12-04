@@ -20,7 +20,14 @@
       </div>
 
       <div fxFlex="calc(100% - 50px)" fxLayout="column">
-        <app-tweet-header [tweet]="data"/>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <span class="userFirstName" style="margin-right: 5px;">{{data.userFirstName}}</span>
+          <span class="userUsername">{{'@' + data.userUsername}}</span>
+          <mat-icon class="userUsername" style="transform: scale(0.1); margin: 0 -5px;">brightness_1</mat-icon>
+  
+          <span class="userUsername">{{ data.publicationTime | date: 'HH'}}</span>
+        </div>
+  
 
         @if(data.tweetMessage){
         <span class="userBiography" style="margin-bottom: 5px;"> {{ data.tweetMessage }}</span>

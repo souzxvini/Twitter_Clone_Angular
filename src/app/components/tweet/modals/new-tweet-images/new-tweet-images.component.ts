@@ -13,10 +13,6 @@ export class NewTweetImagesComponent {
   constructor(){}
 
   deselectFile(fileIndex){
-    console.log('this.selectedFilesUrl')
-    console.log(this.selectedFilesUrl)
-    console.log('this.selectedFiles')
-    console.log(this.selectedFiles)
     this.selectedFilesUrl.splice(fileIndex, 1);
     this.selectedFiles.splice(fileIndex, 1);
 
