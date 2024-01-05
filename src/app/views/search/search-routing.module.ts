@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from 'src/app/guards/auth.guard';
 import { SearchComponent } from './search.component';
-import { ExploreSearchComponent } from '../explore/explore-search/explore-search.component';
+import { ExploreAsideComponent } from '../explore/aside/explore-aside.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 
@@ -21,7 +21,7 @@ const routes: Routes = [
           { path: 'medias', component: PostsListComponent}
         ] 
       },
-      { path: '', component: ExploreSearchComponent, outlet: 'secondary' },
+      { path: '', component: ExploreAsideComponent, outlet: 'secondary' },
       
     ],
   }

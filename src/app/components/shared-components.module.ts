@@ -8,7 +8,7 @@ import { SearchTwitterButtonComponent } from 'src/app/components/search-twitter-
 import { SharedMaterialModule } from '../shared/shared-material/shared-material.module';
 import { UnfollowConfirmationModalComponent } from './unfollow-confirmation-modal/unfollow-confirmation-modal.component';
 import { FollowProfileButtonDescriptionComponent } from './follow-profile-button-description/follow-profile-button-description.component';
-import { DefaultSearchSectionComponent } from './default-search-section/default-search-section.component';
+import { DefaultAsideSectionComponent } from './default-aside-section/default-aside-section.component';
 import { FollowProfileButtonComponent } from './follow-profile-button/follow-profile-button.component';
 import { MobileFooterNavComponent } from './mobile-footer-nav/mobile-footer-nav.component';
 import { BlockedButton36pxComponent } from './blocked-button-36px/blocked-button-36px.component';
@@ -43,7 +43,7 @@ import { OriginalTweetComponent } from './tweet/original-tweet/original-tweet.co
     SearchTwitterButtonComponent,
     UnfollowConfirmationModalComponent,
     FollowProfileButtonDescriptionComponent,
-    DefaultSearchSectionComponent,
+    DefaultAsideSectionComponent,
     FollowProfileButtonComponent,
     MobileFooterNavComponent,
     ModalBlockUserComponent,
@@ -78,7 +78,7 @@ import { OriginalTweetComponent } from './tweet/original-tweet/original-tweet.co
     SearchTwitterButtonComponent,
     UnfollowConfirmationModalComponent,
     FollowProfileButtonDescriptionComponent,
-    DefaultSearchSectionComponent,
+    DefaultAsideSectionComponent,
     MobileFooterNavComponent,
     TweetTypesComponent,
     TweetComponent,

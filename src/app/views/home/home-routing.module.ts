@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { authGuard } from 'src/app/guards/auth.guard';
-import { DefaultSearchSectionComponent } from 'src/app/components/default-search-section/default-search-section.component';
+import { DefaultAsideSectionComponent } from 'src/app/components/default-aside-section/default-aside-section.component';
 
 const routes: Routes = [
 
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: DefaultSearchSectionComponent,
+    component: DefaultAsideSectionComponent,
     canActivate: [authGuard],
     outlet: 'secondary'
   }

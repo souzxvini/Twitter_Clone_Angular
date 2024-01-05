@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileSearchComponent } from './profile-search/profile-search.component';
+import { ProfileAsideComponent } from './profile-aside/profile-aside.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { SharedMaterialModule } from 'src/app/shared/shared-material/shared-material.module';
 import { SharedComponentsModule } from 'src/app/components/shared-components.module';
@@ -26,7 +26,7 @@ import { UserHasBlockedLoggedUserActionsComponent } from './another-user-profile
 @NgModule({
   declarations: [
     ProfileNavComponent,
-    ProfileSearchComponent,
+    ProfileAsideComponent,
     MyProfileComponent,
     AnotherUserProfileComponent,
     FullScreenProfilePhotoModalComponent,
