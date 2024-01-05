@@ -1,4 +1,4 @@
-<div style="height: 100%; width: 100%; overflow-x: hidden; overflow-y: auto;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''" >
+<div style="height: 100%; width: 100%; overflow-x: hidden; overflow-y: auto;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''">
   <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
     fxLayoutAlign="space-between center" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
     <button mat-mini-fab [disabled]="!loaded" mat-dialog-close>
@@ -7,7 +7,7 @@
     <span class="boldBlueText blockCursor">Rascunhos</span>
   </div>
 
-  <form [formGroup]="newTweetForm" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '500ms' } }">
+  <form [formGroup]="newRetweetCommentForm" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '500ms' } }">
     <div fxLayout="column" fxLayoutGap="15" style="padding: 16px;">
       <div fxLayout="row" style="min-height: 100px;">
         <div style="width: 50px;">
@@ -15,26 +15,32 @@
             [style]="setProfilePhoto(loggedUser.profilePhotoUrl)">
           </div>
         </div>
-  
+
         <div fxFlex="calc(100% - 50px)" fxLayout="column" fxLayoutGap="10">
 
-          <textarea class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)" placeholder="O que está acontecendo?"></textarea>
+          <textarea class="newTweetMessage" formControlName="message" (input)="adjustTextarea($event)"
+            placeholder="Adicionar um comentário"></textarea>
 
-          <app-new-tweet-images [selectedFilesUrl]="selectedFilesUrl" [selectedFiles]="selectedFiles"/>
-          
+          @if(selectedFilesUrl.length > 0){
+          <app-new-tweet-images [selectedFilesUrl]="selectedFilesUrl" [selectedFiles]="selectedFiles" />
+          }
+
+          <!--INFORMAÇÕES TWEET ORIGINAL-->
+          <app-original-tweet [originalTweet]="originalTweet" [retweetHasFile]="selectedFilesUrl.length ? true : false"/>          
+
         </div>
       </div>
     </div>
   </form>
 
   <div fxLayout="column" fxLayoutGap="15" style="background-color: black; padding: 16px; position: sticky; bottom: 0;" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '650ms' } }">
-    <div fxLayout="row" >
-      <div fxLayoutAlign="start center" fxLayoutGap="5" class="boldBlueText" (click)="tweetPermissionPanelState = !tweetPermissionPanelState" cdkOverlayOrigin
-      #trigger="cdkOverlayOrigin">
+    <div fxLayout="row">
+      <div fxLayoutAlign="start center" fxLayoutGap="5" class="boldBlueText"
+        (click)="tweetPermissionPanelState = !tweetPermissionPanelState" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
 
-        @switch (newTweetForm.controls['canBeReplied'].value) {
+        @switch (newRetweetCommentForm.controls['canBeReplied'].value) {
           @case ('1') {
-              <mat-icon style="transform: scale(0.8);">public</mat-icon> <span>Qualquer pessoa pode responder</span>
+            <mat-icon style="transform: scale(0.8);">public</mat-icon> <span>Qualquer pessoa pode responder</span>
           }
 
           @case ('0') {
@@ -42,7 +48,8 @@
           }
 
           @case ('-1') {
-            <mat-icon style="transform: scale(0.8);">check_circle_outline</mat-icon> <span>Somente as contas verificadas podem responder</span>
+            <mat-icon style="transform: scale(0.8);">check_circle_outline</mat-icon> <span>Somente as contas verificadas
+            podem responder</span>
           }
         }
 
@@ -58,10 +65,12 @@
         <div fxLayout="column" fxLayoutGap="2" style="padding: 12px 16px;">
           <span style="font-weight: 900;">Quem pode responder?</span>
 
-          <span style="color: rgb(87, 91, 95);">Escolha quem pode responder a este post: as pessoas mencionadas poderão responder.</span>
+          <span style="color: rgb(87, 91, 95);">Escolha quem pode responder a este post: as pessoas mencionadas poderão
+            responder.</span>
         </div>
 
-        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('1')">
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center"
+          (click)="changeTweetPrivacy('1')">
           <div fxLayoutAlign="start center" fxLayoutGap="10">
             <button mat-mini-fab class="blueWhiteMiniFabIcon">
               <mat-icon>public</mat-icon>
@@ -69,29 +78,31 @@
             <span>Qualquer pessoa</span>
           </div>
 
-          @if(newTweetForm.controls['canBeReplied'].value == '1'){
+          @if(newRetweetCommentForm.controls['canBeReplied'].value == '1'){
             <div>
               <mat-icon class="blueIcon">done</mat-icon>
             </div>
           }
         </div>
 
-        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('0')">
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center"
+          (click)="changeTweetPrivacy('0')">
           <div fxLayoutAlign="start center" fxLayoutGap="10">
             <button mat-mini-fab class="blueWhiteMiniFabIcon">
               <mat-icon>how_to_reg</mat-icon>
             </button>
             <span>Contas que você segue</span>
           </div>
-          
-          @if(newTweetForm.controls['canBeReplied'].value == '0'){
+
+          @if(newRetweetCommentForm.controls['canBeReplied'].value == '0'){
             <div>
               <mat-icon class="blueIcon">done</mat-icon>
             </div>
           }
         </div>
 
-        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('-1')">
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center"
+          (click)="changeTweetPrivacy('-1')">
           <div fxLayoutAlign="start center" fxLayoutGap="10">
             <button mat-mini-fab class="blueWhiteMiniFabIcon">
               <mat-icon>check_circle_outline</mat-icon>
@@ -99,7 +110,7 @@
             <span>Contas verificadas</span>
           </div>
 
-          @if(newTweetForm.controls['canBeReplied'].value == '-1'){
+          @if(newRetweetCommentForm.controls['canBeReplied'].value == '-1'){
             <div>
               <mat-icon class="blueIcon">done</mat-icon>
             </div>
@@ -107,33 +118,35 @@
         </div>
 
         @if(isHandset$ | async){
-          <div style="padding: 12px 16px">
-            <div class="transparentButton _44pxButton cursorPointer" (click)="tweetPermissionPanelState = !tweetPermissionPanelState">
-              <strong>Cancelar</strong>
-            </div>
+        <div style="padding: 12px 16px">
+          <div class="transparentButton _44pxButton cursorPointer"
+            (click)="tweetPermissionPanelState = !tweetPermissionPanelState">
+            <strong>Cancelar</strong>
           </div>
-        } 
-        
+        </div>
+        }
+
       </div>
     </ng-template>
-  
+
     <mat-divider></mat-divider>
-  
+
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <app-new-tweet-icons-actions [selectedFilesUrl]="selectedFilesUrl" [selectedFiles]="selectedFiles"/>
-  
+      <app-new-tweet-icons-actions [selectedFilesUrl]="selectedFilesUrl" [selectedFiles]="selectedFiles" />
+
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10">
-        @if(newTweetForm.controls['message'].value){
-          <app-message-length-spinner [message]="newTweetForm.controls['message'].value"/>
+        @if(newRetweetCommentForm.controls['message'].value){
+        <app-message-length-spinner [message]="newRetweetCommentForm.controls['message'].value" />
 
-          <div class="vertical-line"></div>
+        <div class="vertical-line"></div>
 
-          <button mat-mini-fab class="addThread blockCursor">
-            <mat-icon>add</mat-icon>
-          </button>
+        <button mat-mini-fab class="addThread blockCursor">
+          <mat-icon>add</mat-icon>
+        </button>
         }
-  
-        <button class="blueButton _36pxButton cursorPointer" (click)="postNewTweet()" [disabled]="newTweetForm.invalid || (!newTweetForm.controls['message'].value && !selectedFilesUrl.length)">
+
+        <button class="blueButton _36pxButton cursorPointer" (click)="postCommentedRetweet(originalTweet.tweetIdentifier)"
+          [disabled]="newRetweetCommentForm.invalid || (!newRetweetCommentForm.controls['message'].value && !selectedFilesUrl.length)">
           <span>Postar</span>
         </button>
       </div>

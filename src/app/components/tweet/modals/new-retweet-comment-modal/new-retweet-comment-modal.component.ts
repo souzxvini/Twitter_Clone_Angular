@@ -1,8 +1,11 @@
-import { animate, keyframes, sequence, style, transition, trigger } from '@angular/animations';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import { DialogRef, } from '@angular/cdk/dialog';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, map } from 'rxjs';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { showTweetTime } from 'src/app/helpers/show-tweet-time';
 import { MyProfileModel } from 'src/app/models/my-profile-model';
@@ -11,10 +14,18 @@ import { FeedService } from 'src/app/services/feed.service';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
-  selector: 'app-new-comment-modal',
-  templateUrl: './new-comment-modal.component.html',
-  styleUrl: './new-comment-modal.component.scss',
+  selector: 'app-new-retweet-comment-modal',
+  templateUrl: './new-retweet-comment-modal.component.html',
+  styleUrl: './new-retweet-comment-modal.component.scss',
   animations: [
+    trigger('fastFadeInOutAnimation', [
+      transition(':enter', [
+        animate('200ms', keyframes([
+          style({ opacity: 0 }),
+          style({ opacity: 1 }),
+        ]))
+      ])
+    ]),
     trigger('fadeInOutAnimation', [
       transition(':enter', [
         animate('400ms cubic-bezier(.53,.02,1,.73)', keyframes([
@@ -28,36 +39,10 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
         style({ transform: 'scale(0.5)' }),
         animate('{{time}} cubic-bezier(0,.87,.61,.98)', style({ transform: 'scale(1)' })),
       ], { params: { time: '400ms' } }),
-    ])
-    /*trigger('slideInLeftToRigth', [
-      transition(':enter', [
-        style({ transform: 'translateX(-300px)' }),
-        animate('400ms cubic-bezier(0,.87,.61,.98)', style({ transform: 'translateX(0%)' })),
-      ]),
     ]),
-    trigger('slideInRightToLeft', [
-      transition(':enter', [
-        style({ transform: 'translateX(300px)' }),
-        animate('400ms cubic-bezier(0,.87,.61,.98)', style({ transform: 'translateX(0%)' })),
-      ]),
-    ]),
-    trigger('bounce', [
-      transition(':enter', [
-        sequence([
-          style({ transform: 'translateY(0)'}),
-          animate("200ms cubic-bezier(0,0,0,1)", style({ transform: 'translateY(-14px)' })),
-          animate("300ms cubic-bezier(1,0,1,1)", style({ transform: 'translateY(0)' })),
-          animate("200ms cubic-bezier(0,0,0,1)", style({ transform: 'translateY(-10px)' })),
-          animate("150ms cubic-bezier(1,0,1,1)", style({ transform: 'translateY(0)' })),
-          animate("100ms cubic-bezier(0,0,0,1)", style({ transform: 'translateY(-5px)' })),
-          animate("80ms cubic-bezier(1,0,1,1)", style({ transform: 'translateY(0)' })),
-        ]),
-      ])
-    ]),*/
   ]
 })
-export class NewCommentModalComponent {
-
+export class NewRetweetCommentModalComponent {
   loggedUser: MyProfileModel;
 
   setProfilePhoto = setProfilePhoto;
@@ -68,31 +53,40 @@ export class NewCommentModalComponent {
   selectedFiles: any[] = [];
   selectedFilesUrl: any[] = [];
 
-  newCommentForm = new FormGroup<{
-    message: FormControl<string>
+  newRetweetCommentForm = new FormGroup<{
+    message: FormControl<string>,
+    canBeReplied: FormControl<string>,
   }>({
-    message: new FormControl(null, [Validators.maxLength(280)])
+    message: new FormControl(null, [Validators.maxLength(280)]),
+    canBeReplied: new FormControl('1', Validators.required)
   });
 
+  tweetPermissionPanelState = false;
+
+  isHandset$: Observable<boolean> = this.breakpointObserver
+  .observe(["(max-width: 498px)"])
+  .pipe(map((result) => result.matches));
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: TweetModel,
-    private dialogRef: MatDialogRef<NewCommentModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public originalTweet: TweetModel,
     private globalVariablesService: GlobalVariablesService,
-    private snackbar: MatSnackBar,
-    private feedService: FeedService
-  ){
+    private breakpointObserver: BreakpointObserver,
+    private feedService: FeedService,
+    private dialogRef: MatDialogRef<NewRetweetCommentModalComponent>,
+    private snackbar: MatSnackBar
+  ){}
+
+  ngOnInit(){
     this.loggedUser = this.globalVariablesService.getCurrentLoggedUser();
   }
 
-  postComment(){
-    this.loaded = false;
-
+  postCommentedRetweet(originalTweetIdentifier){
     const payload = {
-      message: this.newCommentForm.controls['message'].value,
+      message: this.newRetweetCommentForm.controls['message'].value,
       attachment: this.selectedFiles
     }
 
-    this.feedService.newComment(payload, this.data.tweetIdentifier).subscribe({
+    this.feedService.retweetToggle(originalTweetIdentifier, payload).subscribe({
       complete: () => {
         this.loggedUser.tweetsCount++;
         this.globalVariablesService.updateMyProfileInfos(this.loggedUser);
@@ -103,18 +97,16 @@ export class NewCommentModalComponent {
           { duration: 5000, panelClass: ['snackbarLoginError'] }
         );
         this.dialogRef.close();
-      },
-      error: () => {
-        this.loaded = true;
       }
     })
   }
 
-  adjustTextarea(event: any): void {
-    this.adjustTextareaHeight(event);
+  changeTweetPrivacy(privacy: string){
+    this.newRetweetCommentForm.controls['canBeReplied'].setValue(privacy);
+    this.tweetPermissionPanelState = false;
   }
 
-  adjustTextareaHeight(event){
+  adjustTextarea(event: any): void {
     const textarea: HTMLTextAreaElement = event.target;
     textarea.style.height = 'auto'; // Reset height to recalculate
     textarea.style.height = textarea.scrollHeight + 'px'; // Reset height to recalculate

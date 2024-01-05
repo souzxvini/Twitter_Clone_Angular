@@ -63,7 +63,22 @@ export class FeedService {
   }
 
   //v1/posts/retweetToggle/{tweet}
-  retweetToggle(tweetIdentifier) {
-    return this.http.post(API + '/feed/v1/posts/retweettoggle/' + tweetIdentifier, this.httpOptions);
+  retweetToggle(tweetIdentifier, payload?) {
+
+    const formData: FormData = new FormData();
+
+    if(payload){
+      formData.append('message', payload.message);
+      payload.attachment.forEach(file => {
+        formData.append('attachment', file);
+      });
+    }
+
+    return this.http.post(API + '/feed/v1/posts/retweettoggle/' + tweetIdentifier, formData);
+  }
+
+  //v1/posts/favToggle/{tweet}
+  favToggle(tweetIdentifier) {
+    return this.http.post(API + '/feed/v1/posts/favtoggle/' + tweetIdentifier, this.httpOptions);
   }
 }

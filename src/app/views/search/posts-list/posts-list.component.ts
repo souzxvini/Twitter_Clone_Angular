@@ -1,12 +1,23 @@
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FeedService } from 'src/app/services/feed.service';
 
 @Component({
   selector: 'app-posts-list',
   templateUrl: './posts-list.component.html',
-  styleUrls: ['./posts-list.component.scss']
+  styleUrls: ['./posts-list.component.scss'],
+  animations: [
+    trigger('fadeInOutAnimation', [
+      transition('void => *', [
+        animate(400, keyframes([
+          style({ opacity: 0 }),
+          style({ opacity: 1 }),
+        ]))
+      ])
+    ])
+  ]
 })
 export class PostsListComponent {
   private destroyRef = inject(DestroyRef);
@@ -34,6 +45,13 @@ export class PostsListComponent {
     });
 
     this.verifySelectedTab();
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.verifySelectedTab();
+      }
+    });
+  
   }
 
   verifySelectedTab(){
@@ -49,6 +67,7 @@ export class PostsListComponent {
   }
 
   getTweets(type){
+    this.loaded = false;
     this.feedService.searchByText(type, this.searchValue, this.page, this.size).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         setTimeout(() => {

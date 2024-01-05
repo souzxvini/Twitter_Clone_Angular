@@ -1,47 +1,108 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 5px">
-    <div fxFlex="22" fxLayoutAlign="start center">
-        <div fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center" class="tweetAction tweetActionBlue" (click)="openNewCommentModal(tweet)">
-            <mat-icon>chat_bubble_outline</mat-icon>
-            <span>{{ tweet.tweetCommentsCount }}</span>
-        </div>
+<div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px">
+  <div fxFlex="22" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center" class="tweetAction tweetActionBlue"
+      (click)="openNewCommentModal(tweet)">
+      <mat-icon>chat_bubble_outline</mat-icon>
+      <span>{{ tweet.tweetCommentsCount }}</span>
     </div>
+  </div>
 
-    <div fxFlex="22" fxLayoutAlign="start center">
-        <div fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center" class="tweetAction"
-        [class.tweetActionGreen]="!tweet.retweetedByMe" [class.tweetActionGreenActive]="tweet.retweetedByMe"
+  <div fxFlex="22" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center" class="tweetAction"
+      [class.tweetActionGreen]="!tweet.retweetedByMe" [class.tweetActionGreenActive]="tweet.retweetedByMe"
+      (click)="retweetPanelState = !retweetPanelState" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+      <mat-icon>cached</mat-icon>
+      <span>{{ tweet.tweetRetweetsCount }}</span>
+    </div>
+  </div>
+
+  <ng-template #overlayNotifications cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="retweetPanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
+    [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="retweetPanelState = !retweetPanelState"
+    [cdkConnectedOverlayPositions]="[{originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'top'}]">
+    <div class="morePanel mat-elevation-z8" fxLayout="column" [@fadeInOutAnimation]>
+
+      @if(!tweet.retweetedByMe){
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
         (click)="retweetToggle(tweet.tweetIdentifier)">
-            <mat-icon>cached</mat-icon>
-            <span>{{ tweet.tweetRetweetsCount }}</span>
-        </div>
+        <mat-icon>cached</mat-icon>
+        <span style="word-break: break-all;">Repostar</span>
+      </div>
+      }
+
+      @if(tweet.retweetedByMe){
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
+        (click)="retweetToggle(tweet.tweetIdentifier)">
+        <mat-icon>cached</mat-icon>
+        <span style="word-break: break-all;">Desfazer Repost</span>
+      </div>
+      }
+
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
+        (click)="openNewRetweetCommentModal(tweet)">
+        <mat-icon>edit</mat-icon>
+        <span style="word-break: break-all;">Comentar</span>
+      </div>
+
     </div>
 
-    <div fxFlex="22" fxLayoutAlign="start center">
-        <div fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center" class="tweetAction"
-        [class.tweetActionRed]="!tweet.likedByMe" [class.tweetActionRedActive]="tweet.likedByMe" (click)="likeToggle(tweet.tweetIdentifier)">
-            @if(tweet.likedByMe){
-                <mat-icon>favorite</mat-icon>
-            }
-            @else {
-                <mat-icon>favorite_border</mat-icon>
-            }
-            <span>{{ tweet.tweetLikesCount }}</span>
-        </div>
+  </ng-template>
+
+  <div fxFlex="22" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center" class="tweetAction"
+      [class.tweetActionRed]="!tweet.likedByMe" [class.tweetActionRedActive]="tweet.likedByMe"
+      (click)="likeToggle(tweet.tweetIdentifier)">
+      @if(tweet.likedByMe){
+      <mat-icon> favorite </mat-icon>
+      }
+
+      @if(!tweet.likedByMe){
+      <mat-icon> favorite_border </mat-icon>
+      }
+      <span>{{ tweet.tweetLikesCount }}</span>
+    </div>
+  </div>
+
+  <div fxFlex="22" fxLayoutAlign="start center">
+    <div class="tweetAction tweetActionBlue" fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center">
+      <mat-icon>assessment</mat-icon>
+      <span>{{ tweet.tweetViewsCount }}</span>
+    </div>
+  </div>
+
+  <div fxFlex="12" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10">
+    <div class="biggerTweetAction tweetActionBlue" (click)="favToggle(tweet.tweetIdentifier)">
+      <mat-icon>bookmark_border</mat-icon>
+    </div>
+    <div class="biggerTweetAction tweetActionBlue" cdkOverlayOrigin #overlayTweetOptionsTrigger="cdkOverlayOrigin"
+      (click)="tweetOptionsPanelState = !tweetOptionsPanelState">
+      <mat-icon>open_in_browser</mat-icon>
+    </div>
+  </div>
+
+  <ng-template #overlayTweetOptions cdkConnectedOverlay [cdkConnectedOverlayOrigin]="overlayTweetOptionsTrigger"
+    [cdkConnectedOverlayOpen]="tweetOptionsPanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
+    [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="tweetOptionsPanelState = !tweetOptionsPanelState"
+    [cdkConnectedOverlayPositions]="[{originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'top'}]">
+    <div class="morePanel mat-elevation-z8" fxLayout="column" [@fadeInOutAnimation]>
+
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+        <mat-icon>link</mat-icon>
+        <span style="word-break: break-all;">Copiar link</span>
+      </div>
+
+      <div class="morePanelItem blockCursor" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+        <mat-icon>open_in_browser</mat-icon>
+        <span style="word-break: break-all;">Compartilhar post via...</span>
+      </div>
+
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+        <mat-icon>mail_outline</mat-icon>
+        <span style="word-break: break-all;">Enviar por mensagem direta</span>
+      </div>
+
     </div>
 
-    <div fxFlex="22" fxLayoutAlign="start center">
-        <div class="tweetAction tweetActionBlue" fxLayout="row" fxLayoutGap="5" fxLayoutAlign="start center">
-            <mat-icon>assessment</mat-icon> 
-            <span>{{ tweet.tweetViewsCount }}</span>
-        </div>
-    </div>
+  </ng-template>
 
-    <div fxFlex="12" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10">
-        <div class="tweetAction tweetActionBlue" (click)="favToggle(tweet.tweetIdentifier)">
-            <mat-icon>bookmark_border</mat-icon>
-        </div>
-        <div class="tweetAction tweetActionBlue">
-            <mat-icon>open_in_browser</mat-icon>
-        </div>
-    </div>
-    
 </div>

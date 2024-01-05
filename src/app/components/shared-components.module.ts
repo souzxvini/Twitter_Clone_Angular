@@ -29,6 +29,8 @@ import { TweetMessageComponent } from './tweet/tweet-message/tweet-message.compo
 import { NewTweetImagesComponent } from './tweet/modals/new-tweet-images/new-tweet-images.component';
 import { NewTweetIconsActionsComponent } from './tweet/modals/new-tweet-icons-actions/new-tweet-icons-actions.component';
 import { MessageLengthSpinnerComponent } from './tweet/modals/message-length-spinner/message-length-spinner.component';
+import { NewRetweetCommentModalComponent } from './tweet/modals/new-retweet-comment-modal/new-retweet-comment-modal.component';
+import { OriginalTweetComponent } from './tweet/original-tweet/original-tweet.component';
 
 @NgModule({
   declarations:[ 
@@ -59,7 +61,9 @@ import { MessageLengthSpinnerComponent } from './tweet/modals/message-length-spi
     TweetMessageComponent,
     NewTweetImagesComponent,
     NewTweetIconsActionsComponent,
-    MessageLengthSpinnerComponent
+    MessageLengthSpinnerComponent,
+    NewRetweetCommentModalComponent,
+    OriginalTweetComponent
   ],
   imports: [
     CommonModule,
@@ -87,7 +91,9 @@ import { MessageLengthSpinnerComponent } from './tweet/modals/message-length-spi
     TweetHeaderComponent,
     NewTweetImagesComponent,
     NewTweetIconsActionsComponent,
-    MessageLengthSpinnerComponent
+    MessageLengthSpinnerComponent,
+    NewRetweetCommentModalComponent,
+    OriginalTweetComponent
   ]
 })
 

@@ -8,20 +8,7 @@ export const showTweetTime = (tweetTime: Date, nowTime: Date) => {
 
     if (seconds < 60) {
         // Menos de 60 segundos
-
-        if (localStorage.getItem('Language')) { // Se existir 'Language' no localstorage
-            switch (localStorage.getItem('Language')) {
-                case 'en':
-                    return `${Math.floor(seconds)} sec`;
-
-                default:
-                    return `${Math.floor(seconds)} seg`;
-
-            }
-        } else {
-            return `${Math.floor(seconds)} seg`;
-
-        }
+        return `${Math.floor(seconds)}s`;
     } else if (seconds < 3600) {
         // Entre 1 minuto e 59 minutos
         const minutes = seconds / 60;

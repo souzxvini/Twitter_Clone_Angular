@@ -1,0 +1,164 @@
+<div style="border-radius: 20px; border: solid 1px rgb(56, 68, 77); margin-top: 10px" class="cursorPointer">
+    <div fxLayout="column">
+      <div fxLayout="column" style="padding:12px;" fxLayoutGap="4">
+        <div fxLayout="row">
+          <div style="width: 20px;">
+            <div class="profilePicture" style="width: 20px; height: 20px;"
+              [style]="setProfilePhoto(originalTweet.userProfilePhotoUrl)">
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" style="max-width: calc(100% - 120px);"
+            class="dottedOverflow">
+            <span class="userFirstName" style="padding-left: 5px;">
+              {{ originalTweet.userFirstName }}
+            </span>
+
+            <span class="userUsername" style="padding-left: 5px;">
+              {{'@' + originalTweet.userUsername }}
+            </span>
+          </div>
+
+          <div style="width: 100px;" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="userUsername" style="transform: scale(0.2); margin: 0 -5px;">brightness_1
+            </mat-icon>
+            <span
+              class="userUsername">{{ showTweetTime(originalTweet.publicationTime, originalTweet.nowTime) }}</span>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="10">
+          @if (originalTweet.tweetAttachment && retweetHasFile) {
+            <div style="min-height: 100px; width: 90px">
+              @switch (originalTweet.tweetAttachment.length) {
+                @case (1) {
+                  <div class="centralizeBgImage" style="height: 100%;"
+                  [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[0]) + ')'"
+                  [style.border-radius]="'20px'"></div>
+                }
+
+                @case (2) {
+                  <div fxLayout="row" style="height: 100%" fxLayoutGap="2">
+                    <div fxFlex class="centralizeBgImage"
+                    [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[0]) + ')'"
+                    [style.border-radius]="'20px 0 0 20px'"></div>
+
+                    <div fxFlex class="centralizeBgImage"
+                    [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[1]) + ')'"
+                    [style.border-radius]="'0 20px 20px 0'"></div>
+                  </div>
+                }
+
+                @case (3) {
+                  <div fxLayout="row" style="height: 100%" fxLayoutGap="2">
+                    <div fxFlex class="centralizeBgImage"
+                    [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[0]) + ')'"
+                    [style.border-radius]="'20px 0 0 20px'"></div>
+    
+                    <div fxFlex fxLayout="column" fxLayoutGap="2">
+                        <div fxFlex class="centralizeBgImage"
+                        [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[1]) + ')'"
+                        [style.border-radius]="'0 20px 20px 0px'"></div>
+    
+                        <div fxFlex class="centralizeBgImage"
+                        [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[2]) + ')'"
+                        [style.border-radius]="'0 0 20px 0'"></div>
+                    </div>
+                  </div>
+                }
+
+                @case (4) {
+                  <div fxLayout="column" fxLayoutGap="2" style="height: 100%;">
+                    <div fxFlex fxLayout="row" fxLayoutGap="2">
+                      <div fxFlex class="centralizeBgImage"
+                      [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[0]) + ')'"
+                      [style.border-radius]="'20px 0 0 0'"></div>
+    
+                      <div fxFlex class="centralizeBgImage"
+                      [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[1]) + ')'"
+                      [style.border-radius]="'0 20px 0 0'"></div>
+                    </div>
+                    
+                    <div fxFlex fxLayout="row" fxLayoutGap="2">
+                      <div fxFlex class="centralizeBgImage"
+                      [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[2]) + ')'"
+                      [style.border-radius]="'0 0 0 20px'"></div>
+      
+                      <div fxFlex class="centralizeBgImage"
+                      [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[3]) + ')'"
+                      [style.border-radius]="'0 0 20px 0'"></div>
+                    </div>
+                  </div>
+                }
+              }
+            </div>
+          }
+
+          <div fxFlex="calc(100% - 90px)" class="userBiography">
+            <span>{{ originalTweet.tweetMessage }}</span>
+          </div>
+        </div>
+        
+      </div>
+
+      @if (originalTweet.tweetAttachment && !retweetHasFile) {
+        <div style="height: 300px;">
+          @switch (originalTweet.tweetAttachment.length) {
+            @case (1) {
+              <div class="centralizeBgImage" style="height: 100%;  border-radius: 0 0 20px 20px;"
+              [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[0]) + ')'"></div>
+            }
+
+            @case (2) {
+              <div fxLayout="row" style="height: 100%" fxLayoutGap="2">
+                <div fxFlex class="centralizeBgImage" style=" border-radius: 0 0 20px 20px;" 
+                [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[0]) + ')'"></div>
+
+                <div fxFlex class="centralizeBgImage" style=" border-radius: 0 0 20px 20px;" 
+                [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[1]) + ')'"></div>
+              </div>
+            }
+
+            @case (3) {
+              <div fxLayout="row" style="height: 100%" fxLayoutGap="2">
+                <div fxFlex class="centralizeBgImage" style=" border-radius: 0 0 20px 20px;" 
+                [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[0]) + ')'"
+                [style.border-radius]="'0 0 0 20px'"></div>
+
+                <div fxFlex fxLayout="column" fxLayoutGap="2">
+                    <div fxFlex class="centralizeBgImage"
+                    [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[1]) + ')'"></div>
+
+                    <div fxFlex class="centralizeBgImage" style=" border-radius: 0 0 20px 20px;" 
+                    [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[2]) + ')'"
+                    [style.border-radius]="'0 0 20px 0'"></div>
+                </div>
+              </div>
+            }
+
+            @case (4) {
+              <div fxLayout="column" fxLayoutGap="2" style="height: 100%;">
+                <div fxFlex fxLayout="row" fxLayoutGap="2">
+                  <div fxFlex class="centralizeBgImage" style="" 
+                  [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[0]) + ')'"></div>
+
+                  <div fxFlex class="centralizeBgImage" style="" 
+                  [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[1]) + ')'"></div>
+                </div>
+                
+                <div fxFlex fxLayout="row" fxLayoutGap="2">
+                  <div fxFlex class="centralizeBgImage" style=" border-radius: 0 0 20px 20px;" 
+                  [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[2]) + ')'"
+                  [style.border-radius]="'0 0 0 20px'"></div>
+  
+                  <div fxFlex class="centralizeBgImage" style=" border-radius: 0 0 20px 20px;" 
+                  [style.background-image]="'url(' + transformByteToImage(originalTweet.tweetAttachment[3]) + ')'"
+                  [style.border-radius]="'0 0 20px 0'"></div>
+                </div>
+              </div>
+            }
+          }
+        </div>
+      }
+    </div>
+  </div>

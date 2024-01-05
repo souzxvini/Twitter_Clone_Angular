@@ -101,7 +101,6 @@ export class FollowsListComponent {
           this.loaded = true;
           this.loadingMoreContent = false;
 
-          //se tiver menos de 10 itens, quer dizer que acabaram os dados, então eu paro de chamar o endpoint.
           if (res.length < 10) this.noMoreContent = true;
         }, 400)
 
@@ -113,7 +112,6 @@ export class FollowsListComponent {
     });
   }
 
-  //Método para redirecionar o usuario logado para o perfil de outra pessoa
   redirectToProfile(profile: any) {
 
     if (profile.username == sessionStorage.getItem('userName')) {
@@ -130,7 +128,6 @@ export class FollowsListComponent {
     }
   }
 
-  //carregar mais conteudo ao chegar no final da pagina
   scroll = (event): void => {
     this.loadMoreContentScroll(event);
     this.hideHeader(event);

@@ -131,6 +131,22 @@ export class SearchTwitterButtonComponent {
   searchByText(searchByText?: string){
     this.filteredProfilesPanelState = false;
     this.postSearchHistoric(null, searchByText ? searchByText : this.searchInputValue);
+
+    if(this.router.url.includes('recent')){
+      this.router.navigate(['search', searchByText ? searchByText : this.searchInputValue, 'recent']);
+      return
+    }
+
+    if(this.router.url.includes('peoples')){
+      this.router.navigate(['search', searchByText ? searchByText : this.searchInputValue, 'peoples']);
+      return
+    }
+
+    if(this.router.url.includes('medias')){
+      this.router.navigate(['search', searchByText ? searchByText : this.searchInputValue, 'medias']);
+      return
+    }
+
     this.router.navigate(['search', searchByText ? searchByText : this.searchInputValue]);
   }
 

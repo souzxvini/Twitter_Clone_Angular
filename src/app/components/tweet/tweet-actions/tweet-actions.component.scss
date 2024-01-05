@@ -8,13 +8,18 @@ mat-icon {
   }
   
   .tweetAction mat-icon {
-    transform: scale(0.7);
+    transform: scale(0.75);
     color: #71767b;
   }
   
   .tweetAction span {
     color: #71767b;
     font-size: 13px;
+  }
+
+  .biggerTweetAction mat-icon{
+    transform: scale(0.9);
+    color: #71767b;
   }
   
   .tweetActionBlue mat-icon,

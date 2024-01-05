@@ -1,23 +1,3 @@
-.newTweetMessage,
-.newTweetMessage:focus {
-  background-color: transparent !important;
-  border: none;
-  outline: none;
-  padding: 10px 0 0 0;
-  caret-color: white;
-  color: #e7e9ea;
-  font-size: 20px;
-  font-family: 'TwitterChirp';
-  width: 100%;
-  overflow: hidden;
-}
-
-.newTweetMessage::placeholder {
-  font-size: 20px;
-  color: rgb(121, 134, 147);
-  font-family: 'TwitterChirp';
-}
-
 .disabledIcon{
   color: #1d9bf0;
   opacity: 0.5;
@@ -25,24 +5,7 @@
   cursor: auto;
 }
 
-.addThread {
-  border: solid 1px rgb(92, 95, 99);
-}
 
-.addThread mat-icon{
-  transform: scale(0.7);
-  color: #1d9bf0 !important;
-}
-
-.addThread {
-  height: 25px !important;
-  width: 25px !important;
-}
-
-.vertical-line {
-  border-left: 1px solid #474747; 
-  height: 32px;
-}
 
 .morePanel{
   width: 300px;
