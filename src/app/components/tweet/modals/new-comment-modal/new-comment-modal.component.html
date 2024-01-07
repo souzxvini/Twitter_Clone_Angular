@@ -1,14 +1,14 @@
 <div style="height: 100%; width: 100%; overflow-y: auto; overflow-x: hidden;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''">
   <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
     fxLayoutAlign="space-between center">
-    <button mat-mini-fab [disabled]="!loaded" mat-dialog-close [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }"> 
+    <button mat-mini-fab [disabled]="!loaded" mat-dialog-close [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }"> 
       <mat-icon>close</mat-icon>
     </button>
-    <span class="boldBlueText blockCursor" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">Rascunhos</span>
+    <span class="boldBlueText blockCursor" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">Rascunhos</span>
   </div>
 
   <div fxLayout="column" style="padding: 16px;" fxLayoutGap="15">
-    <div fxFlex fxLayout="row" fxLayoutGap="5" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '450ms' } }">
+    <div fxFlex fxLayout="row" fxLayoutGap="5" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
       <div fxLayout="column" fxLayoutGap="5" fxLayoutAlign="start center">
         <div style="width: 50px;" fxLayoutAlign="center start">
           <div class="profilePicture" style="width: 40px; height: 40px;"
@@ -39,7 +39,7 @@
     </div>
 
     <form fxFlex [formGroup]="newCommentForm">
-      <div fxLayout="row" style="min-height: 100px;" fxLayoutGap="5" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '550ms' } }">
+      <div fxLayout="row" style="min-height: 100px;" fxLayoutGap="5" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
         <div style="width: 50px;" fxLayoutAlign="center start">
           <div class="profilePicture" style="width: 40px; height: 40px;"
             [style]="setProfilePhoto(loggedUser.profilePhotoUrl)">
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '650ms' } }">
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '450ms' } }">
 
         <app-new-tweet-icons-actions [selectedFilesUrl]="selectedFilesUrl" [selectedFiles]="selectedFiles" />
 

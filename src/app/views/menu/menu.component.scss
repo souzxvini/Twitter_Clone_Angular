@@ -112,7 +112,9 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  overflow-y: auto;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth !important;
 }
 
 .menuContainer {

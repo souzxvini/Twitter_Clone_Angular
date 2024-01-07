@@ -4,11 +4,36 @@ import { Component, Input } from '@angular/core';
 import { setProfilePhoto } from 'src/app/helpers/set-profile-photo';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable, map } from 'rxjs';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-logout-button',
   templateUrl: './logout-button.component.html',
-  styleUrls: ['./logout-button.component.scss']
+  styleUrls: ['./logout-button.component.scss'],
+  animations: [
+    trigger('fastFadeInAnimation', [
+      transition(':enter', [
+        animate('200ms', keyframes([
+          style({ opacity: 0 }),
+          style({ opacity: 1 }),
+        ]))
+      ])
+    ]),
+    trigger('fastFadeOutAnimation', [
+      transition(':leave', [
+        animate('200ms', keyframes([
+          style({ opacity: 1 }),
+          style({ opacity: 0 }),
+        ]))
+      ])
+    ]),
+    trigger('zoomIn', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)' }),
+        animate('{{time}} cubic-bezier(0,.87,.61,.98)', style({ transform: 'scale(1)' })),
+      ], { params: { time: '400ms' } }),
+    ]),
+  ]
 })
 export class LogoutButtonComponent {
 

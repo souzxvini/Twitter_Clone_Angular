@@ -27,12 +27,14 @@
   [cdkConnectedOverlayOpen]="logoutPanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
   [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="logoutPanelState = !logoutPanelState"
   [cdkConnectedOverlayPositions]="cdkConnectedOverlayPositions">
-  <div fxLayout="column" [fxLayoutAlign]="(isHandset$ | async) ? 'start start' : 'center center'">
-    <div class="logoutPanel mat-elevation-z8" fxLayout="column">
-      <div class="morePanelItem blockCursor" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+  <div fxLayout="column" [fxLayoutAlign]="(isHandset$ | async) ? 'start start' : 'center center'"[@fastFadeOutAnimation]>
+    <div class="logoutPanel mat-elevation-z8" fxLayout="column"> 
+      <div class="morePanelItem blockCursor" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
+      [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">
         <span style="word-break: break-all;">Adicionar uma conta existente</span>
       </div>
-      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="logout()">
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="logout()"
+      [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
         <span style="word-break: break-all;">Sair de {{user.username}}</span>
       </div>
     </div>

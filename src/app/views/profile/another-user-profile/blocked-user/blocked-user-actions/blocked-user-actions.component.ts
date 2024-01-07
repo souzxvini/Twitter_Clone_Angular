@@ -1,8 +1,7 @@
-import { Clipboard } from '@angular/cdk/clipboard';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, map } from 'rxjs';
 import { ModalUnblockUserComponent } from 'src/app/components/modal-unblock-user/modal-unblock-user.component';
 import { AccountsService } from 'src/app/services/accounts.service';
@@ -10,7 +9,31 @@ import { AccountsService } from 'src/app/services/accounts.service';
 @Component({
   selector: 'app-blocked-user-actions',
   templateUrl: './blocked-user-actions.component.html',
-  styleUrls: ['./blocked-user-actions.component.scss']
+  styleUrls: ['./blocked-user-actions.component.scss'],
+  animations: [
+    trigger('fastFadeInAnimation', [
+      transition(':enter', [
+        animate('200ms', keyframes([
+          style({ opacity: 0 }),
+          style({ opacity: 1 }),
+        ]))
+      ])
+    ]),
+    trigger('fastFadeOutAnimation', [
+      transition(':leave', [
+        animate('200ms', keyframes([
+          style({ opacity: 1 }),
+          style({ opacity: 0 }),
+        ]))
+      ])
+    ]),
+    trigger('zoomIn', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)' }),
+        animate('{{time}} cubic-bezier(0,.87,.61,.98)', style({ transform: 'scale(1)' })),
+      ], { params: { time: '400ms' } }),
+    ]),
+  ]
 })
 export class BlockedUserActionsComponent {
 

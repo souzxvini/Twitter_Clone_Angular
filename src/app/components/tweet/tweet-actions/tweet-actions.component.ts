@@ -6,20 +6,35 @@ import { FeedService } from 'src/app/services/feed.service';
 import { NewCommentModalComponent } from '../modals/new-comment-modal/new-comment-modal.component';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { NewRetweetCommentModalComponent } from '../modals/new-retweet-comment-modal/new-retweet-comment-modal.component';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-tweet-actions',
   templateUrl: './tweet-actions.component.html',
   styleUrl: './tweet-actions.component.scss',
   animations: [
-    trigger('fadeInOutAnimation', [
-      transition('void => *', [
-        animate(200, keyframes([
+    trigger('fastFadeInAnimation', [
+      transition(':enter', [
+        animate('200ms', keyframes([
           style({ opacity: 0 }),
           style({ opacity: 1 }),
         ]))
       ])
-    ])
+    ]),
+    trigger('fastFadeOutAnimation', [
+      transition(':leave', [
+        animate('200ms', keyframes([
+          style({ opacity: 1 }),
+          style({ opacity: 0 }),
+        ]))
+      ])
+    ]),
+    trigger('zoomIn', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)' }),
+        animate('{{time}} cubic-bezier(0,.87,.61,.98)', style({ transform: 'scale(1)' })),
+      ], { params: { time: '400ms' } }),
+    ]),
   ]
 })
 export class TweetActionsComponent {
@@ -27,6 +42,10 @@ export class TweetActionsComponent {
 
   retweetPanelState = false;
   tweetOptionsPanelState = false;
+
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(["(max-width: 498px)"])
+    .pipe(map((result) => result.matches));
 
   constructor(
     private feedService: FeedService,

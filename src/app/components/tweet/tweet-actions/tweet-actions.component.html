@@ -20,11 +20,11 @@
     [cdkConnectedOverlayOpen]="retweetPanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
     [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="retweetPanelState = !retweetPanelState"
     [cdkConnectedOverlayPositions]="[{originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'top'}]">
-    <div class="morePanel mat-elevation-z8" fxLayout="column" [@fadeInOutAnimation]>
+    <div class="morePanel mat-elevation-z8" fxLayout="column" [@fastFadeOutAnimation]>
 
       @if(!tweet.retweetedByMe){
       <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
-        (click)="retweetToggle(tweet.tweetIdentifier)">
+        (click)="retweetToggle(tweet.tweetIdentifier)" [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">
         <mat-icon>cached</mat-icon>
         <span style="word-break: break-all;">Repostar</span>
       </div>
@@ -32,17 +32,25 @@
 
       @if(tweet.retweetedByMe){
       <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
-        (click)="retweetToggle(tweet.tweetIdentifier)">
+        (click)="retweetToggle(tweet.tweetIdentifier)" [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
         <mat-icon>cached</mat-icon>
         <span style="word-break: break-all;">Desfazer Repost</span>
       </div>
       }
 
       <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
-        (click)="openNewRetweetCommentModal(tweet)">
+        (click)="openNewRetweetCommentModal(tweet)" [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
         <mat-icon>edit</mat-icon>
         <span style="word-break: break-all;">Comentar</span>
       </div>
+
+      @if(isHandset$ | async){
+        <div style="padding: 12px 16px" [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
+          <div class="transparentButton _44pxButton cursorPointer" (click)="retweetPanelState = !retweetPanelState">
+            <strong>Cancelar</strong>
+          </div>
+        </div>
+      } 
 
     </div>
 
@@ -84,19 +92,22 @@
     [cdkConnectedOverlayOpen]="tweetOptionsPanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
     [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="tweetOptionsPanelState = !tweetOptionsPanelState"
     [cdkConnectedOverlayPositions]="[{originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'top'}]">
-    <div class="morePanel mat-elevation-z8" fxLayout="column" [@fadeInOutAnimation]>
+    <div class="morePanel mat-elevation-z8" fxLayout="column" [@fastFadeOutAnimation]>
 
-      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
+      [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">
         <mat-icon>link</mat-icon>
         <span style="word-break: break-all;">Copiar link</span>
       </div>
 
-      <div class="morePanelItem blockCursor" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+      <div class="morePanelItem blockCursor" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
+      [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
         <mat-icon>open_in_browser</mat-icon>
         <span style="word-break: break-all;">Compartilhar post via...</span>
       </div>
 
-      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+      <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
+      [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
         <mat-icon>mail_outline</mat-icon>
         <span style="word-break: break-all;">Enviar por mensagem direta</span>
       </div>

@@ -50,9 +50,6 @@ export class FollowsListComponent {
 
     this.globalVariablesService.clearAnotherUser();
 
-    /*Se cair nesse método, quer dizer que o usuário seguiu alguém do card de 'quem seguir'...,
-    então irá verificar se o usuário seguido está na lista de usuarios mostrada na tela, se sim, 
-    vai atualizar o botão de seguindo/seguir + informações*/
     this.globalVariablesService.followedSuggestedUserWhileOnFollowingAndFollowersChange$.subscribe(() => {
       if (this.loaded) {
         var profile = this.accountsList.findIndex(x => x.username == this.globalVariablesService.getAnotherUser().username);
@@ -117,13 +114,8 @@ export class FollowsListComponent {
     if (profile.username == sessionStorage.getItem('userName')) {
       this.router.navigate(['profile']);
     } else {
-      /*Como eu ja possuo os dados do usuário nesse componente, eu vou salvar os dados no service,
-     e ao carregar o outro componente (a tela do perfil do usuario que eu redirecionei),
-     eu vou pegar os dados do usuário a partir dessa variável que estou preenchendo no service, 
-     assim não preciso realizar outra chamada de endpoint para pegar dados que eu ja possuo nesse componente*/
       this.globalVariablesService.setAnotherUser(profile);
 
-      // Navega para a nova URL 
       this.router.navigate(['profile', profile.username]);
     }
   }

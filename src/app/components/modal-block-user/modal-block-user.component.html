@@ -1,15 +1,17 @@
 <div fxLayout="column" style="padding: 32px">
-    <span class="smallerDialogTitleWithSubtitle">
+    <span class="smallerDialogTitleWithSubtitle"  [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '250ms' } }">
       Bloquear <span style="word-break: break-all;">{{"@" +data.username}}</span>?
     </span>
-    <span class="dialogSubtitle">
+    <span class="dialogSubtitle"  [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">
        Ele não poderá seguir você ou ver seus posts, e você não verá posts nem notificações de <span style="word-break: break-all;">{{"@" + data.username}}</span>.
     </span>
     <div fxLayout="column"fxLayoutGap="10">
-      <button class="blockedButton cursorPointer _44pxButton" style="padding: 12px" (click)="confirmBlockUser()">
+      <button class="blockedButton cursorPointer _44pxButton" style="padding: 12px" (click)="confirmBlockUser()"
+      [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
         Bloquear
       </button>
-      <button class="transparentButton cursorPointer _44pxButton" style="padding: 12px" matDialogClose>
+      <button class="transparentButton cursorPointer _44pxButton" style="padding: 12px" matDialogClose
+      [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
         Cancelar
       </button>
     </div>

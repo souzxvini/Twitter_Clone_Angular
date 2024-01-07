@@ -1,15 +1,17 @@
 <div #modalRef fxLayout="column" style="padding: 32px">
-  <span class="smallerDialogTitleWithSubtitle">
+  <span class="smallerDialogTitleWithSubtitle" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '250ms' } }">
     Apagar todas as buscas recentes?
   </span>
-  <span class="dialogSubtitle">
+  <span class="dialogSubtitle" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">
     Não será possível desfazer essa ação, e você removerá todas as suas buscas recentes. 
   </span>
   <div fxLayout="column" fxLayoutGap="10">
-    <button class="blockedButton cursorPointer _44pxButton" style="padding: 12px" (click)="clearHistoric()" [disabled]="!loaded">
+    <button class="blockedButton cursorPointer _44pxButton" style="padding: 12px" (click)="clearHistoric()" [disabled]="!loaded"
+    [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
       Limpar
     </button>
-    <button class="transparentButton cursorPointer _44pxButton" style="padding: 12px" [matDialogClose]="false" [disabled]="!loaded">
+    <button class="transparentButton cursorPointer _44pxButton" style="padding: 12px" [matDialogClose]="false" [disabled]="!loaded"
+    [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
       Cancelar
     </button>
   </div>

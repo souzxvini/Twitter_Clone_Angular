@@ -15,9 +15,9 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
   templateUrl: './new-comment-modal.component.html',
   styleUrl: './new-comment-modal.component.scss',
   animations: [
-    trigger('fadeInOutAnimation', [
+    trigger('fastFadeInOutAnimation', [
       transition(':enter', [
-        animate('400ms cubic-bezier(.53,.02,1,.73)', keyframes([
+        animate('200ms cubic-bezier(.53,.02,1,.73)', keyframes([
           style({ opacity: 0 }),
           style({ opacity: 1 }),
         ]))

@@ -5,7 +5,7 @@
 }
 @else {
     <div fxLayout="column" fxLayoutAlign="start stretch">
-        @for (tweet of tweetsList; track $index) {
+        @for (tweet of tweetsList; track $index; ) {
            <app-tweet-types [tweet]="tweet"/>
         }
         @empty {
@@ -26,7 +26,12 @@
         
                 </div>
             </div>
-            
+        }
+        
+        @if(loadingMoreContent){
+            <div style="height: 30vh;" fxLayoutAlign="center start">
+                <mat-spinner [diameter]="30"></mat-spinner>
+            </div>
         }
     </div>
 }

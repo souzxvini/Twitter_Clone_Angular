@@ -1,10 +1,27 @@
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal-unblock-user',
   templateUrl: './modal-unblock-user.component.html',
-  styleUrls: ['./modal-unblock-user.component.scss']
+  styleUrls: ['./modal-unblock-user.component.scss'],
+  animations: [
+    trigger('fastFadeInOutAnimation', [
+      transition(':enter', [
+        animate('200ms', keyframes([
+          style({ opacity: 0 }),
+          style({ opacity: 1 }),
+        ]))
+      ])
+    ]),
+    trigger('zoomIn', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)' }),
+        animate('{{time}} cubic-bezier(0,.87,.61,.98)', style({ transform: 'scale(1)' })),
+      ], { params: { time: '400ms' } }),
+    ]),
+  ]
 })
 export class ModalUnblockUserComponent {
 

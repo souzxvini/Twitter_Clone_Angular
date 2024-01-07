@@ -2,13 +2,16 @@
   <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
     fxLayoutAlign="space-between center">
     <div fxLayoutAlign=" center" fxLayoutGap="30" fxLayoutGap="30">
-      <button mat-mini-fab [disabled]="!loaded" (click)="closeModal()">
+      <button mat-mini-fab [disabled]="!loaded" (click)="closeModal()"
+      [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '200ms' } }">
         <mat-icon>close</mat-icon>
       </button>
-      <span class="dialogSteps">Editar perfil</span>
+      <span class="dialogSteps"
+      [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '200ms' } }">Editar perfil</span>
     </div>
     <button class="whiteButton cursorPointer _32pxButton" style="padding: 0px 16px;"
-      (click)="patchProfileInformations()" [disabled]="editProfileForm.invalid || !loaded">
+      (click)="patchProfileInformations()" [disabled]="editProfileForm.invalid || !loaded"
+      [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '200ms' } }">
       Salvar
     </button>
   </div>
@@ -16,7 +19,7 @@
   <form [formGroup]="editProfileForm" style="width: 100%;">
     <div fxLayout="column" fxLayoutAlign="space-between stretch">
       <div class="profileBackground" style="border: 2px solid rgb(0, 0, 0);"
-        [style]="setBackgroundPhoto(backgroundPhotoUrl)">
+        [style]="setBackgroundPhoto(backgroundPhotoUrl)" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '250ms' } }">
         <div style="height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.3);" fxLayout="row"
           fxLayoutAlign="center center">
           <div fxLayout="row" fxLayoutGap="30">
@@ -37,8 +40,8 @@
         </div>
       </div>
 
-      <div fxLayout="column" fxLayoutGap="20" style="padding: 0 12px 60px 12px">
-        <div>
+      <div fxLayout="column" fxLayoutGap="20" style="padding: 0 12px 60px 12px" >
+        <div [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }"> 
           <div class="profileUserPicture">
             <div class="picture" [style]="setProfilePhoto(profilePhotoUrl)">
               <div style="height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.3); border-radius: 100%;"
@@ -53,7 +56,7 @@
           </div>
         </div>
 
-        <div fxLayout="column">
+        <div fxLayout="column" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
           <mat-form-field class="textFormField noInvisibleDivFormField">
             <mat-label>Nome</mat-label>
             <input matInput formControlName="firstName" #nameInput maxlength="50">
@@ -70,7 +73,7 @@
           
         </div>
 
-        <mat-form-field class="textAreaFormField noInvisibleDivFormField">
+        <mat-form-field class="textAreaFormField noInvisibleDivFormField" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
           <mat-label>Bio</mat-label>
           <textarea matInput formControlName="biography" #nameInput maxlength="160"></textarea>
           <mat-hint matSuffix>
@@ -78,7 +81,7 @@
           </mat-hint>
         </mat-form-field>
 
-        <mat-form-field class="textFormField noInvisibleDivFormField">
+        <mat-form-field class="textFormField noInvisibleDivFormField" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '450ms' } }">
           <mat-label>Location</mat-label>
           <input matInput formControlName="location" #nameInput maxlength="50">
           <mat-hint matSuffix>
@@ -86,7 +89,7 @@
           </mat-hint>
         </mat-form-field>
 
-        <mat-form-field class="textFormField noInvisibleDivFormField">
+        <mat-form-field class="textFormField noInvisibleDivFormField" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '500ms' } }">
           <mat-label>Site</mat-label>
           <input matInput formControlName="site" #nameInput maxlength="50">
           <mat-hint matSuffix>
@@ -94,7 +97,7 @@
           </mat-hint>
         </mat-form-field>
 
-        <div fxLayout="column">
+        <div fxLayout="column" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '550ms' } }">
           <div fxLayout="row" fxLayoutCenter="start center" fxLayoutGap="10">
             <span style="color: rgb(113, 118, 123); font-size: 15px;">Data de nascimento</span>
             <a class="blueLinks cursorPointer" style="font-size: 15px;">Editar</a>
@@ -104,7 +107,7 @@
           </div>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="blockCursor">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="blockCursor" [@fastFadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '600ms' } }">
           <span style="font-size: 20px;">Alterar para Profissional</span>
           <mat-icon>keyboard_arrow_right</mat-icon>
         </div>

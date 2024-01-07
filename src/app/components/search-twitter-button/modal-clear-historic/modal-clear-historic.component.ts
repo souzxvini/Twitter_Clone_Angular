@@ -1,3 +1,4 @@
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AccountsService } from 'src/app/services/accounts.service';
@@ -5,7 +6,23 @@ import { AccountsService } from 'src/app/services/accounts.service';
 @Component({
   selector: 'app-modal-clear-historic',
   templateUrl: './modal-clear-historic.component.html',
-  styleUrls: ['./modal-clear-historic.component.scss']
+  styleUrls: ['./modal-clear-historic.component.scss'],
+  animations: [
+    trigger('fastFadeInOutAnimation', [
+      transition(':enter', [
+        animate('200ms', keyframes([
+          style({ opacity: 0 }),
+          style({ opacity: 1 }),
+        ]))
+      ])
+    ]),
+    trigger('zoomIn', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)' }),
+        animate('{{time}} cubic-bezier(0,.87,.61,.98)', style({ transform: 'scale(1)' })),
+      ], { params: { time: '400ms' } }),
+    ]),
+  ]
 })
 export class ModalClearHistoricComponent {
 

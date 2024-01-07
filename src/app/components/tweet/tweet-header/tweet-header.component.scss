@@ -1,0 +1,17 @@
+.tweetAction {
+  cursor: pointer;
+}
+
+.tweetAction mat-icon {
+  transform: scale(0.75);
+  color: #71767b;
+}
+
+.tweetActionBlue mat-icon,
+.tweetActionBlue span {
+  transition: 0.2s color ease-in-out !important;
+}
+
+.tweetActionBlue:hover mat-icon {
+  color: #1d9bf0 !important;
+}

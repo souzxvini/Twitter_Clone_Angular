@@ -18,7 +18,7 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
   templateUrl: './new-retweet-comment-modal.component.html',
   styleUrl: './new-retweet-comment-modal.component.scss',
   animations: [
-    trigger('fastFadeInOutAnimation', [
+    trigger('fastFadeInAnimation', [
       transition(':enter', [
         animate('200ms', keyframes([
           style({ opacity: 0 }),
@@ -26,11 +26,11 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
         ]))
       ])
     ]),
-    trigger('fadeInOutAnimation', [
-      transition(':enter', [
-        animate('400ms cubic-bezier(.53,.02,1,.73)', keyframes([
-          style({ opacity: 0 }),
+    trigger('fastFadeOutAnimation', [
+      transition(':leave', [
+        animate('200ms', keyframes([
           style({ opacity: 1 }),
+          style({ opacity: 0 }),
         ]))
       ])
     ]),

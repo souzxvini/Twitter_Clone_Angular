@@ -7,11 +7,36 @@ import { Observable, map } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBlockUserComponent } from 'src/app/components/modal-block-user/modal-block-user.component';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-unblocked-user-actions',
   templateUrl: './unblocked-user-actions.component.html',
-  styleUrls: ['./unblocked-user-actions.component.scss']
+  styleUrls: ['./unblocked-user-actions.component.scss'],
+  animations: [
+    trigger('fastFadeInAnimation', [
+      transition(':enter', [
+        animate('200ms', keyframes([
+          style({ opacity: 0 }),
+          style({ opacity: 1 }),
+        ]))
+      ])
+    ]),
+    trigger('fastFadeOutAnimation', [
+      transition(':leave', [
+        animate('200ms', keyframes([
+          style({ opacity: 1 }),
+          style({ opacity: 0 }),
+        ]))
+      ])
+    ]),
+    trigger('zoomIn', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)' }),
+        animate('{{time}} cubic-bezier(0,.87,.61,.98)', style({ transform: 'scale(1)' })),
+      ], { params: { time: '400ms' } }),
+    ]),
+  ]
 })
 export class UnblockedUserActionsComponent {
 

@@ -7,24 +7,28 @@
   [cdkConnectedOverlayOpen]="morePanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
   [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="morePanelState = !morePanelState"
   [cdkConnectedOverlayPositions]="[{originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'top'}]">
-  <div class="morePanel mat-elevation-z8" fxLayout="column">
-    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="copyProfileURL()">
+  <div class="morePanel mat-elevation-z8" fxLayout="column" [@fastFadeOutAnimation]>
+    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="copyProfileURL()"
+    [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '250ms' } }">
       <mat-icon>link</mat-icon>
       <span>Copiar link para o perfil</span>
     </div>
 
-    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center">
+    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center"
+    [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">
       <mat-icon>volume_off</mat-icon>
       <span style="word-break: break-all;">Silenciar {{"@" + user.username}}</span>
     </div>
 
-    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="openBlockUserModal(user)">
+    <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="start center" (click)="openBlockUserModal(user)"
+    [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
       <mat-icon>block</mat-icon>
       <span style="word-break: break-all;">Bloquear {{"@" + user.username}}</span>
     </div>
 
     @if(isHandset$ | async){
-      <div style="padding: 12px 16px">
+      <div style="padding: 12px 16px"
+      [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
         <div class="transparentButton _44pxButton cursorPointer" (click)="morePanelState = !morePanelState">
           <strong>Cancelar</strong>
         </div>

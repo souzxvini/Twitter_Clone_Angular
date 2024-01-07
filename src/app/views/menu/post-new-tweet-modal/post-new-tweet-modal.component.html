@@ -1,13 +1,15 @@
 <div style="height: 100%; width: 100%; overflow-x: hidden; overflow-y: auto;" [style]="!loaded ? 'opacity: 0.8; pointer-events: none' : ''" >
   <div style="padding: 0 16px; height: 53px; width: 100%;" id="bluredHeaderStyle" fxLayout="row"
-    fxLayoutAlign="space-between center" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
-    <button mat-mini-fab [disabled]="!loaded" mat-dialog-close>
+    fxLayoutAlign="space-between center">
+    <button mat-mini-fab [disabled]="!loaded" mat-dialog-close 
+    [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">
       <mat-icon>close</mat-icon>
     </button>
-    <span class="boldBlueText blockCursor">Rascunhos</span>
+    <span class="boldBlueText blockCursor"
+    [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">Rascunhos</span>
   </div>
 
-  <form [formGroup]="newTweetForm" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '500ms' } }">
+  <form [formGroup]="newTweetForm" [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
     <div fxLayout="column" fxLayoutGap="15" style="padding: 16px;">
       <div fxLayout="row" style="min-height: 100px;">
         <div style="width: 50px;">
@@ -27,7 +29,7 @@
     </div>
   </form>
 
-  <div fxLayout="column" fxLayoutGap="15" style="background-color: black; padding: 16px; position: sticky; bottom: 0;" [@fadeInOutAnimation] [@zoomIn]="{ value: '', params: { time: '650ms' } }">
+  <div fxLayout="column" fxLayoutGap="15" style="background-color: black; padding: 16px; position: sticky; bottom: 0;" [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
     <div fxLayout="row" >
       <div fxLayoutAlign="start center" fxLayoutGap="5" class="boldBlueText" (click)="tweetPermissionPanelState = !tweetPermissionPanelState" cdkOverlayOrigin
       #trigger="cdkOverlayOrigin">
@@ -53,15 +55,17 @@
       [cdkConnectedOverlayOpen]="tweetPermissionPanelState" cdkConnectedOverlayBackdropClass="morePanelStyleBackdrop"
       [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="tweetPermissionPanelState = !tweetPermissionPanelState"
       [cdkConnectedOverlayPositions]="[{originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top'}]">
-      <div class="morePanel mat-elevation-z8" fxLayout="column" [@fastFadeInOutAnimation]>
+      <div class="morePanel mat-elevation-z8" fxLayout="column" [@fastFadeOutAnimation]>
 
-        <div fxLayout="column" fxLayoutGap="2" style="padding: 12px 16px;">
+        <div fxLayout="column" fxLayoutGap="2" style="padding: 12px 16px;"
+        [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '250ms' } }">
           <span style="font-weight: 900;">Quem pode responder?</span>
 
           <span style="color: rgb(87, 91, 95);">Escolha quem pode responder a este post: as pessoas mencionadas poderão responder.</span>
         </div>
 
-        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('1')">
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('1')"
+        [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '300ms' } }">
           <div fxLayoutAlign="start center" fxLayoutGap="10">
             <button mat-mini-fab class="blueWhiteMiniFabIcon">
               <mat-icon>public</mat-icon>
@@ -76,7 +80,8 @@
           }
         </div>
 
-        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('0')">
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('0')"
+        [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '350ms' } }">
           <div fxLayoutAlign="start center" fxLayoutGap="10">
             <button mat-mini-fab class="blueWhiteMiniFabIcon">
               <mat-icon>how_to_reg</mat-icon>
@@ -91,7 +96,8 @@
           }
         </div>
 
-        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('-1')">
+        <div class="morePanelItem" fxLayout="row" fxLayoutGap="10" fxLayoutAlign="space-between center" (click)="changeTweetPrivacy('-1')"
+        [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '400ms' } }">
           <div fxLayoutAlign="start center" fxLayoutGap="10">
             <button mat-mini-fab class="blueWhiteMiniFabIcon">
               <mat-icon>check_circle_outline</mat-icon>
@@ -107,7 +113,7 @@
         </div>
 
         @if(isHandset$ | async){
-          <div style="padding: 12px 16px">
+          <div style="padding: 12px 16px" [@fastFadeInAnimation] [@zoomIn]="{ value: '', params: { time: '450ms' } }">
             <div class="transparentButton _44pxButton cursorPointer" (click)="tweetPermissionPanelState = !tweetPermissionPanelState">
               <strong>Cancelar</strong>
             </div>
